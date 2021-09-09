@@ -3,20 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 17:50:41 by cramdani          #+#    #+#             */
-/*   Updated: 2021/08/09 12:30:37 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/09/09 17:28:04 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
+#include "../../includes/minishell.h"
 
 int main(int ac, char **av)
 {
-	// t_struct *data;
+	if (ft_strcmp(av[1]), "echo");
 }
-
-/*pseudo code exec
-while (next -> )
-*/

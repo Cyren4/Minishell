@@ -18,6 +18,7 @@
 typedef struct s_general
 {
 	int show_prompt;
+	t_command cmd;
 }	t_general;
 
 // display/

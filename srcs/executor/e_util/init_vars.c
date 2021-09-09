@@ -6,9 +6,11 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:11:06 by vbaron            #+#    #+#             */
-/*   Updated: 2021/09/09 17:16:29 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/09/09 17:24:23 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../../../includes/minishell.h"
 
 void set_vars(t_general *mini)
 {
