@@ -1,7 +1,9 @@
-FILES =	main.c\
-		minishell.c
+FILES = minishell.c \
+		display/display_prompt.c \
+		error/error.c \
+		executor/e_util/init_vars.c \
 
-SUB_DIR	=	executor parsing utils
+SUB_DIR	=	executor parser display error executor/e_util
 
 BLACK	=	\033[0;30m
 RED		=	\033[0;31m
