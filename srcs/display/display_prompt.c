@@ -1,28 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   display_prompt.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/09/09 17:07:10 by vbaron           ###   ########.fr       */
+/*   Created: 2021/09/09 17:01:34 by vbaron            #+#    #+#             */
+/*   Updated: 2021/09/09 17:05:44 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int main(int ac, char **av, char **env)
+void display_prompt(t_general *mini)
 {
-	t_general mini;
-
-	(void)av;
-	(void)env;
-	if (ac > 1)
-		error(&mini, 1);
-	set_vars(&mini);
-	while (1)
-	{
-		if (mini.show_prompt == 1)
-			display_prompt(&mini);
-	}
-	return(0);
+	ft_putstr_fd("minishell $ ", 1);
+	mini->show_prompt = 0;
 }
