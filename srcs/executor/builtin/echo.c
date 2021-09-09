@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:20:41 by cramdani          #+#    #+#             */
-/*   Updated: 2021/08/09 01:37:48 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/09/09 18:07:04 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../exec.h"
+#include "../../../includes/minishell.h"
 
-int ft_echo(char *str, int opt)
+int ft_echo(t_echo *echo)
 {
-    printf("%s");
-    if (!opt)
-        printf("\n");
+    ft_putstr_fd(echo->str, 1);
+    if (echo->n == 1)
+        ft_putstr_fd("\n", 1);
     return (1);
 }
