@@ -1,6 +1,7 @@
-FILES =	minishell.c\
+FILES =	main.c\
+		minishell.c
 
-SUB_DIR	=	executor
+SUB_DIR	=	executor parsing utils
 
 BLACK	=	\033[0;30m
 RED		=	\033[0;31m
