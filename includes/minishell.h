@@ -15,22 +15,32 @@
 
 # define STDIN 0
 
-typedef struct s_general
+typedef struct s_data
 {
-	int show_prompt;
-}	t_general;
+	int		status;
+	char	*line;
+
+}	t_data;
+
+/*			#Parsing#		*/
+//lexer
+//parser
+//Binary tree
+
+
+/*			#Executor#		*/
 
 // display/
-//////////display.c
-void display_prompt(t_general *mini);
-////////////////////////////////////////////////////////////
+/*		display.c	*/
+void display_prompt(t_data *mini);
+
 // error/
-////////error.c
-void error(t_general *mini, int e);
-///////////////////////////////////////////////////////////
+/*		error.c		*/
+void	arg_error(char  *exec);
+
 // exec/
-///////exec.c
-void set_vars(t_general *mini);
-/////////////////////////////////////////////////////////////
+/*		exec.c		*/
+void set_vars(t_data *mini);
+
 
 #endif

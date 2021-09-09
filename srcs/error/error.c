@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:09:35 by vbaron            #+#    #+#             */
-/*   Updated: 2021/09/09 17:09:37 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/09/09 17:53:19 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void error(t_general *mini, int e)
+void	arg_error(char  *exec)
 {
-	(void)mini;
-	if (e == 1)
-		printf("Error\nToo many arguments\n");
+	printf("Error : Expect 0 arguments\n");
+	printf("Usage : %s\n", exec);
 	exit(0);
 }
