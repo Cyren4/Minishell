@@ -24,7 +24,7 @@ typedef struct s_echo
 typedef struct s_command
 {
 	t_echo echo;
-	int cd;
+	// int cd;
 } t_command;
 
 typedef struct s_general
