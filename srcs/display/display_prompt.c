@@ -3,15 +3,107 @@
 /*                                                        :::      ::::::::   */
 /*   display_prompt.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:01:34 by vbaron            #+#    #+#             */
-/*   Updated: 2021/09/09 17:34:21 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/09/10 21:19:37 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void display_prompt(t_general *mini)
+# include <stdio.h>
+
+int skip_to_next_quote(char *str, int i)
 {
-	ft_putstr_fd("minishell $ ", 1);
-	mini->show_prompt = 0;
+	char quote_type;
+
+	quote_type = 34;
+	if (str[i] == 39)
+		quote_type = 39;
+	i++;
+	while (str[i])
+	{
+		if (str[i] == quote_type)
+			break;
+		i++; 
+	}
+	if (i == (int)ft_strlen(str))
+		return -1;
+	return i;
 }
+
+char **splitter(char *std_in)
+{
+	int i;
+	int start;
+	int elems;
+	char **splitted;
+	char **split_head;
+
+	elems = 0;
+	i = 0;
+	while (std_in[i])
+	{
+		if (std_in[i] == 39 || std_in[i] == 34)
+			i = skip_to_next_quote(std_in, i);
+		if (std_in[i] == ' ')
+		{
+			elems++;
+			while (std_in[i] == ' ')
+				i++;
+		}
+		else
+			i++;
+	}
+	elems++;
+	splitted = (char **)malloc(sizeof(char *) * (elems + 1));
+	split_head = splitted;
+	if (!splitted)
+		return NULL;
+	// splitted[elems] = NULL;
+	i = 0;
+	std_in = ft_strtrim(std_in, " ");
+	start = i;
+	while (std_in[i])
+	{
+		if (std_in[i] == 39 || std_in[i] == 34)
+			i = skip_to_next_quote(std_in, i);
+		if (std_in[i] == ' ')
+		{
+			printf("substr: %s\n", ft_substr(std_in, start, i - start));
+			*splitted = ft_substr(std_in, start, i - start);
+			splitted++;
+			while (std_in[i] == ' ')
+				i++;
+			start = i;
+		}
+		i++;
+	}
+	*splitted = ft_substr(std_in, start, i - start);
+	splitted++;
+	*splitted = NULL;
+	return (split_head);
+}
+
+int main(int ac, char **av)
+{
+	int i;
+	char **split;
+
+	split = splitter(av[1]);
+	(void)ac;
+
+	i = 0;
+	while (split[i] != NULL)
+	{
+		printf("%s\n", split[i]);
+		i++;
+	}
+}
+
+// void display_prompt(t_gen *data)
+// {
+// 	// ft_putstr_fd("minishell $ ", 1);
+// 	data->std_in = readline("minishell $ ");
+// 	data->parse = splitter(data->std_in);
+// 	data->show_prompt = 0;
+// }

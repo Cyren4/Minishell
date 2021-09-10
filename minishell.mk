@@ -1,7 +1,6 @@
 FILES = minishell.c \
 		display/display_prompt.c \
 		error/error.c \
-		executor/e_util/init_vars.c \
 
 SUB_DIR	=	executor parser display error executor/e_util
 

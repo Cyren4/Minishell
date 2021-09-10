@@ -28,14 +28,18 @@ typedef struct s_lex
 {
 	char *content;
 	int token;
-	t_lexer	*next;
+	struct s_lex	*next;
 }	t_lexer;
 
 typedef struct s_gen
 {
 	
+	int status;
+	int show_prompt;
+	char *std_in;
 	t_lexer	*lex;
-	char 	**parse;
+	char **parse;
+	int *is_quote;
 	// t_exec exec;
 }	t_gen;
 
@@ -50,7 +54,7 @@ typedef struct s_gen
 
 // display/
 /*		display.c	*/
-void display_prompt(t_data *mini);
+void display_prompt(t_gen *data);
 
 // error/
 /*		error.c		*/
@@ -58,7 +62,7 @@ void	arg_error(char  *exec);
 
 // exec/
 /*		exec.c		*/
-void set_vars(t_data *mini);
+void set_vars(t_gen *mini);
 
 
 #endif
