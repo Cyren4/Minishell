@@ -3,14 +3,12 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+         #
+#    By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 12:16:14 by mvaldes           #+#    #+#              #
-#    Updated: 2021/09/09 13:15:48 by cramdani         ###   ########.fr        #
+#    Updated: 2021/09/10 15:23:13 by vbaron           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
-include minishell.mk
 
 NAME		=	minishell
 

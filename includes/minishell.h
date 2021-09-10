@@ -22,20 +22,23 @@
 # define LT2 4 
 # define GT 5 
 # define GT2 6 
-# define OPTION 7 
+# define OPTION 7
 
-typedef struct s_lex
-{
-	char *content;
-	int token;
-	t_lexer	*next;
-}	t_lexer;
+// typedef struct s_lex
+// {
+// 	char *content;
+// 	int token;
+// 	t_lexer	*next;
+// }	t_lexer;
 
 typedef struct s_gen
 {
 	
-	t_lexer	*lex;
+	// t_lexer	*lex;
 	char 	**parse;
+	int show_prompt;
+	int status;
+	char *std_in;
 	// t_exec exec;
 }	t_gen;
 
@@ -50,7 +53,7 @@ typedef struct s_gen
 
 // display/
 /*		display.c	*/
-void display_prompt(t_data *mini);
+void display_prompt(t_gen *mini);
 
 // error/
 /*		error.c		*/
@@ -58,7 +61,7 @@ void	arg_error(char  *exec);
 
 // exec/
 /*		exec.c		*/
-void set_vars(t_data *mini);
+void set_vars(t_gen *mini);
 
 
 #endif
