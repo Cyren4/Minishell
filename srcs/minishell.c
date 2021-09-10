@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/09/09 18:07:48 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/09/10 12:08:38 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	set_data(t_data *data)
 
 int main(int ac, char **av, char **env)
 {
-	t_data	data;
+	t_gen	data;
 	int			status;
 
 	if (ac != 1)
