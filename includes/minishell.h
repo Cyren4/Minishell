@@ -22,6 +22,7 @@
 # define LT2 4 
 # define GT 5 
 # define GT2 6 
+# define OPTION 7 
 
 typedef struct s_lex
 {
