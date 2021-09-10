@@ -15,23 +15,29 @@
 
 # define STDIN 0
 
-# define WORD 0
-# define CMD 1
-# define PIPE 2 
-# define LT 3 
-# define LT2 4 
-# define GT 5 
-# define GT2 6 
-# define OPTION 7
+// # define WORD 0
+// # define CMD 1
+// # define PIPE 2 
+// # define LT 3 
+// # define LT2 4 
+// # define GT 5 
+// # define GT2 6 
+// # define OPTION 7
 
+enum e_token { WORD, CMD, PIPE, LT, LT2, GT, GT2, OPTION };
+enum e_quote { NO_Q, SIMPLE_Q, DOUBLE_Q};
 
 typedef struct s_lex
 {
-	char *content;
-	int token;
+	char			*content;
+	int				token;
+	int				quote_type;
+	int				is_builtin;
 	struct s_lex	*next;
 }	t_lexer;
 
-char *token[8] = {"WORD", "CMD", "PIPE", "LT", "LT2", "GT", "GT2", "OPTION"};
+/*	temp to print something	*/
+char *g_token[8] = {"WORD", "CMD", "PIPE", "LT", "LT2", "GT", "GT2", "OPTION"};
+char *g_quote[3] = {"NO_QUOTE", "SIMPLE_QUOTE", "DOUBLE_QUOTE"};
 
 #endif
