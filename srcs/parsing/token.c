@@ -90,3 +90,5 @@ int main(int ac, char **av)
 		printf("%s\t%s\t%s\t%s\n", tmp->content, g_token[tmp->token], tmp->is_builtin ? "Builtin" : "", tmp->token == WORD ? g_quote[tmp->quote_type]:"");
 	}
 }
+
+{"echo", "blablabla" ,"|", "\' \'"}
