@@ -24,6 +24,7 @@
 # define GT2 6 
 # define OPTION 7
 
+
 typedef struct s_lex
 {
 	char *content;
@@ -31,5 +32,6 @@ typedef struct s_lex
 	struct s_lex	*next;
 }	t_lexer;
 
+char *token[8] = {"WORD", "CMD", "PIPE", "LT", "LT2", "GT", "GT2", "OPTION"};
 
 #endif
