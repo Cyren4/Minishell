@@ -15,15 +15,37 @@
 
 # define STDIN 0
 
-typedef struct s_data
+# define WORD 0
+# define CMD 1
+# define PIPE 2 
+# define LT 3 
+# define LT2 4 
+# define GT 5 
+# define GT2 6 
+
+typedef struct s_lex
+{
+	char *content;
+	int token;
+	t_lexer	*next;
+}	t_lexer;
+
+typedef struct s_par
 {
 	int		status;
-	char	*line;
+	t_lexer	*lex;
+	char 	**parse;
+}	t_parser;
 
-}	t_data;
+typedef struct s_gen
+{
+	t_parser pars;
+	// t_exec exec;
+}	t_gen;
 
 /*			#Parsing#		*/
 //lexer
+
 //parser
 //Binary tree
 
