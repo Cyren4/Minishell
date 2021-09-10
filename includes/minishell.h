@@ -30,16 +30,11 @@ typedef struct s_lex
 	t_lexer	*next;
 }	t_lexer;
 
-typedef struct s_par
-{
-	int		status;
-	t_lexer	*lex;
-	char 	**parse;
-}	t_parser;
-
 typedef struct s_gen
 {
-	t_parser pars;
+	
+	t_lexer	*lex;
+	char 	**parse;
 	// t_exec exec;
 }	t_gen;
 
