@@ -1,8 +1,10 @@
 FILES = minishell.c \
 		display/display_prompt.c \
+		parsing/env_vars_parsing.c \
 		error/error.c \
+		utils/display_env_vars.c \
 
-SUB_DIR	=	executor parser display error executor/e_util
+SUB_DIR	=	executor parsing display error executor/e_util utils
 
 BLACK	=	\033[0;30m
 RED		=	\033[0;31m

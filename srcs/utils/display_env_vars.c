@@ -1,37 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   display_env_vars.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/09/15 19:14:59 by vbaron           ###   ########.fr       */
+/*   Created: 2021/09/15 19:06:23 by vbaron            #+#    #+#             */
+/*   Updated: 2021/09/15 19:19:32 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-void	init_data(t_gen *data)
+void display_env_vars(t_env *envs)
 {
-	data->env = NULL;
-	data->lex = NULL;
-	data->parser.std_in = NULL;
-	data->parser.parsed = NULL;
-}
+	t_env *head;
 
-int main(int ac, char **av, char **env)
-{
-	t_gen	data;
-
-	(void)av;
-	if (ac != 1)
-		return (0);
-	init_data(&data);
-	stock_env_vars(&data, env);
-	// while (data.status)
-	// {
-	// 	display_prompt(&data);
-	// }
-	return(0);
+	head = envs;
+	
+	while (envs)
+	{
+		printf("%s=%s\n", envs->name, envs->content);
+		envs = envs->next;
+	}
+	envs = head;
 }

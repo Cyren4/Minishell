@@ -31,7 +31,7 @@ typedef struct s_lex
 	char *content;
 	int token;
 	struct s_lex	*next;
-}	t_lexer;
+} t_lexer;
 
 typedef struct s_pars
 {
@@ -39,11 +39,19 @@ typedef struct s_pars
 	char **parsed;
 } t_pars;
 
+typedef struct s_env
+{
+	char *name;
+	char *content;
+	struct s_env *next;
+} t_env;
+
 typedef struct s_gen
 {
 	
 	int status;
 	int tracker;
+	t_env *env;
 	t_lexer	*lex;
 	t_pars parser;
 }	t_gen;
@@ -69,6 +77,14 @@ void error(t_gen *data, int e);
 // exec/
 /*		exec.c		*/
 void set_vars(t_gen *mini);
+
+// parsing/
+/*		env_vars_parsing.c		*/
+void stock_env_vars(t_gen *data, char **env);
+
+// utils/
+/*		display_env_vars.c		*/
+void display_env_vars(t_env *envs);
 
 
 #endif
