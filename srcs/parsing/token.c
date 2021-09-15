@@ -1,17 +1,5 @@
 #include "token.h"
 
-void	quote_management(t_lexer *elem)
-{
-	if (elem->content[0] == '"')
-		elem->quote_type = DOUBLE_Q;
-	else if (elem->content[0] == '\'')
-		elem->quote_type = SIMPLE_Q;
-	else
-		elem->quote_type = NO_Q;
-	elem->token = WORD;
-	//according to which quote-> replace variables 
-	//trim the quotes after that
-}
 
 int	is_builtin(char *cmd)
 {
@@ -37,6 +25,45 @@ int	check_cmd(t_lexer *elem)
 	//according to which quote-> replace variables 
 }
 
+void	quote_interpretation(char quote, int *inside)
+{
+	if (quote == '"' && *inside == NO_Q)
+		*inside = DOUBLE_Q;
+	else if (quote == '\'' && *inside == NO_Q)
+		*inside = SIMPLE_Q;
+	else if (quote == '\'' && *inside == SIMPLE_Q)
+		*inside = NO_Q;
+	else if (quote == '\"' && *inside == DOUBLE_Q)
+		*inside = NO_Q;
+}
+
+void	supress_char(char *str, int place)
+{
+	int	new_size;
+	int	i;
+	int	decal;
+
+	new_size = ft_strlen(str) - 1;
+	
+}
+int	complexe_elem(t_lexer *elem)
+{
+	int i;
+	int	inside;
+
+	i = 0;
+	inside = NO_Q;
+	while (elem->content[i])
+	{
+		if (elem->content[i] == '\\')
+			i++;
+		else if (elem->content[i] == '\"' || elem->content[i] == '\'')
+			quote_interpretation(elem->content[i], &inside);
+		else if ()
+		i++;
+	}
+}
+
 int	check_type(t_lexer *elem)
 {
 	if (ft_strcmp(elem->content, "|") == 0)
@@ -49,14 +76,17 @@ int	check_type(t_lexer *elem)
 		elem->token = GT;
 	else if (ft_strcmp(elem->content, ">>") == 0)
 		elem->token = GT2;
-	else if (elem->content[0] == '"' || elem->content[0] == '\'')
-		quote_management(elem);
-	else if (check_cmd(elem))
-		elem->token = CMD;
-	else
-		quote_management(elem);
+	else {
+		complexe_elem(elem->content);
+		if (check_cmd(elem))
+			elem->token = CMD;
+	}
 	return (1);
 }
+/*
+if (check_cmd(elem))
+		elem->token = CMD;
+		*/
 
 t_lexer	*add_elem_lex(t_lexer *lst_elem, char *cmd)
 {
