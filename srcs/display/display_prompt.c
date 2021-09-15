@@ -6,51 +6,30 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:01:34 by vbaron            #+#    #+#             */
-/*   Updated: 2021/09/10 22:22:36 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/09/15 17:47:36 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include <stdio.h>
+#include "../../includes/minishell.h"
 
-int skip_to_next_quote(char *str, int i)
+int skip_to_next_quote(t_gen *data, int i)
 {
 	char quote_type;
 
 	quote_type = 34;
-	if (str[i] == 39)
+	if (data->parser.std_in[i] == 39)
 		quote_type = 39;
 	i++;
-	while (str[i])
+	while (data->parser.std_in[i])
 	{
-		if (str[i] == quote_type)
+		if (data->parser.std_in[i] == quote_type)
 			break;
 		i++; 
 	}
-	if (i == (int)ft_strlen(str))
-		return -1;
-	return i;
-}
-
-int check_quotes(char *std_in)
-{
-	int i;
-	int single_q;
-	int double_q;
-
-	single_q = 0;
-	double_q = 0;
-	i = 0;
-	while (std_in[i])
-	{
-		if (std_in[i] == '\'')
-			single_q++;
-		if (std_in[i] == '\"')
-			double_q++;
-		i++;
-	}
-	if ((double_q % 2 != 0) || (single_q % 2 != 0))
-		return (0);
-	return (1);
+	if (i == (int)ft_strlen(data->parser.std_in))
+		error(data, QUOTES_UNCLOSED);
+	return (i);
 }
 
 int is_in_quotes(char *str, int i)
@@ -72,82 +51,88 @@ int is_in_quotes(char *str, int i)
 	return 0;
 }
 
-char **splitter(char *std_in)
+void splitter(t_gen *data)
 {
 	int i;
 	int start;
 	int elems;
-	char **splitted;
 	char **split_head;
+	char *tmp;
 
+	
+	tmp = ft_strtrim(data->parser.std_in, " ");
+	free(data->parser.std_in);
+	data->parser.std_in = ft_substr(tmp, 0, ft_strlen(tmp));
+	free(tmp);
 	elems = 0;
 	i = 0;
-	if (!check_quotes(std_in))
-		return NULL;
-	while (std_in[i])
+	while (data->parser.std_in[i])
 	{
-		if (std_in[i] == ' ')
+		
+		if (data->parser.std_in[i] == 39 || data->parser.std_in[i] == 34)
+			i = skip_to_next_quote(data, i);
+		if (data->parser.std_in[i] == ' ')
 		{
-			if (!is_in_quotes(std_in, i))
-			{
-				elems++;
-				while (std_in[i] == ' ')
-					i++;
-			}
+			elems++;
+			while (data->parser.std_in[i] == ' ')
+				i++;
 		}
 		else
 			i++;
 	}
 	elems++;
-	splitted = (char **)malloc(sizeof(char *) * (elems + 1));
-	split_head = splitted;
-	if (!splitted)
-		return NULL;
-	// splitted[elems] = NULL;
+	data->parser.parsed = (char **)malloc(sizeof(char *) * (elems + 1));
+	split_head = data->parser.parsed;
+	if (!data->parser.parsed)
+		error(data, BAD_MALLOC);
+	// data->parser.parsed[elems] = NULL;
 	i = 0;
-	std_in = ft_strtrim(std_in, " ");
 	start = i;
-	while (std_in[i])
+	while (data->parser.std_in[i])
 	{
-		if (std_in[i] == 39 || std_in[i] == 34)
-			i = skip_to_next_quote(std_in, i);
-		if (std_in[i] == ' ')
+		if (data->parser.std_in[i] == 39 || data->parser.std_in[i] == 34)
+			i = skip_to_next_quote(data, i);
+		if (data->parser.std_in[i] == ' ')
 		{
-			printf("substr: %s\n", ft_substr(std_in, start, i - start));
-			*splitted = ft_substr(std_in, start, i - start);
-			splitted++;
-			while (std_in[i] == ' ')
+			*data->parser.parsed = ft_substr(data->parser.std_in, start, i - start);
+			data->parser.parsed++;
+			while (data->parser.std_in[i] == ' ')
 				i++;
 			start = i;
 		}
-		i++;
+		else
+			i++;
 	}
-	*splitted = ft_substr(std_in, start, i - start);
-	splitted++;
-	*splitted = NULL;
-	return (split_head);
+	*data->parser.parsed = ft_substr(data->parser.std_in, start, i - start);
+	data->parser.parsed++;
+	*data->parser.parsed = NULL;
+	data->parser.parsed = split_head;
 }
 
-int main(int ac, char **av)
+// int main(int ac, char **av)
+// {
+// 	int i;
+// 	t_gen data;
+
+// 	data.parser.std_in =av[1];
+// 	splitter(&data);
+// 	(void)ac;
+
+// 	i = 0;
+// 	while (data.parser.parsed[i] != NULL)
+// 	{
+// 		printf("%s\n", data.parser.parsed[i]);
+// 		i++;
+// 	}
+// }
+
+void display_prompt(t_gen *data)
 {
 	int i;
-	char **split;
 
-	split = splitter(av[1]);
-	(void)ac;
-
-	i = 0;
-	while (split[i] != NULL)
-	{
-		printf("%s\n", split[i]);
-		i++;
-	}
+	data->parser.std_in = readline("minishell $ ");
+	splitter(data);
+	i = -1;
+	while (data->parser.parsed[++i] != NULL)
+		printf("parsed[%d]: %s\n", i, data->parser.parsed[i]);
 }
-
-// void display_prompt(t_gen *data)
-// {
-// 	// ft_putstr_fd("minishell $ ", 1);
-// 	data->std_in = readline("minishell $ ");
-// 	data->parse = splitter(data->std_in);
-// 	data->show_prompt = 0;
-// }

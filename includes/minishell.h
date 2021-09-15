@@ -22,7 +22,9 @@
 # define LT2 4 
 # define GT 5 
 # define GT2 6 
-# define OPTION 7 
+# define OPTION 7
+
+enum e_err {QUOTES_UNCLOSED, BAD_MALLOC};
 
 typedef struct s_lex
 {
@@ -31,16 +33,19 @@ typedef struct s_lex
 	struct s_lex	*next;
 }	t_lexer;
 
+typedef struct s_pars
+{
+	char *std_in;
+	char **parsed;
+} t_pars;
+
 typedef struct s_gen
 {
 	
 	int status;
-	int show_prompt;
-	char *std_in;
+	int tracker;
 	t_lexer	*lex;
-	char **parse;
-	int *is_quote;
-	// t_exec exec;
+	t_pars parser;
 }	t_gen;
 
 /*			#Parsing#		*/
@@ -59,6 +64,7 @@ void display_prompt(t_gen *data);
 // error/
 /*		error.c		*/
 void	arg_error(char  *exec);
+void error(t_gen *data, int e);
 
 // exec/
 /*		exec.c		*/
