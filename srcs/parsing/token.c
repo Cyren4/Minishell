@@ -1,5 +1,5 @@
 #include "token.h"
-
+// #include "../../includes/minishell.h"
 
 int	is_builtin(char *cmd)
 {
@@ -8,6 +8,22 @@ int	is_builtin(char *cmd)
 			|| ft_strcmp(cmd, "unset") == 0 || ft_strcmp(cmd, "env") == 0
 			|| ft_strcmp(cmd, "exit") == 0);
 }
+
+char	*getVar(t_gen *gen, char *var)
+{
+	t_env *tmp_env;
+	
+	tmp_env = gen->env; 
+
+	while (tmp_env)
+	{
+		if (ft_strcmp(tmp_env->name, var) == 0)
+			return (tmp_env->content);
+		tmp_env = tmp_env->next;
+	}
+	return ("");
+}
+
 /*	return 1 si c'est une commande 0 sinon)*/
 int	check_cmd(t_lexer *elem)
 {
@@ -37,15 +53,62 @@ void	quote_interpretation(char quote, int *inside)
 		*inside = NO_Q;
 }
 
-void	supress_char(char *str, int place)
+char	*supress_char(char *str, int place)
 {
-	int	new_size;
-	int	i;
-	int	decal;
+	char	*new;
+	int		i;
+	int		decal;
 
-	new_size = ft_strlen(str) - 1;
-	
+	new = malloc(sizeof(char) * (ft_strlen(str)));
+	decal = 0;
+	while (str[i])
+	{
+		if (i == place)
+			decal = 1;
+		new[i] = str[i + decal];
+		i++;
+	}
+	new[i] = '\0';
+	free(str);
+	return (new);
 }
+
+char	*replace(char *str, char *var, int start, int finish)
+{
+	char	*new;
+	int		i;
+
+	i = 0;
+	new = malloc(sizeof(char) * (ft_strlen(str) - (finish - start) + ft_strlen(var)));
+	while (str[i] != '$' && str[i])
+	{
+		new[i] = str[i];
+		i++;
+	}
+	ft_strlcpy(new + i, var, ft_strlen(var));
+	i += ft_strlen(var);
+	ft_strlcpy(new + i, str + finish, ft_strlen(str) - finish + 1);
+	free(str);
+	return (str);
+}
+
+char	*replace_var(char *str, int place)
+{
+	char	var[ft_strlen(str) - place];
+	int		i;
+
+	i = 0;
+	while (str[place + i])
+	{
+		if (ft_isspace(str[place + i]))
+			break;
+		var[i] = str[place + i];
+		i++;
+	}
+	var[i] = '\0';
+	return (replace(str, getVar(var), place, i))
+}
+
 int	complexe_elem(t_lexer *elem)
 {
 	int i;
@@ -56,10 +119,11 @@ int	complexe_elem(t_lexer *elem)
 	while (elem->content[i])
 	{
 		if (elem->content[i] == '\\')
-			i++;
+			elem->content = supress_char(elem->content, i);
 		else if (elem->content[i] == '\"' || elem->content[i] == '\'')
 			quote_interpretation(elem->content[i], &inside);
-		else if ()
+		else if (elem->content[i] == '$' && inside != SIMPLE_Q)
+			elem->content = replace_var(elem->content, i + 1);
 		i++;
 	}
 }
@@ -78,6 +142,7 @@ int	check_type(t_lexer *elem)
 		elem->token = GT2;
 	else {
 		complexe_elem(elem->content);
+		elem->token = WORD;
 		if (check_cmd(elem))
 			elem->token = CMD;
 	}
