@@ -23,13 +23,17 @@ int	is_builtin(char *cmd)
 /*	return 1 si c'est une commande 0 sinon)*/
 int	check_cmd(t_lexer *elem)
 {
+	char **path;
+
 	if (is_builtin(elem->content))
 	{
 		elem->is_builtin = 1;
 		return (1);
-	} 
-	return 0;
+	} else if (ft_strncmp(elem->content, "./", 2) == 0)
+		return (1);
+	path = ft_split(getenv("PATH"), ':');
 	
+	return 0;
 	//according to which quote-> replace variables 
 }
 
@@ -57,11 +61,19 @@ int	check_type(t_lexer *elem)
 t_lexer	*add_elem_lex(t_lexer *lst_elem, char *cmd)
 {
 	t_lexer *new;
+	t_lexer *tmp;
 
 	new = malloc(sizeof(t_lexer));
 	new->content = ft_strdup(cmd);
-	new->next = lst_elem;
-	return (new);
+	new->next = NULL;
+	check_type(new);
+	if (lst_elem == NULL)
+		return (new);
+	tmp = lst_elem;
+	while (tmp->next != NULL)
+		tmp = tmp->next;
+	tmp->next = new;
+	return (lst_elem);
 }
 
 t_lexer	*lexer(char **cmd_line, t_lexer *lst_elem)
@@ -72,7 +84,6 @@ t_lexer	*lexer(char **cmd_line, t_lexer *lst_elem)
 	while (cmd_line[i] != NULL)
 	{
 		lst_elem = add_elem_lex(lst_elem, cmd_line[i]);
-		check_type(lst_elem);
 		i++;
 	}
 	return (lst_elem);
@@ -91,4 +102,4 @@ int main(int ac, char **av)
 	}
 }
 
-{"echo", "blablabla" ,"|", "\' \'"}
+// {"echo", "blablabla" ,"|", "\' \'"}
