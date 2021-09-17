@@ -1,15 +1,15 @@
 #ifndef TOKEN_H
 # define TOKEN_H
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <fcntl.h>
-# include <sys/wait.h>
-# include <sys/stat.h>
-# include <signal.h>
+// # include <stdio.h>
+// # include <stdlib.h>
+// # include <unistd.h>
+// # include <readline/readline.h>
+// # include <readline/history.h>
+// # include <fcntl.h>
+// # include <sys/wait.h>
+// # include <sys/stat.h>
+// # include <signal.h>
 
 # include "../../lib/header_lib.h"
 
@@ -35,6 +35,14 @@ typedef struct s_lex
 	int				is_builtin;
 	struct s_lex	*next;
 }	t_lexer;
+
+
+/*	token_utils.c	*/
+int		is_builtin(char *cmd);
+void	quote_interpretation(char quote, int *inside);
+
+/*	env_utils.c	*/
+char	*get_env_var(t_gen *gen, char *var);
 
 /*	temp to print something	*/
 char *g_token[8] = {"WORD", "CMD", "PIPE", "LT", "LT2", "GT", "GT2", "OPTION"};
