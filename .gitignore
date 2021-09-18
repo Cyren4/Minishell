@@ -1,0 +1,16 @@
+minishell
+objs/
+lib/libft/objs/*
+
+# Prerequisites
+*.d
+
+# Object files
+*.o
+
+# Precompiled Headers
+*.gch
+
+# Libraries
+*.lib
+*.a
