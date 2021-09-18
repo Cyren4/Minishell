@@ -102,8 +102,10 @@ void	complexe_elem(t_lexer *elem, t_gen *data)
 			continue ;
 		}
 		else
+		{
 			real_content[i] = elem->content[elem_i];
-		i++;
+			i++;
+		}
 		elem_i++;
 	}
 	real_content[i] = '\0';
