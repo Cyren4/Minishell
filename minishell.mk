@@ -3,8 +3,11 @@ FILES = minishell.c \
 		parsing/env_vars_parsing.c \
 		error/error.c \
 		utils/display_env_vars.c \
+		parsing/token.c \
+		parsing/token_utils.c \
+		parsing/env_utils.c \
 
-SUB_DIR	=	executor parsing display error executor/e_util utils
+SUB_DIR	=	parsing display error utils
 
 BLACK	=	\033[0;30m
 RED		=	\033[0;31m

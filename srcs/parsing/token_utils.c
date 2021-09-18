@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "token.h"
+#include "../../includes/minishell.h"
 
 int	is_builtin(char *cmd)
 {
@@ -31,4 +31,14 @@ void	quote_interpretation(char quote, int *inside)
 		*inside = NO_Q;
 	else if (quote == '\"' && *inside == DOUBLE_Q)
 		*inside = NO_Q;
+}
+
+void	display_token(t_lexer *lst_lex)
+{ 	
+	char *token[8] = {"WORD", "CMD", "PIPE", "LT", "LT2", "GT", "GT2", "OPTION"};
+	char *quote[3] = {"NO_QUOTE", "SIMPLE_QUOTE", "DOUBLE_QUOTE"};
+	
+	printf("Let's show token\n");
+	for (t_lexer *tmp = lst_lex; tmp; tmp = tmp->next)
+		printf("%s\t%s\t%s\t%s\n", tmp->content, token[tmp->token], tmp->is_builtin ? "Builtin" : "", tmp->token == WORD ? quote[tmp->quote_type]:"");
 }

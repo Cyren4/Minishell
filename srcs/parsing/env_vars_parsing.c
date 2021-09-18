@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_vars_parsing.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 18:45:42 by vbaron            #+#    #+#             */
-/*   Updated: 2021/09/15 19:19:07 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/09/18 17:16:26 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,5 @@ void stock_env_vars(t_gen *data, char **env)
 		add_elem(data, env[i]);
 		i++;
 	}
-	display_env_vars(data->env);
+	// display_env_vars(data->env);
 }
