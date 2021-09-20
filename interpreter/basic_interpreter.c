@@ -6,29 +6,34 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 15:58:20 by vbaron            #+#    #+#             */
-/*   Updated: 2021/09/18 19:39:06 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/09/19 12:14:04 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "interprete.h"
 
-void create_node(t_lexer *lex, char *content, int token)
+void create_node(t_gen *data, char *content, int token)
 {
 	t_lexer *new;
 	t_lexer *head;
 
-	head = lex;
+	
+	new = (t_lexer *)malloc(sizeof(t_lexer));
 	new->content = content;
 	new->token = token;
-	if (!lex)
-		lex = new;
+	new->next = NULL;
+	new->prev = NULL;
+	if (!data->lex)
+		data->lex = new;
 	else
 	{
-		while (lex->next)
-			lex = lex->next;
-		lex->next = new;
+		head = data->lex;
+		while (data->lex->next)
+			data->lex = data->lex->next;
+			new->prev = data->lex;
+		data->lex->next = new;
+		data->lex = head;
 	}
-	lex = head;
 
 }
 
@@ -41,21 +46,25 @@ void error(int e)
 	exit(1);
 }
 
-void check_tokens(t_lexer *lex)
+void check_tokens(t_gen *data)
 {
 	t_lexer *head;
 
-	head = lex;
-	while (lex->next->next)
+
+	head = data->lex;
+	while (data->lex)
 	{
-		if ((lex->next->token != PLUS || lex->token != MINUS) || lex->token != INT)
-			error(2);
-		lex = lex->next->next;
+		if (data->lex->token == PLUS || data->lex->token == MINUS)
+		{
+			if (data->lex->prev->token != INT || data->lex->next->token != INT)
+				error(1);
+		}
+		data->lex = data->lex->next;
 	}
-	lex = head;
+	data->lex = head;
 }
 
-void create_lexer(t_lexer *lex, char *str)
+void create_lexer(t_gen *data, char *str)
 {
 	t_lexer *new;
 	int i;
@@ -66,58 +75,70 @@ void create_lexer(t_lexer *lex, char *str)
 	start = 0;
 	while (str[i])
 	{
-		if ((str[i] < '0' || str[i] > '9') || str[i] != '+' || str[i] != '-' || str[i] != ' ')
+		if ((str[i] < '0' || str[i] > '9') && str[i] != '+' && str[i] != '-' && str[i] != ' ')
 			error(1);
 		if (str[i] == '+')
-			create_node(lex, "+", PLUS);
+			create_node(data, "+", PLUS);
 		if (str[i] == '-')
-			create_node(lex, "-", MINUS);
-		if (str[i] >= '0' || str[i] <= '9')
+			create_node(data, "-", MINUS);
+		if (str[i] >= '0' && str[i] <= '9')
 		{
 			start = i;
-			while (str[i] >= '0' || str[i] <= '9')
+			while (str[i] >= '0' && str[i] <= '9')
 				i++;
 			content = ft_substr(str, start, i - start); 
-			create_node(lex, content, INT);
+			create_node(data, content, INT);
 		}
 		else
 			i++;
 	}
-	check_tokens(lex);
+	check_tokens(data);
 }
 
-void do_operations(t_lexer *lex)
+void do_operations(t_gen *data)
 {
 	int result;
 	t_lexer *head;
 	
-	result = ft_atoi(lex->content);
-	while (lex->next->next != NULL)
+	result = ft_atoi(data->lex->content);
+	head = data->lex;
+	while (data->lex)
 	{
-		if (lex->next->token == MINUS)
-			result = result - ft_atoi(lex->next->next->content);
-		if (lex->next->token == PLUS)
-			result = result + ft_atoi(lex->next->next->content);
-		lex = lex->next->next;
+		if (data->lex->token == PLUS)
+			result = atoi(data->lex->prev->content) + atoi(data->lex->next->content);
+		else if (data->lex->token == MINUS)
+			result = atoi(data->lex->prev->content) - atoi(data->lex->next->content);
+		data->lex = data->lex->next;
 	}
 	printf("Result = %d\n", result);
-	lex = head;
+	data->lex = head;
+}
+
+void do_operation(t_lexer *lex, int direc)
+{
+	t_lexer *dir;
+	int result;
+
+	if (direc == RIGHT)
+		dir = lex->next;
+	else if (direc == LEFT)
+		dir = lex->prev;
+	while (dir)
+	{
+		if (dir->token == PLUS)
+			result = do_operation(data)
+	}
 }
 
 int main(int ac, char **av)
 {
 	int i;
 	char *std_in;
-	t_lexer *lex;
+	t_gen data;
 
-	
-	while (1)
-	{
-		lex = NULL;
-		i = 0;
-		// std_in = readline("Vinny's Interpreter => ");
-		create_lexer(lex, av[1]);
-		do_operations(lex);
-	}
+	if (ac != 2)
+		error(1);
+	create_lexer(&data, av[1]);
+	do_operations(&data);
 	return 0;
 }
