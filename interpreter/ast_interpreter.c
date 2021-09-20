@@ -6,56 +6,69 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 15:20:48 by vbaron            #+#    #+#             */
-/*   Updated: 2021/09/20 16:26:56 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/09/20 18:52:46 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "interprete.h"
 
 
-// Syntax grammar
-
-// pipe_sequence : basic_command					 pipe_sequence1
-// 	 		  | pipe_sequence | basic_command        pipe_sequence2
-
-// basic_command : built_in							 basic_command1
-// 			  | built_in  args                       basic_command2
-
-// args : word										  args_1
-// 	 | word word									  args_2	
-
-// word : WORD;                                        word_node
-
-void *word_node(t_lexer *p)
+void cut_lexer(t_lexer *lex)
 {
-	t_word *w;
+	free(lex->content);
+	lex = NULL;
+}
 
-	w = NULL;
+int build_pipe(t_tree *ast, t_lexer *lex, t_lexer *head)
+{
+	t_tree *new;
 
-	if (p->token ==  WORD)
-	{
-		w = malloc(sizeof(t_word));
-		w->data = ft_strdup(p->content);
-		p = p->next;
-		return (w);
-	}
+	new = malloc(sizeof(t_tree));
+	if (!new)
+		return (0);
+	new->type = PIPE;
+	ast = new;
+	build_tree(ast->right, lex->next);
+	cut_lexer(lex);
+	build_tree(ast->left, head);
+	return (0);
+}
+
+int build_tree(t_tree *ast, t_lexer *lexer)
+{
+	t_lexer *curr_lex;
+	t_tree *curr_ast;
+	
+	curr_lex = lexer;
+	curr_ast = ast;
+	while (curr_lex->token != PIPE)
+		curr_lex = curr_lex->next;
+	if (curr_lex->token == PIPE)
+		build_pipe(curr_ast, curr_lex, lexer);
+	return (0);
+	
+}
+
+t_lexer *add_custom_elem_to_lexer(t_lexer *lexer, char *content, int token)
+{
+	t_lexer *new;
+	t_lexer *head;
+
+	head = lexer;
+	new = malloc(sizeof(t_lexer));
+	new->content = content;
+	new->token = token;
+	new->next = NULL;
+	if (!lexer)
+		lexer = new;
 	else
-		return (NULL);
-	
-}
-
-void pipe_sequence(t_tree *ast, t_lexer *lexer)
-{
-
-}
-
-void build_tree(t_tree *ast, t_lexer *lexer)
-{
-	while (lexer->token != PIPE)
-		lexer = lexer->next
-	
-	if (lexer->token == PIPE)
-		build_parent(ast, lexer);
+	{
+		while (lexer->next != NULL)
+			lexer = lexer->next;
+		lexer->next = new;
+		lexer = head;
+	}
+	return (lexer);
 }
 
 int main()
@@ -63,7 +76,12 @@ int main()
 	t_tree *ast;
 	t_lexer *lexer;
 
-	ast->head = lexer;
-	ast->curr_pos = lexer;	
+	lexer = NULL;
+	lexer = add_custom_elem_to_lexer(lexer, "echo", WORD);
+	lexer = add_custom_elem_to_lexer(lexer, "hello", WORD);
+	lexer = add_custom_elem_to_lexer(lexer, "|", PIPE);
+	lexer = add_custom_elem_to_lexer(lexer, "ls", WORD);
+	// add_custom_elem_to_lexer(lexer, "echo", WORD);
+	ast = NULL;
 	build_tree(ast, lexer);
 }
