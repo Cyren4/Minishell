@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 15:20:48 by vbaron            #+#    #+#             */
-/*   Updated: 2021/09/20 21:24:32 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/09/20 21:57:05 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void cut_lexer(t_lexer *head, t_lexer *lex)
 	head = head2;
 }
 
-int build_pipe(t_tree *ast, t_lexer *lex, t_lexer *head)
+t_tree *build_pipe(t_tree *ast, t_lexer *lex, t_lexer *head)
 {
 	t_tree *new;
 
@@ -34,24 +34,38 @@ int build_pipe(t_tree *ast, t_lexer *lex, t_lexer *head)
 		return (0);
 	new->type = PIPE;
 	ast = new;
-	build_tree(ast->right, lex->next);
+	ast->right = build_tree(lex->next);
 	cut_lexer(head, lex);
-	build_tree(ast->left, head);
-	return (0);
+	ast->left = build_tree(head);
+	return (ast);
 }
 
-int build_tree(t_tree *ast, t_lexer *lexer)
+t_tree *build_leaf(t_lexer *lexer)
 {
-	t_lexer *curr_lex;
-	t_tree *curr_ast;
+	t_tree *leaf;
+
+	leaf = malloc(sizeof(t_tree));
+	if (!leaf)
+		return (NULL);
+	leaf->type = CMD;
+	leaf->cmd = lexer;
+	leaf->left = NULL;
+	leaf->right = NULL;
+}
+
+t_tree *build_tree(t_lexer *lexer)
+{
+	t_tree *ast;
+	t_tree *curr_lex;
 	
 	curr_lex = lexer;
-	curr_ast = ast;
-	while (curr_lex && curr_lex->token != PIPE)
-		curr_lex = curr_lex->next;
-	if (curr_lex && curr_lex->token == PIPE)
-		build_pipe(curr_ast, curr_lex, lexer);
-	return (0);
+	while (lexer && lexer->token != PIPE)
+		lexer = lexer->next;
+	if (lexer && lexer->token == PIPE)
+		ast = build_pipe(ast, curr_lex, lexer);
+	else
+		ast = build_leaf(lexer);
+	return ast;
 	
 }
 
@@ -89,5 +103,5 @@ int main()
 	lexer = add_custom_elem_to_lexer(lexer, "ls", WORD);
 	// add_custom_elem_to_lexer(lexer, "echo", WORD);
 	ast = NULL;
-	build_tree(ast, lexer);
+	ast = build_tree(ast, lexer);
 }
