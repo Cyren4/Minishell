@@ -6,17 +6,23 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 15:20:48 by vbaron            #+#    #+#             */
-/*   Updated: 2021/09/20 18:52:46 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/09/20 21:24:32 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "interprete.h"
 
 
-void cut_lexer(t_lexer *lex)
+void cut_lexer(t_lexer *head, t_lexer *lex)
 {
-	free(lex->content);
-	lex = NULL;
+	t_lexer *head2;
+	
+	head2 = head;
+	while (head->next != lex)
+		head = head->next;
+	head->next->content = NULL;
+	head->next = NULL;
+	head = head2;
 }
 
 int build_pipe(t_tree *ast, t_lexer *lex, t_lexer *head)
@@ -29,7 +35,7 @@ int build_pipe(t_tree *ast, t_lexer *lex, t_lexer *head)
 	new->type = PIPE;
 	ast = new;
 	build_tree(ast->right, lex->next);
-	cut_lexer(lex);
+	cut_lexer(head, lex);
 	build_tree(ast->left, head);
 	return (0);
 }
@@ -41,9 +47,9 @@ int build_tree(t_tree *ast, t_lexer *lexer)
 	
 	curr_lex = lexer;
 	curr_ast = ast;
-	while (curr_lex->token != PIPE)
+	while (curr_lex && curr_lex->token != PIPE)
 		curr_lex = curr_lex->next;
-	if (curr_lex->token == PIPE)
+	if (curr_lex && curr_lex->token == PIPE)
 		build_pipe(curr_ast, curr_lex, lexer);
 	return (0);
 	

@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 15:59:53 by vbaron            #+#    #+#             */
-/*   Updated: 2021/09/20 18:49:28 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/09/20 21:37:29 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 typedef struct s_tree
 {
 	int type;
+	char *cmd;
 	t_lexer *curr_lex;
 	struct s_tree *left;
 	struct s_tree *right;
