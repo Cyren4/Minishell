@@ -46,7 +46,7 @@ int	real_size(char *content, t_gen *data)
 	total_size = 0;
 	while (content[i])
 	{
-		if (content[i] == '\"' || content[i] == '\'')
+		if (content[i] == '"' || content[i] == '\'')
 			quote_interpretation(content[i], &inside);
 		else if (content[i] == '$' && inside != SIMPLE_Q)
 		{
@@ -96,7 +96,7 @@ void	complexe_elem(t_lexer *elem, t_gen *data)
 	real_content = malloc(sizeof(char) * real_size(elem->content, data));
 	while (elem->content[elem_i])
 	{
-		if (elem->content[elem_i] == '\"' || elem->content[elem_i] == '\'')
+		if (elem->content[elem_i] == '"' || elem->content[elem_i] == '\'')
 			quote_interpretation(elem->content[i], &inside);
 		else if (elem->content[elem_i] == '$' && inside != SIMPLE_Q)
 		{
