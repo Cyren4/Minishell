@@ -38,7 +38,7 @@ void	quote_interpretation(char quote, int *inside)
 		*inside = SIMPLE_Q;
 	else if (quote == '\'' && *inside == SIMPLE_Q)
 		*inside = NO_Q;
-	else if (quote == '\"' && *inside == DOUBLE_Q)
+	else if (quote == '"' && *inside == DOUBLE_Q)
 		*inside = NO_Q;
 }
 

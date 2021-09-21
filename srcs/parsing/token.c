@@ -97,7 +97,7 @@ void	complexe_elem(t_lexer *elem, t_gen *data)
 	while (elem->content[elem_i])
 	{
 		if (elem->content[elem_i] == '"' || elem->content[elem_i] == '\'')
-			quote_interpretation(elem->content[i], &inside);
+			quote_interpretation(elem->content[elem_i], &inside);
 		else if (elem->content[elem_i] == '$' && inside != SIMPLE_Q)
 		{
 			i += insert_var(real_content + i, elem->content, &elem_i, data);
@@ -181,9 +181,9 @@ char	**check_sub_words(char *cmd)
 {
 	int	vect[ft_strlen(cmd)];
 	int	i;
+	int	i_word;
 	int	inside;
 	int	nb_word;
-	int	i_word;
 
 	i = 0;
 	i_word = 0;	
@@ -228,7 +228,7 @@ t_lexer	*lexer(char **cmd_line, t_gen *data)
 		splited = check_sub_words(cmd_line[i]);
 		while (splited[j] != NULL)
 		{
-			printf("split: %s\n", splited[j]);
+			// printf("split: %s\n", splited[j]);
 			lst_elem = add_elem_lex(lst_elem, splited[j], data);
 			j++;
 		}
