@@ -20,6 +20,15 @@ int	is_builtin(char *cmd)
 			|| ft_strcmp(cmd, "exit") == 0);
 }
 
+int	is_special(char *cmd)
+{
+	if (ft_strncmp(cmd, "|", 1) == 0 || ft_strncmp(cmd, "<", 1) == 0
+		|| ft_strncmp(cmd, ">", 1) == 0)
+			return (1);
+	else if (ft_strncmp(cmd, "<<", 2) == 0 || ft_strncmp(cmd, ">>", 2) == 0)
+		return (2);
+	return (0);
+}
 
 void	quote_interpretation(char quote, int *inside)
 {

@@ -162,16 +162,104 @@ t_lexer	*add_elem_lex(t_lexer *lst_elem, char *cmd, t_gen *data)
 	return (lst_elem);
 }
 
+char	**splitting(char *cmd, int *vect, int nb_words)
+{
+	char	**ret;
+	int i;
+
+	i = 0;
+	ret = malloc(sizeof(char *) * (nb_words + 1));
+	while (i < nb_words)
+	{
+		if (i == nb_words - 1)
+			ret[i] = ft_substr(cmd, vect[i], ft_strlen(cmd) - vect[i]);
+		else
+			ret[i] = ft_substr(cmd, vect[i], vect[i + 1] - vect[i]);
+		i++;
+	}
+	ret[i] = NULL;
+	return (ret);
+}
+
+char	**get_sub_words(char *cmd, int nb_words)//try to merge with check_sub
+{
+	int	vect[nb_words];
+	int	i;
+	int	inside;
+	int	i_word;
+
+	i = 0;
+	i_word = 0;	
+	vect[i_word] = 0;
+	inside = NO_Q;
+	while (cmd[i])
+	{
+		if (cmd[i] == '"' || cmd[i] == '\'')
+			quote_interpretation(cmd[i], &inside);
+		else if (inside == NO_Q && is_special(cmd + i))
+		{
+			vect[++i_word] = i;
+			i += is_special(cmd + i);
+			if (cmd[i] && !is_special(cmd + i))
+				vect[++i_word] = i;
+			continue ;
+		}
+		i++;
+	}
+	// for (int x=0;x< nb_words;x++)
+	// 	printf("|%d|\n", vect[x]);
+	return (splitting(cmd, vect, nb_words));
+}
+
+char	**check_sub_words(char *cmd)
+{
+	int	i;
+	int	inside;
+	int	nb_word;
+
+	i = 0;
+	nb_word = 1;	
+	inside = NO_Q;
+	while (cmd[i])
+	{
+		if (cmd[i] == '"' || cmd[i] == '\'')
+			quote_interpretation(cmd[i], &inside);
+		else if (inside == NO_Q && is_special(cmd + i))
+		{
+			i += is_special(cmd + i);
+			nb_word++;
+			if (cmd[i] && !is_special(cmd + i))
+				nb_word++;
+			continue ;
+		}
+		i++;
+	}
+	return (get_sub_words(cmd, nb_word));
+}
+
+
 t_lexer	*lexer(char **cmd_line, t_gen *data)
 {
 	t_lexer *lst_elem;
-	int	i;
+	int		i;
+	int		j;
+	char	**splited;
 
+	(void)data;
 	lst_elem = NULL;
 	i = 0;
 	while (cmd_line[i] != NULL)
 	{
-		lst_elem = add_elem_lex(lst_elem, cmd_line[i], data);
+		j = 0;
+		splited = NULL;
+		splited = check_sub_words(cmd_line[i]);
+		while (splited[j] != NULL)
+		{
+			// printf("split: %s\n", splited[j]);
+			lst_elem = add_elem_lex(lst_elem, splited[j], data);
+			j++;
+		}
+		free_tab(splited);
 		i++;
 	}
 	return (lst_elem);

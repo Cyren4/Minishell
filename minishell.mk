@@ -6,6 +6,7 @@ FILES = minishell.c \
 		parsing/token.c \
 		parsing/token_utils.c \
 		parsing/env_utils.c \
+		utils/utils_1.c
 
 SUB_DIR	=	parsing display error utils
 
