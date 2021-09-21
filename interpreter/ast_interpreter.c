@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 15:20:48 by vbaron            #+#    #+#             */
-/*   Updated: 2021/09/21 12:49:58 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/09/21 17:31:11 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ t_tree *build_pipe(t_tree *ast, t_lexer *lex, t_lexer *head)
 {
 	t_tree *new;
 
+	if (!lex->next || head == lex)
+		return (NULL);
 	new = malloc(sizeof(t_tree));
 	if (!new)
 		return (0);
@@ -104,9 +106,12 @@ int main()
 	// lexer = add_custom_elem_to_lexer(lexer, "file", WORD);
 	lexer = add_custom_elem_to_lexer(lexer, "|", PIPE);
 	// lexer = add_custom_elem_to_lexer(lexer, "ls", WORD);
-	lexer = add_custom_elem_to_lexer(lexer, "|", PIPE);
+	// lexer = add_custom_elem_to_lexer(lexer, "|", PIPE);
 	// lexer = add_custom_elem_to_lexer(lexer, "ls2", WORD);
 	// add_custom_elem_to_lexer(lexer, "echo", WORD);
 	ast = NULL;
 	ast = build_tree(lexer);
+	if (ast == NULL)
+		printf("Error! bad input\n");
+	return (0);
 }

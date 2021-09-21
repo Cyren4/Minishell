@@ -137,7 +137,7 @@ int	check_type(t_lexer *elem, t_gen *data)
 }
 /*
 	if (check_cmd(elem))
-		elem->token = CMD;
+		elem->token = CMD; 
 */
 
 t_lexer	*add_elem_lex(t_lexer *lst_elem, char *cmd, t_gen *data)
