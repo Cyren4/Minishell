@@ -151,6 +151,7 @@ t_lexer	*add_elem_lex(t_lexer *lst_elem, char *cmd, t_gen *data)
 	new->content = ft_strdup(cmd);
 	new->is_builtin = 0;
 	new->next = NULL;
+	new->quote_type = NO_Q;
 	check_type(new, data);
 	if (lst_elem == NULL)
 		return (new);

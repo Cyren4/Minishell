@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_prompt.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:01:34 by vbaron            #+#    #+#             */
-/*   Updated: 2021/09/21 16:35:29 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/09/21 16:56:54 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ void display_prompt(t_gen *data)
 {
 	int i;
 
-	data->parser.std_in = ft_strdup(readline("minishell $ "));
+	data->parser.std_in = readline("minishell $ ");
 	splitter(data);
 	i = -1;
 	while (data->parser.parsed[++i] != NULL)
