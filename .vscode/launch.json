@@ -9,7 +9,7 @@
 			"type": "cppdbg",
 			"request": "launch",
 			"program": "/Users/vbaron/Desktop/Mini_shared/interpreter/my_interpreter",
-			"args": ["5 + 5"],
+			"args": [],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",
 			"environment": [],

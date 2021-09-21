@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 15:20:48 by vbaron            #+#    #+#             */
-/*   Updated: 2021/09/20 21:57:05 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/09/21 12:49:58 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,17 +51,18 @@ t_tree *build_leaf(t_lexer *lexer)
 	leaf->cmd = lexer;
 	leaf->left = NULL;
 	leaf->right = NULL;
+	return (leaf);
 }
 
 t_tree *build_tree(t_lexer *lexer)
 {
 	t_tree *ast;
-	t_tree *curr_lex;
+	t_lexer *curr_lex;
 	
 	curr_lex = lexer;
-	while (lexer && lexer->token != PIPE)
-		lexer = lexer->next;
-	if (lexer && lexer->token == PIPE)
+	while (curr_lex && curr_lex->token != PIPE)
+		curr_lex = curr_lex->next;
+	if (curr_lex && curr_lex->token == PIPE)
 		ast = build_pipe(ast, curr_lex, lexer);
 	else
 		ast = build_leaf(lexer);
@@ -97,11 +98,15 @@ int main()
 	t_lexer *lexer;
 
 	lexer = NULL;
-	lexer = add_custom_elem_to_lexer(lexer, "echo", WORD);
-	lexer = add_custom_elem_to_lexer(lexer, "hello", WORD);
+	// lexer = add_custom_elem_to_lexer(lexer, "echo", WORD);
+	// lexer = add_custom_elem_to_lexer(lexer, "hello", WORD);
+	// lexer = add_custom_elem_to_lexer(lexer, ">", GT);
+	// lexer = add_custom_elem_to_lexer(lexer, "file", WORD);
 	lexer = add_custom_elem_to_lexer(lexer, "|", PIPE);
-	lexer = add_custom_elem_to_lexer(lexer, "ls", WORD);
+	// lexer = add_custom_elem_to_lexer(lexer, "ls", WORD);
+	lexer = add_custom_elem_to_lexer(lexer, "|", PIPE);
+	// lexer = add_custom_elem_to_lexer(lexer, "ls2", WORD);
 	// add_custom_elem_to_lexer(lexer, "echo", WORD);
 	ast = NULL;
-	ast = build_tree(ast, lexer);
+	ast = build_tree(lexer);
 }
