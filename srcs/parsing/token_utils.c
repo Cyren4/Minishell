@@ -22,11 +22,11 @@ int	is_builtin(char *cmd)
 
 int	is_special(char *cmd)
 {
-	if (ft_strncmp(cmd, "|", 1) == 0 || ft_strncmp(cmd, "<", 1) == 0
+	if (ft_strncmp(cmd, "<<", 2) == 0 || ft_strncmp(cmd, ">>", 2) == 0)
+		return (2);
+	else if (ft_strncmp(cmd, "|", 1) == 0 || ft_strncmp(cmd, "<", 1) == 0
 		|| ft_strncmp(cmd, ">", 1) == 0)
 			return (1);
-	else if (ft_strncmp(cmd, "<<", 2) == 0 || ft_strncmp(cmd, ">>", 2) == 0)
-		return (2);
 	return (0);
 }
 
@@ -45,16 +45,15 @@ void	quote_interpretation(char quote, int *inside)
 void	display_token(t_lexer *lst_lex)
 { 	
 	t_lexer *tmp;
-	
 	char *token[8] = {"WORD", "CMD", "PIPE", "LT", "LT2", "GT", "GT2", "OPTION"};
-	char *quote[3] = {"NO_QUOTE", "SIMPLE_QUOTE", "DOUBLE_QUOTE"};
+	// char *quote[3] = {"NO_QUOTE", "SIMPLE_QUOTE", "DOUBLE_QUOTE"};
 	
 	printf("Let's show token\n");
-
 	tmp = lst_lex;
 	while (tmp)
 	{
-		printf("%s\t%s\t%s\t%s\n", tmp->content, token[tmp->token], tmp->is_builtin ? "Builtin" : "", tmp->token == WORD ? quote[tmp->quote_type]:"");
+		// printf("%s\t%s\t%s\t%s\n", tmp->content, token[tmp->token], tmp->is_builtin ? "Builtin" : "", tmp->token == WORD ? quote[tmp->quote_type]:"");
+		printf("%s\t%s\n", tmp->content, token[tmp->token]);
 		tmp = tmp->next;
 	}
 }
