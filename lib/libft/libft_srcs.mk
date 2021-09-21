@@ -51,6 +51,7 @@ FILES	=	convert_utils.c \
 			get_next_line.c \
 			puissance.c \
 			convert_utils.c \
+			check_charset.c \
 			srcs_printf/ft_display_char.c \
 			srcs_printf/ft_display_int.c \
 			srcs_printf/ft_display_uint.c \

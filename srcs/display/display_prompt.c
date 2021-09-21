@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_prompt.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:01:34 by vbaron            #+#    #+#             */
-/*   Updated: 2021/09/18 17:49:22 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/09/21 12:11:32 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ void splitter(t_gen *data)
 		
 		if (data->parser.std_in[i] == 39 || data->parser.std_in[i] == 34)
 			i = skip_to_next_quote(data, i);
+		if (check_charset(data->parser.std_in[i], "|<>") != -1)
+			elems+= 2;
 		if (data->parser.std_in[i] == ' ')
 		{
 			elems++;
@@ -92,13 +94,25 @@ void splitter(t_gen *data)
 	{
 		if (data->parser.std_in[i] == 39 || data->parser.std_in[i] == 34)
 			i = skip_to_next_quote(data, i);
-		if (data->parser.std_in[i] == ' ')
+		if (check_charset(data->parser.std_in[i], "<>| ") != -1)
 		{
-			*data->parser.parsed = ft_substr(data->parser.std_in, start, i - start);
-			data->parser.parsed++;
-			while (data->parser.std_in[i] == ' ')
+			if (data->parser.std_in[i] == ' ')
+			{
+				*data->parser.parsed = ft_substr(data->parser.std_in, start, i - start);
+				data->parser.parsed++;
+				while (data->parser.std_in[i] == ' ')
+					i++;
+				start = i;
+			}
+			if (check_charset(data->parser.std_in[i], "<>|") != -1)
+			{
+				*data->parser.parsed = ft_substr(data->parser.std_in, start, i - start);
+				data->parser.parsed++;
+				*data->parser.parsed = ft_substr(&(data->parser.std_in[i]), 0, 1);
+				data->parser.parsed++;
 				i++;
-			start = i;
+				start = i;
+			}
 		}
 		else
 			i++;
@@ -109,30 +123,30 @@ void splitter(t_gen *data)
 	data->parser.parsed = split_head;
 }
 
-// int main(int ac, char **av)
-// {
-// 	int i;
-// 	t_gen data;
-
-// 	data.parser.std_in =av[1];
-// 	splitter(&data);
-// 	(void)ac;
-
-// 	i = 0;
-// 	while (data.parser.parsed[i] != NULL)
-// 	{
-// 		printf("%s\n", data.parser.parsed[i]);
-// 		i++;
-// 	}
-// }
-
-void display_prompt(t_gen *data)
+int main(int ac, char **av)
 {
 	int i;
+	t_gen data;
 
-	data->parser.std_in = readline("minishell $ ");
-	splitter(data);
-	i = -1;
-	while (data->parser.parsed[++i] != NULL)
-		printf("parsed[%d]: %s\n", i, data->parser.parsed[i]);
+	data.parser.std_in =ft_strdup(av[1]);
+	splitter(&data);
+	(void)ac;
+
+	i = 0;
+	while (data.parser.parsed[i] != NULL)
+	{
+		printf("%s\n", data.parser.parsed[i]);
+		i++;
+	}
 }
+
+// void display_prompt(t_gen *data)
+// {
+// 	int i;
+
+// 	data->parser.std_in = readline("minishell $ ");
+// 	splitter(data);
+// 	i = -1;
+// 	while (data->parser.parsed[++i] != NULL)
+// 		printf("parsed[%d]: %s\n", i, data->parser.parsed[i]);
+// }

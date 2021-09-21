@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 11:25:22 by cramdani          #+#    #+#             */
-/*   Updated: 2021/08/13 01:27:40 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/09/21 11:22:28 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,7 @@ char			*convert(int nb, char *base);
 void			*ft_realloc(void *ptr, size_t new_size);
 
 int				get_next_line(int fd, char **line);
+
+int				check_charset(char c, char const *set);
 
 #endif
