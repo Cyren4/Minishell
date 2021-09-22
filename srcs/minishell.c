@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/09/22 17:55:31 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/09/22 19:40:13 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int main(int ac, char **av, char **env)
 		display_prompt(&data);
 		data.lex = lexer(data.parser.parsed, &data);
 		display_token(data.lex);
-		build_tree(data.lex);
+		// build_tree(data.lex);
 		clean_data(&data);
 	}
 	return (0);
