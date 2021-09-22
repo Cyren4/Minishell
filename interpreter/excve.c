@@ -6,11 +6,23 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 10:18:09 by vbaron            #+#    #+#             */
-/*   Updated: 2021/09/22 10:46:58 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/09/22 15:27:48 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../includes/minishell.h"
+
+void display_array(char **path)
+{
+	int i;
+	i = 0;
+
+	while (path[i])
+	{
+		printf("array[%i]: %s\n", i, path[i]);
+		i++;
+	}
+}
 
 void ft_excve(char *command, char **args, t_gen *data)
 {
@@ -32,19 +44,22 @@ void create_paths(t_gen *data)
 	tmp = data->env;
 	while (tmp != NULL)
 	{
-		if (ft_strcmp(tmp->name, "PATHS"))
+		if (ft_strcmp(tmp->name, "PATH") == 0)
 			break;
 		tmp = tmp->next;
 	}
 	elems = 0;
 	data->paths = ft_split(tmp->content, ':');
+	display_array(data->paths);
 }
 
-int main(int ac, char **av, char **env)
+int main(int ac, char **av, char **envs)
 {
 	t_gen data;
+	int i;
 
-	stock_env_vars(&data, env);
+	i = 0;
+	stock_env_vars(&data, envs);
 	create_paths(&data);
 	ft_excve(av[1], &av[1], &data);
 }

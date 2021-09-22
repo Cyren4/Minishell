@@ -6,11 +6,25 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 18:45:42 by vbaron            #+#    #+#             */
-/*   Updated: 2021/09/22 10:49:48 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/09/22 15:26:38 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void display_env_vars(t_env *envs)
+{
+	t_env *head;
+
+	head = envs;
+	
+	while (envs)
+	{
+		printf("%s=%s\n", envs->name, envs->content);
+		envs = envs->next;
+	}
+	envs = head;
+}
 
 void add_elem(t_gen *data, char *var_path)
 {
@@ -37,8 +51,9 @@ void stock_env_vars(t_gen *data, char **env)
 {
 	int i;
 
+	data->env = NULL;
 	i = 0;
-	while (env[i])
+	while (env[i] != NULL)
 	{
 		add_elem(data, env[i]);
 		i++;

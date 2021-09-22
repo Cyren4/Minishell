@@ -6,7 +6,7 @@
 #    By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/17 16:13:53 by vbaron            #+#    #+#              #
-#    Updated: 2021/09/22 10:48:39 by vbaron           ###   ########.fr        #
+#    Updated: 2021/09/22 14:52:54 by vbaron           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ LIBFT_DIR = ../lib/libft
 
 NAME = my_interpreter
 
-CC = gcc -g3 
+CC = gcc -g3
 
 LIBFT = $(addprefix $(LIBFT_DIR)/,libft.a)
 
