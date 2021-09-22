@@ -1,87 +1,16 @@
-// #include "token.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   token.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/09/22 19:26:49 by cramdani          #+#    #+#             */
+/*   Updated: 2021/09/22 19:36:25 by cramdani         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
-
-/*	return 1 si c'est une commande du path 0 sinon)*/
-// int	check_cmd(t_lexer *elem)
-// {
-// 	char **path;
-
-// 	if (is_builtin(elem->content))
-// 	{
-// 		elem->is_builtin = 1;
-// 		return (1);
-// 	} else if (ft_strncmp(elem->content, "./", 2) == 0)
-// 		return (1);
-// 	// path = ft_split(getenv("PATH"), ':');
-	
-// 	return 0;
-// 	//according to which quote-> replace variables 
-// }
-
-int	var_size(char *src, int *src_i, t_gen *data)
-{
-	char	env_var[ft_strlen(src) - *src_i];
-	int		i;
-
-	i = 0;
-	*src_i+=1;
-	while (src[*src_i] && (ft_isalnum(src[*src_i]) || src[*src_i] == '_'))
-	{
-		env_var[i] = src[*src_i];
-		*src_i+=1;
-		i++;
-	}
-	env_var[i] = '\0';
-	return (ft_strlen(get_env_var(data, env_var)));
-}
-
-int	real_size(char *content, t_gen *data)
-{
-	int		total_size;
-	int		inside;
-	int		i;
-
-	i = 0;
-	inside = NO_Q;
-	total_size = 0;
-	while (content[i])
-	{
-		if (content[i] == '"' || content[i] == '\'')
-			quote_interpretation(content[i], &inside);
-		else if (content[i] == '$' && inside != SIMPLE_Q)
-		{
-			total_size += var_size(content, &i, data);
-			continue ;
-		}
-		else
-		{
-			total_size++;
-		}
-		i++;
-	}
-	return (total_size);
-
-}
-
-int	insert_var(char *dst, char *src, int *src_i, t_gen *data)
-{
-	char	env_var[ft_strlen(src) - *src_i];
-	int		i;
-	int		var_size;
-
-	i = 0;
-	*src_i+=1;
-	while (src[*src_i] && (ft_isalnum(src[*src_i]) || src[*src_i] == '_'))
-	{
-		env_var[i] = src[*src_i];
-		*src_i+=1;
-		i++;
-	}
-	env_var[i] = '\0';
-	var_size = ft_strlen(get_env_var(data, env_var));
-	ft_memcpy(dst, get_env_var(data, env_var), var_size);
-	return (var_size);
-}
 
 void	complexe_elem(t_lexer *elem, t_gen *data)
 {
@@ -127,22 +56,21 @@ int	check_type(t_lexer *elem, t_gen *data)
 		elem->token = GT;
 	else if (ft_strcmp(elem->content, ">>") == 0)
 		elem->token = GT2;
-	else {
+	else
+	{
 		complexe_elem(elem, data);
 		elem->token = WORD;
-		// if (check_cmd(elem))
-		// 	elem->token = CMD;
 	}
 	return (1);
 }
 
 t_lexer	*add_elem_lex(t_lexer *lst_elem, char *cmd, t_gen *data)
 {
-	t_lexer *new;
-	t_lexer *tmp;
+	t_lexer	*new;
+	t_lexer	*tmp;
 
-	new = malloc(sizeof(t_lexer)); 
-	if (!new)//many do a force exit with free
+	new = malloc(sizeof(t_lexer));
+	if (!new)
 		return (NULL);
 	new->content = ft_strdup(cmd);
 	new->is_builtin = 0;
@@ -157,58 +85,9 @@ t_lexer	*add_elem_lex(t_lexer *lst_elem, char *cmd, t_gen *data)
 	return (lst_elem);
 }
 
-char	**splitting(char *cmd, int *vect, int nb_words)
-{
-	char	**ret;
-	int i;
-
-	i = 0;
-	ret = malloc(sizeof(char *) * (nb_words + 1));
-	while (i < nb_words)
-	{
-		if (i == nb_words - 1)
-			ret[i] = ft_substr(cmd, vect[i], ft_strlen(cmd) - vect[i]);
-		else
-			ret[i] = ft_substr(cmd, vect[i], vect[i + 1] - vect[i]);
-		i++;
-	}
-	ret[i] = NULL;
-	return (ret);
-}
-
-char	**check_sub_words(char *cmd)
-{
-	int	vect[ft_strlen(cmd)];
-	int	i;
-	int	i_word;
-	int	inside;
-
-	i = 0;
-	i_word = 0;	
-	vect[i_word] = 0;
-	inside = NO_Q;
-	while (cmd[i])
-	{
-		if (cmd[i] == '"' || cmd[i] == '\'')
-			quote_interpretation(cmd[i], &inside);
-		else if (inside == NO_Q && is_special(cmd + i))
-		{
-			if (i != 0)
-				vect[++i_word] = i;
-			i += is_special(cmd + i);
-			if (cmd[i] && !is_special(cmd + i))
-				vect[++i_word] = i;
-			continue ;
-		}
-		i++;
-	}
-	return (splitting(cmd, vect, i_word + 1));
-}
-
-
 t_lexer	*lexer(char **cmd_line, t_gen *data)
 {
-	t_lexer *lst_elem;
+	t_lexer	*lst_elem;
 	int		i;
 	int		j;
 	char	**splited;
@@ -222,7 +101,6 @@ t_lexer	*lexer(char **cmd_line, t_gen *data)
 		splited = check_sub_words(cmd_line[i]);
 		while (splited[j] != NULL)
 		{
-			// printf("split: %s\n", splited[j]);
 			lst_elem = add_elem_lex(lst_elem, splited[j], data);
 			j++;
 		}

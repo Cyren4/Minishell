@@ -75,11 +75,17 @@ typedef struct s_gen
 /*		token.c		*/
 t_lexer	*lexer(char **cmd_line, t_gen *data);
 
+/*	token_split.c	*/
+char	**check_sub_words(char *cmd);
+
+/*	token_insert_var.c	*/
+int	insert_var(char *dst, char *src, int *src_i, t_gen *data);
+int	real_size(char *content, t_gen *data);
+
 /*	token_utils.c	*/
 int		is_builtin(char *cmd);
 void	quote_interpretation(char quote, int *inside);
 void	display_token(t_lexer *lst_lex);
-int		is_special(char *cmd);
 
 /*	env_utils.c	*/
 char	*get_env_var(t_gen *gen, char *var);

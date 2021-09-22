@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/17 14:42:10 by cramdani          #+#    #+#             */
-/*   Updated: 2021/09/17 14:48:34cramdani         ###   ########.fr       */
+/*   Created: 2021/09/22 19:28:48 by cramdani          #+#    #+#             */
+/*   Updated: 2021/09/22 19:35:12 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,9 @@
 int	is_builtin(char *cmd)
 {
 	return (ft_strcmp(cmd, "echo") == 0 || ft_strcmp(cmd, "cd") == 0
-			|| ft_strcmp(cmd, "pwd") == 0 || ft_strcmp(cmd, "export") == 0
-			|| ft_strcmp(cmd, "unset") == 0 || ft_strcmp(cmd, "env") == 0
-			|| ft_strcmp(cmd, "exit") == 0);
-}
-
-int	is_special(char *cmd)
-{
-	if (ft_strncmp(cmd, "<<", 2) == 0 || ft_strncmp(cmd, ">>", 2) == 0)
-		return (2);
-	else if (ft_strncmp(cmd, "|", 1) == 0 || ft_strncmp(cmd, "<", 1) == 0
-		|| ft_strncmp(cmd, ">", 1) == 0)
-			return (1);
-	return (0);
+		|| ft_strcmp(cmd, "pwd") == 0 || ft_strcmp(cmd, "export") == 0
+		|| ft_strcmp(cmd, "unset") == 0 || ft_strcmp(cmd, "env") == 0
+		|| ft_strcmp(cmd, "exit") == 0);
 }
 
 void	quote_interpretation(char quote, int *inside)
@@ -42,17 +32,17 @@ void	quote_interpretation(char quote, int *inside)
 		*inside = NO_Q;
 }
 
+//to delete once done
 void	display_token(t_lexer *lst_lex)
-{ 	
-	t_lexer *tmp;
-	char *token[8] = {"WORD", "CMD", "PIPE", "LT", "LT2", "GT", "GT2", "OPTION"};
+{
+	t_lexer	*tmp;
+	char	*token[8] = {"WORD", "CMD", "PIPE", "LT", "LT2", "GT", "GT2", "OPTION"};
 	// char *quote[3] = {"NO_QUOTE", "SIMPLE_QUOTE", "DOUBLE_QUOTE"};
 	
 	printf("Let's show token\n");
 	tmp = lst_lex;
 	while (tmp)
 	{
-		// printf("%s\t%s\t%s\t%s\n", tmp->content, token[tmp->token], tmp->is_builtin ? "Builtin" : "", tmp->token == WORD ? quote[tmp->quote_type]:"");
 		printf("%s\t%s\n", tmp->content, token[tmp->token]);
 		tmp = tmp->next;
 	}

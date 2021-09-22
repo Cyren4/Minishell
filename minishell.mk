@@ -1,11 +1,13 @@
 FILES = minishell.c \
 		display/display_prompt.c \
-		parsing/env_vars_parsing.c \
 		error/error.c \
 		utils/display_env_vars.c \
-		parsing/token.c \
-		parsing/token_utils.c \
 		parsing/env_utils.c \
+		parsing/env_vars_parsing.c \
+		parsing/token_insert_var.c \
+		parsing/token_split.c \
+		parsing/token_utils.c \
+		parsing/token.c \
 		utils/utils_1.c \
 		executor/ast_builder.c \
 		executor/build_leaf_ast.c \

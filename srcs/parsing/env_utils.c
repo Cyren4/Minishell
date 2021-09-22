@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 14:42:47 by cramdani          #+#    #+#             */
-/*   Updated: 2021/09/18 17:38:51 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/09/22 19:10:47 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 
 char	*get_env_var(t_gen *gen, char *var)
 {
-	t_env *tmp_env;
-	
-	tmp_env = gen->env; 
+	t_env	*tmp_env;
 
+	tmp_env = gen->env;
 	while (tmp_env)
 	{
 		if (ft_strcmp(tmp_env->name, var) == 0)

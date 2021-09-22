@@ -3,23 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   env_vars_parsing.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 18:45:42 by vbaron            #+#    #+#             */
-/*   Updated: 2021/09/22 18:08:11 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/09/22 19:11:44 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void add_elem(t_gen *data, char *var_path)
+void	add_elem(t_gen *data, char *var_path)
 {
-	t_env *new;
-	t_env *head;
+	t_env	*new;
+	t_env	*head;
 
 	new = (t_env *)malloc(sizeof(t_env));
 	new->name = ft_split(var_path, '=')[0];
-	new->content = ft_substr(var_path, ft_strlen(new->name) + 1, ft_strlen(var_path));
+	new->content = ft_substr(var_path, ft_strlen(new->name) + 1,
+			ft_strlen(var_path));
 	new->next = NULL;
 	if (!data->env)
 		data->env = new;
@@ -33,9 +34,9 @@ void add_elem(t_gen *data, char *var_path)
 	}
 }
 
-void stock_env_vars(t_gen *data, char **env)
+void	stock_env_vars(t_gen *data, char **env)
 {
-	int i;
+	int	i;
 
 	data->env = NULL;
 	i = 0;
