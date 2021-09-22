@@ -60,7 +60,7 @@ typedef struct s_tree
 
 typedef struct s_gen
 {
-	
+	int	exit_stat;
 	int status;
 	int tracker;
 	t_env *env;

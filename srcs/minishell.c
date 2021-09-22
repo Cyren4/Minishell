@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/09/22 19:40:13 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/09/22 19:52:10 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void init_data(t_gen *data)
 	data->parser.std_in = NULL;
 	data->parser.parsed = NULL;
 	data->status = 1;
+	data->exit_stat = 0;
 	data->ast = NULL;
 }
 
