@@ -56,6 +56,7 @@ typedef struct s_gen
 	int status;
 	int tracker;
 	t_env *env;
+	char **paths;
 	t_lexer	*lex;
 	t_pars parser;
 }	t_gen;

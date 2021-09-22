@@ -6,14 +6,15 @@
 #    By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/17 16:13:53 by vbaron            #+#    #+#              #
-#    Updated: 2021/09/20 20:59:40 by vbaron           ###   ########.fr        #
+#    Updated: 2021/09/22 10:48:39 by vbaron           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 DIR_S = ./
 DIR_O = objs
 
-SOURCES = ast_interpreter.c
+SOURCES = excve.c \
+		env_vars_parsing.c \
 
 SRCS = $(addprefix $(DIR_S)/,$(SOURCES))
 OBJS = $(addprefix $(DIR_O)/,$(SOURCES:.c=.o))
