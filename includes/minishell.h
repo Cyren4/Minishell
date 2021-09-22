@@ -70,9 +70,13 @@ t_lexer	*lexer(char **cmd_line, t_gen *data);
 int		is_builtin(char *cmd);
 void	quote_interpretation(char quote, int *inside);
 void	display_token(t_lexer *lst_lex);
+int		is_special(char *cmd);
 
 /*	env_utils.c	*/
 char	*get_env_var(t_gen *gen, char *var);
+
+/*	utils.c	*/
+void    free_tab(char **tab);
 
 /*	temp to print something	*/
 // char *g_token[8] = {"WORD", "CMD", "PIPE", "LT", "LT2", "GT", "GT2", "OPTION"};

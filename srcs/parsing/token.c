@@ -97,7 +97,7 @@ void	complexe_elem(t_lexer *elem, t_gen *data)
 	while (elem->content[elem_i])
 	{
 		if (elem->content[elem_i] == '"' || elem->content[elem_i] == '\'')
-			quote_interpretation(elem->content[i], &inside);
+			quote_interpretation(elem->content[elem_i], &inside);
 		else if (elem->content[elem_i] == '$' && inside != SIMPLE_Q)
 		{
 			i += insert_var(real_content + i, elem->content, &elem_i, data);
@@ -135,17 +135,13 @@ int	check_type(t_lexer *elem, t_gen *data)
 	}
 	return (1);
 }
-/*
-	if (check_cmd(elem))
-		elem->token = CMD; 
-*/
 
 t_lexer	*add_elem_lex(t_lexer *lst_elem, char *cmd, t_gen *data)
 {
 	t_lexer *new;
 	t_lexer *tmp;
 
-	new = malloc(sizeof(t_lexer)); //protect malloc
+	new = malloc(sizeof(t_lexer)); 
 	if (!new)//many do a force exit with free
 		return (NULL);
 	new->content = ft_strdup(cmd);
@@ -162,16 +158,81 @@ t_lexer	*add_elem_lex(t_lexer *lst_elem, char *cmd, t_gen *data)
 	return (lst_elem);
 }
 
+char	**splitting(char *cmd, int *vect, int nb_words)
+{
+	char	**ret;
+	int i;
+
+	i = 0;
+	ret = malloc(sizeof(char *) * (nb_words + 1));
+	while (i < nb_words)
+	{
+		if (i == nb_words - 1)
+			ret[i] = ft_substr(cmd, vect[i], ft_strlen(cmd) - vect[i]);
+		else
+			ret[i] = ft_substr(cmd, vect[i], vect[i + 1] - vect[i]);
+		i++;
+	}
+	ret[i] = NULL;
+	return (ret);
+}
+
+char	**check_sub_words(char *cmd)
+{
+	int	vect[ft_strlen(cmd)];
+	int	i;
+	int	i_word;
+	int	inside;
+	int	nb_word;
+
+	i = 0;
+	i_word = 0;	
+	vect[i_word] = 0;
+	nb_word = 1;	
+	inside = NO_Q;
+	while (cmd[i])
+	{
+		if (cmd[i] == '"' || cmd[i] == '\'')
+			quote_interpretation(cmd[i], &inside);
+		else if (inside == NO_Q && is_special(cmd + i))
+		{
+			vect[++i_word] = i;
+			i += is_special(cmd + i);
+			nb_word++;
+			if (cmd[i] && !is_special(cmd + i))
+			{
+				nb_word++;
+				vect[++i_word] = i;
+			}
+			continue ;
+		}
+		i++;
+	}
+	return (splitting(cmd, vect, nb_word));
+}
+
+
 t_lexer	*lexer(char **cmd_line, t_gen *data)
 {
 	t_lexer *lst_elem;
-	int	i;
+	int		i;
+	int		j;
+	char	**splited;
 
 	lst_elem = NULL;
 	i = 0;
 	while (cmd_line[i] != NULL)
 	{
-		lst_elem = add_elem_lex(lst_elem, cmd_line[i], data);
+		j = 0;
+		splited = NULL;
+		splited = check_sub_words(cmd_line[i]);
+		while (splited[j] != NULL)
+		{
+			// printf("split: %s\n", splited[j]);
+			lst_elem = add_elem_lex(lst_elem, splited[j], data);
+			j++;
+		}
+		free_tab(splited);
 		i++;
 	}
 	return (lst_elem);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/09/21 17:06:20 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/09/21 21:01:52 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,17 +71,16 @@ int main(int ac, char **av, char **env)
 {
 	t_gen data;
 
-	// (void)av;
-	// if (ac != 1)
-		// return (0);
-		(void)ac;
+	(void)av;
+	if (ac != 1)
+		return (0);
 	init_data(&data);
 	stock_env_vars(&data, env);
 	while (data.status)
 	{
-		data.status = 0;
-		// display_prompt(&data);
-		data.lex = lexer(&av[1], &data);
+		// data.status = 0;
+		display_prompt(&data);
+		data.lex = lexer(data.parser.parsed, &data);
 		display_token(data.lex);
 		clean_data(&data);
 	}
