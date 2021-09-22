@@ -32,7 +32,6 @@ typedef struct s_lex
 {
 	char			*content;
 	int				token;
-	int				quote_type;
 	int				is_builtin;
 	struct s_lex	*next;
 }	t_lexer;
