@@ -182,12 +182,10 @@ char	**check_sub_words(char *cmd)
 	int	i;
 	int	i_word;
 	int	inside;
-	int	nb_word;
 
 	i = 0;
 	i_word = 0;	
 	vect[i_word] = 0;
-	nb_word = 1;	
 	inside = NO_Q;
 	while (cmd[i])
 	{
@@ -195,19 +193,16 @@ char	**check_sub_words(char *cmd)
 			quote_interpretation(cmd[i], &inside);
 		else if (inside == NO_Q && is_special(cmd + i))
 		{
-			vect[++i_word] = i;
-			i += is_special(cmd + i);
-			nb_word++;
-			if (cmd[i] && !is_special(cmd + i))
-			{
-				nb_word++;
+			if (i != 0)
 				vect[++i_word] = i;
-			}
+			i += is_special(cmd + i);
+			if (cmd[i] && !is_special(cmd + i))
+				vect[++i_word] = i;
 			continue ;
 		}
 		i++;
 	}
-	return (splitting(cmd, vect, nb_word));
+	return (splitting(cmd, vect, i_word + 1));
 }
 
 
