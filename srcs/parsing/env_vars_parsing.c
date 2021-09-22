@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 18:45:42 by vbaron            #+#    #+#             */
-/*   Updated: 2021/09/22 10:49:12 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/09/22 18:08:11 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ void stock_env_vars(t_gen *data, char **env)
 {
 	int i;
 
-	data->env_vars = env;
+	data->env = NULL;
 	i = 0;
-	while (env[i])
+	while (env[i] != NULL)
 	{
 		add_elem(data, env[i]);
 		i++;

@@ -6,9 +6,12 @@ FILES = minishell.c \
 		parsing/token.c \
 		parsing/token_utils.c \
 		parsing/env_utils.c \
-		utils/utils_1.c
+		utils/utils_1.c \
+		executor/ast_builder.c \
+		executor/build_leaf_ast.c \
+		executor/build_pipe_node_ast.c \
 
-SUB_DIR	=	parsing display error utils
+SUB_DIR	=	parsing display error utils executor
 
 BLACK	=	\033[0;30m
 RED		=	\033[0;31m

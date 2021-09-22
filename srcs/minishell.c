@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/09/21 21:01:52 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/09/22 17:55:31 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void init_data(t_gen *data)
 	data->parser.std_in = NULL;
 	data->parser.parsed = NULL;
 	data->status = 1;
+	data->ast = NULL;
 }
 
 void clean_lex(t_lexer *lex)
@@ -82,6 +83,7 @@ int main(int ac, char **av, char **env)
 		display_prompt(&data);
 		data.lex = lexer(data.parser.parsed, &data);
 		display_token(data.lex);
+		build_tree(data.lex);
 		clean_data(&data);
 	}
 	return (0);

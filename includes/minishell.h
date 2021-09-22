@@ -50,6 +50,15 @@ typedef struct s_env
 	struct s_env *next;
 } t_env;
 
+typedef struct s_tree
+{
+	int type;
+	t_lexer *cmd;
+	struct s_tree *left;
+	struct s_tree *right;
+
+} t_tree;
+
 typedef struct s_gen
 {
 	
@@ -59,6 +68,7 @@ typedef struct s_gen
 	char **paths;
 	t_lexer	*lex;
 	t_pars parser;
+	t_tree *ast;
 }	t_gen;
 
 /*			#Parsing#		*/
@@ -104,6 +114,15 @@ void 	stock_env_vars(t_gen *data, char **env);
 // utils/
 /*		display_env_vars.c		*/
 void 	display_env_vars(t_env *envs);
+
+// executor/
+/*		ast_builder.c		*/
+t_tree *build_tree(t_lexer *lexer);
+/*		build_leaf_ast.c		*/
+t_tree *build_leaf(t_lexer *lexer);
+/*		build_pipe_node_ast.c		*/
+t_tree *build_pipe(t_lexer *lex, t_lexer *head);
+void cut_lexer(t_lexer *head, t_lexer *lex);
 
 
 #endif

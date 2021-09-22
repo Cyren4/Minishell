@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 10:18:09 by vbaron            #+#    #+#             */
-/*   Updated: 2021/09/22 15:27:48 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/09/22 17:26:51 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,11 @@ void ft_excve(char *command, char **args, t_gen *data)
 	int i;
 	
 	i = 0;
+
+	execve(command, args, data->paths);
 	while (data->paths[i])
 	{
-		execve(ft_strjoin(data->paths[i], command), args, data->paths);
+		execve(ft_strjoin(ft_strjoin(data->paths[i], "/"), command), args, data->paths);
 		i++;
 	}
 }
@@ -48,8 +50,8 @@ void create_paths(t_gen *data)
 			break;
 		tmp = tmp->next;
 	}
-	elems = 0;
 	data->paths = ft_split(tmp->content, ':');
+	elems = 0;
 	display_array(data->paths);
 }
 

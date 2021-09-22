@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   interprete.h                                       :+:      :+:    :+:   */
+/*   ast_builder.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/16 15:59:53 by vbaron            #+#    #+#             */
-/*   Updated: 2021/09/22 18:00:38 by vbaron           ###   ########.fr       */
+/*   Created: 2021/09/22 16:02:34 by vbaron            #+#    #+#             */
+/*   Updated: 2021/09/22 18:05:37 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <fcntl.h>
-# include <sys/wait.h>
-# include <sys/stat.h>
-# include <signal.h>
-# include "../lib/libft/libft.h"
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
+
+t_tree *build_tree(t_lexer *lexer)
+{
+	t_tree *ast;
+	t_lexer *curr_lex;
+	
+	curr_lex = lexer;
+	while (curr_lex && curr_lex->token != PIPE)
+		curr_lex = curr_lex->next;
+	if (curr_lex && curr_lex->token == PIPE)
+		ast = build_pipe(curr_lex, lexer);
+	else
+		ast = build_leaf(lexer);
+	return ast;
+	
+}
