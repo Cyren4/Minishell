@@ -9,7 +9,7 @@
 			"type": "cppdbg",
 			"request": "launch",
 			"program": "/Users/vbaron/Desktop/Mini_shared/minishell",
-			"args": [],
+			"args": ["jkfsdjfds", "|", "fdsfsd", "|", "dsdsvds"],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",
 			"environment": [],

@@ -26,7 +26,7 @@
 
 enum e_token { WORD, CMD, PIPE, LT, LT2, GT, GT2, OPTION };
 enum e_quote { NO_Q, SIMPLE_Q, DOUBLE_Q};
-enum e_err {QUOTES_UNCLOSED, BAD_MALLOC};
+enum e_err {QUOTES_UNCLOSED, BAD_MALLOC, BAD_INPUT};
 
 typedef struct s_lex
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 19:26:49 by cramdani          #+#    #+#             */
-/*   Updated: 2021/09/22 19:36:25 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/09/23 12:30:10 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	complexe_elem(t_lexer *elem, t_gen *data)
 	i = 0;
 	elem_i = 0;
 	inside = NO_Q;
-	real_content = malloc(sizeof(char) * real_size(elem->content, data));
+	real_content = malloc(sizeof(char) * (real_size(elem->content, data) + 1));
 	while (elem->content[elem_i])
 	{
 		if (elem->content[elem_i] == '"' || elem->content[elem_i] == '\'')
