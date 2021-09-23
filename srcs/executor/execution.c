@@ -1,27 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   build_leaf_ast.c                                   :+:      :+:    :+:   */
+/*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/22 16:05:01 by vbaron            #+#    #+#             */
-/*   Updated: 2021/09/23 15:49:05 by vbaron           ###   ########.fr       */
+/*   Created: 2021/09/23 13:03:48 by vbaron            #+#    #+#             */
+/*   Updated: 2021/09/23 16:17:09 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../includes/minishell.h"
 
-t_tree *build_leaf(t_lexer *lexer)
+int execution(t_gen *data)
 {
-	t_tree *leaf;
-
-	leaf = malloc(sizeof(t_tree));
-	if (!leaf || !lexer)
-		return (NULL);
-	leaf->type = CMD;
-	leaf->cmd = lexer;
-	leaf->left = NULL;
-	leaf->right = NULL;
-	return (leaf);
+	
 }

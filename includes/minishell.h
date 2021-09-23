@@ -24,7 +24,7 @@
 // # define GT2 6 
 // # define OPTION 7
 
-enum e_token { WORD, CMD, PIPE, LT, LT2, GT, GT2, OPTION };
+enum e_token { PIPE, LT, LT2, GT, GT2, CMD, OPTION, WORD };
 enum e_quote { NO_Q, SIMPLE_Q, DOUBLE_Q};
 enum e_err {QUOTES_UNCLOSED, BAD_MALLOC, BAD_INPUT};
 
@@ -119,14 +119,18 @@ void 	stock_env_vars(t_gen *data, char **env);
 // utils/
 /*		display_env_vars.c		*/
 void 	display_env_vars(t_env *envs);
+/*		print_tree.c		*/
+void structure (t_tree *root, int level );
+
 
 // executor/
 /*		ast_builder.c		*/
-t_tree *build_tree(t_lexer *lexer);
+t_tree *build_tree1(t_lexer *lexer);
+t_tree *build_tree2(t_lexer *lexer);
 /*		build_leaf_ast.c		*/
 t_tree *build_leaf(t_lexer *lexer);
 /*		build_pipe_node_ast.c		*/
-t_tree *build_pipe(t_lexer *lex, t_lexer *head);
+t_tree *build_node(t_lexer *lex, t_lexer *head, int type);
 void cut_lexer(t_lexer *head, t_lexer *lex);
 
 

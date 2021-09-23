@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/09/23 13:00:46 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/09/23 17:08:30 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,12 @@ int main(int ac, char **av, char **env)
 		display_prompt(&data);
 		data.lex = lexer(data.parser.parsed, &data);
 		display_token(data.lex);
-		data.ast = build_tree(data.lex);
+		data.ast = build_tree1(data.lex);
 		if (!data.ast)
 			error(&data, BAD_INPUT);
+		// else
+		// 	execution(&data);
+		structure(data.ast, 0);
 		clean_data(&data);
 	}
 	return (0);
@@ -107,7 +110,8 @@ int main(int ac, char **av, char **env)
 // 		// display_prompt(&data);
 // 		data.lex = lexer(&av[1], &data);
 // 		display_token(data.lex);
-// 		data.ast = build_tree(data.lex);
+// 		data.ast = build_tree1(data.lex);
+// 		structure(data.ast, 0);
 // 		if (!data.ast)
 // 			error(&data, BAD_INPUT);
 // 		clean_data(&data);
