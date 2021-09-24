@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:09:35 by vbaron            #+#    #+#             */
-/*   Updated: 2021/09/20 16:48:17 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/09/23 12:50:20 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,20 @@ void ft_clean(t_gen *data)
 	{
 		i = -1;
 		while (data->parser.parsed[++i])
-			free(data->parser.parsed[i]);
+		{
+			if (data->parser.parsed[i])
+				free(data->parser.parsed[i]);
+		}
 	}
-	exit (1);
 }
 
 void error(t_gen *data, int e)
 {
+	(void)data;
 	if (e == QUOTES_UNCLOSED)
 		printf("Error\n- Quotes unclosed -\n");
 	if (e == BAD_MALLOC)
 		printf("Error\n- Bad Malloc -\n");
-	ft_clean(data);
+	if (e == BAD_INPUT)
+		printf("Error\n- Bad Input -\n");
 }

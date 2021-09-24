@@ -9,9 +9,9 @@ FILES = minishell.c \
 		parsing/token_utils.c \
 		parsing/token.c \
 		utils/utils_1.c \
-		executor/ast_builder.c \
-		executor/build_leaf_ast.c \
-		executor/build_pipe_node_ast.c \
+		parsing/ast_builder.c \
+		parsing/build_leaf_ast.c \
+		parsing/build_pipe_node_ast.c \
 
 SUB_DIR	=	parsing display error utils executor
 

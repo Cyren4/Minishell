@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/09/22 19:52:10 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/09/24 11:41:17 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,10 @@ int main(int ac, char **av, char **env)
 {
 	t_gen data;
 
-	(void)av;
 	if (ac != 1)
 		return (0);
+	(void)ac;
+	(void)av;
 	init_data(&data);
 	stock_env_vars(&data, env);
 	while (data.status)
@@ -84,8 +85,33 @@ int main(int ac, char **av, char **env)
 		display_prompt(&data);
 		data.lex = lexer(data.parser.parsed, &data);
 		display_token(data.lex);
-		// build_tree(data.lex);
+		data.ast = build_tree(data.lex);
+		if (!data.ast)
+			error(&data, BAD_INPUT);
 		clean_data(&data);
 	}
 	return (0);
 }
+
+// int main(int ac, char **av, char **env)
+// {
+// 	t_gen data;
+
+// 	// if (ac != 1)
+// 	// 	return (0);
+// 	(void)ac;
+// 	init_data(&data);
+// 	stock_env_vars(&data, env);
+// 	while (data.status)
+// 	{
+// 		data.status = 0;
+// 		// display_prompt(&data);
+// 		data.lex = lexer(&av[1], &data);
+// 		display_token(data.lex);
+// 		data.ast = build_tree(data.lex);
+// 		if (!data.ast)
+// 			error(&data, BAD_INPUT);
+// 		clean_data(&data);
+// 	}
+// 	return (0);
+// }
