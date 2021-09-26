@@ -1,44 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_1.c                                          :+:      :+:    :+:   */
+/*   historic.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/21 19:39:21 by cramdani          #+#    #+#             */
-/*   Updated: 2021/09/26 10:57:53 by cramdani         ###   ########.fr       */
+/*   Created: 2021/09/26 20:12:43 by cramdani          #+#    #+#             */
+/*   Updated: 2021/09/26 20:20:04 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void    free_tab(char **tab)
+void	add_historic(char *line, t_gen *data)
 {
-    int i;
+	t_hist	*new;
 
-    i = 0;
-    if (!tab)
-        return ;
-    while (tab[i] != NULL)
-    {
-        free(tab[i]);
-        i++;
-    }
-    free(tab);
+	new = malloc(sizeof(t_hist));
+	new->past = NULL;
+	new->line = ft_strdup(line);
+	new->next = data->hist;
+	data->hist = new;
 }
 
-void    destroy_historic(t_gen *data)
+int	is_empty(char *line, t_gen *data)
 {
-	t_hist *cur;
-	t_hist *next;
+	int	i;
 
-	if (data->hist == NULL)
-		return;
-	cur = data->hist;
-	while (cur != NULL)
-	{
-		next = cur->next;
-		free(cur);
-		cur = next;
-	}
+	i = 0;
+	if (line || ft_strcmp(data->hist->line, line) == 0)
+		return (1);
+	while (line[i] && ft_isspace(line[i]))
+		i++;
+	return (line[i] == '\0');
 }

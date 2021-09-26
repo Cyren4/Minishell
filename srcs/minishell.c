@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/09/24 11:41:17 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/09/26 10:56:58 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,10 @@ void clean_data(t_gen *data)
 	// data->parser.std_in = NULL;
 	// data->parser.parsed = NULL;
 }
+void	destroy_data(t_gen *data)
+{
+	destroy_historic(data);
+}
 
 int main(int ac, char **av, char **env)
 {
@@ -90,6 +94,7 @@ int main(int ac, char **av, char **env)
 			error(&data, BAD_INPUT);
 		clean_data(&data);
 	}
+	destroy_data(&data);
 	return (0);
 }
 
