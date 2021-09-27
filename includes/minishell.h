@@ -53,6 +53,8 @@ typedef struct s_tree
 {
 	int type;
 	t_lexer *cmd;
+	int std_in;
+	int std_out;
 	struct s_tree *left;
 	struct s_tree *right;
 

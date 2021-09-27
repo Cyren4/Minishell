@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/09/23 17:08:30 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/09/27 18:20:21 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,8 @@ int main(int ac, char **av, char **env)
 		data.ast = build_tree1(data.lex);
 		if (!data.ast)
 			error(&data, BAD_INPUT);
-		// else
-		// 	execution(&data);
+		else
+			create_pipes(data.ast);
 		structure(data.ast, 0);
 		clean_data(&data);
 	}
