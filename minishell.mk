@@ -14,7 +14,10 @@ FILES = minishell.c \
 		parsing/build_node_ast.c \
 		utils/print_tree.c \
 		parsing/create_pipes.c \
-		execution/execute_ast.c \
+		executor/execute_ast.c \
+		executor/execute_command.c \
+		executor/execute_redir.c \
+		executor/is_execve.c \
 
 SUB_DIR	=	parsing display error utils executor
 

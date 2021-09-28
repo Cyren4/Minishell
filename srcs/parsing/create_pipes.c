@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 18:28:23 by vbaron            #+#    #+#             */
-/*   Updated: 2021/09/28 13:58:42 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/09/28 18:24:47 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ int create_pipes(t_tree *ast)
 			return (0);
 		else
 		{
-			head->left->std_in = head->std_in;
-			head->left->std_out = fd[1];
-			head->right->std_in = fd[0];
+			head->left->fd_in = head->fd_in;
+			head->left->fd_out = fd[1];
+			head->right->fd_in = fd[0];
 		}
 	}
 	if (head->left)

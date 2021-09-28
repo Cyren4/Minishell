@@ -73,6 +73,7 @@ typedef struct s_gen
 	t_tree *ast;
 	int std_out;
 	int std_in;
+	int std_err;
 	char *str_err;
 }	t_gen;
 
@@ -118,7 +119,7 @@ void 	error(t_gen *data, int e);
 /*		exec.c		*/
 void 	set_vars(t_gen *mini);
 /*		is_execve.c		*/
-int is_excve(char *command, char **args, t_gen *data);
+int is_excve(char *command, t_gen *data);
 
 // parsing/
 /*		env_vars_parsing.c		*/
@@ -144,6 +145,10 @@ t_tree *build_node(t_lexer *lex, t_lexer *head, int type);
 void cut_lexer(t_lexer *head, t_lexer *lex);
 /*		execute_ast.c		*/
 int execute_ast(t_gen *data, t_tree *ast);
+/*		execute_command.c		*/
+int execute_command(t_gen *data, t_tree *ast);
+/*		execute_command.c		*/
+int execute_redir(t_gen *data, t_tree *ast);
 
 
 #endif

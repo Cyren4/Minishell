@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_excve.c                                         :+:      :+:    :+:   */
+/*   is_execve.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 10:18:09 by vbaron            #+#    #+#             */
-/*   Updated: 2021/09/28 16:40:31 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/09/28 18:40:26 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../includes/minishell.h"
+# include "../../includes/minishell.h"
 
 void display_array(char **path)
 {
@@ -24,7 +24,7 @@ void display_array(char **path)
 	}
 }
 
-int is_excve(char *command, char **args, t_gen *data)
+int is_excve(char *command, t_gen *data)
 {
 	int i;
 	
@@ -56,15 +56,4 @@ void create_paths(t_gen *data)
 	data->paths = ft_split(tmp->content, ':');
 	elems = 0;
 	display_array(data->paths);
-}
-
-int main(int ac, char **av, char **envs)
-{
-	t_gen data;
-	int i;
-
-	i = 0;
-	stock_env_vars(&data, envs);
-	create_paths(&data);
-	ft_excve(av[1], &av[1], &data);
 }

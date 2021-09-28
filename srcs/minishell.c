@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/09/28 17:42:44 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/09/28 18:23:34 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void init_data(t_gen *data)
 	data->parser.parsed = NULL;
 	data->status = 1;
 	data->ast = NULL;
+	data->str_err = NULL;
 	dup2(STDIN_FILENO, data->std_in);
 	dup2(STDOUT_FILENO, data->std_out);
 	dup2(STDERR_FILENO, data->std_err);
