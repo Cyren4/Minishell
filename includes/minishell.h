@@ -62,7 +62,7 @@ typedef struct s_tree
 
 typedef struct s_gen
 {
-	
+	int	exit_stat;
 	int status;
 	int tracker;
 	t_env *env;
@@ -92,8 +92,10 @@ void	display_token(t_lexer *lst_lex);
 /*	env_utils.c	*/
 char	*get_env_var(t_gen *gen, char *var);
 
-/*	utils.c	*/
+/*	utils_1.c	*/
 void    free_tab(char **tab);
+int		is_empty(char *line);
+int		len_int(int nb);
 
 /*	temp to print something	*/
 // char *g_token[8] = {"WORD", "CMD", "PIPE", "LT", "LT2", "GT", "GT2", "OPTION"};
@@ -129,10 +131,16 @@ void structure (t_tree *root, int level );
 
 // executor/
 /*		ast_builder.c		*/
+<<<<<<< HEAD
 t_tree *build_tree1(t_lexer *lexer);
 t_tree *build_tree2(t_lexer *lexer);
+=======
+t_tree *build_tree(t_lexer *lexer);
+
+>>>>>>> dc6730c7a076128d3d4936fba508f08d74d566b8
 /*		build_leaf_ast.c		*/
 t_tree *build_leaf(t_lexer *lexer);
+
 /*		build_pipe_node_ast.c		*/
 t_tree *build_node(t_lexer *lex, t_lexer *head, int type);
 void cut_lexer(t_lexer *head, t_lexer *lex);
