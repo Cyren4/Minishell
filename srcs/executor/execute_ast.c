@@ -1,36 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_pipes.c                                     :+:      :+:    :+:   */
+/*   execute_ast.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/27 18:28:23 by vbaron            #+#    #+#             */
-/*   Updated: 2021/09/28 13:58:42 by vbaron           ###   ########.fr       */
+/*   Created: 2021/09/28 14:09:02 by vbaron            #+#    #+#             */
+/*   Updated: 2021/09/28 14:17:40 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int create_pipes(t_tree *ast)
+int execute_ast(t_gen *data, t_tree *ast)
 {
-	t_tree *head = ast;
-	int fd[2];
+	t_tree *head;
 
-	if (head->type == PIPE)
-	{
-		if (pipe(fd) < 0)
-			return (0);
-		else
-		{
-			head->left->std_in = head->std_in;
-			head->left->std_out = fd[1];
-			head->right->std_in = fd[0];
-		}
-	}
+	head = ast;
+	if (head->type >= LT && head->type <= GT2)
+		execute_redir(data, head);
+	if (head->type == CMD)
+		execute_command(data, head);
 	if (head->left)
-		create_pipes(head->left);
-	else if (head->right)
-		create_pipes(head->right);
-	return (1);
+		 execute_ast(data, head->left);
+	if (head->right)
+		execute_ast(data, head->right);
+	else if (!head->left && !head->right)
+		return (1);
 }
