@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:01:34 by vbaron            #+#    #+#             */
-/*   Updated: 2021/09/26 20:19:49 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/09/28 15:32:04 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,13 +128,16 @@ void splitter(t_gen *data)
 
 void display_prompt(t_gen *data)
 {
-	int i;
-
 	data->parser.std_in = readline("minishell $ ");
-	if (!is_empty(data->parser.std_in, data))
-		add_historic(data->parser.std_in, data);
+	if (ft_strcmp(data->parser.std_in, "") != 0)
+		add_history(data->parser.std_in);
+	if (is_empty(data->parser.std_in) == 1)
+		display_prompt(data);
 	splitter(data);
+/*
+	int i;
 	i = -1;
 	while (data->parser.parsed[++i] != NULL)
 		printf("parsed[%d]: %s\n", i, data->parser.parsed[i]);
+*/
 }

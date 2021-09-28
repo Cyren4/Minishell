@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 19:39:21 by cramdani          #+#    #+#             */
-/*   Updated: 2021/09/26 10:57:53 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/09/28 15:34:45 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,18 @@ void    free_tab(char **tab)
     free(tab);
 }
 
-void    destroy_historic(t_gen *data)
+int	is_empty(char *line)
 {
-	t_hist *cur;
-	t_hist *next;
+	int	i;
 
-	if (data->hist == NULL)
-		return;
-	cur = data->hist;
-	while (cur != NULL)
+	i = 0;
+	if (line == NULL)
+		return (1);
+	while (line[i])
 	{
-		next = cur->next;
-		free(cur);
-		cur = next;
+		if (!ft_isspace(line[i]))
+			return (0);
+		i++;
 	}
+	return (1);
 }

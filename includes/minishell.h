@@ -58,13 +58,6 @@ typedef struct s_tree
 
 } t_tree;
 
-typedef struct s_hist
-{
-	char	*line;
-	struct s_hist *past;
-	struct s_hist *next;
-}				t_hist;
-
 typedef struct s_gen
 {
 	int	exit_stat;
@@ -75,7 +68,6 @@ typedef struct s_gen
 	t_lexer	*lex;
 	t_pars parser;
 	t_tree *ast;
-	t_hist	*hist;
 }	t_gen;
 
 /*			#Parsing#		*/
@@ -100,7 +92,6 @@ char	*get_env_var(t_gen *gen, char *var);
 
 /*	utils_1.c	*/
 void    free_tab(char **tab);
-void    destroy_historic(t_gen *data);
 
 /*	temp to print something	*/
 // char *g_token[8] = {"WORD", "CMD", "PIPE", "LT", "LT2", "GT", "GT2", "OPTION"};
@@ -113,8 +104,7 @@ void    destroy_historic(t_gen *data);
 void	display_prompt(t_gen *data);
 
 /*		historic.c	*/
-void	add_historic(char *line, t_gen *data);
-int		is_empty(char *line, t_gen *data);
+int		is_empty(char *line);
 
 // error/
 /*		error.c		*/
@@ -136,8 +126,10 @@ void 	display_env_vars(t_env *envs);
 // executor/
 /*		ast_builder.c		*/
 t_tree *build_tree(t_lexer *lexer);
+
 /*		build_leaf_ast.c		*/
 t_tree *build_leaf(t_lexer *lexer);
+
 /*		build_pipe_node_ast.c		*/
 t_tree *build_pipe(t_lexer *lex, t_lexer *head);
 void cut_lexer(t_lexer *head, t_lexer *lex);
