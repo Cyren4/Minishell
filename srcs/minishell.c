@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/09/28 14:08:50 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/09/28 17:42:44 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@ void init_data(t_gen *data)
 	data->parser.parsed = NULL;
 	data->status = 1;
 	data->ast = NULL;
+	dup2(STDIN_FILENO, data->std_in);
+	dup2(STDOUT_FILENO, data->std_out);
+	dup2(STDERR_FILENO, data->std_err);
 }
 
 void clean_lex(t_lexer *lex)
@@ -91,7 +94,8 @@ int main(int ac, char **av, char **env)
 		else
 		{
 			create_pipes(data.ast);
-			execute_ast(data);
+			if (!execute_ast(&data, data.ast))
+				error(&data, -1);
 		}
 		structure(data.ast, 0);
 		clean_data(&data);

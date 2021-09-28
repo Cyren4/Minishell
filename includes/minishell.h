@@ -10,6 +10,7 @@
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <signal.h>
+# include <errno.h>
 
 # include "../lib/header_lib.h"
 
@@ -53,8 +54,8 @@ typedef struct s_tree
 {
 	int type;
 	t_lexer *cmd;
-	int std_in;
-	int std_out;
+	int fd_in;
+	int fd_out;
 	struct s_tree *left;
 	struct s_tree *right;
 
@@ -70,6 +71,9 @@ typedef struct s_gen
 	t_lexer	*lex;
 	t_pars parser;
 	t_tree *ast;
+	int std_out;
+	int std_in;
+	char *str_err;
 }	t_gen;
 
 /*			#Parsing#		*/
@@ -113,6 +117,8 @@ void 	error(t_gen *data, int e);
 // exec/
 /*		exec.c		*/
 void 	set_vars(t_gen *mini);
+/*		is_execve.c		*/
+int is_excve(char *command, char **args, t_gen *data);
 
 // parsing/
 /*		env_vars_parsing.c		*/
@@ -136,6 +142,8 @@ t_tree *build_leaf(t_lexer *lexer);
 /*		build_pipe_node_ast.c		*/
 t_tree *build_node(t_lexer *lex, t_lexer *head, int type);
 void cut_lexer(t_lexer *head, t_lexer *lex);
+/*		execute_ast.c		*/
+int execute_ast(t_gen *data, t_tree *ast);
 
 
 #endif

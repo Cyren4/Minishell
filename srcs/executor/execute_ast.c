@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 14:09:02 by vbaron            #+#    #+#             */
-/*   Updated: 2021/09/28 14:17:40 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/09/28 17:05:40 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int execute_ast(t_gen *data, t_tree *ast)
 	if (head->type >= LT && head->type <= GT2)
 		execute_redir(data, head);
 	if (head->type == CMD)
-		execute_command(data, head);
+		if (!execute_command(data, head))
+			return (0);
 	if (head->left)
 		 execute_ast(data, head->left);
 	if (head->right)

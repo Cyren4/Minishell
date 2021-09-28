@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   excve.c                                            :+:      :+:    :+:   */
+/*   is_excve.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 10:18:09 by vbaron            #+#    #+#             */
-/*   Updated: 2021/09/22 17:26:51 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/09/28 16:40:31 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,21 @@ void display_array(char **path)
 	}
 }
 
-void ft_excve(char *command, char **args, t_gen *data)
+int is_excve(char *command, char **args, t_gen *data)
 {
 	int i;
 	
 	i = 0;
 
-	execve(command, args, data->paths);
+	if (lstat(command, NULL) == 0)
+		return (1);
 	while (data->paths[i])
 	{
-		execve(ft_strjoin(ft_strjoin(data->paths[i], "/"), command), args, data->paths);
+		if (lstat(ft_strjoin(ft_strjoin(data->paths[i], "/"), command), NULL) == 0)
+			return (1);
 		i++;
 	}
+	return (0);
 }
 
 void create_paths(t_gen *data)
