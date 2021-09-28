@@ -92,6 +92,8 @@ char	*get_env_var(t_gen *gen, char *var);
 
 /*	utils_1.c	*/
 void    free_tab(char **tab);
+int		is_empty(char *line);
+int		len_int(int nb);
 
 /*	temp to print something	*/
 // char *g_token[8] = {"WORD", "CMD", "PIPE", "LT", "LT2", "GT", "GT2", "OPTION"};
@@ -102,9 +104,6 @@ void    free_tab(char **tab);
 // display/
 /*		display.c	*/
 void	display_prompt(t_gen *data);
-
-/*		historic.c	*/
-int		is_empty(char *line);
 
 // error/
 /*		error.c		*/

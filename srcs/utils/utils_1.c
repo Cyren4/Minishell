@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 19:39:21 by cramdani          #+#    #+#             */
-/*   Updated: 2021/09/28 15:34:45 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/09/28 16:14:07 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,23 @@ int	is_empty(char *line)
 		i++;
 	}
 	return (1);
+}
+
+int	len_int(int nb)
+{
+	int	i;
+	int	tmp;
+
+	i = 0;
+	if (nb == 0)
+		return (1);
+	tmp = nb;
+	if (nb < 0)
+		tmp = -nb;
+	while (tmp % 10 != 0)
+	{
+		i++;
+		tmp = tmp / 10;
+	}
+	return (i);
 }

@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 18:45:42 by vbaron            #+#    #+#             */
-/*   Updated: 2021/09/22 19:11:44 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/09/28 16:07:19 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,25 @@ void	add_elem(t_gen *data, char *var_path)
 	}
 }
 
+void	update_SHLVL(t_gen *data)
+{
+	t_env	*tmp;
+	int		curSHLVL;
+	
+	tmp = data->env;
+	while (tmp)
+	{
+		if (ft_strcmp(tmp->name, "SHLVL") == 0)
+		{
+			curSHLVL = ft_atoi(tmp->content);
+			free(tmp->content);
+			tmp->content = ft_itoa(curSHLVL + 1);
+			return;
+		}
+		tmp = tmp->next;
+	}
+}
+
 void	stock_env_vars(t_gen *data, char **env)
 {
 	int	i;
@@ -45,5 +64,6 @@ void	stock_env_vars(t_gen *data, char **env)
 		add_elem(data, env[i]);
 		i++;
 	}
+	update_SHLVL(data);
 	// display_env_vars(data->env);
 }
