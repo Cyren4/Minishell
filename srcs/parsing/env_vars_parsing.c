@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 18:45:42 by vbaron            #+#    #+#             */
-/*   Updated: 2021/09/30 16:25:52 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/09/30 16:55:28 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,25 @@ void	add_elem(t_gen *data, char *var_path)
 			data->env = data->env->next;
 		data->env->next = new;
 		data->env = head;
+	}
+}
+
+void	update_SHLVL(t_gen *data)
+{
+	t_env	*tmp;
+	int		curSHLVL;
+	
+	tmp = data->env;
+	while (tmp)
+	{
+		if (ft_strcmp(tmp->name, "SHLVL") == 0)
+		{
+			curSHLVL = ft_atoi(tmp->content);
+			free(tmp->content);
+			tmp->content = ft_itoa(curSHLVL + 1);
+			return;
+		}
+		tmp = tmp->next;
 	}
 }
 

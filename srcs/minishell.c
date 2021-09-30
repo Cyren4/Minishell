@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/09/30 16:18:24 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/09/30 16:55:37 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void init_data(t_gen *data)
 	data->parser.std_in = NULL;
 	data->parser.parsed = NULL;
 	data->status = 1;
+	data->exit_stat = 0;
 	data->ast = NULL;
 	data->str_err = NULL;
 	dup2(STDIN_FILENO, data->std_in);
@@ -101,6 +102,8 @@ int main(int ac, char **av, char **env)
 		}
 		clean_data(&data);
 	}
+	clear_history();
+	// rl_clear_history(); // sur linux
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 19:14:50 by cramdani          #+#    #+#             */
-/*   Updated: 2021/09/22 19:32:09 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/09/28 16:50:11 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,18 @@ int	insert_var(char *dst, char *src, int *src_i, t_gen *data)
 	char	*env_var;
 	int		i;
 	int		var_len;
+	char	*status;
 
 	i = 0;
+	if (ft_strncmp(src + *src_i, "$?", 2) == 0)
+	{
+		var_len = len_int(data->exit_stat);
+		status = ft_itoa(data->exit_stat);
+		ft_memcpy(dst, status, var_len);
+		free(status);
+		*src_i += 2;
+		return (var_len);
+	}
 	env_var = malloc(sizeof(char *) * (ft_strlen(src) - *src_i + 1));
 	*src_i += 1;
 	while (src[*src_i] && (ft_isalnum(src[*src_i]) || src[*src_i] == '_'))
@@ -41,6 +51,11 @@ int	var_size(char *src, int *src_i, t_gen *data)
 	int		var_len;
 
 	i = 0;
+	if (ft_strncmp(src + *src_i, "$?", 2) == 0)
+	{
+		*src_i += 2;
+		return (len_int(data->exit_stat));
+	}
 	env_var = malloc(sizeof(char *) * (ft_strlen(src) - *src_i + 1));
 	*src_i += 1;
 	while (src[*src_i] && (ft_isalnum(src[*src_i]) || src[*src_i] == '_'))
