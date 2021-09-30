@@ -6,8 +6,89 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:22:11 by cramdani          #+#    #+#             */
-/*   Updated: 2021/07/28 18:22:18 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/09/29 18:35:24 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../exec.h"
+#include "../../includes/minishell.h"
+
+void	free_env(t_env *env)
+{
+	free(env->content);
+	free(env->name);
+	free(env);
+}
+
+int	unvalid_env(char *env)
+{
+	int	i;
+
+	i = 0;
+	while (env && env[i])
+	{
+		if (!ft_isalnum(env[i]) && env[i] != '_')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+void	delete_env(t_gen *data, char *var)
+{
+	t_env	*tmp;
+	t_env	*tmp2;
+
+	tmp = data->env;
+	if (ft_strcmp(tmp->name, var) == 0)
+	{
+		data->env = data->env->next;
+		free_env(tmp);
+		return;
+	}
+	while (tmp->next != NULL)
+	{
+		if (ft_strcmp(tmp->next->name, var) == 0)
+		{
+			tmp2 = tmp->next->next;
+			free_env(tmp->next);
+			tmp->next = tmp2;
+			if (ft_strcmp("PS1", var) == 0)
+			{
+				free(data->prompt);
+				data->prompt = ft_strdup("");
+			}
+			return;
+		}
+		tmp = tmp->next;
+	}
+}
+
+void ft_unset(t_gen *data, t_lexer *cmd)
+{
+	t_lexer *tmp;
+
+	tmp = cmd;
+	if (cmd == NULL)
+	{
+		printf("unset: not enough arguments\n");
+		data->exit_stat = 1;
+		return;
+	}
+	while (tmp != NULL)
+	{
+		if (unvalid_env(cmd->content))
+			printf("unset: `%s': not a valid identifier\n", cmd->content);
+		else
+			delete_env(data, tmp->content);
+		tmp = tmp->next;
+	}
+}
+
+int	get_pid(int pid)
+{
+	static int new_pid = 0;
+	if (pid == -1)
+		return new_pid;
+	new_pid = pid;
+	return new_pid;
+}

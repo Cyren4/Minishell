@@ -62,6 +62,7 @@ typedef struct s_tree
 
 typedef struct s_gen
 {
+	char *prompt;
 	int	exit_stat;
 	int status;
 	int tracker;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/09/28 18:00:58 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/09/30 16:25:53 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void init_data(t_gen *data)
 	data->status = 1;
 	data->exit_stat = 0;
 	data->ast = NULL;
+	data->prompt = ft_strdup("minishell $ ");
 }
 
 void clean_lex(t_lexer *lex)
@@ -73,10 +74,9 @@ int main(int ac, char **av, char **env)
 {
 	t_gen data;
 
-	// if (ac != 1)
-	// 	return (0);
-	(void)ac;
-	// (void)av;
+	(void)av;
+	if (ac != 1)
+		return (0);
 	init_data(&data);
 	stock_env_vars(&data, env);
 	while (data.status)
