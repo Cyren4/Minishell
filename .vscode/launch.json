@@ -12,7 +12,10 @@
 			"args": ["echo", "hello"],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",
-			"environment": [],
+			"environment": [{
+				"name": "PATHS",
+				"value": "/Users/vbaron/.brew/bin:/Users/vbaron/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/usr/local/munki"
+			}],
 			"externalConsole": false,
 			"MIMode": "lldb"
 		}

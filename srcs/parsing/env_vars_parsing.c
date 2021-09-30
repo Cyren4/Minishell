@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 18:45:42 by vbaron            #+#    #+#             */
-/*   Updated: 2021/09/30 16:55:28 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/09/30 17:31:19 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ void create_paths(t_gen *data)
 			break;
 		tmp = tmp->next;
 	}
-	data->paths = ft_split(tmp->content, ':');
+	if (tmp)
+		data->paths = ft_split(tmp->content, ':');
 	elems = 0;
 	display_array(data->paths);
 }
@@ -90,9 +91,10 @@ void	stock_env_vars(t_gen *data, char **env)
 	i = 0;
 	while (env[i] != NULL)
 	{
+		// printf("env[%d]: %s\n", i , env[i]);
 		add_elem(data, env[i]);
 		i++;
 	}
+	display_env_vars(data->env);
 	create_paths(data);
-	// display_env_vars(data->env);
 }

@@ -18,7 +18,6 @@ FILES = minishell.c \
 		executor/execute_command.c \
 		executor/execute_redir.c \
 		executor/is_execve.c \
-		parsing/build_pipe_node_ast.c 
 
 SUB_DIR	=	parsing display error utils executor
 
@@ -30,4 +29,4 @@ BLUE	=	\033[0;34m
 PURPLE	=	\033[0;35m
 CYAN	=	\033[0;36m
 WHITE	=	\033[0;37m
-END		=	\033[mq
+END		=	\033[m

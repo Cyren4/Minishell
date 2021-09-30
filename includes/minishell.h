@@ -126,6 +126,7 @@ char *is_excve(char *command, t_gen *data);
 // parsing/
 /*		env_vars_parsing.c		*/
 void 	stock_env_vars(t_gen *data, char **env);
+void display_array(char **path);
 /*		create_pipes.c		*/
 int create_pipes(t_tree *ast);
 
@@ -138,13 +139,8 @@ void structure (t_tree *root, int level );
 
 // executor/
 /*		ast_builder.c		*/
-<<<<<<< HEAD
 t_tree *build_tree1(t_lexer *lexer);
 t_tree *build_tree2(t_lexer *lexer);
-=======
-t_tree *build_tree(t_lexer *lexer);
-
->>>>>>> dc6730c7a076128d3d4936fba508f08d74d566b8
 /*		build_leaf_ast.c		*/
 t_tree *build_leaf(t_lexer *lexer);
 
