@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/09/30 16:25:53 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/09/30 16:56:16 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,20 +81,20 @@ int main(int ac, char **av, char **env)
 	stock_env_vars(&data, env);
 	while (data.status)
 	{
-		data.status = 0;
-		// display_prompt(&data);
-		// data.lex = lexer(data.parser.parsed, &data);
-		data.lex = lexer(&av[1], &data);
+		// data.status = 0;
+		display_prompt(&data);
+		data.lex = lexer(data.parser.parsed, &data);
+		// data.lex = lexer(&av[1], &data);
 		display_token(data.lex);
-		data.ast = build_tree1(data.lex);
-		if (!data.ast)
-			error(&data, BAD_INPUT);
-		else
-		{
-			create_pipes(data.ast);
-			execute_ast(data);
-		}
-		structure(data.ast, 0);
+		// data.ast = build_tree1(data.lex);
+		// if (!data.ast)
+		// 	error(&data, BAD_INPUT);
+		// else
+		// {
+		// 	create_pipes(data.ast);
+		// 	// execute_ast(data);
+		// }
+		// structure(data.ast, 0);
 		clean_data(&data);
 	}
 	clear_history();

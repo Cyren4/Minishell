@@ -24,7 +24,7 @@
 // # define GT2 6 
 // # define OPTION 7
 
-enum e_token { PIPE, LT, LT2, GT, GT2, CMD, OPTION, WORD };
+enum e_token { WORD, PIPE, LT, LT2, GT, GT2, CMD, OPTION};
 enum e_quote { NO_Q, SIMPLE_Q, DOUBLE_Q};
 enum e_err {QUOTES_UNCLOSED, BAD_MALLOC, BAD_INPUT};
 
@@ -132,13 +132,8 @@ void structure (t_tree *root, int level );
 
 // executor/
 /*		ast_builder.c		*/
-<<<<<<< HEAD
 t_tree *build_tree1(t_lexer *lexer);
 t_tree *build_tree2(t_lexer *lexer);
-=======
-t_tree *build_tree(t_lexer *lexer);
-
->>>>>>> dc6730c7a076128d3d4936fba508f08d74d566b8
 /*		build_leaf_ast.c		*/
 t_tree *build_leaf(t_lexer *lexer);
 
