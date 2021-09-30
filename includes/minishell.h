@@ -119,7 +119,7 @@ void 	error(t_gen *data, int e);
 /*		exec.c		*/
 void 	set_vars(t_gen *mini);
 /*		is_execve.c		*/
-int is_excve(char *command, t_gen *data);
+char *is_excve(char *command, t_gen *data);
 
 // parsing/
 /*		env_vars_parsing.c		*/

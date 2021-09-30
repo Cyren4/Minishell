@@ -3,14 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   env_vars_parsing.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 18:45:42 by vbaron            #+#    #+#             */
-/*   Updated: 2021/09/22 19:11:44 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/09/30 16:25:52 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void display_array(char **path)
+{
+	int i;
+	i = 0;
+
+	while (path[i])
+	{
+		printf("array[%i]: %s\n", i, path[i]);
+		i++;
+	}
+}
+
+void create_paths(t_gen *data)
+{
+	t_env *tmp;
+	int elems;
+
+	tmp = data->env;
+	while (tmp != NULL)
+	{
+		if (ft_strcmp(tmp->name, "PATH") == 0)
+			break;
+		tmp = tmp->next;
+	}
+	data->paths = ft_split(tmp->content, ':');
+	elems = 0;
+	display_array(data->paths);
+}
 
 void	add_elem(t_gen *data, char *var_path)
 {
@@ -45,5 +74,6 @@ void	stock_env_vars(t_gen *data, char **env)
 		add_elem(data, env[i]);
 		i++;
 	}
+	create_paths(data);
 	// display_env_vars(data->env);
 }

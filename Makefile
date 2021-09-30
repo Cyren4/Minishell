@@ -6,7 +6,7 @@
 #    By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 12:16:14 by mvaldes           #+#    #+#              #
-#    Updated: 2021/09/23 12:19:27 by vbaron           ###   ########.fr        #
+#    Updated: 2021/09/30 15:34:15 by vbaron           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ HEADER		=	$(INC_DIR)/minishell.h
 CC			=	gcc
 RM			=	/bin/rm -rf
 INC			=	-include ./$(HEADER)
-CC_FLAGS	=	-Wall -Wextra -Werror -g -fsanitize=address $(INC)
+CC_FLAGS	=	-Wall -Wextra -Werror -g  $(INC)
 
 LIB_DIR			=	lib
 LIB				=	$(LIB_DIR)/libft.a

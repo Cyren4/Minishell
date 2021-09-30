@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/09/28 18:23:34 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/09/30 16:18:24 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,11 +94,11 @@ int main(int ac, char **av, char **env)
 			error(&data, BAD_INPUT);
 		else
 		{
+			// structure(data.ast, 0);
 			create_pipes(data.ast);
 			if (!execute_ast(&data, data.ast))
 				error(&data, -1);
 		}
-		structure(data.ast, 0);
 		clean_data(&data);
 	}
 	return (0);

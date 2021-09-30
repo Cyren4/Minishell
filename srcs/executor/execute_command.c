@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 14:23:32 by vbaron            #+#    #+#             */
-/*   Updated: 2021/09/28 18:39:36 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/09/30 16:07:05 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,21 @@ char **create_command(t_lexer *cmd)
 
 int execute_command(t_gen *data, t_tree *ast)
 {
-	int pid;
+	// int pid;
 	char **cmd_table;
+	char *cmd;
 	
-	pid = fork();
-	if (pid < 0)
-		return (0);
-	else if (pid == 0)
-	{
+	// pid = fork();
+	// if (pid < 0)
+	// 	return (0);
+	// else if (pid == 0)
+	// {
+		cmd = NULL;
 		cmd_table = create_command(ast->cmd);
-		if (!is_excve(cmd_table[0], data))
+		cmd = is_excve(cmd_table[0], data);
+		if (!cmd)
 			return (0);
-	}
+		execve(cmd, cmd_table, NULL);
+	// }
 	return (1);
 }

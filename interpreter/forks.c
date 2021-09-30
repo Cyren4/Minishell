@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_execve.c                                        :+:      :+:    :+:   */
+/*   forks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/22 10:18:09 by vbaron            #+#    #+#             */
-/*   Updated: 2021/09/30 16:26:30 by vbaron           ###   ########.fr       */
+/*   Created: 2021/09/30 15:22:39 by vbaron            #+#    #+#             */
+/*   Updated: 2021/09/30 15:34:03 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../includes/minishell.h"
+#include "../includes/minishell.h"
 
-char *is_excve(char *command, t_gen *data)
+int main()
 {
-	int i;
-	char *cmd_path;
-	
-	i = 0;
-	cmd_path = NULL;
-	if (lstat(command, NULL) == 0)
-		return (command);
-	while (data->paths[i])
+	char *std_in;
+	int fd_in;
+
+	dup2(STDIN_FILENO, fd_in);
+
+	while (1)
 	{
-		cmd_path = ft_strjoin(ft_strjoin(data->paths[i], "/"), command);
-		if (lstat(cmd_path, NULL) == 0)
-			break ;
-		i++;
-		if (cmd_path)
-			free(cmd_path);
+		std_in = readline("input here: ");
+		lstat()
+		ft_putstr_fd(std_in, fd_in);
 	}
-	return (cmd_path);
+	return(0);
 }
