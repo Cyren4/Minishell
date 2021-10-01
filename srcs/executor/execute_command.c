@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 14:23:32 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/01 15:40:32 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/10/01 16:47:37 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,9 @@ int execute_command(t_gen *data, t_tree *ast)
 		cmd_table = create_command(ast->cmd);
 		cmd = is_excve(cmd_table[0], data);
 		if (!cmd)
-			return (0);
-		execve(cmd, cmd_table, NULL);
+			ft_putstr_fd("bad command\n", ast->fd_out);
+		else
+			execve(cmd, cmd_table, NULL);
 	}
 	else
 		wait(NULL);

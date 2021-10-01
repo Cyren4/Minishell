@@ -1,0 +1,17 @@
+total 216
+drwxr-xr-x  16 vbaron  2020_paris    544 Oct  1 17:45 .
+drwxr-xr-x   7 vbaron  2020_paris    238 Sep 28 18:37 ..
+drwxr-xr-x  15 vbaron  2020_paris    510 Oct  1 16:51 .git
+-rw-r--r--   1 vbaron  2020_paris    126 Sep 22 18:17 .gitignore
+drwxr-xr-x   3 vbaron  2020_paris    102 Sep 28 15:01 .vscode
+-rw-r--r--   1 vbaron  2020_paris   2112 Sep 30 17:32 Makefile
+-rw-r--r--   1 vbaron  2020_paris     59 Sep 22 18:17 README.md
+-rw-r--r--   1 vbaron  2020_paris      5 Oct  1 17:45 file
+-rw-r--r--   1 vbaron  2020_paris      0 Oct  1 17:45 file2
+drwxr-xr-x   3 vbaron  2020_paris    102 Sep 30 16:50 includes
+drwxr-xr-x  11 vbaron  2020_paris    374 Sep 30 15:27 interpreter
+drwxr-xr-x   6 vbaron  2020_paris    204 Oct  1 16:05 lib
+-rwxr-xr-x   1 vbaron  2020_paris  86912 Oct  1 16:51 minishell
+-rw-r--r--   1 vbaron  2020_paris    758 Oct  1 16:14 minishell.mk
+drwxr-xr-x   8 vbaron  2020_paris    272 Oct  1 16:15 objs
+drwxr-xr-x   9 vbaron  2020_paris    306 Sep 30 16:50 srcs

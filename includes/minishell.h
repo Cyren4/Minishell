@@ -153,6 +153,8 @@ int execute_ast(t_gen *data, t_tree *ast);
 int execute_command(t_gen *data, t_tree *ast);
 /*		execute_command.c		*/
 int execute_redir(t_gen *data, t_tree *ast);
+/*		signals.c		*/
+void exit_shell(int sig);
 
 
 #endif

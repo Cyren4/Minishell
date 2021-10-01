@@ -18,6 +18,7 @@ FILES = minishell.c \
 		executor/execute_command.c \
 		executor/execute_redir.c \
 		executor/is_execve.c \
+		executor/signals.c \
 
 SUB_DIR	=	parsing display error utils executor
 
