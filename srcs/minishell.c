@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/09/30 18:06:39 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/10/01 15:40:11 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,19 +77,19 @@ int main(int ac, char **av, char **env)
 {
 	t_gen data;
 
-	if (ac != 1)
-		return (0);
-	// (void)ac;
+	// if (ac != 1)
+	// 	return (0);
+	(void)ac;
 	(void)av;
 	init_data(&data);
 	stock_env_vars(&data, env);
 	while (data.status)
 	{
 		data.status = 0;
-		display_prompt(&data);
-		data.lex = lexer(data.parser.parsed, &data);
-		// data.lex = lexer(&av[1], &data);
-		display_token(data.lex);
+		// display_prompt(&data);
+		// data.lex = lexer(data.parser.parsed, &data);
+		data.lex = lexer(&av[1], &data);
+		// display_token(data.lex);
 		data.ast = build_tree1(data.lex);
 		if (!data.ast)
 			error(&data, BAD_INPUT);
@@ -106,27 +106,3 @@ int main(int ac, char **av, char **env)
 	// rl_clear_history(); // sur linux
 	return (0);
 }
-
-// int main(int ac, char **av, char **env)
-// {
-// 	t_gen data;
-
-// 	// if (ac != 1)
-// 	// 	return (0);
-// 	(void)ac;
-// 	init_data(&data);
-// 	stock_env_vars(&data, env);
-// 	while (data.status)
-// 	{
-// 		data.status = 0;
-// 		// display_prompt(&data);
-// 		data.lex = lexer(&av[1], &data);
-// 		display_token(data.lex);
-// 		data.ast = build_tree1(data.lex);
-// 		structure(data.ast, 0);
-// 		if (!data.ast)
-// 			error(&data, BAD_INPUT);
-// 		clean_data(&data);
-// 	}
-// 	return (0);
-// }

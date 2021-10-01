@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 10:18:09 by vbaron            #+#    #+#             */
-/*   Updated: 2021/09/30 17:44:31 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/09/30 18:16:36 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ char *is_excve(char *command, t_gen *data)
 	while (data->paths[i])
 	{
 		cmd_path = ft_strjoin(ft_strjoin(data->paths[i], "/"), command);
-		printf("lstat = %d\n", lstat(cmd_path, state));
 		if (lstat(cmd_path, state) == 0)
 			break ;
 		i++;
