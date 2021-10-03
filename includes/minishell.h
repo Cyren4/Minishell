@@ -97,12 +97,18 @@ char	*get_env_var(t_gen *gen, char *var);
 void    free_tab(char **tab);
 int		is_empty(char *line);
 int		len_int(int nb);
+int		occur(char *str, char c, int nbOccur);
 
 /*	temp to print something	*/
 // char *g_token[8] = {"WORD", "CMD", "PIPE", "LT", "LT2", "GT", "GT2", "OPTION"};
 // char *g_quote[3] = {"NO_QUOTE", "SIMPLE_QUOTE", "DOUBLE_QUOTE"};
 
 /*			#Executor#		*/
+
+//	builtin/
+/*		unset.c		*/
+void	free_env(t_env *env);
+void	ft_unset(t_gen *data, t_lexer *cmd);
 
 // display/
 /*		display.c	*/
@@ -126,8 +132,9 @@ int create_pipes(t_tree *ast);
 // utils/
 /*		display_env_vars.c		*/
 void 	display_env_vars(t_env *envs);
+
 /*		print_tree.c		*/
-void structure (t_tree *root, int level );
+void	structure (t_tree *root, int level );
 
 
 // executor/

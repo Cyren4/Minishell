@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:22:11 by cramdani          #+#    #+#             */
-/*   Updated: 2021/09/29 18:35:24 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/03 12:21:04 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,13 +82,4 @@ void ft_unset(t_gen *data, t_lexer *cmd)
 			delete_env(data, tmp->content);
 		tmp = tmp->next;
 	}
-}
-
-int	get_pid(int pid)
-{
-	static int new_pid = 0;
-	if (pid == -1)
-		return new_pid;
-	new_pid = pid;
-	return new_pid;
 }
