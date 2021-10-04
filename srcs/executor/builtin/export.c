@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:22:11 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/04 10:51:42 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/04 11:44:39 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,16 @@ t_env	*create_env(char *cmd, int eq_pos)
 int	unvalid_exp(char *env)
 {
 	int	i;
+	int	eq_pos;
 
+	eq_pos = occur(env, '=', 1);
 	i = 0;
 	if (*env ==  '=')
 		return (1);
 	while (env && env[i])
 	{
-		if (!ft_isalnum(env[i]) && env[i] != '_' && env[i] != '=')
+		if ((!ft_isalnum(env[i]) && env[i] != '_' && env[i] != '=' && !ft_isspace(env[i]))
+			|| ((ft_isspace(env[i]) && i < eq_pos)))
 			return (1);
 		i++;
 	}
