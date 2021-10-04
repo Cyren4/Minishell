@@ -6,11 +6,11 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:20:22 by cramdani          #+#    #+#             */
-/*   Updated: 2021/08/09 12:20:17 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/03 18:24:08 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../exec.h"
+#include "../../includes/minishell.h"
 
 char	*join_char(char *s1, char *s2, char c)
 {

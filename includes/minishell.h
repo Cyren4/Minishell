@@ -127,7 +127,11 @@ void 	set_vars(t_gen *mini);
 /*		env_vars_parsing.c		*/
 void 	stock_env_vars(t_gen *data, char **env);
 /*		create_pipes.c		*/
-int create_pipes(t_tree *ast);
+int		create_pipes(t_tree *ast);
+
+// builtin /
+void	ft_export(t_gen *data, t_lexer *cmd);
+void	ft_unset(t_gen *data, t_lexer *cmd);
 
 // utils/
 /*		display_env_vars.c		*/

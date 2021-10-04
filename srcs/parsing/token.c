@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 19:26:49 by cramdani          #+#    #+#             */
-/*   Updated: 2021/09/30 16:40:51 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/04 10:55:39 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,11 @@ int	check_type(t_lexer *elem, t_gen *data)
 	{
 		complexe_elem(elem, data);
 		elem->token = WORD;
+		if (is_builtin(elem->content))
+		{
+			elem->token = CMD;
+			elem->is_builtin = 1;
+		}
 	}
 	return (1);
 }

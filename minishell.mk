@@ -14,9 +14,11 @@ FILES = minishell.c \
 		parsing/build_node_ast.c \
 		utils/print_tree.c \
 		parsing/create_pipes.c \
+		executor/builtin/export.c \
+		executor/builtin/unset.c \
 		# parsing/build_pipe_node_ast.c 
 
-SUB_DIR	=	parsing display error utils executor
+SUB_DIR	=	parsing display error utils executor executor/builtin
 
 BLACK	=	\033[0;30m
 RED		=	\033[0;31m

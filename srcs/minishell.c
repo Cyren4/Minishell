@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/09/30 16:56:16 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/04 10:56:07 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,13 @@ int main(int ac, char **av, char **env)
 		data.lex = lexer(data.parser.parsed, &data);
 		// data.lex = lexer(&av[1], &data);
 		display_token(data.lex);
+		if (data.lex->is_builtin == 1)
+		{
+			if (ft_strcmp(data.lex->content, "export") == 0)
+				ft_export(&data, data.lex->next);
+			else if (ft_strcmp(data.lex->content, "unset") == 0)
+				ft_unset(&data, data.lex->next);
+		}
 		// data.ast = build_tree1(data.lex);
 		// if (!data.ast)
 		// 	error(&data, BAD_INPUT);

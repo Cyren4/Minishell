@@ -6,16 +6,15 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:22:11 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/03 18:05:45 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/04 10:51:42 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 t_env	*create_env(char *cmd, int eq_pos)
 {
 	t_env	*new;
-	int		i;
 
 	if (eq_pos < 0)
 		return NULL;
@@ -26,7 +25,7 @@ t_env	*create_env(char *cmd, int eq_pos)
 	return new;
 }
 
-int	unvalid_env(char *env)
+int	unvalid_exp(char *env)
 {
 	int	i;
 
@@ -56,7 +55,6 @@ void	special_case(t_gen *data, t_env *new)
 
 void	add_env(t_gen *data, t_env *new)
 {
-	int		exist;
 	t_env	*tmp;
 
 	tmp = data->env;
