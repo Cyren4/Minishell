@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 18:28:23 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/01 15:19:16 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/10/04 15:53:35 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 int create_pipes(t_tree *ast)
 {
-	t_tree *head = ast;
+	t_tree *head;
 	int fd[2];
 
+	head = ast;
 	if (head->type == PIPE)
 	{
 		if (pipe(fd) < 0)

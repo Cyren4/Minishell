@@ -54,6 +54,7 @@ typedef struct s_tree
 {
 	int type;
 	t_lexer *cmd;
+	t_lexer *redir;
 	int fd_in;
 	int fd_out;
 	struct s_tree *left;
@@ -127,6 +128,7 @@ char *is_excve(char *command, t_gen *data);
 /*		env_vars_parsing.c		*/
 void 	stock_env_vars(t_gen *data, char **env);
 void display_array(char **path);
+void	add_elem(t_gen *data, char *var_path);
 /*		create_pipes.c		*/
 int create_pipes(t_tree *ast);
 
