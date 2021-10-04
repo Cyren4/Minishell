@@ -132,6 +132,7 @@ int		create_pipes(t_tree *ast);
 // builtin /
 void	ft_export(t_gen *data, t_lexer *cmd);
 void	ft_unset(t_gen *data, t_lexer *cmd);
+void	ft_env(t_gen *data);
 
 // utils/
 /*		display_env_vars.c		*/

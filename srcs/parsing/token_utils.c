@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 19:28:48 by cramdani          #+#    #+#             */
-/*   Updated: 2021/09/30 16:41:25 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/04 11:00:00 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	quote_interpretation(char quote, int *inside)
 void	display_token(t_lexer *lst_lex)
 {
 	t_lexer	*tmp;
-	char	*token[8] = {"WORD", "CMD", "PIPE", "LT", "LT2", "GT", "GT2", "OPTION"};
+	char	*token[8] = {"WORD",  "PIPE", "LT", "LT2", "GT", "GT2", "CMD", "OPTION"};
 	// char *quote[3] = {"NO_QUOTE", "SIMPLE_QUOTE", "DOUBLE_QUOTE"};
 	
 	printf("Let's show token\n");
