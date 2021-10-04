@@ -56,7 +56,9 @@ typedef struct s_tree
 	t_lexer *cmd;
 	t_lexer *redir;
 	int fd_in;
+	char *input;
 	int fd_out;
+	char *output;
 	struct s_tree *left;
 	struct s_tree *right;
 

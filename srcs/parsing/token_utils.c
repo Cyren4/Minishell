@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 19:28:48 by cramdani          #+#    #+#             */
-/*   Updated: 2021/09/22 19:35:12 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/04 18:46:40 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	quote_interpretation(char quote, int *inside)
 void	display_token(t_lexer *lst_lex)
 {
 	t_lexer	*tmp;
-	char	*token[8] = {"WORD", "CMD", "PIPE", "LT", "LT2", "GT", "GT2", "OPTION"};
+	char	*token[8] = {"PIPE", "LT", "LT2", "GT", "GT2", "CMD", "OPTION", "WORD"};
 	// char *quote[3] = {"NO_QUOTE", "SIMPLE_QUOTE", "DOUBLE_QUOTE"};
 	
 	printf("Let's show token\n");

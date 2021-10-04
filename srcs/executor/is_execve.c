@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 10:18:09 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/01 16:52:43 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/10/04 19:09:02 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ char *is_excve(char *command, t_gen *data)
 			break ;
 		i++;
 		if (cmd_path)
+		{
 			free(cmd_path);
+			cmd_path = NULL;
+		}
 	}
 	return (cmd_path);
 }
