@@ -35,6 +35,7 @@ typedef struct s_lex
 	int				token;
 	int				is_builtin;
 	struct s_lex	*next;
+	struct s_lex	*prev;
 }	t_lexer;
 
 typedef struct s_pars
@@ -159,6 +160,8 @@ int execute_command(t_gen *data, t_tree *ast);
 int execute_redir(t_gen *data, t_tree *ast);
 /*		signals.c		*/
 void exit_shell(int sig);
-
+/*		redirections.c		*/
+int manage_redirs(t_tree *ast);
+void manage_lt2(t_lexer *redirs);
 
 #endif

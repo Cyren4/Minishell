@@ -6,16 +6,16 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:05:01 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/04 15:31:54 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/10/05 12:14:35 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	add_redir(t_tree *leaf, t_lexer *lexer)
+void add_redir(t_tree *leaf, t_lexer *lexer)
 {
-	t_lexer	*new;
-	t_lexer	*head;
+	t_lexer *new;
+	t_lexer *head;
 
 	new = (t_lexer *)malloc(sizeof(t_lexer));
 	new = lexer;
@@ -48,20 +48,18 @@ t_tree *build_leaf(t_lexer *lexer)
 	leaf->left = NULL;
 	leaf->right = NULL;
 	head = leaf->cmd;
-	while (head && head->next != NULL)
+	while (head && head->next)
 	{
-		if (head && head->token >= LT && head->token <= GT2)
+		if (head && head->next && head->token >= LT && head->token <= GT2)
 		{
-			leaf->cmd = head->next->next;
+			if (head->next)
+				tmp = head->next->next;
 			add_redir(leaf, head);
-			head = leaf->cmd;
-		}
-		if (head && head->next && head->next->token >= LT && head->next->token <= GT2)
-		{
-			if (head->next->next)
-				tmp = head->next->next->next;
-			add_redir(leaf, head->next);
-			head->next = tmp;
+			if (head->prev)
+			{
+				head->prev->next = tmp;
+				head = head->prev;
+			}
 		}
 		if (head)
 			head = head->next;
