@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 14:23:32 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/04 19:05:30 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/10/05 10:21:36 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,24 @@ int manage_redirs(t_tree *ast)
 {
 	t_lexer *head;
 	int file_fd;
-	
+
 	head = ast->redir;
 	while (head->next)
 	{
 		if (head->token == GT)
 		{
-			file_fd = open(head->next->content, O_CREAT | O_RDWR);
+			file_fd = open(head->next->content, O_CREAT | O_RDWR | O_APPEND, 0666);
 			dup2(file_fd, ast->fd_out);
+		}
+		if (head->token == GT2)
+		{
+			file_fd = open(head->next->content, O_CREAT | O_RDWR | O_APPEND, 0666);
+			dup2(file_fd, ast->fd_out);
+		}
+		if (head->token == LT)
+		{
+			file_fd = open(head->next->content, O_RDONLY, 0444);
+			dup2(file_fd, ast->fd_in);
 		}
 		head = head->next;
 	}
@@ -60,16 +70,15 @@ int manage_redirs(t_tree *ast)
 
 int execute_command(t_gen *data, t_tree *ast)
 {
-	// int pid;
+	int pid;
 	char **cmd_table;
 	char *cmd;
-	// char *line;
-	
-	// pid = fork();
-	// if (pid < 0)
-	// 	return (0);
-	// else if (pid == 0)
-	// {
+
+	pid = fork();
+	if (pid < 0)
+		return (0);
+	else if (pid == 0)
+	{
 		dup2(ast->fd_out, STDOUT_FILENO);
 		dup2(ast->fd_in, STDIN_FILENO);
 		if (ast->redir)
@@ -81,8 +90,8 @@ int execute_command(t_gen *data, t_tree *ast)
 			ft_putstr_fd("bad command\n", ast->fd_out);
 		else
 			execve(cmd, cmd_table, NULL);
-	// }
-	// else
+	}
+	else
 		wait(NULL);
 	return (1);
 }
