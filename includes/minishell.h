@@ -35,7 +35,7 @@ typedef struct s_lex
 	int				token;
 	int				is_builtin;
 	struct s_lex	*next;
-	struct s_lex	*prev;
+	struct s_lex 	*prev;
 }	t_lexer;
 
 typedef struct s_pars

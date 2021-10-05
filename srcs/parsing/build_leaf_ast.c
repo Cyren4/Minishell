@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:05:01 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/05 12:14:35 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/10/05 15:34:11 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,30 @@ void add_redir(t_tree *leaf, t_lexer *lexer)
 	}
 }
 
+void create_double_list(t_lexer *lexer)
+{
+	t_lexer *head;
+
+	lexer->prev = NULL;
+	head = lexer;
+	while (head->next)
+	{
+		head->next->prev = head;
+		head = head->next;
+	}
+}
+
 t_tree *build_leaf(t_lexer *lexer)
 {
 	t_tree *leaf;
 	t_lexer *head;
 	t_lexer *tmp;
+	t_lexer *old_head;
 
 	leaf = malloc(sizeof(t_tree));
 	if (!leaf || !lexer)
 		return (NULL);
+	// create_double_list(lexer);
 	leaf->type = CMD;
 	leaf->cmd = lexer;
 	leaf->redir = NULL;
@@ -50,19 +65,15 @@ t_tree *build_leaf(t_lexer *lexer)
 	head = leaf->cmd;
 	while (head && head->next)
 	{
-		if (head && head->next && head->token >= LT && head->token <= GT2)
+		if (head && head->token >= LT && head->token <= GT2)
 		{
-			if (head->next)
-				tmp = head->next->next;
+			tmp = head->next->next;
 			add_redir(leaf, head);
-			if (head->prev)
-			{
-				head->prev->next = tmp;
-				head = head->prev;
-			}
+			head = old_head;
+			head->next = tmp;	
 		}
-		if (head)
-			head = head->next;
+		old_head = head;
+		head = head->next;
 	}
 	return (leaf);
 }
