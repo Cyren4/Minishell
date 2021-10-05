@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:05:01 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/05 15:34:11 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/10/05 16:11:39 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,6 @@ void add_redir(t_tree *leaf, t_lexer *lexer)
 		while (head->next)
 			head = head->next;
 		head->next = new;
-	}
-}
-
-void create_double_list(t_lexer *lexer)
-{
-	t_lexer *head;
-
-	lexer->prev = NULL;
-	head = lexer;
-	while (head->next)
-	{
-		head->next->prev = head;
-		head = head->next;
 	}
 }
 
