@@ -9,6 +9,7 @@ FILES = minishell.c \
 		parsing/token_utils.c \
 		parsing/token.c \
 		utils/utils_1.c \
+		utils/clear.c \
 		parsing/ast_builder.c \
 		parsing/build_leaf_ast.c \
 		parsing/build_node_ast.c \

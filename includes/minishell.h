@@ -62,15 +62,16 @@ typedef struct s_tree
 
 typedef struct s_gen
 {
-	char *prompt;
-	int	exit_stat;
-	int status;
-	int tracker;
-	t_env *env;
-	char **paths;
+	char	*prompt;
+	char	*pwd;
+	int		exit_stat;
+	int		status;
+	int		tracker;
+	t_env	*env;
+	char	**paths;
 	t_lexer	*lex;
-	t_pars parser;
-	t_tree *ast;
+	t_pars	parser;
+	t_tree	*ast;
 }	t_gen;
 
 /*			#Parsing#		*/
@@ -78,12 +79,12 @@ typedef struct s_gen
 /*		token.c		*/
 t_lexer	*lexer(char **cmd_line, t_gen *data);
 
-/*	token_split.c	*/
+/*		token_split.c	*/
 char	**check_sub_words(char *cmd);
 
 /*	token_insert_var.c	*/
-int	insert_var(char *dst, char *src, int *src_i, t_gen *data);
-int	real_size(char *content, t_gen *data);
+int		insert_var(char *dst, char *src, int *src_i, t_gen *data);
+int		real_size(char *content, t_gen *data);
 
 /*	token_utils.c	*/
 int		is_builtin(char *cmd);
@@ -92,12 +93,8 @@ void	display_token(t_lexer *lst_lex);
 
 /*	env_utils.c	*/
 char	*get_env_var(t_gen *gen, char *var);
+char	*get_var_exist(t_gen *gen, char *var);
 
-/*	utils_1.c	*/
-void    free_tab(char **tab);
-int		is_empty(char *line);
-int		len_int(int nb);
-int		occur(char *str, char c, int nbOccur);
 
 /*	temp to print something	*/
 // char *g_token[8] = {"WORD", "CMD", "PIPE", "LT", "LT2", "GT", "GT2", "OPTION"};
@@ -106,9 +103,17 @@ int		occur(char *str, char c, int nbOccur);
 /*			#Executor#		*/
 
 //	builtin/
+
 /*		unset.c		*/
 void	free_env(t_env *env);
 void	ft_unset(t_gen *data, t_lexer *cmd);
+
+/*		export.c	*/
+void	ft_export(t_gen *data, t_lexer *cmd);
+void	ft_unset(t_gen *data, t_lexer *cmd);
+
+/*		env.c	*/
+void	ft_env(t_gen *data, char *pref);
 
 // display/
 /*		display.c	*/
@@ -126,26 +131,17 @@ void 	set_vars(t_gen *mini);
 // parsing/
 /*		env_vars_parsing.c		*/
 void 	stock_env_vars(t_gen *data, char **env);
+
 /*		create_pipes.c		*/
 int		create_pipes(t_tree *ast);
 
-// builtin /
-void	ft_export(t_gen *data, t_lexer *cmd);
-void	ft_unset(t_gen *data, t_lexer *cmd);
-void	ft_env(t_gen *data);
-
-// utils/
-/*		display_env_vars.c		*/
-void 	display_env_vars(t_env *envs);
-
-/*		print_tree.c		*/
-void	structure (t_tree *root, int level );
 
 
 // executor/
 /*		ast_builder.c		*/
 t_tree *build_tree1(t_lexer *lexer);
 t_tree *build_tree2(t_lexer *lexer);
+
 /*		build_leaf_ast.c		*/
 t_tree *build_leaf(t_lexer *lexer);
 
@@ -153,5 +149,24 @@ t_tree *build_leaf(t_lexer *lexer);
 t_tree *build_node(t_lexer *lex, t_lexer *head, int type);
 void cut_lexer(t_lexer *head, t_lexer *lex);
 
+/*			#utils#		*/
+
+/*	utils_1.c	*/
+void	free_tab(char **tab);
+int		is_empty(char *line);
+int		len_int(int nb);
+int		occur(char *str, char c, int nbOccur);
+
+/*		display_env_vars.c		*/
+void 	display_env_vars(t_env *envs);
+
+/*		print_tree.c		*/
+void	structure(t_tree *root, int level );
+
+
+/*		print_tree.c		*/
+void	clean_lex(t_lexer *lex);
+void    clean_env(t_env *env);
+void    clean_parser(t_pars *pars);
 
 #endif

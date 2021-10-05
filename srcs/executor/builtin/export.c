@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:22:11 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/04 11:44:39 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/05 16:01:53 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,7 @@ void ft_export(t_gen *data, t_lexer *cmd)
 	data->exit_stat = 0;
 	if (cmd == NULL)
 	{
-		// echo env with declare -x suffix
-		// if (fork() == 0)
-			// execve("declare", {"declare -x", NULL}, data->env);
+		ft_env(data, "declare -x ");
 		return;
 	}
 	while (tmp != NULL)

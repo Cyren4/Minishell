@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/04 11:18:09 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/05 15:59:52 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,43 +24,6 @@ void init_data(t_gen *data)
 	data->prompt = ft_strdup("minishell $ ");
 }
 
-void clean_lex(t_lexer *lex)
-{
-	t_lexer *cur;
-	t_lexer *next;
-
-	if (lex == NULL)
-		return;
-	cur = lex;
-	while (cur != NULL)
-	{
-		next = cur->next;
-		free(cur);
-		cur = next;
-	}
-}
-
-void clean_parser(t_pars *pars)
-{
-	int i;
-
-	i = 0;
-	if (pars == NULL)
-		return;
-	if (pars->parsed)
-	{
-		while (pars->parsed[i])
-		{
-			if (pars->parsed[i])
-				free(pars->parsed[i]);
-			i++;
-		}
-	}
-	free(pars->parsed);
-	if (pars->std_in)
-		free(pars->std_in);
-}
-
 void clean_data(t_gen *data)
 {
 	clean_lex(data->lex);
@@ -68,6 +31,17 @@ void clean_data(t_gen *data)
 	clean_parser(&data->parser);
 	// data->parser.std_in = NULL;
 	// data->parser.parsed = NULL;
+}
+
+void delete_data(t_gen *data)
+{
+	// clean_lex(data->lex);
+	// data->lex = NULL;
+	// clean_parser(&data->parser);
+	clean_env(data->env);
+	if (data->prompt != NULL)
+		free(data->prompt);
+	// clear_history();
 }
 
 int main(int ac, char **av, char **env)
@@ -93,7 +67,7 @@ int main(int ac, char **av, char **env)
 			else if (ft_strcmp(data.lex->content, "unset") == 0)
 				ft_unset(&data, data.lex->next);
 			else if (ft_strcmp(data.lex->content, "env") == 0)
-				ft_env(&data);
+				ft_env(&data, "");
 		}
 		// data.ast = build_tree1(data.lex);
 		// if (!data.ast)
@@ -106,7 +80,7 @@ int main(int ac, char **av, char **env)
 		// structure(data.ast, 0);
 		clean_data(&data);
 	}
-	clear_history();
+	delete_data(&data);
 	// rl_clear_history(); // sur linux
 	return (0);
 }
