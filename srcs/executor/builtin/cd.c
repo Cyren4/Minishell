@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:20:22 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/06 20:34:13 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/06 22:11:45 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@
 
 void	ft_cd(t_gen *data, t_lexer *dir)
 {
-	char	cwd[PATH_MAX];
+	// char	cwd[PATH_MAX];
 	// char	*cur_path;
 	(void)data;
 	// if (dir == NULL)
@@ -63,7 +63,8 @@ void	ft_cd(t_gen *data, t_lexer *dir)
 	// else if (dir->content[0] == '.')
 	char s[100];
 	printf("%s\n",getcwd(s,100));
-	chdir(dir->content);
+	if(chdir(dir->content) == -1)
+		printf("cd: %s: No such file or directory\n", dir->content);
 	printf("%s\n",getcwd(s,100));
 	// char	relative_path[256];
 	// char	*abs_path;
