@@ -10,6 +10,7 @@
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <signal.h>
+# include <limits.h>
 
 # include "../lib/header_lib.h"
 
@@ -114,6 +115,9 @@ void	ft_unset(t_gen *data, t_lexer *cmd);
 
 /*		env.c	*/
 void	ft_env(t_gen *data, char *pref);
+
+/*		cd.c	*/
+void	ft_cd(t_gen *data, t_lexer *dir);
 
 // display/
 /*		display.c	*/

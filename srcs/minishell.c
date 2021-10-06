@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/05 15:59:52 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/06 20:17:44 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ int main(int ac, char **av, char **env)
 				ft_unset(&data, data.lex->next);
 			else if (ft_strcmp(data.lex->content, "env") == 0)
 				ft_env(&data, "");
+			else if (ft_strcmp(data.lex->content, "cd") == 0)
+				ft_cd(&data, data.lex->next);
 		}
 		// data.ast = build_tree1(data.lex);
 		// if (!data.ast)

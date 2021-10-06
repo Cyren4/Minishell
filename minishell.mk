@@ -18,6 +18,7 @@ FILES = minishell.c \
 		executor/builtin/export.c \
 		executor/builtin/unset.c \
 		executor/builtin/env.c \
+		executor/builtin/cd.c \
 		# parsing/build_pipe_node_ast.c 
 
 SUB_DIR	=	parsing display error utils executor executor/builtin
