@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:22:11 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/04 10:50:58 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/05 16:06:03 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,6 @@ void ft_unset(t_gen *data, t_lexer *cmd)
 	t_lexer *tmp;
 
 	tmp = cmd;
-	if (cmd == NULL)
-	{
-		printf("unset: not enough arguments\n");
-		data->exit_stat = 1;
-		return;
-	}
 	while (tmp != NULL)
 	{
 		if (unvalid_env(cmd->content))
