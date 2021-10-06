@@ -160,6 +160,21 @@ t_tree *build_leaf(t_lexer *lexer);
 /*		build_pipe_node_ast.c		*/
 t_tree *build_node(t_lexer *lex, t_lexer *head, int type);
 void cut_lexer(t_lexer *head, t_lexer *lex);
+<<<<<<< HEAD
+=======
+/*		execute_ast.c		*/
+int execute_ast(t_gen *data, t_tree *ast);
+/*		execute_command.c		*/
+int execute_command(t_gen *data, t_tree *ast);
+/*		execute_command.c		*/
+int execute_redir(t_gen *data, t_tree *ast);
+/*		signals.c		*/
+void exit_shell(int sig);
+/*		redirections.c		*/
+int manage_redirs(t_tree *ast);
+int manage_lt2(t_lexer *redirs, t_tree *ast);
+int store_data(char *start, char *end, t_tree *ast);
+>>>>>>> 5eb70a4224adc5c66805f9d087e6d56ebd3f8eb9
 
 /*			#utils#		*/
 
@@ -180,6 +195,7 @@ void	structure(t_tree *root, int level );
 void	clean_lex(t_lexer *lex);
 void    clean_env(t_env *env);
 void    clean_parser(t_pars *pars);
+<<<<<<< HEAD
 
 /*		execute_ast.c		*/
 int 	execute_ast(t_gen *data, t_tree *ast);
@@ -197,5 +213,7 @@ void 	exit_shell(int sig);
 int manage_redirs(t_tree *ast);
 int manage_lt2(t_lexer *redirs, t_tree *ast);
 int store_data(char *start, char *end, t_tree *ast);
+=======
+>>>>>>> 5eb70a4224adc5c66805f9d087e6d56ebd3f8eb9
 
 #endif
