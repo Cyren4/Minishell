@@ -6,14 +6,14 @@
 #    By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/17 16:13:53 by vbaron            #+#    #+#              #
-#    Updated: 2021/09/23 13:33:25 by vbaron           ###   ########.fr        #
+#    Updated: 2021/09/30 15:24:43 by vbaron           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 DIR_S = ./
 DIR_O = objs
 
-SOURCES = tests.c \
+SOURCES = forks.c \
 
 SRCS = $(addprefix $(DIR_S)/,$(SOURCES))
 OBJS = $(addprefix $(DIR_O)/,$(SOURCES:.c=.o))

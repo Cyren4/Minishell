@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:02:34 by vbaron            #+#    #+#             */
-/*   Updated: 2021/09/23 16:00:23 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/10/04 12:06:48 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,6 @@ t_tree *build_tree1(t_lexer *lexer)
 	if (curr_lex)
 		ast = build_node(curr_lex, lexer, curr_lex->token);
 	else
-		ast = build_tree2(lexer);
+		ast = build_leaf(lexer);
 	return ast;
 }

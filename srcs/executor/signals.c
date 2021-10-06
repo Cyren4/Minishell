@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execution.c                                        :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/23 13:03:48 by vbaron            #+#    #+#             */
-/*   Updated: 2021/09/23 16:17:09 by vbaron           ###   ########.fr       */
+/*   Created: 2021/10/01 16:11:48 by vbaron            #+#    #+#             */
+/*   Updated: 2021/10/01 16:36:53 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-int execution(t_gen *data)
+void exit_shell(int sig)
 {
-	
+	(void)sig;
+	exit(1);
 }
