@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/06 20:17:44 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/06 21:48:27 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void init_data(t_gen *data)
 	data->exit_stat = 0;
 	data->ast = NULL;
 	data->prompt = ft_strdup("minishell $ ");
+	data->str_err = NULL;
 }
 
 void clean_data(t_gen *data)
@@ -71,42 +72,17 @@ int main(int ac, char **av, char **env)
 			else if (ft_strcmp(data.lex->content, "cd") == 0)
 				ft_cd(&data, data.lex->next);
 		}
-		// data.ast = build_tree1(data.lex);
-		// if (!data.ast)
-		// 	error(&data, BAD_INPUT);
-		// else
-		// {
-		// 	create_pipes(data.ast);
-		// 	// execute_ast(data);
-		// }
-		// structure(data.ast, 0);
-		clean_data(&data);
+		data.ast = build_tree1(data.lex);
+		if (!data.ast)
+			error(&data, BAD_INPUT);
+		else
+		{
+			structure(data.ast, 0);
+			create_pipes(data.ast);
+			if (!execute_ast(&data, data.ast))
+				error(&data, -1);
+		}
 	}
 	delete_data(&data);
-	// rl_clear_history(); // sur linux
 	return (0);
 }
-
-// int main(int ac, char **av, char **env)
-// {
-// 	t_gen data;
-
-// 	// if (ac != 1)
-// 	// 	return (0);
-// 	(void)ac;
-// 	init_data(&data);
-// 	stock_env_vars(&data, env);
-// 	while (data.status)
-// 	{
-// 		data.status = 0;
-// 		// display_prompt(&data);
-// 		data.lex = lexer(&av[1], &data);
-// 		display_token(data.lex);
-// 		data.ast = build_tree1(data.lex);
-// 		structure(data.ast, 0);
-// 		if (!data.ast)
-// 			error(&data, BAD_INPUT);
-// 		clean_data(&data);
-// 	}
-// 	return (0);
-// }

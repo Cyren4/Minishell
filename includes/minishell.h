@@ -11,6 +11,7 @@
 # include <sys/stat.h>
 # include <signal.h>
 # include <limits.h>
+# include <errno.h>
 
 # include "../lib/header_lib.h"
 
@@ -35,6 +36,7 @@ typedef struct s_lex
 	int				token;
 	int				is_builtin;
 	struct s_lex	*next;
+	struct s_lex	*prev;
 }	t_lexer;
 
 typedef struct s_pars
@@ -54,8 +56,11 @@ typedef struct s_tree
 {
 	int type;
 	t_lexer *cmd;
-	int std_in;
-	int std_out;
+	t_lexer *redir;
+	int fd_in;
+	char *input;
+	int fd_out;
+	char *output;
 	struct s_tree *left;
 	struct s_tree *right;
 
@@ -71,8 +76,12 @@ typedef struct s_gen
 	t_env	*env;
 	char	**paths;
 	t_lexer	*lex;
-	t_pars	parser;
-	t_tree	*ast;
+	t_pars parser;
+	t_tree *ast;
+	int std_out;
+	int std_in;
+	int std_err;
+	char *str_err;
 }	t_gen;
 
 /*			#Parsing#		*/
@@ -96,10 +105,6 @@ void	display_token(t_lexer *lst_lex);
 char	*get_env_var(t_gen *gen, char *var);
 char	*get_var_exist(t_gen *gen, char *var);
 
-
-/*	temp to print something	*/
-// char *g_token[8] = {"WORD", "CMD", "PIPE", "LT", "LT2", "GT", "GT2", "OPTION"};
-// char *g_quote[3] = {"NO_QUOTE", "SIMPLE_QUOTE", "DOUBLE_QUOTE"};
 
 /*			#Executor#		*/
 
@@ -131,11 +136,14 @@ void 	error(t_gen *data, int e);
 // exec/
 /*		exec.c		*/
 void 	set_vars(t_gen *mini);
+/*		is_execve.c		*/
+char *is_excve(char *command, t_gen *data);
 
 // parsing/
 /*		env_vars_parsing.c		*/
 void 	stock_env_vars(t_gen *data, char **env);
-
+void display_array(char **path);
+void	add_elem(t_gen *data, char *var_path);
 /*		create_pipes.c		*/
 int		create_pipes(t_tree *ast);
 
@@ -172,5 +180,22 @@ void	structure(t_tree *root, int level );
 void	clean_lex(t_lexer *lex);
 void    clean_env(t_env *env);
 void    clean_parser(t_pars *pars);
+
+/*		execute_ast.c		*/
+int 	execute_ast(t_gen *data, t_tree *ast);
+
+/*		execute_command.c		*/
+int 	execute_command(t_gen *data, t_tree *ast);
+
+/*		execute_command.c		*/
+int 	execute_redir(t_gen *data, t_tree *ast);
+
+/*		signals.c		*/
+void 	exit_shell(int sig);
+
+/*		redirections.c		*/
+int manage_redirs(t_tree *ast);
+int manage_lt2(t_lexer *redirs, t_tree *ast);
+int store_data(char *start, char *end, t_tree *ast);
 
 #endif

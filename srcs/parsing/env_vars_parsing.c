@@ -6,11 +6,40 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 18:45:42 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/05 15:19:46 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/06 21:47:53 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void display_array(char **path)
+{
+	int i;
+	i = 0;
+
+	while (path[i])
+	{
+		printf("array[%i]: %s\n", i, path[i]);
+		i++;
+	}
+}
+
+void create_paths(t_gen *data)
+{
+	t_env *tmp;
+	int elems;
+
+	tmp = data->env;
+	while (tmp != NULL)
+	{
+		if (ft_strcmp(tmp->name, "PATH") == 0)
+			break;
+		tmp = tmp->next;
+	}
+	if (tmp)
+		data->paths = ft_split(tmp->content, ':');
+	elems = 0;
+}
 
 void	add_elem(t_gen *data, char *var_path)
 {
@@ -65,9 +94,11 @@ void	stock_env_vars(t_gen *data, char **env)
 	i = 0;
 	while (env[i] != NULL)
 	{
+		// printf("env[%d]: %s\n", i , env[i]);
 		add_elem(data, env[i]);
 		i++;
 	}
 	update_shlvl(data);
 	// display_env_vars(data->env);
+	create_paths(data);
 }
