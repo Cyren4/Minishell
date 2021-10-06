@@ -162,7 +162,7 @@ int execute_redir(t_gen *data, t_tree *ast);
 void exit_shell(int sig);
 /*		redirections.c		*/
 int manage_redirs(t_tree *ast);
-int manage_lt2(t_lexer *redirs);
-int store_data(char *start, char *end);
+int manage_lt2(t_lexer *redirs, t_tree *ast);
+int store_data(char *start, char *end, t_tree *ast);
 
 #endif

@@ -16,7 +16,6 @@ FILES = minishell.c \
 		parsing/create_pipes.c \
 		executor/execute_ast.c \
 		executor/execute_command.c \
-		executor/execute_redir.c \
 		executor/is_execve.c \
 		executor/signals.c \
 		executor/redirections.c \
