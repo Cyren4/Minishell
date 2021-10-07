@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 19:39:21 by cramdani          #+#    #+#             */
-/*   Updated: 2021/09/28 16:14:07 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/03 17:27:27 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,24 @@ int	len_int(int nb)
 		tmp = tmp / 10;
 	}
 	return (i);
+}
+
+//return la nbOccur occurence de c dans str
+//-1 si elle n'existe pas
+int	occur(char *str, char c, int nbOccur)
+{
+	int	i;
+	int	occur;
+
+	i = 0;
+	occur = 0;
+	while (str && str[i])
+	{
+		if (str[i] == c)
+			occur++;
+		if (occur == nbOccur)
+			return (i);
+		i++;
+	}
+	return (-1);
 }

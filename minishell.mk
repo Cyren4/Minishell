@@ -9,18 +9,22 @@ FILES = minishell.c \
 		parsing/token_utils.c \
 		parsing/token.c \
 		utils/utils_1.c \
+		utils/clear.c \
 		parsing/ast_builder.c \
 		parsing/build_leaf_ast.c \
 		parsing/build_node_ast.c \
 		utils/print_tree.c \
 		parsing/create_pipes.c \
+		executor/builtin/export.c \
+		executor/builtin/unset.c \
+		executor/builtin/env.c \
 		executor/execute_ast.c \
 		executor/execute_command.c \
 		executor/is_execve.c \
 		executor/signals.c \
 		executor/redirections.c \
 
-SUB_DIR	=	parsing display error utils executor
+SUB_DIR	=	parsing display error utils executor executor/builtin
 
 BLACK	=	\033[0;30m
 RED		=	\033[0;31m
