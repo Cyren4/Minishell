@@ -24,6 +24,7 @@ FILES = minishell.c \
 		executor/is_execve.c \
 		executor/signals.c \
 		executor/redirections.c \
+		executor/calculate_commands.c \
 
 SUB_DIR	=	parsing display error utils executor executor/builtin
 

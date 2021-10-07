@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/06 22:03:21 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/07 23:30:21 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,10 @@ void delete_data(t_gen *data)
 int main(int ac, char **av, char **env)
 {
 	t_gen data;
+	int total_cmds;
 
 	(void)av;
-	if (ac != 1)
+	if (ac == 100)
 		return (0);
 	init_data(&data);
 	stock_env_vars(&data, env);
@@ -60,7 +61,7 @@ int main(int ac, char **av, char **env)
 		display_prompt(&data);
 		data.lex = lexer(data.parser.parsed, &data);
 		// data.lex = lexer(&av[1], &data);
-		display_token(data.lex);
+		// display_token(data.lex);
 		if (data.lex->is_builtin == 1)
 		{
 			if (ft_strcmp(data.lex->content, "export") == 0)
@@ -77,10 +78,16 @@ int main(int ac, char **av, char **env)
 			error(&data, BAD_INPUT);
 		else
 		{
-			structure(data.ast, 0);
+			// structure(data.ast, 0);
 			create_pipes(data.ast);
+			total_cmds = calculate_commands(data.ast);
 			if (!execute_ast(&data, data.ast))
 				error(&data, -1);
+			while (total_cmds >= 0)
+			{
+				wait(NULL);
+				total_cmds--;
+			}
 		}
 	}
 	delete_data(&data);
