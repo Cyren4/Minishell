@@ -168,6 +168,8 @@ void exit_shell(int sig);
 int manage_redirs(t_tree *ast);
 int manage_lt2(t_lexer *redirs, t_tree *ast);
 int store_data(char *start, char *end, t_tree *ast);
+/*		calculate_commands.c		*/
+int calculate_commands(t_tree *ast);
 
 /*			#utils#		*/
 

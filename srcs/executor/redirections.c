@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 10:49:43 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/06 14:48:13 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/10/07 18:55:28 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int manage_lt2(t_lexer *redirs, t_tree *ast)
 	head = redirs;
 	while (head->next)
 	{
-		if ( head->token == LT2 && redir_count == 2)
+		if (head->token == LT2 && redir_count == 2)
 			start = head->next->content;
 		if (head->token == LT2 && redir_count == 1)
 			end = head->next->content;
@@ -50,24 +50,39 @@ int store_data(char *start, char *end, t_tree *ast)
 	int fd[2];
 	char *std_in;
 	int start_flag;
-	
+	int pid;
+
 	std_in = NULL;
 	if (pipe(fd) < 0)
 		return (0);
-	dup2(fd[0], ast->fd_in);
-	start_flag = 0;
-	if (!start)
-		start_flag = 1;
-	std_in = readline(">");
-	while (ft_strncmp(std_in, end, ft_strlen(end)) != 0)
+	pid = fork();
+	if (pid < 0)
+		return (0);
+	if (pid == 0)
 	{
-		if (ft_strncmp(std_in, start, ft_strlen(start)) == 0)
+		close(fd[0]);
+		start_flag = 0;
+		if (!start)
 			start_flag = 1;
-		if (start_flag)
-			ft_putstr_fd(std_in, fd[0]);
-		if (std_in)
-			free(std_in);
 		std_in = readline(">");
+		// printf("std_in: %s\n", std_in);
+		if (std_in && ft_strncmp(std_in, start, ft_strlen(start)) == 0)
+			start_flag = 1;
+		if (std_in && ft_strncmp(std_in, end, ft_strlen(end)) == 0)
+			return (1);
+		if (start_flag)
+		{
+			dup2(fd[1], STDIN_FILENO);
+			close(fd[1]);
+		}
+	}
+	else
+	{
+		wait(NULL);
+		close(fd[1]);
+		close(ast->fd_in);
+		dup2(fd[0], STDIN_FILENO);
+		close(fd[0]);
 	}
 	return (0);
 }
@@ -84,18 +99,24 @@ int manage_redirs(t_tree *ast)
 	{
 		if (head->token == GT)
 		{
-			file_fd = open(head->next->content, O_CREAT | O_RDWR | O_APPEND, 0666);
+			file_fd = open(head->next->content, O_CREAT | O_RDWR, 0666);
+			close(ast->fd_out);
 			dup2(file_fd, ast->fd_out);
+			close(file_fd);
 		}
 		if (head->token == GT2)
 		{
 			file_fd = open(head->next->content, O_CREAT | O_RDWR | O_APPEND, 0666);
+			close(ast->fd_out);
 			dup2(file_fd, ast->fd_out);
+			close(file_fd);
 		}
 		if (head->token == LT)
 		{
 			file_fd = open(head->next->content, O_RDONLY, 0444);
+			close(ast->fd_in);
 			dup2(file_fd, ast->fd_in);
+			close(file_fd);
 		}
 		if (head->token == LT2 && !flag_lt2)
 		{

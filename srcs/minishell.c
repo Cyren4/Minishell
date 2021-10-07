@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/07 16:05:00 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/10/07 17:35:48 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void delete_data(t_gen *data)
 int main(int ac, char **av, char **env)
 {
 	t_gen data;
+	int total_cmds;
 
 	(void)av;
 	if (ac == 100)
@@ -60,7 +61,7 @@ int main(int ac, char **av, char **env)
 		display_prompt(&data);
 		data.lex = lexer(data.parser.parsed, &data);
 		// data.lex = lexer(&av[1], &data);
-		display_token(data.lex);
+		// display_token(data.lex);
 		if (data.lex->is_builtin == 1)
 		{
 			if (ft_strcmp(data.lex->content, "export") == 0)
@@ -75,11 +76,16 @@ int main(int ac, char **av, char **env)
 			error(&data, BAD_INPUT);
 		else
 		{
-			structure(data.ast, 0);
+			// structure(data.ast, 0);
 			create_pipes(data.ast);
-			execute_ast(&data, data.ast);
-			// if (!execute_ast(&data, data.ast))
-			// 	error(&data, -1);
+			total_cmds = calculate_commands(data.ast);
+			if (!execute_ast(&data, data.ast))
+				error(&data, -1);
+			while (total_cmds >= 0)
+			{
+				wait(NULL);
+				total_cmds--;
+			}
 		}
 	}
 	return (0);
