@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/07 11:23:52 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/10/07 16:05:00 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int main(int ac, char **av, char **env)
 	t_gen data;
 
 	(void)av;
-	if (ac != 1)
+	if (ac == 100)
 		return (0);
 	init_data(&data);
 	stock_env_vars(&data, env);
@@ -77,8 +77,9 @@ int main(int ac, char **av, char **env)
 		{
 			structure(data.ast, 0);
 			create_pipes(data.ast);
-			if (!execute_ast(&data, data.ast))
-				error(&data, -1);
+			execute_ast(&data, data.ast);
+			// if (!execute_ast(&data, data.ast))
+			// 	error(&data, -1);
 		}
 	}
 	return (0);

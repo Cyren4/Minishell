@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 14:23:32 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/07 11:19:51 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/10/07 16:09:03 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,17 @@ int execute_command(t_gen *data, t_tree *ast)
 	int pid;
 	char **cmd_table;
 	char *cmd;
+	// char buf[1000];
 
 	pid = fork();
 	if (pid < 0)
 		return (0);
 	else if (pid == 0)
 	{
-		
 		// if (ast->redir)
 		// 	manage_redirs(ast);
+		dup2(ast->fd_in, STDIN_FILENO);
+		dup2(ast->fd_out, STDOUT_FILENO);
 		cmd = NULL;
 		cmd_table = create_command(ast->cmd);
 		cmd = is_excve(cmd_table[0], data);
@@ -61,8 +63,15 @@ int execute_command(t_gen *data, t_tree *ast)
 			ft_putstr_fd("bad command\n", ast->fd_out);
 		else
 			execve(cmd, cmd_table, NULL);
-		return (0);
 	}
 	else
+	{
+		wait(NULL);
+		if (ast->fd_in != 0)
+			close(ast->fd_in);
+		if (ast->fd_out != 1)
+			close(ast->fd_out);
 		return (1);
+	}
+	return (1);
 }
