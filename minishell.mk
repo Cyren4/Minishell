@@ -19,6 +19,8 @@ FILES = minishell.c \
 		executor/builtin/unset.c \
 		executor/builtin/env.c \
 		executor/builtin/cd.c \
+		executor/builtin/pwd.c \
+		executor/builtin_monitor.c \
 		executor/execute_ast.c \
 		executor/execute_command.c \
 		executor/is_execve.c \

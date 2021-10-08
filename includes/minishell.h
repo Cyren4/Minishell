@@ -110,19 +110,24 @@ char	*get_var_exist(t_gen *gen, char *var);
 
 //	builtin/
 
+/*		builtin_monitor.c		*/
+int		exec_builtin(t_gen *data, t_lexer *cmd);
+
 /*		unset.c		*/
 void	free_env(t_env *env);
-void	ft_unset(t_gen *data, t_lexer *cmd);
+int		ft_unset(t_gen *data, t_lexer *cmd);
 
 /*		export.c	*/
-void	ft_export(t_gen *data, t_lexer *cmd);
-void	ft_unset(t_gen *data, t_lexer *cmd);
+int		ft_export(t_gen *data, t_lexer *cmd);
 
 /*		env.c	*/
-void	ft_env(t_gen *data, char *pref);
+int		ft_env(t_gen *data, char *pref);
 
 /*		cd.c	*/
-void	ft_cd(t_gen *data, t_lexer *dir);
+int		ft_cd(t_gen *data, t_lexer *dir);
+
+/*		pwd.c	*/
+int		ft_pwd(void);
 
 // display/
 /*		display.c	*/

@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/07 23:30:21 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/08 23:40:33 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void delete_data(t_gen *data)
 int main(int ac, char **av, char **env)
 {
 	t_gen data;
-	int total_cmds;
+	// int total_cmds;
 
 	(void)av;
 	if (ac == 100)
@@ -61,19 +61,10 @@ int main(int ac, char **av, char **env)
 		display_prompt(&data);
 		data.lex = lexer(data.parser.parsed, &data);
 		// data.lex = lexer(&av[1], &data);
-		// display_token(data.lex);
+		display_token(data.lex);
 		if (data.lex->is_builtin == 1)
-		{
-			if (ft_strcmp(data.lex->content, "export") == 0)
-				ft_export(&data, data.lex->next);
-			else if (ft_strcmp(data.lex->content, "unset") == 0)
-				ft_unset(&data, data.lex->next);
-			else if (ft_strcmp(data.lex->content, "env") == 0)
-				ft_env(&data, "");
-			else if (ft_strcmp(data.lex->content, "cd") == 0)
-				ft_cd(&data, data.lex->next);
-		}
-		data.ast = build_tree1(data.lex);
+			data.exit_stat = exec_builtin(&data, data.lex);
+		/*data.ast = build_tree1(data.lex);
 		if (!data.ast)
 			error(&data, BAD_INPUT);
 		else
@@ -88,7 +79,7 @@ int main(int ac, char **av, char **env)
 				wait(NULL);
 				total_cmds--;
 			}
-		}
+		}*/
 	}
 	delete_data(&data);
 	return (0);

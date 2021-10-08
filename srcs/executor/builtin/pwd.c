@@ -5,14 +5,21 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/28 18:21:59 by cramdani          #+#    #+#             */
-/*   Updated: 2021/08/09 01:32:52 by cramdani         ###   ########.fr       */
+/*   Created: 2021/07/28 18:20:22 by cramdani          #+#    #+#             */
+/*   Updated: 2021/10/08 00:49:27 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../exec.h"
+#include "../../../includes/minishell.h"
 
-int ft_pwd(void)
+int	ft_pwd(void)
 {
-	printf("%s\n", getenv("PWD"));
+	char	cwd[PATH_MAX];
+
+	if (getcwd(cwd, PATH_MAX))
+	{
+		printf("%s\n", cwd);
+		return (EXIT_SUCCESS);
+	}
+		return (EXIT_FAILURE);
 }

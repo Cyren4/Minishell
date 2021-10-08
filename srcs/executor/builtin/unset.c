@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:22:11 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/05 16:06:03 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/08 23:26:39 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,17 +63,23 @@ void	delete_env(t_gen *data, char *var)
 	}
 }
 
-void ft_unset(t_gen *data, t_lexer *cmd)
+int	ft_unset(t_gen *data, t_lexer *cmd)
 {
 	t_lexer *tmp;
+	int		ret;
 
 	tmp = cmd;
+	ret = EXIT_SUCCESS;
 	while (tmp != NULL)
 	{
 		if (unvalid_env(cmd->content))
+		{
 			printf("unset: `%s': not a valid identifier\n", cmd->content);
+			ret = EXIT_FAILURE;
+		}
 		else
 			delete_env(data, tmp->content);
 		tmp = tmp->next;
 	}
+	return (ret);
 }

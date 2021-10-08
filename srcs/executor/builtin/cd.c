@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:20:22 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/06 22:11:45 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/08 23:38:09 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,31 +41,32 @@
 // 		return (home);	
 // }
 
-void	ft_cd(t_gen *data, t_lexer *dir)
+int	ft_cd(t_gen *data, t_lexer *dir)
 {
-	// char	cwd[PATH_MAX];
-	// char	*cur_path;
-	(void)data;
-	// if (dir == NULL)
-	// {
-	// 	cur_path = get_var_exist(data, "HOME");
-	// 	if (cur_path == NULL)
-	// 	{
-	// 		printf("cd: HOME not set\n");
-	// 		data->exit_stat = 1;
-	// 	}
-	// }
-	// 	no_arg_cd(data);
-	// else if (dir->content[0] == '/')
-	// {
-
-	// }
-	// else if (dir->content[0] == '.')
-	char s[100];
-	printf("%s\n",getcwd(s,100));
-	if(chdir(dir->content) == -1)
-		printf("cd: %s: No such file or directory\n", dir->content);
-	printf("%s\n",getcwd(s,100));
+	char	cwd[PATH_MAX];
+	char	*home;
+	int		ret;
+	
+	ret = 0;
+	if (dir == NULL || ft_strcmp(dir->content, "~") == 0)
+	{
+		home = get_var_exist(data, "HOME");
+		printf("home = %s\n", home);
+		if (home == NULL)
+		{
+			printf("cd: HOME not set\n");
+			ret = 1;
+		}
+		else if (chdir(ft_strdup(home)) == -1)
+			printf("cd: %s: No such file or directory\n", dir->content);
+	}
+	else 
+	{
+		if (chdir(dir->content) == -1)
+			printf("cd: %s: No such file or directory\n", dir->content);
+	}
+	printf("la\n");
+	printf("%s\n",getcwd(cwd,100));
 	// char	relative_path[256];
 	// char	*abs_path;
 	// int		ret;
@@ -82,5 +83,5 @@ void	ft_cd(t_gen *data, t_lexer *dir)
     // }
     // else
 	// 	ret = chdir(path);
-	// return (ret);
+	return (ret);
 }
