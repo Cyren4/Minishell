@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 00:20:27 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/08 23:36:55 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/08 23:47:11 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int exec_builtin(t_gen *data, t_lexer *cmd)
 	else if (ft_strcmp(cmd->content, "pwd") == 0)
 		ret = ft_pwd();
 	else if (ft_strcmp(cmd->content, "export") == 0)
-		ret = ft_cd(data, cmd->next);
+		ret = ft_export(data, cmd->next);
 	else if (ft_strcmp(cmd->content, "unset") == 0)
 		ret = ft_unset(data, cmd->next);
 	else if (ft_strcmp(cmd->content, "env") == 0)

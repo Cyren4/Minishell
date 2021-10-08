@@ -6,82 +6,75 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:20:22 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/08 23:38:09 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/09 01:35:08 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-// char	*join_char(char *s1, char *s2, char c)
-// {
-// 	int		length;
-// 	char	*result;
+t_env	*create_env(char *name, char *content)
+{
+	t_env	*new;
 
-// 	if (!(s1) || !(s2))
-// 		return (NULL);
-// 	length = ft_strlen(s1) + ft_strlen(s2) + 1;
-// 	result = malloc((sizeof(char)) * (length + 1));
-// 	if (!result)
-// 		return (NULL);
-// 	ft_strcpy(result, s1);
-// 	result[ft_strlen(s1)] = c;
-// 	result[ft_strlen(s1) + 1] = '\0';
-// 	ft_strcat(result, s2);
-// // 	return (result);
-// }
+	new = (t_env *)malloc(sizeof(t_env));
+	new->name = ft_strdup(name);
+	new->content = ft_strdup(content);
+	new->next = NULL;
+	return new;
+}
 
-// void	no_arg_cd(t_gen *data)
-// {
-// 	t_env	*home;
+void	maj_env(t_gen *data, char *name, char *content)
+{
+	t_env	*tmp;
 
-// 	home = get_var_exist(data, "HOME");
-// 	if (home == NULL)
-// 		printf("cd: HOME not set\n");
-// 	else
-// 		return (home);	
-// }
+	tmp = data->env;
+	while (tmp)
+	{
+		if (ft_strcmp(tmp->name, name) == 0)
+		{
+			free(tmp->content);
+			tmp->content = ft_strdup(content);
+			return ;
+		}
+		tmp = tmp->next;
+	}
+	if (tmp == NULL)
+		add_env(data, create_env(name, content));
+}
+
+void	maj_pwd(t_gen *data)
+{
+	char	cwd[PATH_MAX];
+
+	if (!getcwd(cwd, PATH_MAX))
+		return ;
+	maj_env(data, "OLDPWD", get_env_var(data, "PWD"));
+	maj_env(data, "PWD", cwd);
+}
 
 int	ft_cd(t_gen *data, t_lexer *dir)
 {
-	char	cwd[PATH_MAX];
 	char	*home;
 	int		ret;
 	
-	ret = 0;
+	ret = EXIT_SUCCESS;
 	if (dir == NULL || ft_strcmp(dir->content, "~") == 0)
 	{
 		home = get_var_exist(data, "HOME");
-		printf("home = %s\n", home);
 		if (home == NULL)
 		{
 			printf("cd: HOME not set\n");
-			ret = 1;
+			ret = EXIT_FAILURE;
 		}
 		else if (chdir(ft_strdup(home)) == -1)
-			printf("cd: %s: No such file or directory\n", dir->content);
+			printf("cd: %s: No such file or directory\n", home);
 	}
 	else 
 	{
 		if (chdir(dir->content) == -1)
 			printf("cd: %s: No such file or directory\n", dir->content);
 	}
-	printf("la\n");
-	printf("%s\n",getcwd(cwd,100));
-	// char	relative_path[256];
-	// char	*abs_path;
-	// int		ret;
-
-	// if (path[0] != '/')
-    // {
-	// 	if (!getcwd(relative_path, sizeof(relative_path)))
-	// 		return (-1);
-	// 	abs_path = join_char(relative_path, path, '/');
-	// 	if (!abs_path)
-	// 		return (-1);
-	// 	ret = chdir(abs_path);
-	// 	free(abs_path);
-    // }
-    // else
-	// 	ret = chdir(path);
+	if (ret == EXIT_SUCCESS)
+		maj_pwd(data);
 	return (ret);
 }

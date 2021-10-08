@@ -26,7 +26,7 @@
 // # define GT2 6 
 // # define OPTION 7
 
-enum e_token { WORD, PIPE, LT, LT2, GT, GT2, CMD, OPTION};
+enum e_token {PIPE, LT, LT2, GT, GT2, CMD, OPTION, WORD};
 enum e_quote { NO_Q, SIMPLE_Q, DOUBLE_Q};
 enum e_err {QUOTES_UNCLOSED, BAD_MALLOC, BAD_INPUT};
 
@@ -119,11 +119,13 @@ int		ft_unset(t_gen *data, t_lexer *cmd);
 
 /*		export.c	*/
 int		ft_export(t_gen *data, t_lexer *cmd);
+void	add_env(t_gen *data, t_env *new);
 
 /*		env.c	*/
 int		ft_env(t_gen *data, char *pref);
 
 /*		cd.c	*/
+t_env	*create_env(char *name, char *content);
 int		ft_cd(t_gen *data, t_lexer *dir);
 
 /*		pwd.c	*/

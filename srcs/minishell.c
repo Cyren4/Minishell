@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/08 23:40:33 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/09 01:57:41 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,25 +45,17 @@ void delete_data(t_gen *data)
 	// clear_history();
 }
 
-int main(int ac, char **av, char **env)
+int prompt(t_gen *data)
 {
-	t_gen data;
 	// int total_cmds;
-
-	(void)av;
-	if (ac == 100)
-		return (0);
-	init_data(&data);
-	stock_env_vars(&data, env);
-	while (data.status)
+	while (data->status)
 	{
-		// data.status = 0;
-		display_prompt(&data);
-		data.lex = lexer(data.parser.parsed, &data);
+		display_prompt(data);
+		data->lex = lexer(data->parser.parsed, data);
 		// data.lex = lexer(&av[1], &data);
-		display_token(data.lex);
-		if (data.lex->is_builtin == 1)
-			data.exit_stat = exec_builtin(&data, data.lex);
+		display_token(data->lex);
+		if (data->lex->is_builtin == 1)
+			data->exit_stat = exec_builtin(data, data->lex);
 		/*data.ast = build_tree1(data.lex);
 		if (!data.ast)
 			error(&data, BAD_INPUT);
@@ -81,6 +73,20 @@ int main(int ac, char **av, char **env)
 			}
 		}*/
 	}
+	return (EXIT_SUCCESS);
+}
+
+int main(int ac, char **av, char **env)
+{
+	t_gen	data;
+	int		ret;
+
+	(void)av;
+	if (ac == 100)
+		return (0);
+	init_data(&data);
+	stock_env_vars(&data, env);
+	ret = prompt(&data);
 	delete_data(&data);
-	return (0);
+	return (ret);
 }

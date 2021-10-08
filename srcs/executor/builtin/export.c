@@ -6,13 +6,13 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:22:11 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/08 01:01:41 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/09 01:56:16 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-t_env	*create_env(char *cmd, int eq_pos)
+t_env	*create_env_exp(char *cmd, int eq_pos)
 {
 	t_env	*new;
 
@@ -36,8 +36,7 @@ int	unvalid_exp(char *env)
 		return (1);
 	while (env && env[i])
 	{
-		if ((!ft_isalnum(env[i]) && env[i] != '_' && env[i] != '=' && !ft_isspace(env[i]))
-			|| ((ft_isspace(env[i]) && i < eq_pos)))
+		if (i < eq_pos && !ft_isalnum(env[i]) && env[i] != '_' && env[i] != '=')
 			return (1);
 		i++;
 	}
@@ -102,7 +101,7 @@ int		ft_export(t_gen *data, t_lexer *cmd)
 		else
 		{
 			new = NULL;
-			new = create_env(tmp->content, occur(tmp->content, '=', 1) );
+			new = create_env_exp(tmp->content, occur(tmp->content, '=', 1) );
 			if (new != NULL)
 				add_env(data, new);
 		}
