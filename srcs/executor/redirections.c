@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 10:49:43 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/08 12:44:27 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/10/08 14:27:53 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,10 @@ int store_data(char *start, char *end, t_tree *ast)
 	int start_flag;
 	int pid;
 	int breaker;
-	char buf[1000];
+	// char buf[1000];
 	(void)ast;
 	breaker = 0;
 
-	if (ast->fd_in != 0)
-		close(ast->fd_in);
 	std_in = NULL;
 	if (pipe(fd) < 0)
 		return (0);
@@ -77,23 +75,22 @@ int store_data(char *start, char *end, t_tree *ast)
 			if (std_in && ft_strncmp(std_in, start, ft_strlen(start)) == 0)
 				start_flag = 1;
 			if (std_in && ft_strncmp(std_in, end, ft_strlen(end)) == 0)
-			{
-				close(fd[1]);
-				return (1);
-			}
+				break;
 			if (start_flag)
 				write(fd[1], ft_strjoin(std_in, "\n"), ft_strlen(std_in) + 1);
 		}
+		close(fd[1]);
 	}
 	else
 	{
 		wait(NULL);
 		close(fd[1]);
-		read(fd[0], buf, 1000);
-		printf("buf : %s\n", buf);
+		// read(fd[0], buf, 1000);
+		// printf("buf : %s\n", buf);
 		dup2(fd[0], STDIN_FILENO);
+		close(fd[0]);
 	}
-	return (0);
+	return (1);
 }
 
 int manage_redirs(t_tree *ast)
@@ -109,28 +106,32 @@ int manage_redirs(t_tree *ast)
 		if (head->token == GT)
 		{
 			file_fd = open(head->next->content, O_CREAT | O_RDWR, 0666);
-			close(ast->fd_out);
+			if (ast->fd_out != 1)
+				close(ast->fd_out);
 			dup2(file_fd, STDOUT_FILENO);
 			close(file_fd);
 		}
 		if (head->token == GT2)
 		{
 			file_fd = open(head->next->content, O_CREAT | O_RDWR | O_APPEND, 0666);
-			close(ast->fd_out);
+			if (ast->fd_out != 1)
+				close(ast->fd_out);
 			dup2(file_fd, STDOUT_FILENO);
 			close(file_fd);
 		}
 		if (head->token == LT)
 		{
 			file_fd = open(head->next->content, O_RDONLY, 0444);
-			close(ast->fd_in);
+			if (ast->fd_in != 0)
+				close(ast->fd_in);
 			dup2(file_fd, STDIN_FILENO);
 			close(file_fd);
 		}
 		if (head->token == LT2 && !flag_lt2)
 		{
+			if (ast->fd_in != 0)
+				close(ast->fd_in);
 			manage_lt2(head, ast);
-			close(ast->fd_in);
 			flag_lt2 = 1;
 		}
 		head = head->next;
