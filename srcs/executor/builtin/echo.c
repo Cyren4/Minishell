@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:20:41 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/09 19:14:54 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/09 19:46:32 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ char	*join_sep(char *s1, char *s2, char sep)
 	while (s2 && s2[++j])
 		str[i + j] = s2[j];
 	str[i + j] = 0;
-	free(s1);
+	if (s1)
+		free(s1);
 	return (str);
 }
 
@@ -67,5 +68,6 @@ int ft_echo(t_lexer *lex)
 		printf("%s", print);
 	if (opt == 0)
 		printf("\n");
+	free(print);
 	return (1);
 }

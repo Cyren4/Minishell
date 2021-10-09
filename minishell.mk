@@ -15,6 +15,7 @@ FILES = minishell.c \
 		parsing/build_node_ast.c \
 		utils/print_tree.c \
 		parsing/create_pipes.c \
+		executor/builtin/echo.c \
 		executor/builtin/export.c \
 		executor/builtin/unset.c \
 		executor/builtin/env.c \

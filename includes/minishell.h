@@ -94,6 +94,7 @@ char	**check_sub_words(char *cmd);
 
 /*	token_insert_var.c	*/
 int		insert_var(char *dst, char *src, int *src_i, t_gen *data);
+int		insert_var_noquote(char *dst, char *src, int *src_i, t_gen *data);
 int		real_size(char *content, t_gen *data);
 
 /*	token_utils.c	*/
@@ -112,6 +113,9 @@ char	*get_var_exist(t_gen *gen, char *var);
 
 /*		builtin_monitor.c		*/
 int		exec_builtin(t_gen *data, t_lexer *cmd);
+
+/*		echo.c		*/
+int		ft_echo(t_lexer *lex);
 
 /*		unset.c		*/
 void	free_env(t_env *env);

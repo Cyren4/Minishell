@@ -6,12 +6,13 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 18:45:42 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/06 22:03:06 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/09 19:58:53 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+//to delete
 void display_array(char **path)
 {
 	int i;

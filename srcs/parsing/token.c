@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 19:26:49 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/06 21:31:45 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/10/09 19:25:57 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ void	complexe_elem(t_lexer *elem, t_gen *data)
 			quote_interpretation(elem->content[elem_i], &inside);
 		else if (elem->content[elem_i] == '$' && inside != SIMPLE_Q)
 		{
-			i += insert_var(real_content + i, elem->content, &elem_i, data);
+			if (inside == DOUBLE_Q || ft_strncmp(elem->content + elem_i, "$?", 2) == 0)
+				i += insert_var(real_content + i, elem->content, &elem_i, data);
+			else
+				i += insert_var_noquote(real_content + i, elem->content, &elem_i, data);
 			continue ;
 		}
 		else

@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 00:20:27 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/08 23:47:11 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/09 19:48:05 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,10 @@ int exec_builtin(t_gen *data, t_lexer *cmd)
 {
 	int ret;
 
-	// if (ft_strcmp(cmd->content, "echo") == 0)
-	//     ret = ft_echo(data);
-	// else
 	ret = 0;
-	if (ft_strcmp(cmd->content, "cd") == 0)
+	if (ft_strcmp(cmd->content, "echo") == 0)
+	    ret = ft_echo(cmd->next);
+	else if (ft_strcmp(cmd->content, "cd") == 0)
 		ret = ft_cd(data, cmd->next);
 	else if (ft_strcmp(cmd->content, "pwd") == 0)
 		ret = ft_pwd();

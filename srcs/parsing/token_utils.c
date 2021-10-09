@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 19:28:48 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/08 23:42:56 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/09 20:29:38 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,11 @@ void	display_token(t_lexer *lst_lex)
 	
 	printf("Let's show token\n");
 	tmp = lst_lex;
+	if(!lst_lex)
+	{
+		printf("Empty\n");
+		return;
+	}
 	while (tmp)
 	{
 		printf("%s\t%s\n", tmp->content, token[tmp->token]);

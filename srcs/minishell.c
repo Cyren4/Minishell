@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/09 15:03:02 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/09 20:42:28 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int prompt(t_gen *data)
 		display_prompt(data);
 		data->lex = lexer(data->parser.parsed, data);
 		// data.lex = lexer(&av[1], &data);
-		display_token(data->lex);
+		// display_token(data->lex);
 		if (data->lex->is_builtin == 1)
 			data->exit_stat = exec_builtin(data, data->lex);
 		/*data.ast = build_tree1(data.lex);
@@ -72,6 +72,7 @@ int prompt(t_gen *data)
 				total_cmds--;
 			}
 		}*/
+		clean_data(data);
 	}
 	return (EXIT_SUCCESS);
 }
