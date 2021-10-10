@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 19:26:49 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/09 19:25:57 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/10 11:43:43 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ t_lexer	*add_elem_lex(t_lexer *lst_elem, char *cmd, t_gen *data)
 {
 	t_lexer	*new;
 	t_lexer	*tmp;
-
+	
 	new = malloc(sizeof(t_lexer));
 	if (!new)
 		return (NULL);
@@ -95,12 +95,13 @@ t_lexer	*add_elem_lex(t_lexer *lst_elem, char *cmd, t_gen *data)
 
 t_lexer	*lexer(char **cmd_line, t_gen *data)
 {
-	t_lexer	*lst_elem;
+	// t_lexer	*lst_elem;
 	int		i;
 	int		j;
 	char	**splited;
 
-	lst_elem = NULL;
+	// lst_elem = NULL;
+	data->lex = NULL;
 	i = 0;
 	while (cmd_line[i] != NULL)
 	{
@@ -109,11 +110,11 @@ t_lexer	*lexer(char **cmd_line, t_gen *data)
 		splited = check_sub_words(cmd_line[i]);
 		while (splited[j] != NULL)
 		{
-			lst_elem = add_elem_lex(lst_elem, splited[j], data);
+			data->lex = add_elem_lex(data->lex, splited[j], data);
 			j++;
 		}
 		free_tab(splited);
 		i++;
 	}
-	return (lst_elem);
+	return (data->lex);
 }

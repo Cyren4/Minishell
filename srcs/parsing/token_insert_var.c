@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 19:14:50 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/09 20:46:40 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/10 11:45:06 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,26 +80,6 @@ int		strcpy_nospace(char *dst, char *src, int *var_len)
 	return (ret);
 }
 
-t_lexer	*add_opt_lex(t_lexer *lst)
-{
-	t_lexer	*new;
-	t_lexer	*tmp;
-
-	new = malloc(sizeof(t_lexer));
-	if (!new)
-		return (NULL);
-	new->content = ft_strdup("-n");
-	new->is_builtin = 0;
-	new->next = NULL;
-	if (lst == NULL)
-		return (new);
-	tmp = lst;
-	while (tmp->next != NULL)
-		tmp = tmp->next;
-	tmp->next = new;
-	return (lst);
-}
-
 int	insert_var_noquote(char *dst, char *src, int *src_i, t_gen *data)
 {
 	char	*env_var;
@@ -117,16 +97,7 @@ int	insert_var_noquote(char *dst, char *src, int *src_i, t_gen *data)
 	}
 	env_var[i] = '\0';
 	if (strcpy_nospace(dst, get_env_var(data, env_var), &var_len))
-	{
-	// 	t_lexer *tmp = data->lex;
-	// 	while (tmp->next != NULL)
-	// 	{
-	// 	if(tmp->content)
-	// 		printf("|%s|\n", tmp->content);
-	// 	tmp = tmp->next;
-	// }
-		data->lex = add_opt_lex(data->lex);
-	}
+		data->lex = add_elem_lex(data->lex, "-n", data);
 	free(env_var);
 	return (var_len);
 }

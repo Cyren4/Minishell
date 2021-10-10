@@ -88,6 +88,7 @@ typedef struct s_gen
 
 /*		token.c		*/
 t_lexer	*lexer(char **cmd_line, t_gen *data);
+t_lexer	*add_elem_lex(t_lexer *lst_elem, char *cmd, t_gen *data);
 
 /*		token_split.c	*/
 char	**check_sub_words(char *cmd);
