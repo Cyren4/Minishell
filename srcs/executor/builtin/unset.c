@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:22:11 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/08 23:26:39 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/10 11:57:29 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	delete_env(t_gen *data, char *var)
 	{
 		data->env = data->env->next;
 		free_env(tmp);
-		return;
+		return ;
 	}
 	while (tmp->next != NULL)
 	{
@@ -57,7 +57,7 @@ void	delete_env(t_gen *data, char *var)
 				free(data->prompt);
 				data->prompt = ft_strdup("");
 			}
-			return;
+			return ;
 		}
 		tmp = tmp->next;
 	}
@@ -65,7 +65,7 @@ void	delete_env(t_gen *data, char *var)
 
 int	ft_unset(t_gen *data, t_lexer *cmd)
 {
-	t_lexer *tmp;
+	t_lexer	*tmp;
 	int		ret;
 
 	tmp = cmd;

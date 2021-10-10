@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:20:22 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/09 02:12:25 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/10 11:48:23 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_env	*create_env(char *name, char *content)
 	new->name = ft_strdup(name);
 	new->content = ft_strdup(content);
 	new->next = NULL;
-	return new;
+	return (new);
 }
 
 void	maj_env(t_gen *data, char *name, char *content)
@@ -56,7 +56,7 @@ int	ft_cd(t_gen *data, t_lexer *dir)
 {
 	char	*home;
 	int		ret;
-	
+
 	ret = EXIT_SUCCESS;
 	if (dir == NULL || ft_strcmp(dir->content, "~") == 0)
 	{
@@ -69,7 +69,7 @@ int	ft_cd(t_gen *data, t_lexer *dir)
 		else if (chdir(ft_strdup(home)) == -1)
 			printf("cd: %s: No such file or directory\n", home);
 	}
-	else 
+	else
 	{
 		if (chdir(dir->content) == -1)
 			printf("cd: %s: No such file or directory\n", dir->content);

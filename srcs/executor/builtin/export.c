@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:22:11 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/09 01:56:16 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/10 11:56:33 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ t_env	*create_env_exp(char *cmd, int eq_pos)
 	t_env	*new;
 
 	if (eq_pos < 0)
-		return NULL;
+		return (NULL);
 	new = (t_env *)malloc(sizeof(t_env));
 	new->name = ft_substr(cmd, 0, eq_pos);
 	new->content = ft_substr(cmd, eq_pos + 1, ft_strlen(cmd) - eq_pos - 1);
 	new->next = NULL;
-	return new;
+	return (new);
 }
 
 int	unvalid_exp(char *env)
@@ -32,7 +32,7 @@ int	unvalid_exp(char *env)
 
 	eq_pos = occur(env, '=', 1);
 	i = 0;
-	if (*env ==  '=')
+	if (*env == '=')
 		return (1);
 	while (env && env[i])
 	{
@@ -50,15 +50,14 @@ void	special_case(t_gen *data, t_env *new)
 		free(data->prompt);
 		data->prompt = ft_strdup(new->content);
 	}
-	//gerer le PWD et OLPWD 
-	//-> a chaque cd le pwd et oldpwd se met a jour
-	//pwd prend le pwd actuel et old pwd prend l'ancien
 }
 
 void	add_env(t_gen *data, t_env *new)
 {
 	t_env	*tmp;
 
+	if (new == NULL)
+		return ;
 	tmp = data->env;
 	while (tmp->next != NULL)
 	{
@@ -76,34 +75,28 @@ void	add_env(t_gen *data, t_env *new)
 	data->env = new;
 }
 
-int		ft_export(t_gen *data, t_lexer *cmd)
+int	ft_export(t_gen *data, t_lexer *cmd)
 {
-	t_lexer *tmp;
+	t_lexer	*tmp;
 	t_env	*new;
 	int		ret;
 
 	ret = EXIT_SUCCESS;
 	tmp = cmd;
-	data->exit_stat = 0;
 	if (cmd == NULL)
-	{
 		ft_env(data, "declare -x ");
-		return (EXIT_SUCCESS);
-	}
-	while (tmp != NULL)
+	while (cmd != NULL && tmp != NULL)
 	{
 		if (unvalid_exp(cmd->content))
 		{
 			printf("export: `%s': not a valid identifier\n", cmd->content);
-			data->exit_stat = 1;
 			ret = EXIT_FAILURE;
 		}
 		else
 		{
 			new = NULL;
-			new = create_env_exp(tmp->content, occur(tmp->content, '=', 1) );
-			if (new != NULL)
-				add_env(data, new);
+			new = create_env_exp(tmp->content, occur(tmp->content, '=', 1));
+			add_env(data, new);
 		}
 		tmp = tmp->next;
 	}

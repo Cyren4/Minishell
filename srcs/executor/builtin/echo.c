@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:20:41 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/09 19:46:32 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/10 11:50:18 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ char	*join_sep(char *s1, char *s2, char sep)
 	int		j;
 	char	*str;
 
-	if (!s1 && !s2)
-		return (NULL);
 	i = 0;
 	j = -1;
 	len = ft_strlen(s1) + ft_strlen(s2) + 1;
@@ -35,7 +33,7 @@ char	*join_sep(char *s1, char *s2, char sep)
 		str[i] = s1[i];
 		i++;
 	}
-	if(i != 0)
+	if (i != 0)
 		str[i++] = sep;
 	while (s2 && s2[++j])
 		str[i + j] = s2[j];
@@ -45,12 +43,12 @@ char	*join_sep(char *s1, char *s2, char sep)
 	return (str);
 }
 
-int ft_echo(t_lexer *lex)
+int	ft_echo(t_lexer *lex)
 {
-	t_lexer *tmp;
+	t_lexer	*tmp;
 	char	*print;
 	int		opt;
-	
+
 	opt = 0;
 	tmp = lex;
 	if (tmp && ft_strcmp(tmp->content, "-n") == 0)
@@ -61,7 +59,8 @@ int ft_echo(t_lexer *lex)
 	print = NULL;
 	while (tmp)
 	{
-		print = join_sep(print, tmp->content, ' ');
+		if (print || tmp->content)
+			print = join_sep(print, tmp->content, ' ');
 		tmp = tmp->next;
 	}
 	if (print != NULL)
