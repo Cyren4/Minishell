@@ -6,7 +6,7 @@
 /*   By: vincentbaron <vincentbaron@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/11 16:45:25 by vincentbaro      ###   ########.fr       */
+/*   Updated: 2021/10/11 17:00:35 by vincentbaro      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,31 +47,32 @@ void delete_data(t_gen *data)
 
 int prompt(t_gen *data)
 {
-	// int total_cmds;
+	int total_cmds;
+	
 	while (data->status)
 	{
 		display_prompt(data);
 		data->lex = lexer(data->parser.parsed, data);
 		// data.lex = lexer(&av[1], &data);
 		// display_token(data->lex);
-		if (data->lex->is_builtin == 1)
-			data->exit_stat = exec_builtin(data, data->lex);
-		/*data.ast = build_tree1(data.lex);
-		if (!data.ast)
-			error(&data, BAD_INPUT);
+		// if (data->lex->is_builtin == 1)
+		// 	data->exit_stat = exec_builtin(data, data->lex);
+		data->ast = build_tree1(data->lex);
+		if (!data->ast)
+			error(data, BAD_INPUT);
 		else
 		{
-			// structure(data.ast, 0);
-			create_pipes(data.ast);
-			total_cmds = calculate_commands(data.ast);
-			if (!execute_ast(&data, data.ast))
-				error(&data, -1);
+			// structure(data->ast, 0);
+			create_pipes(data->ast);
+			total_cmds = calculate_commands(data->ast);
+			if (!execute_ast(data, data->ast))
+				error(data, -1);
 			while (total_cmds >= 0)
 			{
 				wait(NULL);
 				total_cmds--;
 			}
-		}*/
+		}
 		clean_data(data);
 	}
 	return (EXIT_SUCCESS);

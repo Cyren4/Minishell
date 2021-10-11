@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_command.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vincentbaron <vincentbaron@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 14:23:32 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/08 15:53:57 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/10/11 17:05:50 by vincentbaro      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,18 @@ int execute_command(t_gen *data, t_tree *ast)
 	{
 		dup2(ast->fd_in, STDIN_FILENO);
 		dup2(ast->fd_out, STDOUT_FILENO);
-		cmd = NULL;
-		cmd_table = create_command(ast->cmd);
-		cmd = is_excve(cmd_table[0], data);
-		if (!cmd)
-			ft_putstr_fd("bad command\n", ast->fd_out);
+		if (ast->cmd->is_builtin == 1)
+			data->exit_stat = exec_builtin(data, ast->cmd);
 		else
-			execve(cmd, cmd_table, NULL);
+		{
+			cmd = NULL;
+			cmd_table = create_command(ast->cmd);
+			cmd = is_excve(cmd_table[0], data);
+			if (!cmd)
+				ft_putstr_fd("bad command\n", ast->fd_out);
+			else
+				execve(cmd, cmd_table, NULL);
+		}
 	}
 	else
 	{
