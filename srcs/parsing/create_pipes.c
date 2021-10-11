@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_pipes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vincentbaron <vincentbaron@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 18:28:23 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/07 15:34:17 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/10/11 18:39:28 by vincentbaro      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int create_pipes(t_tree *ast)
 	head = ast;
 	if (head->type == PIPE)
 	{
+		if (!ast->left || !ast->right)
+			return (0);
 		if (pipe(fd) < 0)
 			return (0);
 		ast->left->fd_in = ast->fd_in;

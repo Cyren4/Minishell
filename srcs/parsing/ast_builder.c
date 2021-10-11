@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast_builder.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vincentbaron <vincentbaron@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:02:34 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/04 12:06:48 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/10/11 18:20:33 by vincentbaro      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ t_tree *build_tree1(t_lexer *lexer)
 	t_tree *ast;
 	t_lexer *curr_lex;
 	
+	if (lexer == NULL)
+		return (0);
 	curr_lex = lexer;
 	while (curr_lex && curr_lex->token != PIPE)
 		curr_lex = curr_lex->next;

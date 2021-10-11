@@ -58,9 +58,7 @@ typedef struct s_tree
 	t_lexer *cmd;
 	t_lexer *redir;
 	int fd_in;
-	char *input;
 	int fd_out;
-	char *output;
 	struct s_tree *left;
 	struct s_tree *right;
 
@@ -137,31 +135,39 @@ int		ft_cd(t_gen *data, t_lexer *dir);
 int		ft_pwd(void);
 
 // display/
+
 /*		display.c	*/
 void	display_prompt(t_gen *data);
 
+
 // error/
+
 /*		error.c		*/
 void	arg_error(char  *exec);
 void 	error(t_gen *data, int e);
 
+
 // exec/
+
 /*		exec.c		*/
 void 	set_vars(t_gen *mini);
 /*		is_execve.c		*/
 char *is_excve(char *command, t_gen *data);
 
+
 // parsing/
+
 /*		env_vars_parsing.c		*/
 void 	stock_env_vars(t_gen *data, char **env);
 void display_array(char **path);
 void	add_elem(t_gen *data, char *var_path);
+
 /*		create_pipes.c		*/
 int		create_pipes(t_tree *ast);
 
 
-
 // executor/
+
 /*		ast_builder.c		*/
 t_tree *build_tree1(t_lexer *lexer);
 t_tree *build_tree2(t_lexer *lexer);
@@ -172,22 +178,34 @@ t_tree *build_leaf(t_lexer *lexer);
 /*		build_pipe_node_ast.c		*/
 t_tree *build_node(t_lexer *lex, t_lexer *head, int type);
 void cut_lexer(t_lexer *head, t_lexer *lex);
-/*		execute_ast.c		*/
+
+ /*		execute_ast.c		*/
 int execute_ast(t_gen *data, t_tree *ast);
-/*		execute_command.c		*/
+
+ /*		execute_command.c		*/
 int execute_command(t_gen *data, t_tree *ast);
-/*		execute_command.c		*/
+
+ /*		execute_command.c		*/
 int execute_redir(t_gen *data, t_tree *ast);
-/*		signals.c		*/
+
+ /*		signals.c		*/
 void exit_shell(int sig);
+
 /*		redirections.c		*/
 int manage_redirs(t_tree *ast);
 int manage_lt2(t_lexer *redirs, t_tree *ast);
 int store_data(char *start, char *end, t_tree *ast);
+
 /*		calculate_commands.c		*/
 int calculate_commands(t_tree *ast);
 
-/*			#utils#		*/
+/*		redirections.c		*/
+int manage_redirs(t_tree *ast);
+int manage_lt2(t_lexer *redirs, t_tree *ast);
+int store_data(char *start, char *end, t_tree *ast);
+
+
+//utils/
 
 /*	utils_1.c	*/
 void	free_tab(char **tab);
@@ -200,7 +218,6 @@ void 	display_env_vars(t_env *envs);
 
 /*		print_tree.c		*/
 void	structure(t_tree *root, int level );
-
 
 /*		print_tree.c		*/
 void	clean_lex(t_lexer *lex);
@@ -219,9 +236,7 @@ int 	execute_redir(t_gen *data, t_tree *ast);
 /*		signals.c		*/
 void 	exit_shell(int sig);
 
-/*		redirections.c		*/
-int manage_redirs(t_tree *ast);
-int manage_lt2(t_lexer *redirs, t_tree *ast);
-int store_data(char *start, char *end, t_tree *ast);
+/*		clear.c		*/
+void clean_tree(t_tree *ast);
 
 #endif

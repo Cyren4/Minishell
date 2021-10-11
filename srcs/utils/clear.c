@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clear.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vincentbaron <vincentbaron@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:51:50 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/05 15:13:35 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/11 20:54:04 by vincentbaro      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,17 @@
 void    clean_lex(t_lexer *lex)
 {
 	t_lexer *cur;
-	t_lexer *next;
+	t_lexer *old;
 
 	if (lex == NULL)
 		return;
 	cur = lex;
-	while (cur != NULL)
+	while (cur)
 	{
-		next = cur->next;
-		free(cur);
-		cur = next;
+		old = cur;
+		cur = cur->next;
+		if (old)
+			free(old);
 	}
 }
 
@@ -36,14 +37,15 @@ void    clean_env(t_env *env)
 	if (env == NULL)
 		return;
 	cur = env;
-	while (env != NULL)
+	while (cur != NULL)
 	{
-		next = env->next;
 		if (cur->name != NULL)
 			free(cur->name);
 		if (cur->content != NULL)
 			free(cur->content);
-		free(cur);
+		next = cur->next;
+		if (cur)
+			free(cur);
 		cur = next;
 	}
 }
@@ -67,4 +69,27 @@ void    clean_parser(t_pars *pars)
 	free(pars->parsed);
 	if (pars->std_in)
 		free(pars->std_in);
+}
+
+void clean_tree(t_tree *ast)
+{
+	t_tree *head;
+
+	head = ast;
+	if (head && head->type == CMD)
+	{
+		if (head->cmd)
+			clean_lex(head->cmd);
+		if (head->redir)
+			clean_lex(head->redir);
+	}
+	if (head && head->left)
+		 clean_tree(head->left);
+	if (head && head->right)
+		clean_tree(head->right);
+	if (head)
+	{
+		free(head);
+		head = NULL;
+	}
 }
