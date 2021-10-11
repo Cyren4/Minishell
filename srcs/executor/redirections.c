@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 10:49:43 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/07 18:55:28 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/10/08 16:23:15 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,10 @@ int store_data(char *start, char *end, t_tree *ast)
 	char *std_in;
 	int start_flag;
 	int pid;
+	int breaker;
+	// char buf[1000];
+	(void)ast;
+	breaker = 0;
 
 	std_in = NULL;
 	if (pipe(fd) < 0)
@@ -64,33 +68,34 @@ int store_data(char *start, char *end, t_tree *ast)
 		start_flag = 0;
 		if (!start)
 			start_flag = 1;
-		std_in = readline(">");
-		// printf("std_in: %s\n", std_in);
-		if (std_in && ft_strncmp(std_in, start, ft_strlen(start)) == 0)
-			start_flag = 1;
-		if (std_in && ft_strncmp(std_in, end, ft_strlen(end)) == 0)
-			return (1);
-		if (start_flag)
+		while(1 && breaker < 10)
 		{
-			dup2(fd[1], STDIN_FILENO);
-			close(fd[1]);
+			std_in = readline("heredoc>");
+			breaker++;
+			if (std_in && ft_strncmp(std_in, start, ft_strlen(start)) == 0)
+				start_flag = 1;
+			if (std_in && ft_strncmp(std_in, end, ft_strlen(end)) == 0)
+				break;
+			if (start_flag)
+				write(fd[1], ft_strjoin(std_in, "\n"), ft_strlen(std_in) + 1);
+			free(std_in);
 		}
+		close(fd[1]);
+		return(1);
 	}
 	else
 	{
 		wait(NULL);
 		close(fd[1]);
-		close(ast->fd_in);
-		dup2(fd[0], STDIN_FILENO);
-		close(fd[0]);
+		ast->fd_in = fd[0];
 	}
-	return (0);
+	return (1);
 }
 
 int manage_redirs(t_tree *ast)
 {
 	t_lexer *head;
-	int file_fd;
+	// int file_fd;
 	int flag_lt2;
 
 	flag_lt2 = 0;
@@ -98,26 +103,11 @@ int manage_redirs(t_tree *ast)
 	while (head->next)
 	{
 		if (head->token == GT)
-		{
-			file_fd = open(head->next->content, O_CREAT | O_RDWR, 0666);
-			close(ast->fd_out);
-			dup2(file_fd, ast->fd_out);
-			close(file_fd);
-		}
+			ast->fd_out = open(head->next->content, O_CREAT | O_RDWR, 0666);
 		if (head->token == GT2)
-		{
-			file_fd = open(head->next->content, O_CREAT | O_RDWR | O_APPEND, 0666);
-			close(ast->fd_out);
-			dup2(file_fd, ast->fd_out);
-			close(file_fd);
-		}
+			ast->fd_out = open(head->next->content, O_CREAT | O_RDWR | O_APPEND, 0666);
 		if (head->token == LT)
-		{
-			file_fd = open(head->next->content, O_RDONLY, 0444);
-			close(ast->fd_in);
-			dup2(file_fd, ast->fd_in);
-			close(file_fd);
-		}
+			ast->fd_in = open(head->next->content, O_RDONLY, 0444);
 		if (head->token == LT2 && !flag_lt2)
 		{
 			manage_lt2(head, ast);
@@ -127,3 +117,4 @@ int manage_redirs(t_tree *ast)
 	}
 	return (1);
 }
+

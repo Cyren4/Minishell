@@ -1,0 +1,4 @@
+hello
+	~
+cmd: echo hello 
+	~

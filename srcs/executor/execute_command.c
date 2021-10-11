@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 14:23:32 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/07 18:01:47 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/10/08 15:53:57 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,14 @@ int execute_command(t_gen *data, t_tree *ast)
 	int pid;
 	char **cmd_table;
 	char *cmd;
-	// char buf[1000];
 
+	if (ast->redir)
+		manage_redirs(ast);
 	pid = fork();
 	if (pid < 0)
 		return (0);
 	else if (pid == 0)
 	{
-		if (ast->redir)
-			manage_redirs(ast);
 		dup2(ast->fd_in, STDIN_FILENO);
 		dup2(ast->fd_out, STDOUT_FILENO);
 		cmd = NULL;
