@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vincentbaron <vincentbaron@student.42.f    +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/11 17:00:35 by vincentbaro      ###   ########.fr       */
+/*   Updated: 2021/10/16 06:55:54 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,37 @@ void delete_data(t_gen *data)
 	// clear_history();
 }
 
+int		maj_sig(int sig)
+{
+	static int	cur_sig = -1;
+
+	if (sig != -1)
+		cur_sig = sig;
+	return (cur_sig);
+}
+
+void	handler(int sig, siginfo_t *info, void *context)
+{
+	maj_sig(sig);
+}
+
+void	receiveSIG(void)
+{
+	struct sigaction	sa;
+
+	sa.sa_flags = SA_SIGINFO;
+	sa.sa_sigaction = handler;
+	sigaction(SIGINT, &sa, NULL);
+	sigaction(SIGQUIT, &sa, NULL);
+}
+
 int prompt(t_gen *data)
 {
 	int total_cmds;
 	
 	while (data->status)
 	{
+		
 		display_prompt(data);
 		data->lex = lexer(data->parser.parsed, data);
 		// data.lex = lexer(&av[1], &data);
@@ -75,7 +100,7 @@ int prompt(t_gen *data)
 		}
 		clean_data(data);
 	}
-	return (EXIT_SUCCESS);
+	return (data->exit_stat);
 }
 
 int main(int ac, char **av, char **env)
