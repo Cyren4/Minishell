@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/18 12:37:17 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/10/18 15:26:13 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void delete_data(t_gen *data)
 	// clean_parser(&data->parser);
 	clean_env(data);
 	if (data->prompt != NULL)
-		free(data->prompt);
+		ft_free(data->prompt);
 	// clear_history();
 }
 

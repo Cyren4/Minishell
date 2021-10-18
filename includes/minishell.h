@@ -238,5 +238,6 @@ void 	exit_shell(int sig);
 
 /*		clear.c		*/
 void clean_tree(t_tree *ast);
+void ft_free(void *ptr);
 
 #endif

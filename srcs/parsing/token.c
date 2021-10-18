@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 19:26:49 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/10 11:43:43 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/18 15:29:24 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	complexe_elem(t_lexer *elem, t_gen *data)
 		elem_i++;
 	}
 	real_content[i] = '\0';
-	free(elem->content);
+	ft_free(elem->content);
 	elem->content = real_content;
 }
 
@@ -113,7 +113,8 @@ t_lexer	*lexer(char **cmd_line, t_gen *data)
 			data->lex = add_elem_lex(data->lex, splited[j], data);
 			j++;
 		}
-		free_tab(splited);
+		if (splited)
+			free_tab(splited);
 		i++;
 	}
 	return (data->lex);

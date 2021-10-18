@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 18:45:42 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/18 12:42:25 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/10/18 15:30:03 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	update_shlvl(t_gen *data)
 		if (ft_strcmp(tmp->name, "SHLVL") == 0)
 		{
 			cur_shlvl = ft_atoi(tmp->content);
-			free(tmp->content);
+			ft_free(tmp->content);
 			tmp->content = ft_itoa(cur_shlvl + 1);
 			return ;
 		}
