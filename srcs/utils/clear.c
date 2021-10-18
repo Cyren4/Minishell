@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:51:50 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/18 12:44:59 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/10/18 14:48:41 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ void    clean_env(t_gen *data)
 		}
 		free(data->paths);
 	}
+	if (data->pwd)
+		free(data->pwd);
 	
 }
 
