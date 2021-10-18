@@ -6,27 +6,33 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:51:50 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/18 15:28:24 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/10/18 16:24:26 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void    clean_lex(t_lexer *lex)
+void    clean_lex(t_gen *data)
 {
 	t_lexer *cur;
 	t_lexer *old;
 
-	if (lex == NULL)
+	if (data->lex == NULL)
 		return;
-	cur = lex;
+	cur = data->lex;
 	while (cur)
 	{
+		if (cur->content)
+			ft_free(cur->content);
 		old = cur;
 		cur = cur->next;
 		if (old)
+		{
+			old->next = NULL;
 			ft_free(old);
+		}
 	}
+	data->lex = NULL;
 }
 
 void    clean_env(t_gen *data)
@@ -90,22 +96,19 @@ void clean_tree(t_tree *ast)
 	t_tree *head;
 
 	head = ast;
-	if (head && head->type == CMD)
-	{
-		if (head->cmd)
-			clean_lex(head->cmd);
-		if (head->redir)
-			clean_lex(head->redir);
-	}
+	// if (head && head->type == CMD)
+	// {
+	// 	if (head->cmd)
+	// 		clean_lex(head->cmd);
+	// 	if (head->redir)
+	// 		clean_lex(head->redir);
+	// }
 	if (head && head->left)
 		 clean_tree(head->left);
 	if (head && head->right)
 		clean_tree(head->right);
 	if (head)
-	{
 		ft_free(head);
-		head = NULL;
-	}
 }
 
 void ft_free(void *ptr)

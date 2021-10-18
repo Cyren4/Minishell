@@ -8,8 +8,8 @@
 			"name": "(lldb) Lancer",
 			"type": "cppdbg",
 			"request": "launch",
-			"program": "/Users/vincentbaron/Desktop/Minishell/minishell",
-			"args": ["echo", "hello", "|", "echo", "salut", "|"],
+			"program": "/Users/vbaron/Desktop/Mini_shared/minishell",
+			"args": ["echo", "hello"],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",
 			"environment": [{

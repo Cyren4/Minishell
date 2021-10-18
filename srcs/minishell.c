@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/18 15:26:13 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/10/18 16:21:18 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,18 @@ void init_data(t_gen *data)
 
 void clean_data(t_gen *data)
 {
-	// clean_lex(data->lex);
+	clean_lex(data);
 	clean_parser(&data->parser);
-	clean_tree(data->ast);
+	clean_tree(data);
 	// data->parser.std_in = NULL;
 	// data->parser.parsed = NULL;
 }
 
 void delete_data(t_gen *data)
 {
-	// clean_lex(data->lex);
-	// data->lex = NULL;
-	// clean_parser(&data->parser);
+	clean_lex(data);
+	data->lex = NULL;
+	clean_parser(&data->parser);
 	clean_env(data);
 	if (data->prompt != NULL)
 		ft_free(data->prompt);
@@ -50,6 +50,7 @@ int prompt(t_gen *data, char **args)
 	int total_cmds;
 	(void)args;
 
+	total_cmds = 0;
 	while (data->status)
 	{
 		data->status = 0;
@@ -58,23 +59,23 @@ int prompt(t_gen *data, char **args)
 		data->lex = lexer(args, data);
 		// display_token(data->lex);
 		data->ast = build_tree1(data->lex);
-		if (!data->ast)
-			error(data, BAD_INPUT);
-		else
-		{
-			// structure(data->ast, 0);
-			if (create_pipes(data->ast))
-			{
-				total_cmds = calculate_commands(data->ast);
-				if (!execute_ast(data, data->ast))
-					error(data, -1);
-				while (total_cmds >= 0)
-				{
-					wait(NULL);
-					total_cmds--;
-				}
-			}
-		}
+		// if (!data->ast)
+		// 	error(data, BAD_INPUT);
+		// else
+		// {
+		// 	// structure(data->ast, 0);
+		// 	if (create_pipes(data->ast))
+		// 	{
+		// 		total_cmds = calculate_commands(data->ast);
+		// 		if (!execute_ast(data, data->ast))
+		// 			error(data, -1);
+		// 		while (total_cmds >= 0)
+		// 		{
+		// 			wait(NULL);
+		// 			total_cmds--;
+		// 		}
+		// 	}
+		// }
 		clean_data(data);
 	}
 	return (EXIT_SUCCESS);
