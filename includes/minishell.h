@@ -213,7 +213,7 @@ int		is_empty(char *line);
 int		len_int(int nb);
 int		occur(char *str, char c, int nbOccur);
 
-/*		display_env_vars.c		*/
+/*		display_env_vars.c	2	*/
 void 	display_env_vars(t_env *envs);
 
 /*		print_tree.c		*/
@@ -221,7 +221,7 @@ void	structure(t_tree *root, int level );
 
 /*		print_tree.c		*/
 void	clean_lex(t_lexer *lex);
-void    clean_env(t_env *env);
+void    clean_env(t_gen *data);
 void    clean_parser(t_pars *pars);
 
 /*		execute_ast.c		*/

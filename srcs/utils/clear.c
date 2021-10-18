@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clear.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vincentbaron <vincentbaron@student.42.f    +#+  +:+       +#+        */
+/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:51:50 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/11 20:54:04 by vincentbaro      ###   ########.fr       */
+/*   Updated: 2021/10/18 12:44:59 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,15 @@ void    clean_lex(t_lexer *lex)
 	}
 }
 
-void    clean_env(t_env *env)
+void    clean_env(t_gen *data)
 {
 	t_env *cur;
 	t_env *next;
+	int i;
 
-	if (env == NULL)
+	if (data->env == NULL)
 		return;
-	cur = env;
+	cur = data->env;
 	while (cur != NULL)
 	{
 		if (cur->name != NULL)
@@ -48,6 +49,17 @@ void    clean_env(t_env *env)
 			free(cur);
 		cur = next;
 	}
+	if (data->paths)
+	{
+		i = -1;
+		while (data->paths[++i])
+		{
+			if (data->paths[i])
+				free(data->paths[i]);
+		}
+		free(data->paths);
+	}
+	
 }
 
 void    clean_parser(t_pars *pars)

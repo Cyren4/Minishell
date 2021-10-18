@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_vars_parsing.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vincentbaron <vincentbaron@student.42.f    +#+  +:+       +#+        */
+/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 18:45:42 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/11 17:36:15 by vincentbaro      ###   ########.fr       */
+/*   Updated: 2021/10/18 12:42:25 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void display_array(char **path)
 void create_paths(t_gen *data)
 {
 	t_env *tmp;
-	int elems;
 
 	tmp = data->env;
 	while (tmp != NULL)
@@ -39,7 +38,6 @@ void create_paths(t_gen *data)
 	}
 	if (tmp)
 		data->paths = ft_split(tmp->content, ':');
-	elems = 0;
 }
 
 void	add_elem(t_gen *data, char *var_path)

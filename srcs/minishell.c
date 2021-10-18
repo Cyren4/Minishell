@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vincentbaron <vincentbaron@student.42.f    +#+  +:+       +#+        */
+/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/11 20:46:27 by vincentbaro      ###   ########.fr       */
+/*   Updated: 2021/10/18 12:37:17 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void init_data(t_gen *data)
 
 void clean_data(t_gen *data)
 {
-	clean_lex(data->lex);
+	// clean_lex(data->lex);
 	clean_parser(&data->parser);
 	clean_tree(data->ast);
 	// data->parser.std_in = NULL;
@@ -39,7 +39,7 @@ void delete_data(t_gen *data)
 	// clean_lex(data->lex);
 	// data->lex = NULL;
 	// clean_parser(&data->parser);
-	clean_env(data->env);
+	clean_env(data);
 	if (data->prompt != NULL)
 		free(data->prompt);
 	// clear_history();
@@ -92,5 +92,5 @@ int main(int ac, char **av, char **env)
 	stock_env_vars(&data, env);
 	ret = prompt(&data, &av[1]);
 	delete_data(&data);
-	// return (ret);
+	return (ret);
 }
