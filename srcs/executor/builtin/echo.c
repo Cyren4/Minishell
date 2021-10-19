@@ -24,6 +24,7 @@ char	*join_sep(char *s1, char *s2, char sep)
 
 	i = 0;
 	j = -1;
+	str = NULL;
 	len = ft_strlen(s1) + ft_strlen(s2) + 1;
 	str = malloc(sizeof(char) * (len + 1));
 	if (!str)

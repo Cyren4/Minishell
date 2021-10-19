@@ -29,7 +29,7 @@ void clean_data(t_gen *data)
 {
 	clean_lex(data);
 	clean_parser(&data->parser);
-	clean_tree(data);
+	clean_tree(data->ast);
 	// data->parser.std_in = NULL;
 	// data->parser.parsed = NULL;
 }
@@ -59,23 +59,23 @@ int prompt(t_gen *data, char **args)
 		data->lex = lexer(args, data);
 		// display_token(data->lex);
 		data->ast = build_tree1(data->lex);
-		// if (!data->ast)
-		// 	error(data, BAD_INPUT);
-		// else
-		// {
-		// 	// structure(data->ast, 0);
-		// 	if (create_pipes(data->ast))
-		// 	{
-		// 		total_cmds = calculate_commands(data->ast);
-		// 		if (!execute_ast(data, data->ast))
-		// 			error(data, -1);
-		// 		while (total_cmds >= 0)
-		// 		{
-		// 			wait(NULL);
-		// 			total_cmds--;
-		// 		}
-		// 	}
-		// }
+		if (!data->ast)
+			error(data, BAD_INPUT);
+		else
+		{
+			// structure(data->ast, 0);
+			if (create_pipes(data->ast))
+			{
+				total_cmds = calculate_commands(data->ast);
+				if (!execute_ast(data, data->ast))
+					error(data, -1);
+				while (total_cmds >= 0)
+				{
+					wait(NULL);
+					total_cmds--;
+				}
+			}
+		}
 		clean_data(data);
 	}
 	return (EXIT_SUCCESS);
