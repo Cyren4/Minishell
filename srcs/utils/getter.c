@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   getter.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/28 18:22:37 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/19 18:01:15 by cramdani         ###   ########.fr       */
+/*   Created: 2021/10/16 07:33:17 by cramdani          #+#    #+#             */
+/*   Updated: 2021/10/19 17:55:53 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-/*
-	Prompt l'environnement
-*/
-int	ft_exit(t_gen *data, t_lexer *cmd)
+
+t_gen   *get_data(t_gen *data)
 {
-	(void)cmd;
-	data->status = 0;
-	printf("exit\n");
-	// if (cmd != NULL)
-		// data->exit_stat = ft_atoi(cmd->content);
-	return (EXIT_SUCCESS);
+	static t_gen *cur_data = NULL;
+
+	if (data != NULL)
+		cur_data = data;
+	return (cur_data);
 }

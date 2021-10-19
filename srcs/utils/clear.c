@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:51:50 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/05 15:13:35 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/16 08:21:20 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,5 @@ void    clean_parser(t_pars *pars)
 	free(pars->parsed);
 	if (pars->std_in)
 		free(pars->std_in);
+	pars->parsed = NULL;
 }

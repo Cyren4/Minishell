@@ -1,4 +1,5 @@
 FILES = minishell.c \
+		utils/getter.c \
 		display/display_prompt.c \
 		error/error.c \
 		utils/display_env_vars.c \
@@ -21,6 +22,7 @@ FILES = minishell.c \
 		executor/builtin/env.c \
 		executor/builtin/cd.c \
 		executor/builtin/pwd.c \
+		executor/builtin/exit.c \
 		executor/builtin_monitor.c \
 		executor/execute_ast.c \
 		executor/execute_command.c \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_command.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vincentbaron <vincentbaron@student.42.f    +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 14:23:32 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/11 17:05:50 by vincentbaro      ###   ########.fr       */
+/*   Updated: 2021/10/19 17:49:14 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int execute_command(t_gen *data, t_tree *ast)
 	int pid;
 	char **cmd_table;
 	char *cmd;
+	char	**env;
 
 	if (ast->redir)
 		manage_redirs(ast);
@@ -59,13 +60,15 @@ int execute_command(t_gen *data, t_tree *ast)
 			data->exit_stat = exec_builtin(data, ast->cmd);
 		else
 		{
+			env = env_to_child(data->env);
 			cmd = NULL;
 			cmd_table = create_command(ast->cmd);
 			cmd = is_excve(cmd_table[0], data);
 			if (!cmd)
 				ft_putstr_fd("bad command\n", ast->fd_out);
 			else
-				execve(cmd, cmd_table, NULL);
+				execve(cmd, cmd_table, env);
+			free_tab(env);
 		}
 	}
 	else
@@ -74,7 +77,8 @@ int execute_command(t_gen *data, t_tree *ast)
 			close(ast->fd_in);
 		if (ast->fd_out != 1)
 			close(ast->fd_out);
-		return (1);
+		// if (ft_strcmp(ast->cmd->content, "exit") == 0)
+		// 	data->exit_stat = ft_exit(data, ast->cmd->next);
 	}
-	return (1);
+	return (data->exit_stat);
 }

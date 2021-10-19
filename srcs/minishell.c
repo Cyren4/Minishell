@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/16 06:55:54 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/19 17:58:02 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void init_data(t_gen *data)
 {
+	// receiveSIG();
 	data->env = NULL;
 	data->lex = NULL;
 	data->parser.std_in = NULL;
@@ -27,7 +28,8 @@ void init_data(t_gen *data)
 
 void clean_data(t_gen *data)
 {
-	clean_lex(data->lex);
+	if (data->lex != NULL)
+		clean_lex(data->lex);
 	data->lex = NULL;
 	clean_parser(&data->parser);
 	// data->parser.std_in = NULL;
@@ -45,43 +47,19 @@ void delete_data(t_gen *data)
 	// clear_history();
 }
 
-int		maj_sig(int sig)
-{
-	static int	cur_sig = -1;
-
-	if (sig != -1)
-		cur_sig = sig;
-	return (cur_sig);
-}
-
-void	handler(int sig, siginfo_t *info, void *context)
-{
-	maj_sig(sig);
-}
-
-void	receiveSIG(void)
-{
-	struct sigaction	sa;
-
-	sa.sa_flags = SA_SIGINFO;
-	sa.sa_sigaction = handler;
-	sigaction(SIGINT, &sa, NULL);
-	sigaction(SIGQUIT, &sa, NULL);
-}
-
-int prompt(t_gen *data)
+int minishell_loop(t_gen *data)
 {
 	int total_cmds;
 	
-	while (data->status)
+	// clean_data(data);
+	while (data->status == 1)
 	{
-		
+		receiveSIG();
 		display_prompt(data);
 		data->lex = lexer(data->parser.parsed, data);
-		// data.lex = lexer(&av[1], &data);
-		// display_token(data->lex);
-		// if (data->lex->is_builtin == 1)
-		// 	data->exit_stat = exec_builtin(data, data->lex);
+		// data->status = 0;
+		// if (data->status == 0)
+			// exit(EXIT_SUCCESS);
 		data->ast = build_tree1(data->lex);
 		if (!data->ast)
 			error(data, BAD_INPUT);
@@ -98,7 +76,10 @@ int prompt(t_gen *data)
 				total_cmds--;
 			}
 		}
+		// if (data->status == 0)
+		// 	data->status = 0;
 		clean_data(data);
+		// printf("|%d|\n", data->status);	
 	}
 	return (data->exit_stat);
 }
@@ -109,11 +90,13 @@ int main(int ac, char **av, char **env)
 	int		ret;
 
 	(void)av;
+	ret = 0;
 	if (ac == 100)
 		return (0);
 	init_data(&data);
 	stock_env_vars(&data, env);
-	ret = prompt(&data);
+	get_data(&data);
+	ret = minishell_loop(&data);
 	delete_data(&data);
 	return (ret);
 }
