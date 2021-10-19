@@ -28,8 +28,10 @@ void init_data(t_gen *data)
 void clean_data(t_gen *data)
 {
 	clean_lex(data);
+	clean_env(data);
 	clean_parser(&data->parser);
 	clean_tree(data->ast);
+	ft_free(data->prompt);
 	// data->parser.std_in = NULL;
 	// data->parser.parsed = NULL;
 }

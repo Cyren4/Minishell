@@ -39,6 +39,7 @@ t_tree *build_node(t_lexer *lex, t_lexer *head, int type)
 	new->fd_out = STDOUT_FILENO;
 	new->right = build_tree1(lex->next);
 	cut_lexer(head, lex);
+	ft_free(lex);
 	new->left = build_tree1(head);
 	return (new);
 }
