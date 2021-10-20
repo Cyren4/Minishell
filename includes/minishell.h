@@ -17,15 +17,6 @@
 
 # define STDIN 0
 
-// # define WORD 0
-// # define CMD 1
-// # define PIPE 2 
-// # define LT 3 
-// # define LT2 4 
-// # define GT 5 
-// # define GT2 6 
-// # define OPTION 7
-
 enum e_token {PIPE, LT, LT2, GT, GT2, CMD, OPTION, WORD};
 enum e_quote { NO_Q, SIMPLE_Q, DOUBLE_Q};
 enum e_err {QUOTES_UNCLOSED, BAD_MALLOC, BAD_INPUT};
@@ -82,6 +73,8 @@ typedef struct s_gen
 	char *str_err;
 }	t_gen;
 
+int minishell_loop(t_gen *data);
+
 /*			#Parsing#		*/
 
 /*		token.c		*/
@@ -104,6 +97,7 @@ void	display_token(t_lexer *lst_lex);
 /*	env_utils.c	*/
 char	*get_env_var(t_gen *gen, char *var);
 char	*get_var_exist(t_gen *gen, char *var);
+char	**env_to_child(t_env *env);
 
 
 /*			#Executor#		*/
@@ -114,6 +108,7 @@ char	*get_var_exist(t_gen *gen, char *var);
 int		exec_builtin(t_gen *data, t_lexer *cmd);
 
 /*		echo.c		*/
+char	*join_sep(char *s1, char *s2, char sep);
 int		ft_echo(t_lexer *lex);
 
 /*		unset.c		*/
@@ -131,8 +126,19 @@ int		ft_env(t_gen *data, char *pref);
 t_env	*create_env(char *name, char *content);
 int		ft_cd(t_gen *data, t_lexer *dir);
 
+/*		exit.c	*/
+int		ft_exit(t_gen *data, t_lexer *cmd);
+
 /*		pwd.c	*/
 int		ft_pwd(void);
+
+// signal/
+/*		getter.c	*/
+t_gen   *get_data(t_gen *data);
+
+/*		signal.c	*/
+void	handler(int sig, siginfo_t *info, void *context);
+void	receiveSIG(void);
 
 // display/
 
@@ -187,10 +193,6 @@ int execute_command(t_gen *data, t_tree *ast);
 
  /*		execute_command.c		*/
 int execute_redir(t_gen *data, t_tree *ast);
-
- /*		signals.c		*/
-void exit_shell(int sig);
-
 /*		redirections.c		*/
 int manage_redirs(t_tree *ast);
 int manage_lt2(t_lexer *redirs, t_tree *ast);
@@ -239,5 +241,9 @@ void 	exit_shell(int sig);
 /*		clear.c		*/
 void clean_tree(t_tree *ast);
 void ft_free(void *ptr);
+/*		redirections.c		*/
+int manage_redirs(t_tree *ast);
+int manage_lt2(t_lexer *redirs, t_tree *ast);
+int store_data(char *start, char *end, t_tree *ast);
 
 #endif

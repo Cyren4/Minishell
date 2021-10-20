@@ -6,7 +6,11 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:51:50 by cramdani          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/10/18 16:24:26 by vbaron           ###   ########.fr       */
+=======
+/*   Updated: 2021/10/16 08:21:20 by cramdani         ###   ########.fr       */
+>>>>>>> da41ecbedd46cddc4d791ad77df6743fbcc209df
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +89,7 @@ void    clean_parser(t_pars *pars)
 	}
 	ft_free(pars->parsed);
 	if (pars->std_in)
+<<<<<<< HEAD
 		ft_free(pars->std_in);
 }
 
@@ -106,6 +111,10 @@ void clean_tree(t_tree *ast)
 		clean_tree(head->right);
 	if (head)
 		ft_free(head);
+=======
+		free(pars->std_in);
+	pars->parsed = NULL;
+>>>>>>> da41ecbedd46cddc4d791ad77df6743fbcc209df
 }
 
 void ft_free(void *ptr)

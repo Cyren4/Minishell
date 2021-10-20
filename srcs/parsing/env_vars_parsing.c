@@ -101,3 +101,38 @@ void	stock_env_vars(t_gen *data, char **env)
 	update_shlvl(data);
 	// display_env_vars(data->env);
 }
+
+int	size_env(t_env *env)
+{
+	int i;
+	t_env	*tmp;
+
+	i = 0;
+	tmp = env;
+	while (tmp)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	return (i);
+}
+
+char	**env_to_child(t_env *env)
+{
+	int	i;
+	char	**tab;
+	t_env	*tmp;
+
+	tab = malloc(sizeof(char*) * (size_env(env) + 1));
+
+	i = 0;
+	tmp = env;
+	while (tmp)
+	{
+		tab[i] = join_sep(tmp->name, tmp->content, '=');
+		tmp = tmp->next;
+		i++;
+	}
+	tab[i] = NULL;
+	return (tab);
+}

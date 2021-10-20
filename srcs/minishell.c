@@ -14,6 +14,7 @@
 
 void init_data(t_gen *data)
 {
+	// receiveSIG();
 	data->env = NULL;
 	data->lex = NULL;
 	data->parser.std_in = NULL;
@@ -41,19 +42,20 @@ void delete_data(t_gen *data)
 	// clear_history();
 }
 
-int prompt(t_gen *data, char **args)
+int minishell_loop(t_gen *data)
 {
 	int total_cmds;
-	(void)args;
-
+	
+	// clean_data(data);
 	total_cmds = 0;
-	while (data->status)
+	while (data->status == 1)
 	{
-		data->status = 0;
-		// display_prompt(data);
-		// data->lex = lexer(data->parser.parsed, data);
-		data->lex = lexer(args, data);
-		// display_token(data->lex);
+		receiveSIG();
+		display_prompt(data);
+		data->lex = lexer(data->parser.parsed, data);
+		// data->status = 0;
+		// if (data->status == 0)
+			// exit(EXIT_SUCCESS);
 		data->ast = build_tree1(data->lex);
 		if (!data->ast)
 			error(data, BAD_INPUT);
@@ -72,9 +74,12 @@ int prompt(t_gen *data, char **args)
 				}
 			}
 		}
+		// if (data->status == 0)
+		// 	data->status = 0;
 		clean_data(data);
+		// printf("|%d|\n", data->status);	
 	}
-	return (EXIT_SUCCESS);
+	return (data->exit_stat);
 }
 
 int main(int ac, char **av, char **env)
@@ -83,11 +88,13 @@ int main(int ac, char **av, char **env)
 	int ret;
 
 	(void)av;
+	ret = 0;
 	if (ac == 100)
 		return (0);
 	init_data(&data);
 	stock_env_vars(&data, env);
-	ret = prompt(&data, &av[1]);
+	get_data(&data);
+	ret = minishell_loop(&data);
 	delete_data(&data);
 	return (ret);
 }

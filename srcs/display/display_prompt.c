@@ -128,6 +128,7 @@ void splitter(t_gen *data)
 
 void display_prompt(t_gen *data)
 {
+	receiveSIG();
 	data->parser.std_in = readline(data->prompt);
 	if (!data->parser.std_in)
 		exit(EXIT_FAILURE);//to change
