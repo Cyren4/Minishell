@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 10:49:43 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/08 16:23:15 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/10/18 15:30:59 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int store_data(char *start, char *end, t_tree *ast)
 				break;
 			if (start_flag)
 				write(fd[1], ft_strjoin(std_in, "\n"), ft_strlen(std_in) + 1);
-			free(std_in);
+			ft_free(std_in);
 		}
 		close(fd[1]);
 		return(1);

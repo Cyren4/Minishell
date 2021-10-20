@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+         #
+#    By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/13 13:33:21 by cramdani          #+#    #+#              #
-#    Updated: 2021/09/09 12:52:51 by cramdani         ###   ########.fr        #
+#    Updated: 2021/10/18 11:54:40 by vbaron           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,8 +17,7 @@ END		=	\033[m
 NAME 	=	lib.a
 
 CC		=	gcc
-CFLAGS	=	-Wall -Wextra -Werror 
-RM		=	rm -f
+CFLAGS	=	-Wall -Wextra -Werror -g3
 
 LIBFT_P	= libft
 

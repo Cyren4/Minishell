@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:22:37 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/20 17:37:48 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/20 17:55:03 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	exit_atoi(char *str)
 	return (ret % 256);
 }
 
-int	solo_exit(t_gen *data, t_lexer *cmd)
+int	ft_exit(t_gen *data, t_lexer *cmd)
 {
 	int ret;
 	t_lexer *tmp;

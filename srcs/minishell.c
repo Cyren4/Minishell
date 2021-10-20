@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/20 17:31:00 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/20 18:06:05 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,22 +28,17 @@ void init_data(t_gen *data)
 
 void clean_data(t_gen *data)
 {
-	if (data->lex != NULL)
-		clean_lex(data->lex);
-	data->lex = NULL;
-	clean_parser(&data->parser);
-	// data->parser.std_in = NULL;
-	// data->parser.parsed = NULL;
+	clean_tree(data->ast);
 }
 
 void delete_data(t_gen *data)
 {
-	// clean_lex(data->lex);
-	// data->lex = NULL;
-	// clean_parser(&data->parser);
-	clean_env(data->env);
+	data->lex = NULL;
+	clean_env(data);
+	// if (data->paths)
+	// 	ft_free(data->paths);
 	if (data->prompt != NULL)
-		free(data->prompt);
+		ft_free(data->prompt);
 	// clear_history();
 }
 
@@ -66,6 +61,7 @@ int minishell_loop(t_gen *data)
 	int total_cmds;
 
 	// clean_data(data);
+	total_cmds = 0;
 	while (data->status == 1)
 	{
 		// receiveSIG();
@@ -80,14 +76,16 @@ int minishell_loop(t_gen *data)
 		else
 		{
 			// structure(data->ast, 0);
-			create_pipes(data->ast);
-			total_cmds = calculate_commands(data->ast);
-			if (!execute_ast(data, data->ast))
-				error(data, -1);
-			while (total_cmds >= 0)
+			if (create_pipes(data->ast))
 			{
-				wait(NULL);
-				total_cmds--;
+				total_cmds = calculate_commands(data->ast);
+				if (!execute_ast(data, data->ast))
+					error(data, -1);
+				while (total_cmds >= 0)
+				{
+					wait(NULL);
+					total_cmds--;
+				}
 			}
 		}
 	}

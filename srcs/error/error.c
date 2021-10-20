@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:09:35 by vbaron            #+#    #+#             */
-/*   Updated: 2021/09/28 18:23:06 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/10/18 15:31:48 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void ft_clean(t_gen *data)
 		while (data->parser.parsed[++i])
 		{
 			if (data->parser.parsed[i])
-				free(data->parser.parsed[i]);
+				ft_free(data->parser.parsed[i]);
 		}
 	}
 }

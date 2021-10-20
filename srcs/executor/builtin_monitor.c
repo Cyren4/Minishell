@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 00:20:27 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/20 17:01:23 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/20 18:05:50 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int exec_builtin(t_gen *data, t_lexer *cmd)
 
 	ret = 0;
 	if (ft_strcmp(cmd->content, "echo") == 0)
-	    ret = ft_echo(cmd->next);
+	     ret = ft_echo(cmd->next);
 	else if (ft_strcmp(cmd->content, "cd") == 0)
 		ret = ft_cd(data, cmd->next);
 	else if (ft_strcmp(cmd->content, "pwd") == 0)
@@ -31,5 +31,9 @@ int exec_builtin(t_gen *data, t_lexer *cmd)
 		ret = ft_env(data, "");
 	// else if (ft_strcmp(cmd->content, "exit") == 0)
 	//     ret = ft_exit(data, cmd->next);
-	return (ret);
+
+	// data->exit_stat = ret;
+	// data->exit_stat = 6;
+	exit(ret);
+	// return (ret);
 }

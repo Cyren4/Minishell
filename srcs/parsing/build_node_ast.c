@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_node_ast.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vincentbaron <vincentbaron@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:03:42 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/07 23:30:28 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/11 19:08:25 by vincentbaro      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ t_tree *build_node(t_lexer *lex, t_lexer *head, int type)
 {
 	t_tree *new;
 
+	if (lex == head || !lex->next)
+		return (NULL);
 	new = malloc(sizeof(t_tree));
 	if (!new)
 		return (0);
@@ -37,6 +39,7 @@ t_tree *build_node(t_lexer *lex, t_lexer *head, int type)
 	new->fd_out = STDOUT_FILENO;
 	new->right = build_tree1(lex->next);
 	cut_lexer(head, lex);
+	ft_free(lex);
 	new->left = build_tree1(head);
 	return (new);
 }

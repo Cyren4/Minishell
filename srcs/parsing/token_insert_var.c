@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_insert_var.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 19:14:50 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/10 11:45:06 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/18 15:29:53 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	insert_var(char *dst, char *src, int *src_i, t_gen *data)
 		var_len = len_int(data->exit_stat);
 		status = ft_itoa(data->exit_stat);
 		ft_memcpy(dst, status, var_len);
-		free(status);
+		ft_free(status);
 		*src_i += 2;
 		return (var_len);
 	}
@@ -40,7 +40,7 @@ int	insert_var(char *dst, char *src, int *src_i, t_gen *data)
 	env_var[i] = '\0';
 	var_len = ft_strlen(get_env_var(data, env_var));
 	ft_memcpy(dst, get_env_var(data, env_var), var_len);
-	free(env_var);
+	ft_free(env_var);
 	return (var_len);
 }
 
@@ -75,7 +75,7 @@ int		strcpy_nospace(char *dst, char *src, int *var_len)
 		i++;
 	}
 	dst[j] = '\0';
-	free(src1);
+	ft_free(src1);
 	*var_len = j;
 	return (ret);
 }
@@ -98,7 +98,7 @@ int	insert_var_noquote(char *dst, char *src, int *src_i, t_gen *data)
 	env_var[i] = '\0';
 	if (strcpy_nospace(dst, get_env_var(data, env_var), &var_len))
 		data->lex = add_elem_lex(data->lex, "-n", data);
-	free(env_var);
+	ft_free(env_var);
 	return (var_len);
 }
 
@@ -124,7 +124,7 @@ int	var_size(char *src, int *src_i, t_gen *data)
 	}
 	env_var[i] = '\0';
 	var_len = ft_strlen(get_env_var(data, env_var));
-	free(env_var);
+	ft_free(env_var);
 	return (var_len);
 }
 

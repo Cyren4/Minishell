@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 19:39:21 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/03 17:27:27 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/18 15:26:51 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ void    free_tab(char **tab)
         return ;
     while (tab[i] != NULL)
     {
-        free(tab[i]);
+        ft_free(tab[i]);
         i++;
     }
-    free(tab);
+    ft_free(tab);
 }
 
 int	is_empty(char *line)
