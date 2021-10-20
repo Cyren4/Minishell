@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/19 17:58:02 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/20 17:31:00 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,19 +47,33 @@ void delete_data(t_gen *data)
 	// clear_history();
 }
 
+int no_pipe(t_lexer *lex)
+{
+	t_lexer *tmp;
+
+	tmp = lex;
+	while (tmp)
+	{
+		if (ft_strncmp(tmp->content, "|", 2) == 0)
+			return (0);
+		tmp = tmp->next;
+	}
+	return (1);
+}
+
 int minishell_loop(t_gen *data)
 {
 	int total_cmds;
-	
+
 	// clean_data(data);
 	while (data->status == 1)
 	{
-		receiveSIG();
+		// receiveSIG();
 		display_prompt(data);
 		data->lex = lexer(data->parser.parsed, data);
-		// data->status = 0;
-		// if (data->status == 0)
-			// exit(EXIT_SUCCESS);
+		if (ft_strcmp(data->lex->content, "exit") == 0 && no_pipe(data->lex))
+			if (ft_exit(data, data->lex->next)== 1)
+				continue;
 		data->ast = build_tree1(data->lex);
 		if (!data->ast)
 			error(data, BAD_INPUT);
@@ -76,18 +90,14 @@ int minishell_loop(t_gen *data)
 				total_cmds--;
 			}
 		}
-		// if (data->status == 0)
-		// 	data->status = 0;
-		clean_data(data);
-		// printf("|%d|\n", data->status);	
 	}
 	return (data->exit_stat);
 }
 
 int main(int ac, char **av, char **env)
 {
-	t_gen	data;
-	int		ret;
+	t_gen data;
+	int ret;
 
 	(void)av;
 	ret = 0;

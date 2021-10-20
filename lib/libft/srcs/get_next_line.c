@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/24 12:57:36 by cramdani          #+#    #+#             */
-/*   Updated: 2021/08/13 01:34:53 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/20 17:02:22 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char	*next_line(char *old)
 	return (str);
 }
 
-char	*newJoin(char *old, char *buf)
+char	*new_join(char *old, char *buf)
 {
 	char	*new;
 
@@ -89,7 +89,7 @@ int	get_next_line(int fd, char **line)
 		if (r == -1)
 			return (-1);
 		buf[r] = '\0';
-		old = newJoin(old, buf);
+		old = new_join(old, buf);
 	}
 	*line = cur_line(old);
 	old = next_line(old);
