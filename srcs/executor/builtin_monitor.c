@@ -32,6 +32,8 @@ int exec_builtin(t_gen *data, t_lexer *cmd)
 	// else if (ft_strcmp(cmd->content, "exit") == 0)
 	//     ret = ft_exit(data, cmd->next);
 
+	// write dans fd_exit[1]
+	// close fd_exit[1]
 	// data->exit_stat = ret;
 	// data->exit_stat = 6;
 	exit(ret);

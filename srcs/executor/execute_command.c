@@ -46,14 +46,17 @@ int execute_command(t_gen *data, t_tree *ast)
 	char **cmd_table;
 	char *cmd;
 	char	**env;
+	int fd_exit[2];
 
 	if (ast->redir)
 		manage_redirs(ast);
+	pipe(fd_exit);
 	pid = fork();
 	if (pid < 0)
 		return (0);
 	else if (pid == 0)
 	{
+		close(fd_exit[0]);
 		dup2(ast->fd_in, STDIN_FILENO);
 		dup2(ast->fd_out, STDOUT_FILENO);
 		if (ast->cmd->is_builtin == 1)
@@ -73,6 +76,9 @@ int execute_command(t_gen *data, t_tree *ast)
 	}
 	else
 	{
+		close(fd_exit[1]);
+		// read fd_exit[0]
+		// data->exit_status = atoi(readed value)
 		if (ast->fd_in != 0)
 			close(ast->fd_in);
 		if (ast->fd_out != 1)
