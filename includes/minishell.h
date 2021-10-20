@@ -220,7 +220,7 @@ void 	display_env_vars(t_env *envs);
 void	structure(t_tree *root, int level );
 
 /*		print_tree.c		*/
-void    clean_lex(t_gen *data);
+void    clean_lex(t_lexer *lex);
 void    clean_env(t_gen *data);
 void    clean_parser(t_pars *pars);
 

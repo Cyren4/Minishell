@@ -19,14 +19,14 @@ SRCS	=	$(addprefix $(SRCS_DIR)/, $(FILES))
 OBJS 	=	$(addprefix $(OBJS_DIR)/, $(FILES:.c=.o))
 
 NAME	=	libft.a
-HEADER	=	libft.h
+HEADER	=	/libft.h
 INC 	=	-I $(HEADER)
 
 CC		= gcc
 
 RM		= rm -rf
 
-CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror -g3
 
 all:	${NAME}
 

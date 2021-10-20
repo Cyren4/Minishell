@@ -9,7 +9,7 @@
 			"type": "cppdbg",
 			"request": "launch",
 			"program": "/Users/vbaron/Desktop/Minishell/minishell",
-			"args": ["echo", "hello", "|", "echo", "salut"],
+			"args": ["echo", "hello"],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",
 			"environment": [{

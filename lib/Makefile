@@ -17,8 +17,7 @@ END		=	\033[m
 NAME 	=	lib.a
 
 CC		=	gcc
-CFLAGS	=	-Wall -Wextra -Werror 
-RM		=	rm -f
+CFLAGS	=	-Wall -Wextra -Werror -g3
 
 LIBFT_P	= libft
 

@@ -12,27 +12,24 @@
 
 #include "../../includes/minishell.h"
 
-void    clean_lex(t_gen *data)
+void    clean_lex(t_lexer *lex)
 {
 	t_lexer *cur;
 	t_lexer *old;
 
-	if (data->lex == NULL)
+	if (lex == NULL)
 		return;
-	cur = data->lex;
+	cur = lex;
 	while (cur)
 	{
 		if (cur->content)
-			ft_free(cur->content);
+			free(cur->content);
 		old = cur;
 		cur = cur->next;
 		if (old)
-		{
-			old->next = NULL;
-			ft_free(old);
-		}
+			free(old);
 	}
-	data->lex = NULL;
+	lex = NULL;
 }
 
 void    clean_env(t_gen *data)
@@ -96,13 +93,13 @@ void clean_tree(t_tree *ast)
 	t_tree *head;
 
 	head = ast;
-	// if (head && head->type == CMD)
-	// {
-	// 	if (head->cmd)
-	// 		clean_lex(head->cmd);
-	// 	if (head->redir)
-	// 		clean_lex(head->redir);
-	// }
+	if (head && head->type == CMD)
+	{
+		if (head->cmd)
+			clean_lex(head->cmd);
+		if (head->redir)
+			clean_lex(head->redir);
+	}
 	if (head && head->left)
 		 clean_tree(head->left);
 	if (head && head->right)
