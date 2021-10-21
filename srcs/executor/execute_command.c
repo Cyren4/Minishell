@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 14:23:32 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/20 18:06:02 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/21 11:09:34 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int execute_command(t_gen *data, t_tree *ast)
 	char *cmd;
 	char	**env;
 	int fd_exit[2];
+	char buf[100];
 
 	if (ast->redir)
 		manage_redirs(ast);
@@ -60,7 +61,7 @@ int execute_command(t_gen *data, t_tree *ast)
 		dup2(ast->fd_in, STDIN_FILENO);
 		dup2(ast->fd_out, STDOUT_FILENO);
 		if (ast->cmd->is_builtin == 1)
-			data->exit_stat = exec_builtin(data, ast->cmd);
+			data->exit_stat = exec_builtin(data, ast->cmd, fd_exit);
 		else
 		{
 			env = env_to_child(data->env);
@@ -77,8 +78,8 @@ int execute_command(t_gen *data, t_tree *ast)
 	else
 	{
 		close(fd_exit[1]);
-		// read fd_exit[0]
-		// data->exit_status = atoi(readed value)
+		read(fd_exit[0], buf, 100);
+		data->exit_stat= ft_atoi(buf);
 		if (ast->fd_in != 0)
 			close(ast->fd_in);
 		if (ast->fd_out != 1)

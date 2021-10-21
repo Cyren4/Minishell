@@ -105,7 +105,7 @@ char	**env_to_child(t_env *env);
 //	builtin/
 
 /*		builtin_monitor.c		*/
-int		exec_builtin(t_gen *data, t_lexer *cmd);
+int		exec_builtin(t_gen *data, t_lexer *cmd, int fd_ex[2]);
 
 /*		echo.c		*/
 char	*join_sep(char *s1, char *s2, char sep);
