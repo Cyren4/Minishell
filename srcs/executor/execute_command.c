@@ -74,6 +74,10 @@ int execute_command(t_gen *data, t_tree *ast)
 				execve(cmd, cmd_table, env);
 			free_tab(env);
 		}
+		// if (data->exit_stat != 0)
+		// {
+		// 	write(STDERR_FILENO, ft_itoa(errno), ft_strlen(ft_itoa(errno)));
+		// }
 	}
 	else
 	{
