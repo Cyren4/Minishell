@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 14:23:32 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/21 11:09:34 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/21 11:11:35 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,6 @@ int execute_command(t_gen *data, t_tree *ast)
 			close(ast->fd_in);
 		if (ast->fd_out != 1)
 			close(ast->fd_out);
-		// if (ft_strcmp(ast->cmd->content, "exit") == 0)
-		// 	data->exit_stat = ft_exit(data, ast->cmd->next);
 	}
 	return (data->exit_stat);
 }
