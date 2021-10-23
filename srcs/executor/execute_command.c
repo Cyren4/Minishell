@@ -53,6 +53,8 @@ int execute_command(t_gen *data, t_tree *ast)
 		manage_redirs(ast);
 	pipe(fd_exit);
 	pid = fork();
+	data->pids[data->tracker] = pid;
+	data->tracker++;
 	if (pid < 0)
 		return (0);
 	else if (pid == 0)

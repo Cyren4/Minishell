@@ -59,14 +59,17 @@ int no_pipe(t_lexer *lex)
 int minishell_loop(t_gen *data)
 {
 	int total_cmds;
+	int i;
 
 	// clean_data(data);
 	total_cmds = 0;
 	while (data->status == 1)
 	{
 		// receiveSIG();
-		display_prompt(data);
-		data->lex = lexer(data->parser.parsed, data);
+		data->status = 0;
+		// display_prompt(data);
+		// data->lex = lexer(data->parser.parsed, data);
+		data->lex = lexer(data->av, data);
 		if (ft_strcmp(data->lex->content, "exit") == 0 && no_pipe(data->lex))
 			if (ft_exit(data, data->lex->next)== 1)
 				continue;
@@ -79,12 +82,17 @@ int minishell_loop(t_gen *data)
 			if (create_pipes(data->ast))
 			{
 				total_cmds = calculate_commands(data->ast);
+				data->tracker = 0;
+				data->pids = malloc(sizeof(pid_t) * total_cmds);
 				if (!execute_ast(data, data->ast))
 					error(data, -1);
-				while (total_cmds >= 0)
+				i = 0;
+				while (i < total_cmds)
 				{
 					wait(NULL);
-					total_cmds--;
+					// waitpid(data->pids[i], &data->exit_stat, 0);
+					printf("pids[%d]:%d", i, data->pids[i]);
+					i++;
 				}
 			}
 		}
@@ -104,7 +112,8 @@ int main(int ac, char **av, char **env)
 	init_data(&data);
 	stock_env_vars(&data, env);
 	get_data(&data);
+	data.av = &av[1];
 	ret = minishell_loop(&data);
-	delete_data(&data);
+	// delete_data(&data);
 	return (ret);
 }

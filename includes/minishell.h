@@ -55,6 +55,12 @@ typedef struct s_tree
 
 } t_tree;
 
+typedef struct s_pid
+{
+	int *pid_list;
+	int index;
+} t_pid;
+
 typedef struct s_gen
 {
 	char	*prompt;
@@ -62,6 +68,7 @@ typedef struct s_gen
 	int		exit_stat;
 	int		status;
 	int		tracker;
+	pid_t		*pids;
 	t_env	*env;
 	char	**paths;
 	t_lexer	*lex;
@@ -71,6 +78,7 @@ typedef struct s_gen
 	int std_in;
 	int std_err;
 	char *str_err;
+	char **av;
 }	t_gen;
 
 int minishell_loop(t_gen *data);
