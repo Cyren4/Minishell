@@ -59,7 +59,7 @@ int execute_command(t_gen *data, t_tree *ast)
 		return (0);
 	else if (pid == 0)
 	{
-		close(fd_exit[0]);
+		// close(fd_exit[0]);
 		dup2(ast->fd_in, STDIN_FILENO);
 		if (ast->fd_in > 0)
 			close(ast->fd_in);
@@ -75,15 +75,15 @@ int execute_command(t_gen *data, t_tree *ast)
 			if (!cmd)
 				ft_putstr_fd("bad command\n", ast->fd_out);
 			else
-				execve(cmd, cmd_table, env);
-			return(1);
+				return(execve(cmd, cmd_table, env));
 			// free_tab(env);
 		}
 	}
 	else
 	{
-		close(fd_exit[1]);
-		read(fd_exit[0], buf, 100);
+		// close(fd_exit[1]);
+		// read(fd_exit[0], buf, 4);
+		close(fd_exit[0]);
 		data->exit_stat = ft_atoi(buf);
 		if (ast->fd_in != 0)
 			close(ast->fd_in);
