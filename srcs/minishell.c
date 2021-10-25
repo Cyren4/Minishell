@@ -89,8 +89,8 @@ int minishell_loop(t_gen *data)
 				i = 0;
 				while (i < total_cmds)
 				{
-					wait(NULL);
-					// waitpid(data->pids[i], &data->exit_stat, 0);
+					// wait(&data->exit_stat);
+					printf("pid of eexited status on succes: %d\n\n", waitpid(data->pids[i], &data->exit_stat, 0));
 					printf("pids[%d]:%d", i, data->pids[i]);
 					i++;
 				}

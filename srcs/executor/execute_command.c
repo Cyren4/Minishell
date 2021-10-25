@@ -61,6 +61,8 @@ int execute_command(t_gen *data, t_tree *ast)
 	{
 		close(fd_exit[0]);
 		dup2(ast->fd_in, STDIN_FILENO);
+		if (ast->fd_in > 0)
+			close(ast->fd_in);
 		dup2(ast->fd_out, STDOUT_FILENO);
 		if (ast->cmd->is_builtin == 1)
 			data->exit_stat = exec_builtin(data, ast->cmd, fd_exit);
@@ -74,14 +76,15 @@ int execute_command(t_gen *data, t_tree *ast)
 				ft_putstr_fd("bad command\n", ast->fd_out);
 			else
 				execve(cmd, cmd_table, env);
-			free_tab(env);
+			return(1);
+			// free_tab(env);
 		}
 	}
 	else
 	{
 		close(fd_exit[1]);
 		read(fd_exit[0], buf, 100);
-		data->exit_stat= ft_atoi(buf);
+		data->exit_stat = ft_atoi(buf);
 		if (ast->fd_in != 0)
 			close(ast->fd_in);
 		if (ast->fd_out != 1)
