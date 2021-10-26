@@ -76,7 +76,6 @@ int execute_command(t_gen *data, t_tree *ast)
 				ft_putstr_fd("bad command\n", ast->fd_out);
 			else
 				return(execve(cmd, cmd_table, env));
-			// free_tab(env);
 		}
 	}
 	else
