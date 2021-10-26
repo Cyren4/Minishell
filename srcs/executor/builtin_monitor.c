@@ -12,11 +12,9 @@
 
 #include "../../includes/minishell.h"
 
-int exec_builtin(t_gen *data, t_lexer *cmd, int fd_exit[2])
+int exec_builtin(t_gen *data, t_lexer *cmd)
 {
 	int ret;
-	char	*c_ret;
-	(void)fd_exit;
 
 	ret = 0;
 	if (ft_strcmp(cmd->content, "echo") == 0)
@@ -33,12 +31,6 @@ int exec_builtin(t_gen *data, t_lexer *cmd, int fd_exit[2])
 		ret = ft_env(data, "");
 	// else if (ft_strcmp(cmd->content, "exit") == 0)
 	//     ret = ft_exit(data, cmd->next);
-
-	c_ret = ft_itoa(ret);
-	printf("c_ret: %d\n", ret);
-	// write(fd_exit[1], c_ret, ft_strlen(c_ret) + 1);
-	// close(fd_exit[1]);
-	free(c_ret);
 	exit(ret);
 	// return (ret);
 }

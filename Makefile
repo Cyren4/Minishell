@@ -22,7 +22,7 @@ HEADER		=	$(INC_DIR)/minishell.h
 CC			=	gcc
 RM			=	/bin/rm -rf
 INC			=	-include ./$(HEADER)
-CC_FLAGS	=	-Wall -Wextra -Werror -g3 $(INC)
+CC_FLAGS	=	-Wall -Wextra -Werror -g3 -fsanitize=address $(INC)
 
 LIB_DIR			=	lib
 LIB				=	$(LIB_DIR)/libft.a

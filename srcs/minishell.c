@@ -94,7 +94,6 @@ int minishell_loop(t_gen *data)
 					int return_value = WEXITSTATUS(data->exit_stat);
 					printf("return value: %d\n", return_value);
 					// printf("pids[%d]:%d", i, data->pids[i]);
-
 					i++;
 				}
 			}
