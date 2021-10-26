@@ -46,6 +46,7 @@ int execute_command(t_gen *data, t_tree *ast)
 	char **cmd_table;
 	char *cmd;
 	char	**env;
+	// char buf[1000];
 
 	if (ast->redir)
 		manage_redirs(ast);
@@ -57,8 +58,10 @@ int execute_command(t_gen *data, t_tree *ast)
 	else if (pid == 0)
 	{
 		dup2(ast->fd_in, STDIN_FILENO);
-		if (ast->fd_in > 0)
-			close(ast->fd_in);
+		// if (ast->fd_in > 0)
+		// 	close(ast->fd_in);
+		// read(ast->fd_in, buf, 1000);
+		// printf("ast->fd_in in execute command:\n%s", buf);
 		dup2(ast->fd_out, STDOUT_FILENO);
 		if (ast->cmd->is_builtin == 1)
 			data->exit_stat = exec_builtin(data, ast->cmd);
@@ -73,11 +76,12 @@ int execute_command(t_gen *data, t_tree *ast)
 			else
 				return(execve(cmd, cmd_table, env));
 		}
+		exit(1);
 	}
 	else
 	{
-		if (ast->fd_in != 0)
-			close(ast->fd_in);
+		// if (ast->fd_in != 0)
+		// 	close(ast->fd_in);
 		if (ast->fd_out != 1)
 			close(ast->fd_out);
 	}

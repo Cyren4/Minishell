@@ -50,7 +50,8 @@ int store_data(char *start, char *end, t_tree *ast)
 	int fd[2];
 	char *std_in;
 	int start_flag;
-	int pid;
+	pid_t pid;
+	int exit_status;
 	int breaker;
 	// char buf[1000];
 	(void)ast;
@@ -72,25 +73,61 @@ int store_data(char *start, char *end, t_tree *ast)
 		{
 			std_in = readline("heredoc>");
 			breaker++;
-			if (std_in && ft_strncmp(std_in, start, ft_strlen(start)) == 0)
-				start_flag = 1;
-			if (std_in && ft_strncmp(std_in, end, ft_strlen(end)) == 0)
+			if (std_in && ft_strncmp(std_in, end, ft_strlen(end)) == 0 && start_flag == 1)
 				break;
 			if (start_flag)
 				write(fd[1], ft_strjoin(std_in, "\n"), ft_strlen(std_in) + 1);
+			if (std_in && ft_strncmp(std_in, start, ft_strlen(start)) == 0)
+				start_flag = 1;
 			ft_free(std_in);
 		}
 		close(fd[1]);
-		return(1);
+		exit(1);
 	}
 	else
 	{
-		wait(NULL);
 		close(fd[1]);
+		printf("pid = %d\n", pid);
+		waitpid(pid, &exit_status, 0);
+		// dup2(fd[0], ast->fd_in);
 		ast->fd_in = fd[0];
+		// read(ast->fd_in, buf, 1000);
+		// printf("aast->fd_in:\n%s", buf);
+		// close(ast->fd_in);
+		// close(fd[0]);
 	}
-	return (1);
+	return (pid);
 }
+
+// int store_data(char *start, char *end, t_tree *ast)
+// {
+// 	int start_flag;
+// 	int breaker;
+// 	char *std_in;
+// 	int fd_tmp;
+
+// 	fd_tmp = open("/tmp/tmp_heredoc", O_CREAT | O_RDWR, 0666);
+// 	if (fd_tmp == -1)
+// 		return (-1);
+// 	start_flag = 0;
+// 	if (!start)
+// 		start_flag = 1;
+// 	breaker = 0;
+// 	while(1 && breaker < 10)
+// 	{
+// 		std_in = readline("heredoc>");
+// 		breaker++;
+// 		if (std_in && ft_strncmp(std_in, start, ft_strlen(start)) == 0)
+// 			start_flag = 1;
+// 		if (std_in && ft_strncmp(std_in, end, ft_strlen(end)) == 0)
+// 			break;
+// 		if (start_flag)
+// 			write(fd_tmp, ft_strjoin(std_in, "\n"), ft_strlen(std_in) + 1);
+// 		ft_free(std_in);
+// 	}
+// 	ast->fd_in = fd_tmp;
+// 	return(0);
+// }
 
 int manage_redirs(t_tree *ast)
 {
