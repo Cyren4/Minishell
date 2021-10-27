@@ -26,6 +26,7 @@ typedef struct s_lex
 	char			*content;
 	int				token;
 	int				is_builtin;
+	char			*hdoc_content;
 	struct s_lex	*next;
 	struct s_lex	*prev;
 }	t_lexer;
@@ -67,6 +68,7 @@ typedef struct s_gen
 	char	*pwd;
 	int		exit_stat;
 	int		status;
+	int		hdoc;
 	int		tracker;
 	pid_t		*pids;
 	t_env	*env;

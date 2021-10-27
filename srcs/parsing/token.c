@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 19:26:49 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/20 17:51:32 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/27 18:13:16 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,18 @@ t_lexer	*add_elem_lex(t_lexer *lst_elem, char *cmd, t_gen *data)
 	new->is_builtin = 0;
 	new->next = NULL;
 	check_type(new, data);
+	if (new->token == LT2)
+		data->hdoc = 1;
 	if (lst_elem == NULL)
 		return (new);
 	tmp = lst_elem;
 	while (tmp->next != NULL)
 		tmp = tmp->next;
+	if (data->hdoc == 1 && new->token != LT2)
+	{
+		data->hdoc = 0;
+		tmp->hdoc_content = ft_strdup(cmd);
+	}
 	tmp->next = new;
 	return (lst_elem);
 }
@@ -101,6 +108,7 @@ t_lexer	*lexer(char **cmd_line, t_gen *data)
 	char	**splited;
 
 	// lst_elem = NULL;
+	data->hdoc = 0;
 	data->lex = NULL;
 	i = 0;
 	while (cmd_line[i] != NULL)
