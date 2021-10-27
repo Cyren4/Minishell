@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/27 16:40:54 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/20 18:06:05 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void init_data(t_gen *data)
 {
 	// receiveSIG();
-	data->hdoc = 0;
 	data->env = NULL;
 	data->lex = NULL;
 	data->parser.std_in = NULL;
@@ -67,10 +66,12 @@ int minishell_loop(t_gen *data)
 	while (data->status == 1)
 	{
 		// receiveSIG();
+		// data->status = 0;
 		display_prompt(data);
 		data->lex = lexer(data->parser.parsed, data);
+		// data->lex = lexer(data->av, data);
 		// if (ft_strcmp(data->lex->content, "exit") == 0 && no_pipe(data->lex))
-		// 	if (ft_exit(data, data->lex->next) == 1)
+		// 	if (ft_exit(data, data->lex->next)== 1)
 		// 		continue;
 		data->ast = build_tree1(data->lex);
 		if (!data->ast)

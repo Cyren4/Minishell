@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:20:41 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/27 15:29:18 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/19 14:18:08 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,5 @@ int	ft_echo(t_lexer *lex)
 	}
 	if (opt == 0)
 		printf("\n");
-	return (EXIT_SUCCESS);
+	return (1);
 }

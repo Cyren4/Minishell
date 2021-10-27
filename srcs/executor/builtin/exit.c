@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:22:37 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/27 15:36:48 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/20 17:55:03 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	ft_exit(t_gen *data, t_lexer *cmd)
 	{
 		if (ft_isnumber(tmp->content) && cmd->next != NULL)
 		{
-			print_error("exit: too many arguments\n", NULL, NULL);
+			printf("exit: too many arguments\n");
 			clean_lex(data->lex);
 			data->lex = NULL;
 			return (1);
@@ -56,9 +56,9 @@ int	ft_exit(t_gen *data, t_lexer *cmd)
 		else if (!ft_isnumber(tmp->content) || cmd->next != NULL)
 		{
 			if (!ft_isnumber(tmp->content))
-				print_error("exit: ", cmd->content, ": numeric argument required\n");
+				printf("exit: %s: numeric argument required\n", cmd->content);
 			else
-				print_error("exit: too many arguments\n", NULL, NULL);
+				printf("exit: too many arguments\n");
 			ret = 255;
 		}
 		else

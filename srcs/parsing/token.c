@@ -6,11 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 19:26:49 by cramdani          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/10/27 16:48:24 by cramdani         ###   ########.fr       */
-=======
-/*   Updated: 2021/10/27 16:38:39 by cramdani         ###   ########.fr       */
->>>>>>> parent of 7dabe82... herdoc help
+/*   Updated: 2021/10/20 17:51:32 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +54,7 @@ int	check_type(t_lexer *elem, t_gen *data)
 	else if (ft_strcmp(elem->content, "<") == 0)
 		elem->token = LT;
 	else if (ft_strcmp(elem->content, "<<") == 0)
-	{
-		data->hdoc = 1;
 		elem->token = LT2;
-	}
 	else if (ft_strcmp(elem->content, ">") == 0)
 		elem->token = GT;
 	else if (ft_strcmp(elem->content, ">>") == 0)
@@ -88,7 +81,6 @@ t_lexer	*add_elem_lex(t_lexer *lst_elem, char *cmd, t_gen *data)
 	if (!new)
 		return (NULL);
 	new->content = ft_strdup(cmd);
-	new->hdoc_content = NULL;
 	new->is_builtin = 0;
 	new->next = NULL;
 	check_type(new, data);
@@ -97,11 +89,6 @@ t_lexer	*add_elem_lex(t_lexer *lst_elem, char *cmd, t_gen *data)
 	tmp = lst_elem;
 	while (tmp->next != NULL)
 		tmp = tmp->next;
-	if (data->hdoc == 1 && new->token != LT2)
-	{
-		tmp->hdoc_content = ft_strdup(cmd);
-		data->hdoc = 0;
-	}
 	tmp->next = new;
 	return (lst_elem);
 }

@@ -6,12 +6,17 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 16:11:48 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/27 16:36:21 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/19 17:58:30 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+// void exit_shell(int sig)
+// {
+// 	(void)sig;
+// 	exit(1);
+// }
 
 void	handler(int sig, siginfo_t *info, void *context)
 {

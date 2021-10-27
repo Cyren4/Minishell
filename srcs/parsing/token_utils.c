@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 19:28:48 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/27 16:37:52 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/16 22:59:44 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	display_token(t_lexer *lst_lex)
 	while (tmp)
 	{
 		printf("%s\t%s\n", tmp->content, token[tmp->token]);
-		printf("%s\n", tmp->hdoc_content);
 		tmp = tmp->next;
 	}
 }
