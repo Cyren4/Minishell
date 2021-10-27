@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:22:11 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/10 11:56:33 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/27 15:26:15 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	ft_export(t_gen *data, t_lexer *cmd)
 	ret = EXIT_SUCCESS;
 	tmp = cmd;
 	if (cmd == NULL)
-		ft_env(data, "declare -x ");
+		ft_env(data, "declare -x ", NULL);
 	while (cmd != NULL && tmp != NULL)
 	{
 		if (unvalid_exp(cmd->content))

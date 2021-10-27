@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:22:11 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/10 11:57:29 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/27 15:27:39 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	ft_unset(t_gen *data, t_lexer *cmd)
 	{
 		if (unvalid_env(cmd->content))
 		{
-			printf("unset: `%s': not a valid identifier\n", cmd->content);
+			print_error("minishell: unset:'", cmd->content, "'not a valid identifier\n");
 			ret = EXIT_FAILURE;
 		}
 		else

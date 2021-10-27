@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:20:22 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/27 09:49:13 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/27 16:02:21 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	maj_pwd(t_gen *data)
 
 	if (!getcwd(cwd, PATH_MAX))
 		return ;
-	printf("|%s|\n", cwd);
 	maj_env(data, "OLDPWD", get_env_var(data, "PWD"));
 	maj_env(data, "PWD", cwd);
 }
@@ -64,16 +63,16 @@ int	ft_cd(t_gen *data, t_lexer *dir)
 		home = get_var_exist(data, "HOME");
 		if (home == NULL)
 		{
-			printf("cd: HOME not set\n");
+			print_error("cd: HOME not set\n", NULL, NULL);
 			ret = EXIT_FAILURE;
 		}
 		else if (chdir(ft_strdup(home)) == -1)
-			printf("cd: %s: No such file or directory\n", home);
+			print_error("cd: ", home, ": No such file or directory\n");
 	}
 	else
 	{
 		if (chdir(dir->content) == -1)
-			printf("cd: %s: No such file or directory\n", dir->content);
+			print_error("cd: ", NULL, ": No such file or directory\n");
 	}
 	if (ret == EXIT_SUCCESS)
 		maj_pwd(data);

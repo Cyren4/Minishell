@@ -128,7 +128,7 @@ int		ft_export(t_gen *data, t_lexer *cmd);
 void	add_env(t_gen *data, t_env *new);
 
 /*		env.c	*/
-int		ft_env(t_gen *data, char *pref);
+int		ft_env(t_gen *data, char *pref, t_lexer *cmd);
 
 /*		cd.c	*/
 t_env	*create_env(char *name, char *content);
@@ -159,6 +159,7 @@ void	display_prompt(t_gen *data);
 /*		error.c		*/
 void	arg_error(char  *exec);
 void 	error(t_gen *data, int e);
+void	print_error(char *m1, char *cmd, char *m2);
 
 
 // exec/
