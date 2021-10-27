@@ -29,8 +29,7 @@ int exec_builtin(t_gen *data, t_lexer *cmd)
 		ret = ft_unset(data, cmd->next);
 	else if (ft_strcmp(cmd->content, "env") == 0)
 		ret = ft_env(data, "");
-	// else if (ft_strcmp(cmd->content, "exit") == 0)
-	//     ret = ft_exit(data, cmd->next);
-	exit(ret);
-	// return (ret);
+	else if (ft_strcmp(cmd->content, "exit") == 0)
+	    ret = ft_exit(data, cmd->next);
+	return (ret);
 }

@@ -12,16 +12,18 @@
 
 #include "../../includes/minishell.h"
 
-int execute_ast(t_gen *data, t_tree *ast)
+int execute_ast(t_gen *data, t_tree *ast, int pipe)
 {
 	t_tree *head;
 
 	head = ast;
+	if(head->type == PIPE)
+		pipe = 1;
 	if (head->type == CMD)
-		execute_command(data, head);
+		execute_command(data, head, pipe);
 	if (head->left)
-		 execute_ast(data, head->left);
+		 execute_ast(data, head->left, pipe);
 	if (head->right)
-		execute_ast(data, head->right);
+		execute_ast(data, head->right, pipe);
 	return (1);
 }
