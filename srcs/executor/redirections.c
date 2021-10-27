@@ -71,9 +71,11 @@ int store_data(char *start, char *end, t_tree *ast)
 			start_flag = 1;
 		while(1 && breaker < 10)
 		{
-			std_in = readline("heredoc>");
+			std_in = readline("> ");
 			breaker++;
-			if (std_in && ft_strncmp(std_in, end, ft_strlen(end)) == 0 && start_flag == 1)
+			if (std_in == NULL)
+				printf("\b\b  \b\b");
+			if ((std_in && ft_strncmp(std_in, end, ft_strlen(end)) == 0 && start_flag == 1) || std_in == NULL)
 				break;
 			if (start_flag)
 				write(fd[1], ft_strjoin(std_in, "\n"), ft_strlen(std_in) + 1);

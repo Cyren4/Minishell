@@ -197,10 +197,10 @@ t_tree *build_node(t_lexer *lex, t_lexer *head, int type);
 void cut_lexer(t_lexer *head, t_lexer *lex);
 
  /*		execute_ast.c		*/
-int execute_ast(t_gen *data, t_tree *ast);
+int execute_ast(t_gen *data, t_tree *ast, int pipe);
 
  /*		execute_command.c		*/
-int execute_command(t_gen *data, t_tree *ast);
+int execute_command(t_gen *data, t_tree *ast, int pipe);
 
  /*		execute_command.c		*/
 int execute_redir(t_gen *data, t_tree *ast);
@@ -239,12 +239,6 @@ void	delete_data(t_gen *data);
 void	clean_lex(t_lexer *lex);
 void    clean_env(t_gen *data);
 void    clean_parser(t_pars *pars);
-
-/*		execute_ast.c		*/
-int 	execute_ast(t_gen *data, t_tree *ast);
-
-/*		execute_command.c		*/
-int 	execute_command(t_gen *data, t_tree *ast);
 
 /*		execute_command.c		*/
 int 	execute_redir(t_gen *data, t_tree *ast);

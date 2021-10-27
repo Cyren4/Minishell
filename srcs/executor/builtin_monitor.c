@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 00:20:27 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/27 15:50:28 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/27 16:41:26 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,5 @@ int exec_builtin(t_gen *data, t_lexer *cmd)
 		ret = ft_env(data, "", cmd->next);
 	else if (ft_strcmp(cmd->content, "exit") == 0)
 	    ret = ft_exit(data, cmd->next);
-	// exit(ret);
 	return (ret);
 }
