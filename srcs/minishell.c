@@ -83,7 +83,7 @@ int minishell_loop(t_gen *data)
 				total_cmds = calculate_commands(data->ast);
 				data->tracker = 0;
 				data->pids = malloc(sizeof(pid_t) * total_cmds);
-				if (!execute_ast(data, data->ast, 0))
+				if (!execute_ast(data, data->ast))
 					error(data, -1);
 				i = 0;
 				while (i < total_cmds)
