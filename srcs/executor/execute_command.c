@@ -40,7 +40,7 @@ char **create_command(t_lexer *cmd)
 	return (cmd_table);
 }
 
-int execute_command(t_gen *data, t_tree *ast)
+int execute_command(t_gen *data, t_tree *ast, int pipe)
 {
 	int pid;
 	char **cmd_table;
@@ -48,6 +48,8 @@ int execute_command(t_gen *data, t_tree *ast)
 	char	**env;
 	// char buf[1000];
 
+	if (ast->cmd->is_builtin == 1 && pipe == 0)
+			data->exit_stat = exec_builtin(data, ast->cmd);
 	if (ast->redir)
 		manage_redirs(ast);
 	pid = fork();
@@ -58,14 +60,10 @@ int execute_command(t_gen *data, t_tree *ast)
 	else if (pid == 0)
 	{
 		dup2(ast->fd_in, STDIN_FILENO);
-		// if (ast->fd_in > 0)
-		// 	close(ast->fd_in);
-		// read(ast->fd_in, buf, 1000);
-		// printf("ast->fd_in in execute command:\n%s", buf);
 		dup2(ast->fd_out, STDOUT_FILENO);
-		if (ast->cmd->is_builtin == 1)
+		if (ast->cmd->is_builtin == 1 && pipe == 1)
 			data->exit_stat = exec_builtin(data, ast->cmd);
-		else
+		else if (!ast->cmd->is_builtin)
 		{
 			env = env_to_child(data->env);
 			cmd = NULL;
