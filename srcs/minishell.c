@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/27 10:10:55 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/27 16:39:49 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void init_data(t_gen *data)
 {
 	// receiveSIG();
+	data->hdoc = 0;
 	data->env = NULL;
 	data->lex = NULL;
 	data->parser.std_in = NULL;
