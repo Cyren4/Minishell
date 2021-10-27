@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:01:34 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/27 19:40:09 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/27 21:55:24 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,6 @@ void splitter(t_gen *data)
 
 void display_prompt(t_gen *data)
 {
-	// receiveSIG();
 	data->parser.std_in = readline(data->prompt);
 	if (!data->parser.std_in)
 	{

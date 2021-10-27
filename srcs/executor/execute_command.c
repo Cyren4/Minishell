@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 14:23:32 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/21 11:11:35 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/27 23:08:32 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ char **create_command(t_lexer *cmd)
 
 int execute_command(t_gen *data, t_tree *ast, int pipe)
 {
+	int status;
 	int pid;
 	char **cmd_table;
 	char *cmd;
@@ -78,8 +79,14 @@ int execute_command(t_gen *data, t_tree *ast, int pipe)
 	}
 	else
 	{
-		// if (ast->fd_in != 0)
-		// 	close(ast->fd_in);
+		signal(SIGQUIT, SIG_IGN);
+		signal(SIGSEGV, SIG_IGN);
+		// waitpid(pid, &status, WUNTRACED | WCONTINUED);
+		// if (WIFSIGNALED(status) == 1)
+		// {
+		// 	if (WTERMSIG(status) == 131)
+		// 		printf("segfault")
+		// }
 		if (ast->fd_out != 1)
 			close(ast->fd_out);
 	}
