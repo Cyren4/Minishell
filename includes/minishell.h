@@ -149,6 +149,8 @@ t_gen   *get_data(t_gen *data);
 /*		signal.c	*/
 void	handler(int sig, siginfo_t *info, void *context);
 void	receiveSIG(void);
+void	sig_int(int sig);
+void	sig_quit(int sig);
 
 // display/
 

@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 16:11:48 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/19 17:58:30 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/27 20:13:54 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,20 @@
 // 	exit(1);
 // }
 
-void	handler(int sig, siginfo_t *info, void *context)
+void	sig_int(int sig)
 {
-	(void)context;
+	// (void)context;
 	(void)sig;
-	if (info->si_pid != 0)
-		return ;
-	printf("\n");//action when signal from child process
-	display_prompt(get_data(NULL));
+	t_gen *data;
+
+	data = get_data(NULL);
+	// if (info->si_pid != 0)
+		// return ;
+	printf("\n");
+	// rl_on_new_line();
+	// printf("%s", data->prompt);//action when signal from child process
+	// data->parser.std_in  = NULL;
+	// display_prompt(data);
 	// if (sig == SIGINT)
 	// {
 	// 	printf("\n");
@@ -34,12 +40,24 @@ void	handler(int sig, siginfo_t *info, void *context)
 	// printf("works\n");
 }
 
+void	sig_quit(int sig)
+{
+	(void)sig;
+	printf("\b\b  \b\b");
+	// data = get_data(NULL);
+}
+
 void	receiveSIG(void)
 {
-	struct sigaction	sa;
+	// struct sigaction	sa;
+	// struct sigaction	sb;
 
-	sa.sa_flags = SA_SIGINFO;
-	sa.sa_sigaction = handler;
-	sigaction(SIGINT, &sa, NULL);
-	sigaction(SIGQUIT, &sa, NULL);
+	// sa.sa_flags = SA_SIGINFO;
+	// sa.sa_sigaction = s_int;
+	// sb.sa_flags = SA_SIGINFO;
+	// sb.sa_sigaction = s_quit;
+	// sigaction(SIGINT, NULL, &sa);
+	// sigaction(SIGQUIT, &sb, NULL);
+	signal(SIGINT, sig_int);
+	signal(SIGQUIT, sig_quit);
 }

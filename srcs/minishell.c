@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/27 18:07:02 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/27 20:08:28 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,10 @@ int minishell_loop(t_gen *data)
 	int total_cmds;
 	int i;
 
-	// clean_data(data);
 	total_cmds = 0;
+	receiveSIG();
 	while (data->status == 1)
 	{
-		// receiveSIG();
-		// data->status = 0;
 		display_prompt(data);
 		data->lex = lexer(data->parser.parsed, data);
 		// data->lex = lexer(data->av, data);
@@ -109,12 +107,12 @@ int main(int ac, char **av, char **env)
 
 	(void)av;
 	ret = 0;
-	if (ac == 100)
-		return (0);
+	if (ac != 1)
+		return (-1);
 	init_data(&data);
 	stock_env_vars(&data, env);
 	get_data(&data);
-	data.av = &av[1];
+	receiveSIG();
 	ret = minishell_loop(&data);
 	// delete_data(&data);
 	return (ret);
