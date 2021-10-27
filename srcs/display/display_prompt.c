@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_prompt.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:01:34 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/18 15:31:53 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/10/27 12:23:43 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,38 +109,18 @@ void splitter(t_gen *data)
 	data->parser.parsed = split_head;
 }
 
-// int main(int ac, char **av)
-// {
-// 	int i;
-// 	t_gen data;
-
-// 	data.parser.std_in =av[1];
-// 	splitter(&data);
-// 	(void)ac;
-
-// 	i = 0;
-// 	while (data.parser.parsed[i] != NULL)
-// 	{
-// 		printf("%s\n", data.parser.parsed[i]);
-// 		i++;
-// 	}
-// }
-
 void display_prompt(t_gen *data)
 {
 	receiveSIG();
 	data->parser.std_in = readline(data->prompt);
-	if (!data->parser.std_in)
-		exit(EXIT_FAILURE);//to change
+	if (data->parser.std_in == NULL)
+	{
+    	printf("\b\b  \b\b\nexit\n");
+		exit(EXIT_SUCCESS);
+	}
 	if (ft_strcmp(data->parser.std_in, "") != 0)
 		add_history(data->parser.std_in);
 	if (is_empty(data->parser.std_in) == 1)
 		display_prompt(data);
 	splitter(data);
-/*
-	int i;
-	i = -1;
-	while (data->parser.parsed[++i] != NULL)
-		printf("parsed[%d]: %s\n", i, data->parser.parsed[i]);
-*/
 }

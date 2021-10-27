@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:20:22 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/10 11:48:23 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/27 09:49:13 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	maj_pwd(t_gen *data)
 
 	if (!getcwd(cwd, PATH_MAX))
 		return ;
+	printf("|%s|\n", cwd);
 	maj_env(data, "OLDPWD", get_env_var(data, "PWD"));
 	maj_env(data, "PWD", cwd);
 }
