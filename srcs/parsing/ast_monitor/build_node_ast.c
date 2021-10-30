@@ -6,11 +6,11 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:03:42 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/30 14:48:05 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/30 17:00:33 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 void	cut_lexer(t_lexer *head, t_lexer *lex)
 {

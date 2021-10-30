@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:51:50 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/30 15:13:43 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/30 16:39:19 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,4 +107,20 @@ void	ft_free(void *ptr)
 {
 	free(ptr);
 	ptr = NULL;
+}
+
+void	clean_data(t_gen *data)
+{
+	clean_tree(data->ast);
+}
+
+void	delete_data(t_gen *data)
+{
+	data->lex = NULL;
+	clean_env(data);
+	if (data->paths)
+		ft_free(data->paths);
+	if (data->prompt != NULL)
+		ft_free(data->prompt);
+	clear_history();
 }

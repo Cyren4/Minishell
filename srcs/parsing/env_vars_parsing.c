@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 18:45:42 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/30 15:14:41 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/30 17:12:56 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,38 +83,4 @@ void	stock_env_vars(t_gen *data, char **env)
 	}
 	create_paths(data);
 	update_shlvl(data);
-}
-
-int	size_env(t_env *env)
-{
-	int		i;
-	t_env	*tmp;
-
-	i = 0;
-	tmp = env;
-	while (tmp)
-	{
-		tmp = tmp->next;
-		i++;
-	}
-	return (i);
-}
-
-char	**env_to_child(t_env *env)
-{
-	int		i;
-	char	**tab;
-	t_env	*tmp;
-
-	tab = malloc(sizeof(char *) * (size_env(env) + 1));
-	i = 0;
-	tmp = env;
-	while (tmp)
-	{
-		tab[i] = join_sep(tmp->name, tmp->content, '=');
-		tmp = tmp->next;
-		i++;
-	}
-	tab[i] = NULL;
-	return (tab);
 }

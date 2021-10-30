@@ -6,11 +6,11 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:02:34 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/30 14:49:44 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/30 17:00:49 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 t_tree	*build_tree2(t_lexer *lexer)
 {

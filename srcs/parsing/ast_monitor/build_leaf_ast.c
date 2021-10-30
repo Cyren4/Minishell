@@ -6,11 +6,11 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:05:01 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/30 14:48:47 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/30 17:00:42 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 void	add_redir(t_tree *leaf, t_lexer *lexer)
 {

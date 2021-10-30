@@ -1,21 +1,6 @@
 FILES = minishell.c \
-		utils/getter.c \
 		display/display_prompt.c \
 		error/error.c \
-		utils/display_env_vars.c \
-		parsing/env_utils.c \
-		parsing/env_vars_parsing.c \
-		parsing/token_insert_var.c \
-		parsing/token_split.c \
-		parsing/token_utils.c \
-		parsing/token.c \
-		utils/utils_1.c \
-		utils/clear.c \
-		parsing/ast_builder.c \
-		parsing/build_leaf_ast.c \
-		parsing/build_node_ast.c \
-		utils/print_tree.c \
-		parsing/create_pipes.c \
 		executor/builtin/echo.c \
 		executor/builtin/export.c \
 		executor/builtin/unset.c \
@@ -24,14 +9,29 @@ FILES = minishell.c \
 		executor/builtin/pwd.c \
 		executor/builtin/exit.c \
 		executor/builtin_monitor.c \
+		executor/calculate_commands.c \
 		executor/execute_ast.c \
 		executor/execute_command.c \
 		executor/is_execve.c \
-		executor/signals.c \
 		executor/redirections.c \
-		executor/calculate_commands.c \
+		executor/signals.c \
+		parsing/env_vars_parsing.c \
+		parsing/token_insert_var.c \
+		parsing/token_split.c \
+		parsing/token.c \
+		parsing/ast_monitor/ast_builder.c \
+		parsing/ast_monitor/build_leaf_ast.c \
+		parsing/ast_monitor/build_node_ast.c \
+		parsing/ast_monitor/create_pipes.c \
+		utils/clear.c \
+		utils/env_utils.c \
+		utils/getter.c \
+		utils/print_tree.c \
+		utils/token_utils.c \
+		utils/utils_1.c \
 
-SUB_DIR	=	parsing display error utils executor executor/builtin
+
+SUB_DIR	=	parsing display error utils executor executor/builtin parsing/ast_monitor
 
 BLACK	=	\033[0;30m
 RED		=	\033[0;31m

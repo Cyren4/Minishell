@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:09:35 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/30 15:08:25 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/30 16:35:47 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	arg_error(char *exec)
 	exit(0);
 }
 
+// a supprimer?
 void	ft_clean(t_gen *data)
 {
 	int	i;
@@ -47,4 +48,14 @@ void	error(t_gen *data, int e)
 		printf("Error\n- Bad Input -\n");
 	if (e == -1)
 		ft_putstr_fd(data->str_err, data->std_out);
+}
+
+void	print_error(char *m1, char *cmd, char *m2)
+{
+	if (m1)
+		ft_putstr_fd(m1, 2);
+	if (cmd)
+		ft_putstr_fd(cmd, 2);
+	if (m2)
+		ft_putstr_fd(m2, 2);
 }

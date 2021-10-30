@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/30 16:03:24 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/30 16:40:21 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,6 @@ void	init_data(t_gen *data)
 	data->str_err = NULL;
 }
 
-void	clean_data(t_gen *data)
-{
-	clean_tree(data->ast);
-}
-
-void	delete_data(t_gen *data)
-{
-	data->lex = NULL;
-	clean_env(data);
-	if (data->paths)
-		ft_free(data->paths);
-	if (data->prompt != NULL)
-		ft_free(data->prompt);
-	clear_history();
-}
 
 int	no_pipe(t_lexer *lex)
 {
