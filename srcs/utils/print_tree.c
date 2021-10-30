@@ -3,28 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   print_tree.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 16:08:22 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/04 16:11:43 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/10/30 15:19:57 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void padding(char ch, int n)
+void	padding(char ch, int n)
 {
-	int i;
+	int	i;
 
-	for (i = 0; i < n; i++)
+	i = 0;
+	while (i < n)
+	{
 		putchar(ch);
+		i++;
+	}
 }
 
-void structure(t_tree *root, int level)
+void	structure(t_tree *root, int level)
 {
-	char *types[5] = {"PIPE", "<", "<<", ">", ">>"};
-	
-	t_lexer *lex;
+	char	*types[5] = {"PIPE", "<", "<<", ">", ">>"};
+	t_lexer	*lex;
 
 	if (root == NULL)
 	{
@@ -59,7 +62,7 @@ void structure(t_tree *root, int level)
 		}
 		padding('\t', level);
 		if (!root->cmd && !root->redir)
-			printf("%s", types[root->type]);	
+			printf("%s", types[root->type]);
 		printf("\n");
 		structure(root->left, level + 1);
 	}

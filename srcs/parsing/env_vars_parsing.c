@@ -3,37 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   env_vars_parsing.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 18:45:42 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/18 15:30:03 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/10/30 15:14:41 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-//to delete
-void display_array(char **path)
+void	create_paths(t_gen *data)
 {
-	int i;
-	i = 0;
-
-	while (path[i])
-	{
-		printf("array[%i]: %s\n", i, path[i]);
-		i++;
-	}
-}
-
-void create_paths(t_gen *data)
-{
-	t_env *tmp;
+	t_env	*tmp;
 
 	tmp = data->env;
 	while (tmp != NULL)
 	{
 		if (ft_strcmp(tmp->name, "PATH") == 0)
-			break;
+			break ;
 		tmp = tmp->next;
 	}
 	if (tmp)
@@ -52,8 +39,6 @@ void	add_elem(t_gen *data, char *var_path)
 	new->content = ft_substr(var_path, eq_pos + 1,
 			ft_strlen(var_path) - eq_pos - 1);
 	new->next = NULL;
-	if (new->name && ft_strcmp(new->name, "PWD") == 0)
-		data->pwd = ft_strdup(new->content);
 	if (!data->env)
 		data->env = new;
 	else
@@ -93,18 +78,16 @@ void	stock_env_vars(t_gen *data, char **env)
 	i = 0;
 	while (env[i] != NULL)
 	{
-		// printf("env[%d]: %s\n", i , env[i]);
 		add_elem(data, env[i]);
 		i++;
 	}
 	create_paths(data);
 	update_shlvl(data);
-	// display_env_vars(data->env);
 }
 
 int	size_env(t_env *env)
 {
-	int i;
+	int		i;
 	t_env	*tmp;
 
 	i = 0;
@@ -119,12 +102,11 @@ int	size_env(t_env *env)
 
 char	**env_to_child(t_env *env)
 {
-	int	i;
+	int		i;
 	char	**tab;
 	t_env	*tmp;
 
-	tab = malloc(sizeof(char*) * (size_env(env) + 1));
-
+	tab = malloc(sizeof(char *) * (size_env(env) + 1));
 	i = 0;
 	tmp = env;
 	while (tmp)

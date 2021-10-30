@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 14:42:47 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/05 15:53:48 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/30 14:47:08 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ char	*get_var_exist(t_gen *gen, char *var)
 
 char	*get_env_var(t_gen *gen, char *var)
 {
-	char *ret;
+	char	*ret;
 
 	ret = get_var_exist(gen, var);
 	if (ret == NULL)
 		return ("");
-	return (ret); 
+	return (ret);
 }

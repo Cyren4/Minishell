@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   build_leaf_ast.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:05:01 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/06 20:47:40 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/10/30 14:48:47 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void add_redir(t_tree *leaf, t_lexer *lexer)
+void	add_redir(t_tree *leaf, t_lexer *lexer)
 {
-	t_lexer *new;
-	t_lexer *head;
+	t_lexer	*new;
+	t_lexer	*head;
 
 	new = (t_lexer *)malloc(sizeof(t_lexer));
 	new = lexer;
@@ -31,12 +31,12 @@ void add_redir(t_tree *leaf, t_lexer *lexer)
 	}
 }
 
-t_tree *build_leaf(t_lexer *lexer)
+t_tree	*build_leaf(t_lexer *lexer)
 {
-	t_tree *leaf;
-	t_lexer *head;
-	t_lexer *tmp;
-	t_lexer *old_head;
+	t_tree	*leaf;
+	t_lexer	*head;
+	t_lexer	*tmp;
+	t_lexer	*old_head;
 
 	leaf = malloc(sizeof(t_tree));
 	if (!leaf || !lexer)
@@ -57,7 +57,7 @@ t_tree *build_leaf(t_lexer *lexer)
 			tmp = head->next->next;
 			add_redir(leaf, head);
 			head = old_head;
-			head->next = tmp;	
+			head->next = tmp;
 		}
 		old_head = head;
 		head = head->next;

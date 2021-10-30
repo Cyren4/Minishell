@@ -6,19 +6,19 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 00:20:27 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/27 20:14:04 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/30 15:38:54 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int exec_builtin(t_gen *data, t_lexer *cmd)
+int	exec_builtin(t_gen *data, t_lexer *cmd)
 {
-	int ret;
+	int	ret;
 
 	ret = 0;
 	if (ft_strcmp(cmd->content, "echo") == 0)
-	     ret = ft_echo(cmd->next);
+		ret = ft_echo(cmd->next);
 	else if (ft_strcmp(cmd->content, "cd") == 0)
 		ret = ft_cd(data, cmd->next);
 	else if (ft_strcmp(cmd->content, "pwd") == 0)

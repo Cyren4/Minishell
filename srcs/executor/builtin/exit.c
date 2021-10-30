@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:22:37 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/27 20:11:06 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/30 15:39:44 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 int	exit_atoi(char *str)
 {
 	int	i;
-	int ret;
+	int	ret;
 
 	i = 0;
 	ret = 0;
@@ -38,8 +38,8 @@ int	exit_atoi(char *str)
 
 int	ft_exit(t_gen *data, t_lexer *cmd)
 {
-	int ret;
-	t_lexer *tmp;
+	int		ret;
+	t_lexer	*tmp;
 
 	tmp = cmd;
 	ret = 0;
@@ -64,7 +64,7 @@ int	ft_exit(t_gen *data, t_lexer *cmd)
 		else
 			ret = exit_atoi(cmd->content);
 	}
-	// clean_data(data);
-	// delete_data(data);
 	exit(ret);
 }
+	// clean_data(data);
+	// delete_data(data);
