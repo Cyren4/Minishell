@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 19:28:48 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/16 22:59:44 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/30 15:02:14 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,24 +30,4 @@ void	quote_interpretation(char quote, int *inside)
 		*inside = NO_Q;
 	else if (quote == '"' && *inside == DOUBLE_Q)
 		*inside = NO_Q;
-}
-
-//to delete once done
-void	display_token(t_lexer *lst_lex)
-{
-	t_lexer	*tmp;
-	char	*token[8] = {"PIPE", "LT", "LT2", "GT", "GT2", "CMD", "OPTION", "WORD"};
-	
-	printf("Let's show token\n");
-	tmp = lst_lex;
-	if(!lst_lex)
-	{
-		printf("Empty\n");
-		return;
-	}
-	while (tmp)
-	{
-		printf("%s\t%s\n", tmp->content, token[tmp->token]);
-		tmp = tmp->next;
-	}
 }

@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 19:08:52 by cramdani          #+#    #+#             */
-/*   Updated: 2021/09/22 19:29:48 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/30 14:45:35 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	**splitting(char *cmd, int *vect, int nb_words)
 {
 	char	**ret;
-	int i;
+	int		i;
 
 	i = 0;
 	ret = malloc(sizeof(char *) * (nb_words + 1));
@@ -43,13 +43,14 @@ int	is_special(char *cmd)
 
 char	**check_sub_words(char *cmd)
 {
-	int	vect[ft_strlen(cmd)];
+	int	*vect;
 	int	i;
 	int	i_word;
 	int	inside;
 
 	i = 0;
-	i_word = 0;	
+	vect = malloc(sizeof(char) * (ft_strlen(cmd) + 1));
+	i_word = 0;
 	vect[i_word] = 0;
 	inside = NO_Q;
 	while (cmd[i])
