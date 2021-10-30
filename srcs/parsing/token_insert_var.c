@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   token_insert_var.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 19:14:50 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/18 15:29:53 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/10/30 14:53:52 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	insert_var(char *dst, char *src, int *src_i, t_gen *data)
+// insert var
+int	ins_v(char *dst, char *src, int *src_i, t_gen *data)
 {
 	char	*env_var;
 	int		i;
@@ -45,11 +46,11 @@ int	insert_var(char *dst, char *src, int *src_i, t_gen *data)
 }
 
 // retourne 1 s'il y a l'option -n
-int		strcpy_nospace(char *dst, char *src, int *var_len)
+int	strcpy_nospace(char *dst, char *src, int *var_len)
 {
 	char	*src1;
 	int		ret;
-    int		i;
+	int		i;
 	int		j;
 
 	ret = 0;
@@ -70,7 +71,7 @@ int		strcpy_nospace(char *dst, char *src, int *var_len)
 		if (!ft_isspace(src1[i]) || !ft_isspace(src1[i + 1]))
 		{
 			dst[j] = src1[i];
-			j++;	
+			j++;
 		}
 		i++;
 	}
@@ -80,7 +81,8 @@ int		strcpy_nospace(char *dst, char *src, int *var_len)
 	return (ret);
 }
 
-int	insert_var_noquote(char *dst, char *src, int *src_i, t_gen *data)
+// insert_var_noquote
+int	ins_v_nq(char *dst, char *src, int *src_i, t_gen *data)
 {
 	char	*env_var;
 	int		i;

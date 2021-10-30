@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   create_pipes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vincentbaron <vincentbaron@student.42.f    +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 18:28:23 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/11 18:39:28 by vincentbaro      ###   ########.fr       */
+/*   Updated: 2021/10/30 14:47:30 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int create_pipes(t_tree *ast)
+int	create_pipes(t_tree *ast)
 {
-	t_tree *head;
-	int fd[2];
+	t_tree	*head;
+	int		fd[2];
 
 	head = ast;
 	if (head->type == PIPE)

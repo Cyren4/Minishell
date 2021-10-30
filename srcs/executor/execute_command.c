@@ -6,17 +6,17 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 14:23:32 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/27 23:08:32 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/30 16:00:03 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char **create_command(t_lexer *cmd)
+char	**create_command(t_lexer *cmd)
 {
-	t_lexer *head;
-	int len;
-	char **cmd_table;
+	t_lexer	*head;
+	int		len;
+	char	**cmd_table;
 
 	head = cmd;
 	len = 0;
@@ -40,17 +40,15 @@ char **create_command(t_lexer *cmd)
 	return (cmd_table);
 }
 
-int execute_command(t_gen *data, t_tree *ast, int pipe)
+int	execute_command(t_gen *data, t_tree *ast, int pipe)
 {
-	int status;
-	int pid;
-	char **cmd_table;
-	char *cmd;
+	int		pid;
+	char	**cmd_table;
+	char	*cmd;
 	char	**env;
-	// char buf[1000];
 
 	if (ast->cmd->is_builtin == 1 && pipe == 0)
-			data->exit_stat = exec_builtin(data, ast->cmd);
+		data->exit_stat = exec_builtin(data, ast->cmd);
 	if (ast->redir)
 		manage_redirs(ast);
 	pid = fork();
@@ -73,7 +71,7 @@ int execute_command(t_gen *data, t_tree *ast, int pipe)
 			if (!cmd)
 				ft_putstr_fd("bad command\n", ast->fd_out);
 			else
-				return(execve(cmd, cmd_table, env));
+				return (execve(cmd, cmd_table, env));
 		}
 		exit(1);
 	}
