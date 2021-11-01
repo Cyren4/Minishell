@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 19:26:49 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/30 14:57:34 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/01 15:23:45 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ void	complexe_elem(t_lexer *elm, t_gen *data)
 	r_cont = malloc(sizeof(char) * (real_size(elm->content, data) + 1));
 	while (elm->content[el_i])
 	{
-		if (elm->content[el_i] == '"' || elm->content[el_i] == '\'')
+		if ((elm->content[el_i] == '"' && in != SIMPLE_Q)
+			|| (elm->content[el_i] == '\'' && in != DOUBLE_Q))
 			quote_interpretation(elm->content[el_i], &in);
 		else if (elm->content[el_i] == '$' && in != SIMPLE_Q)
 		{
