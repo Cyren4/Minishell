@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/04 13:27:12 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/04 18:14:06 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	init_data(t_gen *data)
 	data->prompt = ft_strdup("minishell $ ");
 	data->str_err = NULL;
 }
-
 
 int	no_pipe(t_lexer *lex)
 {
