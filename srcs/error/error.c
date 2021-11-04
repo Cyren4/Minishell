@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:09:35 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/30 16:35:47 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/04 14:03:00 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ void	error(t_gen *data, int e)
 {
 	(void)data;
 	if (e == QUOTES_UNCLOSED)
-		printf("Error\n- Quotes unclosed -\n");
+		print_error("Error\n- Quotes unclosed -\n", NULL, NULL);
 	if (e == BAD_MALLOC)
-		printf("Error\n- Bad Malloc -\n");
+		print_error("Error\n- Bad Malloc -\n", NULL, NULL);
 	if (e == BAD_INPUT)
-		printf("Error\n- Bad Input -\n");
+		print_error("Error\n- Bad Input -\n", NULL, NULL);
 	if (e == -1)
 		ft_putstr_fd(data->str_err, data->std_out);
 }

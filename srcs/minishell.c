@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/30 16:40:21 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/04 13:27:12 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int	minishell_loop(t_gen *data)
 					waitpid(data->pids[i], &data->exit_stat, 0);
 			}
 		}
+		clean_data(data);
 	}
 	return (data->exit_stat);
 }

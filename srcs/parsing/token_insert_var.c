@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 19:14:50 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/04 11:46:26 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/04 13:08:45 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ int	ins_v_nq(char *dst, char *src, int *src_i, t_gen *data)
 	int		var_len;
 
 	i = 0;
+	var_len = 0;
 	env_var = malloc(sizeof(char *) * (ft_strlen(src) - *src_i + 1));
 	if (!env_var)
 		return (-1);
