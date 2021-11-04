@@ -6,13 +6,12 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 19:26:49 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/04 21:33:07 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/04 21:39:16 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-//in = inside
 void	complexe_elem(t_lexer *elm, t_gen *data)
 {
 	char	*r_cont;
@@ -24,9 +23,12 @@ void	complexe_elem(t_lexer *elm, t_gen *data)
 	el_i = 0;
 	in = NO_Q;
 	r_cont = malloc(sizeof(char) * (real_size(elm->content, data) + 1));
+	if (!r_cont)
+		return ;
 	while (elm->content[el_i])
 	{
-		if (elm->content[el_i] == '"' || elm->content[el_i] == '\'')
+		if ((elm->content[el_i] == '"' && in != SIMPLE_Q)
+			|| (elm->content[el_i] == '\'' && in != DOUBLE_Q))
 			quote_interpretation(elm->content[el_i], &in);
 		else if (elm->content[el_i] == '$' && in != SIMPLE_Q 
 				&& (ft_isalpha(elm->content[el_i + 1]) || elm->content[el_i + 1] == '_'))

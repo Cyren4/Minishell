@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 19:14:50 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/30 17:13:52 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/04 21:38:40 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int	ins_v(char *dst, char *src, int *src_i, t_gen *data)
 		return (var_len);
 	}
 	env_var = malloc(sizeof(char *) * (ft_strlen(src) - *src_i + 1));
+	if (!env_var)
+		return (-1);
 	*src_i += 1;
 	while (src[*src_i] && (ft_isalnum(src[*src_i]) || src[*src_i] == '_'))
 	{
@@ -89,7 +91,10 @@ int	ins_v_nq(char *dst, char *src, int *src_i, t_gen *data)
 	int		var_len;
 
 	i = 0;
+	var_len = 0;
 	env_var = malloc(sizeof(char *) * (ft_strlen(src) - *src_i + 1));
+	if (!env_var)
+		return (-1);
 	*src_i += 1;
 	while (src[*src_i] && (ft_isalnum(src[*src_i]) || src[*src_i] == '_'))
 	{
@@ -143,7 +148,8 @@ int	real_size(char *content, t_gen *data)
 	{
 		if (content[i] == '"' || content[i] == '\'')
 			quote_interpretation(content[i], &inside);
-		else if (content[i] == '$' && inside != SIMPLE_Q)
+		else if (content[i] == '$' && (ft_isalpha(content[i + 1])
+				|| content[i + 1] == '_') && inside != SIMPLE_Q)
 		{
 			total_size += var_size(content, &i, data);
 			continue ;

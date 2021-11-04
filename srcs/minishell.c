@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/04 21:26:08 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/04 21:36:44 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	init_data(t_gen *data)
 	data->prompt = ft_strdup("minishell $ ");
 	data->str_err = NULL;
 }
-
 
 int	no_pipe(t_lexer *lex)
 {
@@ -55,7 +54,6 @@ int	minishell_loop(t_gen *data)
 	{
 		display_prompt(data);
 		data->lex = lexer(data->parser.parsed, data);
-		// display_token(data->lex);
 		data->ast = build_tree1(data->lex);
 		if (!data->ast)
 			error(data, BAD_INPUT);
@@ -74,6 +72,7 @@ int	minishell_loop(t_gen *data)
 					waitpid(data->pids[i], &data->exit_stat, 0);
 			}
 		}
+		clean_data(data);
 	}
 	return (data->exit_stat);
 }
