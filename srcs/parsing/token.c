@@ -6,11 +6,19 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 19:26:49 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/04 21:39:16 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/04 23:44:54 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+//check si expansion valide
+int	v_e(t_lexer *elm, int index)
+{
+	return (ft_isalpha(elm->content[index + 1])
+			|| elm->content[index + 1] == '_'
+			|| elm->content[index + 1] == '?');
+}
 
 void	complexe_elem(t_lexer *elm, t_gen *data)
 {
@@ -30,10 +38,8 @@ void	complexe_elem(t_lexer *elm, t_gen *data)
 		if ((elm->content[el_i] == '"' && in != SIMPLE_Q)
 			|| (elm->content[el_i] == '\'' && in != DOUBLE_Q))
 			quote_interpretation(elm->content[el_i], &in);
-		else if (elm->content[el_i] == '$' && in != SIMPLE_Q 
-				&& (ft_isalpha(elm->content[el_i + 1]) || elm->content[el_i + 1] == '_'))
+		else if (elm->content[el_i] == '$' && in != SIMPLE_Q && v_e(elm, el_i))
 		{
-			printf("ici = %c\n", elm->content[el_i + 1]);
 			if (in == DOUBLE_Q || ft_strncmp(elm->content + el_i, "$?", 2) == 0)
 				i += ins_v(r_cont + i, elm->content, &el_i, data);
 			else
@@ -105,6 +111,51 @@ t_lexer	*add_elem_lex(t_lexer *lst_elem, char *cmd, t_gen *data)
 	return (lst_elem);
 }
 
+int	is_redir(int token)
+{
+	return (token == LT || token == GT || token == LT2 || token == GT2);
+}
+
+char	*get_token(int token)
+{
+	if (token == PIPE)
+		return ("|");
+	else if (token == LT)
+		return ("<");
+	else if (token == LT2)
+		return ("<<");
+	else if (token == GT)
+		return (">");
+	else if (token == GT)
+		return (">>");
+	return ("");
+}
+
+int	check_syntax(t_lexer *lex)
+{
+	t_lexer	*tmp;
+	int		ret;
+
+	tmp = lex;
+	ret = -1;
+	if (lex != NULL && lex->token == PIPE)
+		ret = PIPE;
+	while (tmp && ret == -1)
+	{
+		if (tmp->token == PIPE && (tmp->next == NULL
+			|| tmp->next->token == PIPE))
+			ret = PIPE;
+		else if (is_redir(tmp->token) && tmp->next != NULL
+				&& is_redir(tmp->next->token))
+			ret = tmp->token;
+		tmp = tmp->next;
+	}
+	if (ret != -1)
+		print_error("bash: syntax error near unexpected token `",
+			get_token(ret), "\'\n");
+	return (ret);
+}
+
 t_lexer	*lexer(char **cmd_line, t_gen *data)
 {
 	int		i;
@@ -127,6 +178,11 @@ t_lexer	*lexer(char **cmd_line, t_gen *data)
 		if (splited)
 			free_tab(splited);
 		i++;
+	}
+	if (check_syntax(data->lex) == -1)
+	{
+		data->status = -1;
+		data->exit_stat = 2;
 	}
 	return (data->lex);
 }

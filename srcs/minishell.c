@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/04 21:36:44 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/04 23:45:26 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,13 @@ int	minishell_loop(t_gen *data)
 
 	total_cmds = 0;
 	receiveSIG();
-	while (data->status == 1)
+	while (data->status != 0)
 	{
+		// printf("%d\n", data->exit_stat);
 		display_prompt(data);
 		data->lex = lexer(data->parser.parsed, data);
+		if (data->status == -1)
+			continue ;
 		data->ast = build_tree1(data->lex);
 		if (!data->ast)
 			error(data, BAD_INPUT);

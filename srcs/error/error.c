@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:09:35 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/04 18:37:23 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/04 23:41:13 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,15 @@ void	ft_clean(t_gen *data)
 	{
 		i = -1;
 		while (data->parser.parsed[++i])
-		{
 			if (data->parser.parsed[i])
 				ft_free(data->parser.parsed[i]);
-		}
 	}
 }
 
 void	error(t_gen *data, int e)
 {
 	(void)data;
+	data->exit_stat = 1;
 	if (e == QUOTES_UNCLOSED)
 		print_error("Error\n- Quotes unclosed -\n", NULL, NULL);
 	if (e == BAD_MALLOC)
