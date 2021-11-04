@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 19:26:49 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/30 14:57:34 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/04 21:33:07 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,10 @@ void	complexe_elem(t_lexer *elm, t_gen *data)
 	{
 		if (elm->content[el_i] == '"' || elm->content[el_i] == '\'')
 			quote_interpretation(elm->content[el_i], &in);
-		else if (elm->content[el_i] == '$' && in != SIMPLE_Q)
+		else if (elm->content[el_i] == '$' && in != SIMPLE_Q 
+				&& (ft_isalpha(elm->content[el_i + 1]) || elm->content[el_i + 1] == '_'))
 		{
+			printf("ici = %c\n", elm->content[el_i + 1]);
 			if (in == DOUBLE_Q || ft_strncmp(elm->content + el_i, "$?", 2) == 0)
 				i += ins_v(r_cont + i, elm->content, &el_i, data);
 			else

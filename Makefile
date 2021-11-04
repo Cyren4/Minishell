@@ -6,7 +6,7 @@
 #    By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 12:16:14 by mvaldes           #+#    #+#              #
-#    Updated: 2021/10/27 22:31:27 by cramdani         ###   ########.fr        #
+#    Updated: 2021/11/04 21:02:07 by cramdani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ OBJS_DIR	=	objs
 INC_DIR		=	includes
 HEADER		=	$(INC_DIR)/minishell.h
 
-CC			=	gcc
+CC			=	clang
 RM			=	/bin/rm -rf
 INC			=	-include ./$(HEADER)
 CC_FLAGS	=	-Wall -Wextra -Werror -MMD -g3 $(INC)

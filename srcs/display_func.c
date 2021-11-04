@@ -6,11 +6,11 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 15:00:11 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/30 15:31:28 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/04 21:24:36 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../includes/minishell.h"
 
 //to delete
 void	display_array(char **path)

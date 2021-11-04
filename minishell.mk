@@ -28,7 +28,8 @@ FILES = minishell.c \
 		utils/getter.c \
 		utils/print_tree.c \
 		utils/token_utils.c \
-		utils/utils_1.c 
+		utils/utils_1.c\
+		display_func.c
 
 
 SUB_DIR	=	parsing display error utils executor executor/builtin parsing/ast_monitor

@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/30 16:40:21 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/04 21:26:08 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int	minishell_loop(t_gen *data)
 	{
 		display_prompt(data);
 		data->lex = lexer(data->parser.parsed, data);
+		// display_token(data->lex);
 		data->ast = build_tree1(data->lex);
 		if (!data->ast)
 			error(data, BAD_INPUT);

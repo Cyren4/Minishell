@@ -6,7 +6,7 @@
 #    By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/07 10:38:04 by cramdani          #+#    #+#              #
-#    Updated: 2021/08/13 01:42:47 by cramdani         ###   ########.fr        #
+#    Updated: 2021/11/04 21:13:33 by cramdani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ NAME	=	libft.a
 HEADER	=	/libft.h
 INC 	=	-I $(HEADER)
 
-CC		= gcc
+CC		= clang
 
 RM		= rm -rf
 
