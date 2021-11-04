@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 19:08:52 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/30 14:45:35 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/04 11:22:59 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ char	**splitting(char *cmd, int *vect, int nb_words)
 
 	i = 0;
 	ret = malloc(sizeof(char *) * (nb_words + 1));
+	if (!ret)
+		return (NULL);
 	while (i < nb_words)
 	{
 		if (i == nb_words - 1)
@@ -28,6 +30,7 @@ char	**splitting(char *cmd, int *vect, int nb_words)
 		i++;
 	}
 	ret[i] = NULL;
+	free(vect);
 	return (ret);
 }
 
@@ -49,13 +52,16 @@ char	**check_sub_words(char *cmd)
 	int	inside;
 
 	i = 0;
-	vect = malloc(sizeof(char) * (ft_strlen(cmd) + 1));
+	vect = malloc(sizeof(int) * (ft_strlen(cmd) + 1));
+	if (!vect)
+		return (NULL);
 	i_word = 0;
 	vect[i_word] = 0;
 	inside = NO_Q;
 	while (cmd[i])
 	{
-		if (cmd[i] == '"' || cmd[i] == '\'')
+		if ((cmd[i] == '"' && inside != SIMPLE_Q)
+			|| (cmd[i] == '\'' && inside != DOUBLE_Q))
 			quote_interpretation(cmd[i], &inside);
 		else if (inside == NO_Q && is_special(cmd + i))
 		{
