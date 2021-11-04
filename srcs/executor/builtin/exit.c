@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:22:37 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/04 18:14:18 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/04 18:34:37 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,8 @@ int	ft_exit(t_gen *data, t_lexer *cmd)
 		else
 			data->exit_stat = exit_atoi(cmd->content);
 	}
+	printf("%d\n", data->exit_stat);
 	exit(data->exit_stat);
 }
-	// printf("%d\n", data->exit_stat);
 	// clean_data(data);
 	// delete_data(data);

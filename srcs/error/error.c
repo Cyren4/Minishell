@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:09:35 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/04 14:03:00 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/04 18:37:23 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,10 @@ void	error(t_gen *data, int e)
 	if (e == BAD_INPUT)
 		print_error("Error\n- Bad Input -\n", NULL, NULL);
 	if (e == -1)
+	{
 		ft_putstr_fd(data->str_err, data->std_out);
+		data->exit_stat = 127;
+	}
 }
 
 void	print_error(char *m1, char *cmd, char *m2)
