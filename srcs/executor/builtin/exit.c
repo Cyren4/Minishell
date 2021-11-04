@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:22:37 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/27 15:36:48 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/31 13:45:19 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 int	exit_atoi(char *str)
 {
 	int	i;
-	int ret;
+	int	ret;
 
 	i = 0;
 	ret = 0;
@@ -38,33 +38,29 @@ int	exit_atoi(char *str)
 
 int	ft_exit(t_gen *data, t_lexer *cmd)
 {
-	int ret;
-	t_lexer *tmp;
-
-	tmp = cmd;
-	ret = 0;
+	data->exit_stat = 0;
 	printf("exit\n");
-	if (tmp)
+	if (cmd)
 	{
-		if (ft_isnumber(tmp->content) && cmd->next != NULL)
+		if (ft_isnumber(cmd->content) && cmd->next != NULL)
 		{
 			print_error("exit: too many arguments\n", NULL, NULL);
 			clean_lex(data->lex);
 			data->lex = NULL;
 			return (1);
 		}
-		else if (!ft_isnumber(tmp->content) || cmd->next != NULL)
+		else if (!ft_isnumber(cmd->content) || cmd->next != NULL)
 		{
-			if (!ft_isnumber(tmp->content))
-				print_error("exit: ", cmd->content, ": numeric argument required\n");
+			if (!ft_isnumber(cmd->content))
+				print_error("exit: ", cmd->content,": numeric argument required\n");
 			else
 				print_error("exit: too many arguments\n", NULL, NULL);
-			ret = 255;
+			data->exit_stat = 255;
 		}
 		else
-			ret = exit_atoi(cmd->content);
+			data->exit_stat = exit_atoi(cmd->content);
 	}
+	exit(data->exit_stat);
+}
 	// clean_data(data);
 	// delete_data(data);
-	exit(ret);
-}

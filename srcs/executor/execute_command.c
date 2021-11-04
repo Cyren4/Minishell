@@ -6,17 +6,17 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 14:23:32 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/21 11:11:35 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/30 16:03:02 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char **create_command(t_lexer *cmd)
+char	**create_command(t_lexer *cmd)
 {
-	t_lexer *head;
-	int len;
-	char **cmd_table;
+	t_lexer	*head;
+	int		len;
+	char	**cmd_table;
 
 	head = cmd;
 	len = 0;
@@ -40,14 +40,15 @@ char **create_command(t_lexer *cmd)
 	return (cmd_table);
 }
 
-int execute_command(t_gen *data, t_tree *ast)
+int	execute_command(t_gen *data, t_tree *ast, int pipe)
 {
-	int pid;
-	char **cmd_table;
-	char *cmd;
+	int		pid;
+	char	**cmd_table;
+	char	*cmd;
 	char	**env;
-	// char buf[1000];
 
+	if (ast->cmd->is_builtin == 1 && pipe == 0)
+		data->exit_stat = exec_builtin(data, ast->cmd);
 	if (ast->redir)
 		manage_redirs(ast);
 	pid = fork();
@@ -74,14 +75,20 @@ int execute_command(t_gen *data, t_tree *ast)
 			if (!cmd)
 				ft_putstr_fd("bad command\n", ast->fd_out);
 			else
-				return(execve(cmd, cmd_table, env));
+				return (execve(cmd, cmd_table, env));
 		}
 		exit(1);
 	}
 	else
 	{
-		// if (ast->fd_in != 0)
-		// 	close(ast->fd_in);
+		signal(SIGQUIT, SIG_IGN);
+		signal(SIGSEGV, SIG_IGN);
+		// waitpid(pid, &status, WUNTRACED | WCONTINUED);
+		// if (WIFSIGNALED(status) == 1)
+		// {
+		// 	if (WTERMSIG(status) == 131)
+		// 		printf("segfault")
+		// }
 		if (ast->fd_out != 1)
 			close(ast->fd_out);
 	}

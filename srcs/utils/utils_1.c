@@ -3,28 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   utils_1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 19:39:21 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/18 15:26:51 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/10/30 17:21:21 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void    free_tab(char **tab)
+void	free_tab(char **tab)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    if (!tab)
-        return ;
-    while (tab[i] != NULL)
-    {
-        ft_free(tab[i]);
-        i++;
-    }
-    ft_free(tab);
+	i = 0;
+	if (!tab)
+		return ;
+	while (tab[i] != NULL)
+	{
+		ft_free(tab[i]);
+		i++;
+	}
+	ft_free(tab);
 }
 
 int	is_empty(char *line)

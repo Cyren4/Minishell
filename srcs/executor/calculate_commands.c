@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   calculate_commands.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 17:14:31 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/07 17:33:46 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/10/30 14:40:11 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int calculate_commands(t_tree *ast)
+int	calculate_commands(t_tree *ast)
 {
-	t_tree *head;
-	int total;
+	t_tree	*head;
+	int		total;
 
 	head = ast;
 	total = 0;

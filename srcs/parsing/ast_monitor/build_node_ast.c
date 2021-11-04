@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   build_node_ast.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vincentbaron <vincentbaron@student.42.f    +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:03:42 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/11 19:08:25 by vincentbaro      ###   ########.fr       */
+/*   Updated: 2021/10/30 17:00:33 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
-void cut_lexer(t_lexer *head, t_lexer *lex)
+void	cut_lexer(t_lexer *head, t_lexer *lex)
 {
-	t_lexer *head2;
-	
+	t_lexer	*head2;
+
 	head2 = head;
 	while (head->next != lex)
 		head = head->next;
@@ -23,9 +23,10 @@ void cut_lexer(t_lexer *head, t_lexer *lex)
 	head->next = NULL;
 	head = head2;
 }
-t_tree *build_node(t_lexer *lex, t_lexer *head, int type)
+
+t_tree	*build_node(t_lexer *lex, t_lexer *head, int type)
 {
-	t_tree *new;
+	t_tree	*new;
 
 	if (lex == head || !lex->next)
 		return (NULL);

@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 10:49:43 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/18 15:30:59 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/10/30 14:37:04 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int manage_lt2(t_lexer *redirs, t_tree *ast)
+int	manage_lt2(t_lexer *redirs, t_tree *ast)
 {
-	t_lexer *head;
-	int redir_count;
-	int fd_in;
-	char *start;
-	char *end;
+	t_lexer	*head;
+	int		redir_count;
+	int		fd_in;
+	char	*start;
+	char	*end;
 
 	start = NULL;
 	end = NULL;
@@ -34,9 +34,9 @@ int manage_lt2(t_lexer *redirs, t_tree *ast)
 	while (head->next)
 	{
 		if (head->token == LT2 && redir_count == 2)
-			start = head->next->content;
+				start = head->hdoc_content;
 		if (head->token == LT2 && redir_count == 1)
-			end = head->next->content;
+			end = head->hdoc_content;
 		if (head->token == LT2)
 			redir_count--;
 		head = head->next;
@@ -45,18 +45,17 @@ int manage_lt2(t_lexer *redirs, t_tree *ast)
 	return (fd_in);
 }
 
-int store_data(char *start, char *end, t_tree *ast)
+int	store_data(char *start, char *end, t_tree *ast)
 {
-	int fd[2];
-	char *std_in;
-	int start_flag;
-	pid_t pid;
-	int exit_status;
-	int breaker;
-	// char buf[1000];
+	int		fd[2];
+	char	*std_in;
+	int		start_flag;
+	pid_t	pid;
+	int		exit_status;
+	int		breaker;
+
 	(void)ast;
 	breaker = 0;
-
 	std_in = NULL;
 	if (pipe(fd) < 0)
 		return (0);
@@ -69,14 +68,15 @@ int store_data(char *start, char *end, t_tree *ast)
 		start_flag = 0;
 		if (!start)
 			start_flag = 1;
-		while(1 && breaker < 10)
+		while (1 && breaker < 10)
 		{
 			std_in = readline("heredoc>");
 			breaker++;
 			if (std_in == NULL)
 				printf("\b\b  \b\b");
-			if ((std_in && ft_strncmp(std_in, end, ft_strlen(end)) == 0 && start_flag == 1) || std_in == NULL)
-				break;
+			if ((std_in && ft_strncmp(std_in, end, ft_strlen(end)) == 0
+					&& start_flag == 1) || std_in == NULL)
+				break ;
 			if (start_flag)
 				write(fd[1], ft_strjoin(std_in, "\n"), ft_strlen(std_in) + 1);
 			if (std_in && ft_strncmp(std_in, start, ft_strlen(start)) == 0)
@@ -131,11 +131,10 @@ int store_data(char *start, char *end, t_tree *ast)
 // 	return(0);
 // }
 
-int manage_redirs(t_tree *ast)
+int	manage_redirs(t_tree *ast)
 {
-	t_lexer *head;
-	// int file_fd;
-	int flag_lt2;
+	t_lexer	*head;
+	int		flag_lt2;
 
 	flag_lt2 = 0;
 	head = ast->redir;
@@ -144,7 +143,8 @@ int manage_redirs(t_tree *ast)
 		if (head->token == GT)
 			ast->fd_out = open(head->next->content, O_CREAT | O_RDWR, 0666);
 		if (head->token == GT2)
-			ast->fd_out = open(head->next->content, O_CREAT | O_RDWR | O_APPEND, 0666);
+			ast->fd_out
+				= open(head->next->content, O_CREAT | O_RDWR | O_APPEND, 0666);
 		if (head->token == LT)
 			ast->fd_in = open(head->next->content, O_RDONLY, 0444);
 		if (head->token == LT2 && !flag_lt2)
@@ -156,4 +156,3 @@ int manage_redirs(t_tree *ast)
 	}
 	return (1);
 }
-

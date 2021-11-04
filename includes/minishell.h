@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/30 15:30:08 by cramdani          #+#    #+#             */
+/*   Updated: 2021/10/30 17:21:18 by cramdani         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -33,231 +45,204 @@ typedef struct s_lex
 
 typedef struct s_pars
 {
-	char *std_in;
-	char **parsed;
-} t_pars;
+	char	*std_in;
+	char	**parsed;
+}	t_pars;
 
 typedef struct s_env
 {
-	char *name;
-	char *content;
-	struct s_env *next;
-} t_env;
+	char			*name;
+	char			*content;
+	struct s_env	*next;
+}	t_env;
 
 typedef struct s_tree
 {
-	int type;
-	t_lexer *cmd;
-	t_lexer *redir;
-	int fd_in;
-	int fd_out;
-	struct s_tree *left;
-	struct s_tree *right;
+	int				type;
+	t_lexer			*cmd;
+	t_lexer			*redir;
+	int				fd_in;
+	int				fd_out;
+	struct s_tree	*left;
+	struct s_tree	*right;
 
-} t_tree;
+}	t_tree;
 
 typedef struct s_pid
 {
-	int *pid_list;
-	int index;
-} t_pid;
+	int	*pid_list;
+	int	index;
+}	t_pid;
 
 typedef struct s_gen
 {
 	char	*prompt;
-	char	*pwd;
 	int		exit_stat;
 	int		status;
 	int		hdoc;
 	int		tracker;
-	pid_t		*pids;
+	pid_t	*pids;
 	t_env	*env;
 	char	**paths;
 	t_lexer	*lex;
-	t_pars parser;
-	t_tree *ast;
-	int std_out;
-	int std_in;
-	int std_err;
-	char *str_err;
-	char **av;
+	t_pars	parser;
+	t_tree	*ast;
+	int		std_out;
+	int		std_in;
+	int		std_err;
+	char	*str_err;
+	char	**av;
 }	t_gen;
 
-int minishell_loop(t_gen *data);
-
-/*			#Parsing#		*/
-
-/*		token.c		*/
-t_lexer	*lexer(char **cmd_line, t_gen *data);
-t_lexer	*add_elem_lex(t_lexer *lst_elem, char *cmd, t_gen *data);
-
-/*		token_split.c	*/
-char	**check_sub_words(char *cmd);
-
-/*	token_insert_var.c	*/
-int		insert_var(char *dst, char *src, int *src_i, t_gen *data);
-int		insert_var_noquote(char *dst, char *src, int *src_i, t_gen *data);
-int		real_size(char *content, t_gen *data);
-
-/*	token_utils.c	*/
-int		is_builtin(char *cmd);
-void	quote_interpretation(char quote, int *inside);
+//a supprimer
+/*		display_func.c		*/
+void	display_array(char **path);
 void	display_token(t_lexer *lst_lex);
 
-/*	env_utils.c	*/
-char	*get_env_var(t_gen *gen, char *var);
-char	*get_var_exist(t_gen *gen, char *var);
-char	**env_to_child(t_env *env);
+/*		minishell.c		*/
+int		minishell_loop(t_gen *data);
 
+/*===============================================================*/
+/*			#display#		*/
+/*		display_prompt.c		*/
+void	display_prompt(t_gen *data);
 
-/*			#Executor#		*/
+/*===============================================================*/
+/*			#error#		*/
+/*		error.c		*/
+void	arg_error(char *exec);
+void	error(t_gen *data, int e);
+void	print_error(char *m1, char *cmd, char *m2);
 
-//	builtin/
+/*===============================================================*/
+/*			#executor#		*/
 
 /*		builtin_monitor.c		*/
-int exec_builtin(t_gen *data, t_lexer *cmd);
+int		exec_builtin(t_gen *data, t_lexer *cmd);
 
-/*		echo.c		*/
-char	*join_sep(char *s1, char *s2, char sep);
-int		ft_echo(t_lexer *lex);
+/*		calculate_commands.c		*/
+int		calculate_commands(t_tree *ast);
 
-/*		unset.c		*/
-void	free_env(t_env *env);
-int		ft_unset(t_gen *data, t_lexer *cmd);
+/*		execute_ast.c		*/
+int		execute_ast(t_gen *data, t_tree *ast, int pipe);
 
-/*		export.c	*/
-int		ft_export(t_gen *data, t_lexer *cmd);
-void	add_env(t_gen *data, t_env *new);
+/*		execute_command.c		*/
+int		execute_command(t_gen *data, t_tree *ast, int pipe);
 
-/*		env.c	*/
-int		ft_env(t_gen *data, char *pref, t_lexer *cmd);
+/*		is_execve.c		*/
+char	*is_excve(char *command, t_gen *data);
+
+/*		redirections.c		*/
+int		manage_lt2(t_lexer *redirs, t_tree *ast);
+int		store_data(char *start, char *end, t_tree *ast);
+int		manage_redirs(t_tree *ast);
+
+/*		signal.c	*/
+void	handler(int sig, siginfo_t *info, void *context);
+void	receiveSIG(void);
+void	sig_int(int sig);
+void	sig_quit(int sig);
+
+/*----------------------------------------------------------------*/
+/*		#builtin#	*/
 
 /*		cd.c	*/
 t_env	*create_env(char *name, char *content);
 int		ft_cd(t_gen *data, t_lexer *dir);
 
+/*		echo.c		*/
+char	*join_sep(char *s1, char *s2, char sep);
+int		ft_echo(t_lexer *lex);
+
+/*		env.c	*/
+int		ft_env(t_gen *data, char *pref);
+
 /*		exit.c	*/
 int		ft_exit(t_gen *data, t_lexer *cmd);
+
+/*		export.c	*/
+int		ft_export(t_gen *data, t_lexer *cmd);
+void	add_env(t_gen *data, t_env *new);
 
 /*		pwd.c	*/
 int		ft_pwd(void);
 
-// signal/
-/*		getter.c	*/
-t_gen   *get_data(t_gen *data);
+/*		unset.c		*/
+void	free_env(t_env *env);
+int		ft_unset(t_gen *data, t_lexer *cmd);
 
-/*		signal.c	*/
-void	handler(int sig, siginfo_t *info, void *context);
-void	receiveSIG(void);
+/*----------------------------------------------------------------*/
+/*===============================================================*/
 
-// display/
-
-/*		display.c	*/
-void	display_prompt(t_gen *data);
-
-
-// error/
-
-/*		error.c		*/
-void	arg_error(char  *exec);
-void 	error(t_gen *data, int e);
-void	print_error(char *m1, char *cmd, char *m2);
-
-
-// exec/
-
-/*		exec.c		*/
-void 	set_vars(t_gen *mini);
-/*		is_execve.c		*/
-char *is_excve(char *command, t_gen *data);
-
-
-// parsing/
+/*			#parsing#		*/
 
 /*		env_vars_parsing.c		*/
-void 	stock_env_vars(t_gen *data, char **env);
-void display_array(char **path);
+void	create_paths(t_gen *data);
 void	add_elem(t_gen *data, char *var_path);
+void	stock_env_vars(t_gen *data, char **env);
+
+/*		token_insert_var.c	*/
+int		ins_v(char *dst, char *src, int *src_i, t_gen *data);
+int		ins_v_nq(char *dst, char *src, int *src_i, t_gen *data);
+int		real_size(char *content, t_gen *data);
+
+/*		token_split.c	*/
+char	**check_sub_words(char *cmd);
+
+/*		token.c		*/
+t_lexer	*lexer(char **cmd_line, t_gen *data);
+t_lexer	*add_elem_lex(t_lexer *lst_elem, char *cmd, t_gen *data);
+
+/*----------------------------------------------------------------*/
+/*			#ast_monitor#		*/
+
+/*		ast_builder.c		*/
+t_tree	*build_tree1(t_lexer *lexer);
+t_tree	*build_tree2(t_lexer *lexer);
+
+/*		build_leaf_ast.c		*/
+t_tree	*build_leaf(t_lexer *lexer);
+
+/*		build_pipe_node_ast.c		*/
+t_tree	*build_node(t_lexer *lex, t_lexer *head, int type);
+void	cut_lexer(t_lexer *head, t_lexer *lex);
 
 /*		create_pipes.c		*/
 int		create_pipes(t_tree *ast);
 
+/*----------------------------------------------------------------*/
+/*===============================================================*/
 
-// executor/
+/*			#utils#		*/
 
-/*		ast_builder.c		*/
-t_tree *build_tree1(t_lexer *lexer);
-t_tree *build_tree2(t_lexer *lexer);
+/*		clear.c		*/
+void	clean_lex(t_lexer *lex);
+void	clean_env(t_gen *data);
+void	clean_parser(t_pars *pars);
+void	clean_tree(t_tree *ast);
+void	ft_free(void *ptr);
+void	clean_data(t_gen *data);
+void	delete_data(t_gen *data);
 
-/*		build_leaf_ast.c		*/
-t_tree *build_leaf(t_lexer *lexer);
+/*		env_utils.c	*/
+char	*get_var_exist(t_gen *gen, char *var);
+char	*get_env_var(t_gen *gen, char *var);
+char	**env_to_child(t_env *env);
 
-/*		build_pipe_node_ast.c		*/
-t_tree *build_node(t_lexer *lex, t_lexer *head, int type);
-void cut_lexer(t_lexer *head, t_lexer *lex);
+/*		getter.c	*/
+t_gen	*get_data(t_gen *data);
 
- /*		execute_ast.c		*/
-int execute_ast(t_gen *data, t_tree *ast);
+/*		print_tree.c		*/
+void	structure(t_tree *root, int level );
 
- /*		execute_command.c		*/
-int execute_command(t_gen *data, t_tree *ast);
-
- /*		execute_command.c		*/
-int execute_redir(t_gen *data, t_tree *ast);
-/*		redirections.c		*/
-int manage_redirs(t_tree *ast);
-int manage_lt2(t_lexer *redirs, t_tree *ast);
-int store_data(char *start, char *end, t_tree *ast);
-
-/*		calculate_commands.c		*/
-int calculate_commands(t_tree *ast);
-
-/*		redirections.c		*/
-int manage_redirs(t_tree *ast);
-int manage_lt2(t_lexer *redirs, t_tree *ast);
-int store_data(char *start, char *end, t_tree *ast);
-
-
-//utils/
+/*		token_utils.c	*/
+int		is_builtin(char *cmd);
+void	quote_interpretation(char quote, int *inside);
 
 /*	utils_1.c	*/
 void	free_tab(char **tab);
 int		is_empty(char *line);
 int		len_int(int nb);
 int		occur(char *str, char c, int nbOccur);
-
-/*		display_env_vars.c	2	*/
-void 	display_env_vars(t_env *envs);
-
-/*		print_tree.c		*/
-void	structure(t_tree *root, int level );
-
-
-/*		clear.c		*/
-void	clean_data(t_gen *data);
-void	delete_data(t_gen *data);
-void	clean_lex(t_lexer *lex);
-void    clean_env(t_gen *data);
-void    clean_parser(t_pars *pars);
-
-/*		execute_ast.c		*/
-int 	execute_ast(t_gen *data, t_tree *ast);
-
-/*		execute_command.c		*/
-int 	execute_command(t_gen *data, t_tree *ast);
-
-/*		execute_command.c		*/
-int 	execute_redir(t_gen *data, t_tree *ast);
-
-/*		signals.c		*/
-void 	exit_shell(int sig);
-
-/*		clear.c		*/
-void clean_tree(t_tree *ast);
-void ft_free(void *ptr);
-/*		redirections.c		*/
-int manage_redirs(t_tree *ast);
-int manage_lt2(t_lexer *redirs, t_tree *ast);
-int store_data(char *start, char *end, t_tree *ast);
 
 #endif

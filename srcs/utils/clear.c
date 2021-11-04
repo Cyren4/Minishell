@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   clear.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:51:50 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/18 16:24:26 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/10/30 16:39:19 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void    clean_lex(t_lexer *lex)
+void	clean_lex(t_lexer *lex)
 {
-	t_lexer *cur;
-	t_lexer *old;
+	t_lexer	*cur;
+	t_lexer	*old;
 
 	if (lex == NULL)
-		return;
+		return ;
 	cur = lex;
 	while (cur)
 	{
@@ -32,14 +32,14 @@ void    clean_lex(t_lexer *lex)
 	lex = NULL;
 }
 
-void    clean_env(t_gen *data)
+void	clean_env(t_gen *data)
 {
-	t_env *cur;
-	t_env *next;
-	int i;
+	t_env	*cur;
+	t_env	*next;
+	int		i;
 
 	if (data->env == NULL)
-		return;
+		return ;
 	cur = data->env;
 	while (cur != NULL)
 	{
@@ -56,24 +56,19 @@ void    clean_env(t_gen *data)
 	{
 		i = -1;
 		while (data->paths[++i])
-		{
 			if (data->paths[i])
 				ft_free(data->paths[i]);
-		}
 		ft_free(data->paths);
 	}
-	if (data->pwd)
-		ft_free(data->pwd);
-	
 }
 
-void    clean_parser(t_pars *pars)
+void	clean_parser(t_pars *pars)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (pars == NULL)
-		return;
+		return ;
 	if (pars->parsed)
 	{
 		while (pars->parsed[i])
@@ -88,9 +83,9 @@ void    clean_parser(t_pars *pars)
 		ft_free(pars->std_in);
 }
 
-void clean_tree(t_tree *ast)
+void	clean_tree(t_tree *ast)
 {
-	t_tree *head;
+	t_tree	*head;
 
 	head = ast;
 	if (head && head->type == CMD)
@@ -108,8 +103,24 @@ void clean_tree(t_tree *ast)
 		ft_free(head);
 }
 
-void ft_free(void *ptr)
+void	ft_free(void *ptr)
 {
 	free(ptr);
 	ptr = NULL;
+}
+
+void	clean_data(t_gen *data)
+{
+	clean_tree(data->ast);
+}
+
+void	delete_data(t_gen *data)
+{
+	data->lex = NULL;
+	clean_env(data);
+	if (data->paths)
+		ft_free(data->paths);
+	if (data->prompt != NULL)
+		ft_free(data->prompt);
+	clear_history();
 }

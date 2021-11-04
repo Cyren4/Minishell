@@ -6,22 +6,24 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:09:35 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/27 15:27:27 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/10/30 16:35:47 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	arg_error(char  *exec)
+void	arg_error(char *exec)
 {
 	printf("Error : Expect 0 arguments\n");
 	printf("Usage : %s\n", exec);
 	exit(0);
 }
 
-void ft_clean(t_gen *data)
+// a supprimer?
+void	ft_clean(t_gen *data)
 {
-	int i;
+	int	i;
+
 	if (data->parser.std_in)
 		free(data->parser.std_in);
 	if (data->parser.parsed)
@@ -35,7 +37,7 @@ void ft_clean(t_gen *data)
 	}
 }
 
-void error(t_gen *data, int e)
+void	error(t_gen *data, int e)
 {
 	(void)data;
 	if (e == QUOTES_UNCLOSED)
