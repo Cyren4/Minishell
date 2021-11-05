@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+         #
+#    By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 12:16:14 by mvaldes           #+#    #+#              #
-#    Updated: 2021/10/18 12:19:26 by vbaron           ###   ########.fr        #
+#    Updated: 2021/10/27 22:31:27 by cramdani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ HEADER		=	$(INC_DIR)/minishell.h
 CC			=	gcc
 RM			=	/bin/rm -rf
 INC			=	-include ./$(HEADER)
-CC_FLAGS	=	-Wall -Wextra -Werror -g3 $(INC)
+CC_FLAGS	=	-Wall -Wextra -Werror -MMD -g3 $(INC)
 
 LIB_DIR			=	lib
 LIB				=	$(LIB_DIR)/libft.a

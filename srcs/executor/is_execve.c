@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   is_execve.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 10:18:09 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/04 19:09:02 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/10/30 14:37:49 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-char *is_excve(char *command, t_gen *data)
+char	*is_excve(char *command, t_gen *data)
 {
-	int i;
-	char *cmd_path;
-	struct stat *state;
-	
+	int			i;
+	char		*cmd_path;
+	struct stat	*state;
+
 	i = 0;
 	cmd_path = NULL;
 	state = malloc(sizeof(struct stat));

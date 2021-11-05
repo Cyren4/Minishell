@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   execute_ast.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 14:09:02 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/07 15:54:25 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/10/30 16:49:09 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int execute_ast(t_gen *data, t_tree *ast, int pipe)
+int	execute_ast(t_gen *data, t_tree *ast, int pipe)
 {
-	t_tree *head;
+	t_tree	*head;
 
 	head = ast;
-	if(head->type == PIPE)
+	if (head->type == PIPE)
 		pipe = 1;
 	if (head->type == CMD)
 		execute_command(data, head, pipe);
