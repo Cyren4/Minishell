@@ -53,6 +53,7 @@ int	minishell_loop(t_gen *data)
 	receiveSIG();
 	while (data->status == 1)
 	{
+		create_paths(data);
 		display_prompt(data);
 		data->lex = lexer(data->parser.parsed, data);
 		data->ast = build_tree1(data->lex);

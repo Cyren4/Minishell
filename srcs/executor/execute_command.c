@@ -67,6 +67,11 @@ int	execute_command(t_gen *data, t_tree *ast, int pipe)
 			env = env_to_child(data->env);
 			cmd = NULL;
 			cmd_table = create_command(ast->cmd);
+			if (!data->paths)
+			{
+				printf("minishell: %s: No such file or directory\n", cmd_table[0]);
+				exit (1);
+			}
 			cmd = is_excve(cmd_table[0], data);
 			if (!cmd)
 				ft_putstr_fd("bad command\n", ast->fd_out);

@@ -16,6 +16,7 @@ void	create_paths(t_gen *data)
 {
 	t_env	*tmp;
 
+	data->paths = NULL;
 	tmp = data->env;
 	while (tmp != NULL)
 	{
@@ -81,6 +82,5 @@ void	stock_env_vars(t_gen *data, char **env)
 		add_elem(data, env[i]);
 		i++;
 	}
-	create_paths(data);
 	update_shlvl(data);
 }
