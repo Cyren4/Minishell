@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 15:30:08 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/04 18:37:57 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/05 17:06:58 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,8 +182,8 @@ void	add_elem(t_gen *data, char *var_path);
 void	stock_env_vars(t_gen *data, char **env);
 
 /*		token_insert_var.c	*/
-int		ins_v(char *dst, char *src, int *src_i, t_gen *data);
-int		ins_v_nq(char *dst, char *src, int *src_i, t_gen *data);
+int		insert_var(char *dst, char *src, int *src_i, t_gen *data);
+// int		ins_v_nq(char *dst, char *src, int *src_i, t_gen *data);
 int		real_size(char *content, t_gen *data);
 
 /*		token_split.c	*/
