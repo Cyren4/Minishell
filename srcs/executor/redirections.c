@@ -142,7 +142,14 @@ int manage_redirs(t_tree *ast)
 	while (head->next)
 	{
 		if (head->token == GT)
+		{
 			ast->fd_out = open(head->next->content, O_CREAT | O_RDWR, 0666);
+			if (!ast->fd_out)
+			{
+				printf("Error opening file");
+				return (0);
+			}
+		}
 		if (head->token == GT2)
 			ast->fd_out = open(head->next->content, O_CREAT | O_RDWR | O_APPEND, 0666);
 		if (head->token == LT)
