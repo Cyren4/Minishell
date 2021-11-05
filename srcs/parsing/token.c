@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 19:26:49 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/04 23:44:54 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/05 12:24:48 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@ void	complexe_elem(t_lexer *elm, t_gen *data)
 		if ((elm->content[el_i] == '"' && in != SIMPLE_Q)
 			|| (elm->content[el_i] == '\'' && in != DOUBLE_Q))
 			quote_interpretation(elm->content[el_i], &in);
-		else if (elm->content[el_i] == '$' && in != SIMPLE_Q && v_e(elm, el_i))
+		if (elm->content[el_i] == '$' && in != SIMPLE_Q && v_e(elm, el_i))
 		{
-			if (in == DOUBLE_Q || ft_strncmp(elm->content + el_i, "$?", 2) == 0)
+			// if (in == DOUBLE_Q || ft_strncmp(elm->content + el_i, "$?", 2) == 0)
 				i += ins_v(r_cont + i, elm->content, &el_i, data);
-			else
-				i += ins_v_nq(r_cont + i, elm->content, &el_i, data);
+			// else
+				// i += ins_v_nq(r_cont + i, elm->content, &el_i, data);
 			continue ;
 		}
 		else
@@ -179,7 +179,7 @@ t_lexer	*lexer(char **cmd_line, t_gen *data)
 			free_tab(splited);
 		i++;
 	}
-	if (check_syntax(data->lex) == -1)
+	if (check_syntax(data->lex) != -1)
 	{
 		data->status = -1;
 		data->exit_stat = 2;

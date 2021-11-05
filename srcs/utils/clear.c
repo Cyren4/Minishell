@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:51:50 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/04 13:35:51 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/05 12:09:48 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ void	clean_data(t_gen *data)
 	data->parser.parsed = NULL;
 	data->ast = NULL;
 	data->str_err = NULL;
+	data->status = 1;
 }
 
 void	delete_data(t_gen *data)
