@@ -67,6 +67,7 @@ int execute_command(t_gen *data, t_tree *ast, int pipe)
 		{
 			env = env_to_child(data->env);
 			cmd = NULL;
+			cmd_table = NULL;
 			cmd_table = create_command(ast->cmd);
 			cmd = is_excve(cmd_table[0], data);
 			if (!cmd)

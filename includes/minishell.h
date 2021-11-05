@@ -72,6 +72,7 @@ typedef struct s_gen
 	int		tracker;
 	pid_t		*pids;
 	t_env	*env;
+	char **env_vars;
 	char	**paths;
 	t_lexer	*lex;
 	t_pars parser;

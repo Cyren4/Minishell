@@ -66,6 +66,7 @@ int minishell_loop(t_gen *data)
 	total_cmds = 0;
 	while (data->status == 1)
 	{
+		stock_env_vars(data, data->env_vars);
 		// receiveSIG();
 		// data->status = 0;
 		display_prompt(data);
@@ -90,7 +91,8 @@ int minishell_loop(t_gen *data)
 				i = 0;
 				while (i < total_cmds)
 				{
-					waitpid(data->pids[i], &data->exit_stat, 0);
+					wait(NULL);
+					// waitpid(data->pids[i], &data->exit_stat, 0);
 					// int return_value = WEXITSTATUS(data->exit_stat);
 					// printf("return value: %d\n", return_value);
 					// printf("pids[%d]:%d", i, data->pids[i]);
@@ -112,7 +114,7 @@ int main(int ac, char **av, char **env)
 	if (ac == 100)
 		return (0);
 	init_data(&data);
-	stock_env_vars(&data, env);
+	data.env_vars = env;
 	get_data(&data);
 	data.av = &av[1];
 	ret = minishell_loop(&data);
