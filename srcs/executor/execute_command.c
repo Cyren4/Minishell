@@ -47,14 +47,17 @@ int execute_command(t_gen *data, t_tree *ast, int pipe)
 	char *cmd;
 	char **env;
 
+	if (ast->redir)
+	{
+		if (!manage_redirs(ast))
+			return (0);
+	}
 	if (ast->cmd->is_builtin == 1 && pipe == 0)
 		data->exit_stat = exec_builtin(data, ast->cmd);
-	if (ast->redir)
-		manage_redirs(ast);
 	if (!data->paths && !ast->cmd->is_builtin)
 	{
 		printf("minishell: %s: No such file or directory\n", ast->cmd->content);
-		return(1);
+		return (1);
 	}
 	pid = fork();
 	data->pids[data->tracker] = pid;
