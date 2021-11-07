@@ -12,11 +12,11 @@
 
 #include "../../includes/minishell.h"
 
-char	**create_command(t_lexer *cmd)
+char **create_command(t_lexer *cmd)
 {
-	t_lexer	*head;
-	int		len;
-	char	**cmd_table;
+	t_lexer *head;
+	int len;
+	char **cmd_table;
 
 	head = cmd;
 	len = 0;
@@ -40,17 +40,22 @@ char	**create_command(t_lexer *cmd)
 	return (cmd_table);
 }
 
-int	execute_command(t_gen *data, t_tree *ast, int pipe)
+int execute_command(t_gen *data, t_tree *ast, int pipe)
 {
-	int		pid;
-	char	**cmd_table;
-	char	*cmd;
-	char	**env;
+	int pid;
+	char **cmd_table;
+	char *cmd;
+	char **env;
 
 	if (ast->cmd->is_builtin == 1 && pipe == 0)
 		data->exit_stat = exec_builtin(data, ast->cmd);
 	if (ast->redir)
 		manage_redirs(ast);
+	if (!data->paths && !ast->cmd->is_builtin)
+	{
+		printf("minishell: %s: No such file or directory\n", ast->cmd->content);
+		return(1);
+	}
 	pid = fork();
 	data->pids[data->tracker] = pid;
 	data->tracker++;
@@ -67,16 +72,11 @@ int	execute_command(t_gen *data, t_tree *ast, int pipe)
 			env = env_to_child(data->env);
 			cmd = NULL;
 			cmd_table = create_command(ast->cmd);
-			if (!data->paths)
-			{
-				printf("minishell: %s: No such file or directory\n", cmd_table[0]);
-				exit (1);
-			}
 			cmd = is_excve(cmd_table[0], data);
-			if (!cmd)
-				ft_putstr_fd("bad command\n", ast->fd_out);
-			else
-				return (execve(cmd, cmd_table, env));
+			// if (!cmd)
+			// 	ft_putstr_fd("bad command\n", ast->fd_out);
+			// else
+			return (execve(cmd, cmd_table, env));
 		}
 		exit(1);
 	}
