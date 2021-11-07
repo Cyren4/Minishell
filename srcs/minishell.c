@@ -55,7 +55,9 @@ int	minishell_loop(t_gen *data)
 	{
 		create_paths(data);
 		display_prompt(data);
-		data->lex = lexer(data->parser.parsed, data);
+		// data->lex = lexer(data->parser.parsed, data);
+		// data->status = 0;
+		data->lex = lexer(data->av, data);
 		data->ast = build_tree1(data->lex);
 		if (!data->ast)
 			error(data, BAD_INPUT);
@@ -96,6 +98,7 @@ int	main(int ac, char **av, char **env)
 	init_data(&data);
 	stock_env_vars(&data, env);
 	get_data(&data);
+	data.av = &av[1];
 	receiveSIG();
 	ret = minishell_loop(&data);
 	// delete_data(&data);
