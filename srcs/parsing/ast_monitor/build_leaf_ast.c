@@ -19,7 +19,8 @@ void	add_redir(t_tree *leaf, t_lexer *lexer)
 
 	new = (t_lexer *)malloc(sizeof(t_lexer));
 	new = lexer;
-	new->next->next = NULL;
+	if (new->next)
+		new->next->next = NULL;
 	if (!leaf->redir)
 		leaf->redir = new;
 	else
@@ -31,36 +32,59 @@ void	add_redir(t_tree *leaf, t_lexer *lexer)
 	}
 }
 
+void	add_cmd(t_tree *leaf, t_lexer *lexer)
+{
+	t_lexer	*new;
+	t_lexer	*head;
+
+	new = (t_lexer *)malloc(sizeof(t_lexer));
+	new = lexer;
+	if (new->next)
+		new->next = NULL;
+	if (!leaf->cmd)
+		leaf->cmd = new;
+	else
+	{
+		head = leaf->cmd;
+		while (head->next)
+			head = head->next;
+		head->next = new;
+	}
+}
+
 t_tree	*build_leaf(t_lexer *lexer)
 {
 	t_tree	*leaf;
 	t_lexer	*head;
-	t_lexer	*tmp;
-	t_lexer	*old_head;
+	t_lexer *tmp;
 
 	leaf = malloc(sizeof(t_tree));
 	if (!leaf || !lexer)
 		return (NULL);
 	// create_double_list(lexer);
 	leaf->type = CMD;
-	leaf->cmd = lexer;
+	leaf->cmd = NULL;
 	leaf->redir = NULL;
 	leaf->fd_in = STDIN_FILENO;
 	leaf->fd_out = STDOUT_FILENO;
 	leaf->left = NULL;
 	leaf->right = NULL;
-	head = leaf->cmd;
-	while (head && head->next)
+	head = lexer;
+	while (head)
 	{
-		if (head && head->token >= LT && head->token <= GT2)
+		if (head && head->next && head->token >= LT && head->token <= GT2)
 		{
 			tmp = head->next->next;
 			add_redir(leaf, head);
-			head = old_head;
-			head->next = tmp;
+			head = tmp;
 		}
-		old_head = head;
-		head = head->next;
+		else
+		{
+			tmp = head->next;
+			add_cmd(leaf, head);
+			head = tmp;
+		}
+		
 	}
 	return (leaf);
 }
