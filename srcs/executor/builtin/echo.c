@@ -44,7 +44,7 @@ char	*join_sep(char *s1, char *s2, char sep)
 	return (str);
 }
 
-int	ft_echo(t_lexer *lex)
+int	ft_echo(t_lexer *lex, t_tree *ast)
 {
 	t_lexer	*tmp;
 	char	*print;
@@ -66,10 +66,10 @@ int	ft_echo(t_lexer *lex)
 	}
 	if (print != NULL)
 	{
-		printf("%s", print);
+		ft_putstr_fd(print, ast->fd_out);
 		free(print);
 	}
 	if (opt == 0)
-		printf("\n");
+		ft_putstr_fd("\n", ast->fd_out);
 	return (1);
 }

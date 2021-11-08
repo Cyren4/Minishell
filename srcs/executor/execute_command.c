@@ -53,7 +53,7 @@ int execute_command(t_gen *data, t_tree *ast, int pipe)
 			return (0);
 	}
 	if (ast->cmd->is_builtin == 1 && pipe == 0)
-		data->exit_stat = exec_builtin(data, ast->cmd);
+		data->exit_stat = exec_builtin(data, ast->cmd, ast);
 	if (!data->paths && !ast->cmd->is_builtin)
 	{
 		printf("minishell: %s: No such file or directory\n", ast->cmd->content);
@@ -69,7 +69,7 @@ int execute_command(t_gen *data, t_tree *ast, int pipe)
 		dup2(ast->fd_in, STDIN_FILENO);
 		dup2(ast->fd_out, STDOUT_FILENO);
 		if (ast->cmd->is_builtin == 1 && pipe == 1)
-			data->exit_stat = exec_builtin(data, ast->cmd);
+			data->exit_stat = exec_builtin(data, ast->cmd, ast);
 		else if (!ast->cmd->is_builtin)
 		{
 			env = env_to_child(data->env);
@@ -93,6 +93,8 @@ int execute_command(t_gen *data, t_tree *ast, int pipe)
 		// 	if (WTERMSIG(status) == 131)
 		// 		printf("segfault")
 		// }
+		if (ast->fd_in != 0)
+			close(ast->fd_in);
 		if (ast->fd_out != 1)
 			close(ast->fd_out);
 	}

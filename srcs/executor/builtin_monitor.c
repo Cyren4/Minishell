@@ -12,13 +12,13 @@
 
 #include "../../includes/minishell.h"
 
-int	exec_builtin(t_gen *data, t_lexer *cmd)
+int	exec_builtin(t_gen *data, t_lexer *cmd, t_tree *ast)
 {
 	int	ret;
 
 	ret = 0;
 	if (ft_strcmp(cmd->content, "echo") == 0)
-		ret = ft_echo(cmd->next);
+		ret = ft_echo(cmd->next, ast);
 	else if (ft_strcmp(cmd->content, "cd") == 0)
 		ret = ft_cd(data, cmd->next);
 	else if (ft_strcmp(cmd->content, "pwd") == 0)
