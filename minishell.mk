@@ -15,6 +15,7 @@ FILES = minishell.c \
 		executor/is_execve.c \
 		executor/redirections.c \
 		executor/signals.c \
+		executor/close_pipes.c \
 		parsing/env_vars_parsing.c \
 		parsing/token_insert_var.c \
 		parsing/token_split.c \

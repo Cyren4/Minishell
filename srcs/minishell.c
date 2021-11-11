@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/30 16:40:21 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/11 11:06:07 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,11 @@ int	minishell_loop(t_gen *data)
 				i = -1;
 				while (++i < total_cmds)
 				{
-					waitpid(data->pids[i], &data->exit_stat, 0);
+					// wait(&data->exit_stat);
 					// display_error(data->exit_stat);
+					waitpid(data->pids[i], &data->exit_stat, 0);
 				}
+				close_pipes(data->ast);
 			}
 		}
 	}

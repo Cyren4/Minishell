@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 15:30:08 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/30 17:21:18 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/11 11:05:35 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,9 @@ void	handler(int sig, siginfo_t *info, void *context);
 void	receiveSIG(void);
 void	sig_int(int sig);
 void	sig_quit(int sig);
+
+/*		close_pipes.c	*/
+int close_pipes(t_tree *ast);
 
 /*----------------------------------------------------------------*/
 /*		#builtin#	*/
