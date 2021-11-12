@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:20:22 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/10 11:48:23 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/12 16:49:19 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,16 +63,16 @@ int	ft_cd(t_gen *data, t_lexer *dir)
 		home = get_var_exist(data, "HOME");
 		if (home == NULL)
 		{
-			printf("cd: HOME not set\n");
+			print_error("cd: HOME not set\n", NULL, NULL);
 			ret = EXIT_FAILURE;
 		}
 		else if (chdir(ft_strdup(home)) == -1)
-			printf("cd: %s: No such file or directory\n", home);
+			print_error("cd: ", home, ": No such file or directory\n");
 	}
 	else
 	{
 		if (chdir(dir->content) == -1)
-			printf("cd: %s: No such file or directory\n", dir->content);
+			print_error("cd: ", dir->content, ": No such file or directory\n");
 	}
 	if (ret == EXIT_SUCCESS)
 		maj_pwd(data);

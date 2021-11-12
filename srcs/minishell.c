@@ -76,7 +76,7 @@ int	minishell_loop(t_gen *data)
 				while (++i < total_cmds)
 				{
 					waitpid(data->pids[i], &data->exit_stat, 0);
-					// display_error(data->exit_stat);
+					// print_error(data->exit_stat);
 				}
 			}
 		}
