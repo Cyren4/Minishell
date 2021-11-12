@@ -6,7 +6,7 @@
 #    By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 12:16:14 by mvaldes           #+#    #+#              #
-#    Updated: 2021/11/04 21:02:07 by cramdani         ###   ########.fr        #
+#    Updated: 2021/11/12 15:58:53 by cramdani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,8 +22,8 @@ HEADER		=	$(INC_DIR)/minishell.h
 CC			=	clang
 RM			=	/bin/rm -rf
 INC			=	-include ./$(HEADER)
-CC_FLAGS	=	-Wall -Wextra -Werror -MMD -g3 -fsanitize=address $(INC)
-
+CC_FLAGS	=	-Wall -Wextra -Werror -MMD -g3 $(INC)
+# -fsanitize=address 
 LIB_DIR			=	lib
 LIB				=	$(LIB_DIR)/libft.a
 

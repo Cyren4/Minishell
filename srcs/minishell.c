@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@stuclean_lexnt.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
 /*   Updated: 2021/11/12 15:19:44 by cramdani         ###   ########.fr       */
@@ -55,8 +55,10 @@ int	minishell_loop(t_gen *data)
 		create_paths(data);
 		display_prompt(data);
 		data->lex = lexer(data->parser.parsed, data);
+		// clean_lex(data->lex);
 		// data->status = 0;
 		// data->lex = lexer(data->av, data);
+		// /*
 		data->ast = build_tree1(data->lex);
 		if (!data->ast)
 			error(data, BAD_INPUT);
@@ -79,6 +81,7 @@ int	minishell_loop(t_gen *data)
 			}
 		}
 		clean_data(data);
+		// */
 	}
 	return (data->exit_stat);
 }
@@ -102,6 +105,6 @@ int	main(int ac, char **av, char **env)
 	data.av = &av[1];
 	receiveSIG();
 	ret = minishell_loop(&data);
-	// delete_data(&data);
+	// clean_lexlete_data(&data);
 	return (ret);
 }

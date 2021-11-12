@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 15:30:08 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/05 17:06:58 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/12 15:39:52 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,12 @@ int		ft_unset(t_gen *data, t_lexer *cmd);
 void	create_paths(t_gen *data);
 void	add_elem(t_gen *data, char *var_path);
 void	stock_env_vars(t_gen *data, char **env);
+
+/*		parsing_syntax.c	*/
+int		check_syntax(t_lexer *lex);
+
+/*		parsing_words.c	*/
+t_lexer	*get_words(t_lexer *head);
 
 /*		token_insert_var.c	*/
 int		insert_var(char *dst, char *src, int *src_i, t_gen *data);
