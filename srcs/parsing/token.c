@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 19:26:49 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/12 15:48:49 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/12 16:41:17 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,7 @@ t_lexer	*add_elem_lex(t_lexer *lst_elem, char *cmd, t_gen *data)
 	if (new->token == LT2)
 		data->hdoc = 1;
 	if (lst_elem == NULL && new->token == WORD)
-		return (new);
-		// return (get_words(new));
+		return (get_words(new));
 	else if (lst_elem == NULL)
 		return (new);
 	tmp = lst_elem;
@@ -113,7 +112,6 @@ t_lexer	*add_elem_lex(t_lexer *lst_elem, char *cmd, t_gen *data)
 		tmp->hdoc_content = ft_strdup(cmd);
 	}
 	tmp->next = get_words(new);
-	// tmp->next = new;
 	return (lst_elem);
 }
 
