@@ -6,7 +6,7 @@
 #    By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/13 13:33:21 by cramdani          #+#    #+#              #
-#    Updated: 2021/10/18 11:54:40 by vbaron           ###   ########.fr        #
+#    Updated: 2021/11/12 16:58:07 by vbaron           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ END		=	\033[m
 
 NAME 	=	lib.a
 
-CC		=	gcc
+CC		=	clang
 CFLAGS	=	-Wall -Wextra -Werror -g3
 
 LIBFT_P	= libft
