@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/11 11:06:07 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/12 12:19:33 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,10 @@ int	minishell_loop(t_gen *data)
 				{
 					// wait(&data->exit_stat);
 					// display_error(data->exit_stat);
-					waitpid(data->pids[i], &data->exit_stat, 0);
+					
 				}
-				close_pipes(data->ast);
+				waitpid(data->pids[i - 1], &data->exit_stat, 0);
+				// close_pipes(data->ast);
 			}
 		}
 	}
