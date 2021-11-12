@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 19:26:49 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/05 17:54:27 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/08 19:37:41 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ int	valid_e(char *content, int index)
 			|| content[index + 1] == '?');
 }
 
+	// if (in == DOUBLE_Q || ft_strncmp(elm->content + el_i, "$?", 2) == 0)
+	// else
+	// i += ins_v_nq(r_cont + i, elm->content, &el_i, data);
 void	complexe_elem(t_lexer *elm, t_gen *data)
 {
 	char	*r_cont;
@@ -42,10 +45,7 @@ void	complexe_elem(t_lexer *elm, t_gen *data)
 		if (elm->content[el_i] == '$' && in != SIMPLE_Q
 			&& valid_e(elm->content, el_i))
 		{
-			// if (in == DOUBLE_Q || ft_strncmp(elm->content + el_i, "$?", 2) == 0)
-				i += insert_var(r_cont + i, elm->content, &el_i, data);
-			// else
-				// i += ins_v_nq(r_cont + i, elm->content, &el_i, data);
+			i += insert_var(r_cont + i, elm->content, &el_i, data);
 			continue ;
 		}
 		else
@@ -85,135 +85,6 @@ int	check_type(t_lexer *elem, t_gen *data)
 	return (1);
 }
 
-int	nb_word(char *cmd)
-{
-	int	inside;
-	int	i;
-	int	count;
-
-	i = 0;
-	count = 0;
-	inside = NO_Q;
-	while (cmd && cmd[i])
-	{
-		while (cmd && cmd[i])
-		{
-			if ((cmd[i] == '"' && inside != SIMPLE_Q)
-			|| (cmd[i] == '\'' && inside != DOUBLE_Q))
-				quote_interpretation(cmd[i], &inside);
-			if (cmd[i] == ' ' && inside == NO_Q)
-				break ;
-			i++;
-		}
-		count++;
-		while (cmd && cmd[i] && cmd[i] == ' ')
-			i++;
-	}
-	return (count);
-}
-// sub_word = start, len, num mot
-char	**split_w(char *cmd)
-{
-	char	**ret;
-	int		inside;
-	int		sub_word[3];
-	int		i;
-
-	i = 0;
-	sub_word[2] = 0;
-	inside = NO_Q;
-	ret = malloc(sizeof(char *) * (nb_word(cmd) + 1));
-	if (!ret)
-		return (NULL);
-	while (cmd && cmd[i])
-	{
-		sub_word[0] = i;
-		sub_word[1] = 0;
-		while (cmd && cmd[i + sub_word[1]])
-		{
-			printf("\nbefore |%c|: %d\n", cmd[i + sub_word[1]], inside);
-			if ((cmd[i] == '"' && inside != SIMPLE_Q)
-			|| (cmd[i] == '\'' && inside != DOUBLE_Q))
-				quote_interpretation(cmd[i + sub_word[1]], &inside);
-			printf("\nafter |%c|: %d\n", cmd[i + sub_word[1]], inside);
-			if (cmd[i + sub_word[1]] == ' ' && inside == NO_Q)
-				break ;
-			sub_word[1]++;
-		}
-		ret[sub_word[2]] = ft_substr(cmd, sub_word[0], sub_word[1]);
-		sub_word[2]++;
-		i += sub_word[1];
-		while (cmd && cmd[i] == ' ')
-			i++;
-	}
-	ret[sub_word[2]] = NULL; 
-	free(cmd);
-	return (ret);
-}
-
-//dup sans caracter 
-char	*strdup_sin_quote(char *s1)
-{
-	int		inside;
-	int		i;
-	int		j;
-	char	*str;
-
-	i = 0;
-	j = 0;
-	inside = NO_Q;
-	str = malloc(sizeof(char) * (ft_strlen(s1) + 1));
-	if (!str)
-		return (NULL);
-	while (s1[i])
-	{
-		if ((s1[i] == '"' && inside != SIMPLE_Q)
-			|| (s1[i] == '\'' && inside != DOUBLE_Q))
-			quote_interpretation(s1[i], &inside);
-		else
-		{
-			str[j] = s1[i];
-			j++;
-		}
-		i++;
-	}
-	str[j] = 0;
-	return (str);
-}
-
-t_lexer	*get_words(t_lexer *head)
-{
-	char	**tmp;
-	t_lexer	*new;
-	t_lexer	*tmp_new;
-	int		i;
-
-	i = 1;
-	tmp = split_w(ft_strtrim(head->content, " "));
-	for (int index = 0; tmp[index] != NULL; index++)
-		printf("word %d: |%s|\n", index, tmp[index]);
-	if (tmp == NULL)
-		return (NULL);
-	tmp_new = head;
-	free(head->content);
-	head->content = strdup_sin_quote(tmp[0]);
-	// head->content = ft_strdup(tmp[0]);
-	while (tmp[i] != NULL)
-	{
-		new = malloc(sizeof(t_lexer));
-		new->token = WORD;
-		new->content = ft_strdup(tmp[i]);
-		new->content = strdup_sin_quote(tmp[i]);
-		// new->content = ft_strdup(tmp[i]);
-		new->next = NULL;
-		tmp_new->next = new;
-		tmp_new = tmp_new->next;
-		i++;
-	}
-	free_tab(tmp);
-	return (head);
-}
-
 t_lexer	*add_elem_lex(t_lexer *lst_elem, char *cmd, t_gen *data)
 {
 	t_lexer	*new;
@@ -228,8 +99,10 @@ t_lexer	*add_elem_lex(t_lexer *lst_elem, char *cmd, t_gen *data)
 	check_type(new, data);
 	if (new->token == LT2)
 		data->hdoc = 1;
-	if (lst_elem == NULL)
+	if (lst_elem == NULL && new->token == WORD)
 		return (get_words(new));
+	else if (lst_elem == NULL)
+		return (new);
 	tmp = lst_elem;
 	while (tmp->next != NULL)
 		tmp = tmp->next;
