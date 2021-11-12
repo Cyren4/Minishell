@@ -146,7 +146,14 @@ int	manage_redirs(t_tree *ast)
 			ast->fd_out
 				= open(head->next->content, O_CREAT | O_RDWR | O_APPEND, 0666);
 		if (head->token == LT)
+		{
 			ast->fd_in = open(head->next->content, O_RDONLY, 0444);
+			if (ast->fd_in == -1)
+			{
+				printf("minishell: %s: No such file or directory\n", head->next->content);
+				return (0);
+			}
+		}
 		if (head->token == LT2 && !flag_lt2)
 		{
 			manage_lt2(head, ast);

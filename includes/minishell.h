@@ -118,7 +118,7 @@ void	print_error(char *m1, char *cmd, char *m2);
 /*			#executor#		*/
 
 /*		builtin_monitor.c		*/
-int		exec_builtin(t_gen *data, t_lexer *cmd);
+int		exec_builtin(t_gen *data, t_lexer *cmd, t_tree *ast);
 
 /*		calculate_commands.c		*/
 int		calculate_commands(t_tree *ast);
@@ -152,7 +152,7 @@ int		ft_cd(t_gen *data, t_lexer *dir);
 
 /*		echo.c		*/
 char	*join_sep(char *s1, char *s2, char sep);
-int		ft_echo(t_lexer *lex);
+int		ft_echo(t_lexer *lex, t_tree *ast);
 
 /*		env.c	*/
 int		ft_env(t_gen *data, char *pref);

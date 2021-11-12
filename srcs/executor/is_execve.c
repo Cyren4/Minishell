@@ -18,6 +18,8 @@ char	*is_excve(char *command, t_gen *data)
 	char		*cmd_path;
 	struct stat	*state;
 
+	if (!data->paths)
+		return (NULL);
 	i = 0;
 	cmd_path = NULL;
 	state = malloc(sizeof(struct stat));
