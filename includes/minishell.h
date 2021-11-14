@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 15:30:08 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/14 16:37:45 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/14 17:46:09 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,7 @@ int		store_data(char *start, char *end, t_tree *ast);
 int		manage_redirs(t_tree *ast);
 
 /*		signal.c	*/
+void	sig_child(void);
 void	handler(int sig, siginfo_t *info, void *context);
 void	receiveSIG(void);
 void	sig_int(int sig);

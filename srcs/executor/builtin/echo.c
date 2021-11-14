@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:20:41 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/14 14:48:19 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/14 18:04:02 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*join_sep(char *s1, char *s2, char sep)
 
 t_lexer	*check_option(t_lexer *lex, int *opt)
 {
-	int	i;
+	int		i;
 	t_lexer	*tmp;
 
 	i = 0;

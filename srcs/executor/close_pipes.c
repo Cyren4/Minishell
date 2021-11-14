@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   close_pipes.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 10:54:06 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/12 16:29:36 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/14 18:16:05 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-int close_pipes(t_tree *ast)
+int	close_pipes(t_tree *ast)
 {
-    t_tree	*head;
+	t_tree	*head;
 
 	head = ast;
 	if (ast->fd_in != 0)
@@ -26,4 +26,4 @@ int close_pipes(t_tree *ast)
 	if (head->right)
 		close_pipes(head);
 	return (1);
-	}
+}
