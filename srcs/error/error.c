@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:09:35 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/12 16:45:20 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/14 16:41:11 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	ft_clean(t_gen *data)
 
 void	error(t_gen *data, int e)
 {
-	(void)data;
 	data->exit_stat = 1;
 	if (e == QUOTES_UNCLOSED)
 		print_error("Error\n- Quotes unclosed -\n", NULL, NULL);
@@ -50,6 +49,7 @@ void	error(t_gen *data, int e)
 		ft_putstr_fd(data->str_err, data->std_out);
 		data->exit_stat = 127;
 	}
+	data->status = -1;
 }
 
 void	print_error(char *m1, char *cmd, char *m2)

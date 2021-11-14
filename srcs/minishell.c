@@ -40,6 +40,17 @@ int	no_pipe(t_lexer *lex)
 	return (1);
 }
 
+void	get_status(t_gen *data)
+{
+	if (WEXITSTATUS(data->exit_stat))
+		data->exit_stat = WEXITSTATUS(data->exit_stat);
+	if (WIFSIGNALED(data->exit_stat))
+	{
+		data->exit_stat = WTERMSIG(data->exit_stat);
+		if (data->exit_stat != 131)
+			data->exit_stat += 128;
+	}
+}
 		// if (ft_strcmp(data->lex->content, "exit") == 0 && no_pipe(data->lex))
 		// 	if (ft_exit(data, data->lex->next)== 1)
 		// 		continue
@@ -81,6 +92,7 @@ int	minishell_loop(t_gen *data)
 				while (++i < total_cmds)
 				{
 					waitpid(data->pids[i], &data->exit_stat, 0);
+					get_status(data);
 					// print_error(data->exit_stat);
 				}
 			}
