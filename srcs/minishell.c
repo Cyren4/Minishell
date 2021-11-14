@@ -55,6 +55,7 @@ int	minishell_loop(t_gen *data)
 		create_paths(data);
 		display_prompt(data);
 		data->lex = lexer(data->parser.parsed, data);
+		// display_token(data->lex);
 		// clean_lex(data->lex);
 		// data->status = 0;
 		// data->lex = lexer(data->av, data);

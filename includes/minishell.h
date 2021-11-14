@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 15:30:08 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/12 15:39:52 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/14 13:15:12 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ typedef struct s_gen
 	pid_t	*pids;
 	t_env	*env;
 	char	**paths;
+	char	*home;
 	t_lexer	*lex;
 	t_pars	parser;
 	t_tree	*ast;

@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 19:36:29 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/12 16:25:00 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/14 13:00:47 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,8 @@ t_lexer	*get_words(t_lexer *head)
 	t_lexer	*tmp_new;
 	int		i;
 
+	if (is_empty(head->content) == 1)
+		return (head);
 	i = 1;
 	tmp = split_w(ft_strtrim(head->content, " "));
 	if (tmp == NULL)

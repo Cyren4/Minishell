@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 18:45:42 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/30 17:12:56 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/14 13:29:25 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,5 @@ void	stock_env_vars(t_gen *data, char **env)
 		i++;
 	}
 	update_shlvl(data);
+	data->home = ft_strdup(get_env_var(data, "HOME"));
 }

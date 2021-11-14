@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:20:22 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/12 17:45:31 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/14 13:43:20 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,20 +52,6 @@ void	maj_pwd(t_gen *data)
 	maj_env(data, "PWD", cwd);
 }
 
-int	cd_home(t_gen *data)
-{
-	char	*home;
-	
-	home = get_var_exist(data, "HOME");
-	if (home == NULL)
-		print_error("cd: HOME not set\n", NULL, NULL);
-	else if (chdir(ft_strdup(home)) == -1)
-		print_error("cd: ", home, ": No such file or directory\n");
-	else
-		return (EXIT_SUCCESS);
-	return (EXIT_FAILURE);
-}
-
 int	cd_OLDPATH(t_gen *data)
 {
 	char	*oldPWD;
@@ -80,6 +66,37 @@ int	cd_OLDPATH(t_gen *data)
 	return (EXIT_FAILURE);
 }
 
+int	cd_home(t_gen *data)
+{
+	char	*home;
+	
+	home = get_var_exist(data, "HOME");
+	if (home == NULL)
+		print_error("cd: HOME not set\n", NULL, NULL);
+	else if (chdir(ft_strdup(home)) == -1)
+		print_error("cd: ", home, ": No such file or directory\n");
+	else
+		return (EXIT_SUCCESS);
+	return (EXIT_FAILURE);
+}
+
+char	*replace_home(t_gen *data, t_lexer *dir)
+{
+	char	*home;
+	
+	home = NULL;
+	if (ft_strcmp(dir->content, "~") == 0)
+		home = ft_strdup(data->home);
+	else
+	{
+		home = ft_substr(dir->content, 1, ft_strlen(dir->content) - 1);
+		home = ft_strjoin(data->home, home);
+	}
+	free(dir->content);
+	dir->content = NULL;
+	return (home);
+}
+
 int	ft_cd(t_gen *data, t_lexer *dir)
 {
 	int		ret;
@@ -88,15 +105,19 @@ int	ft_cd(t_gen *data, t_lexer *dir)
 	if (dir != NULL && dir->next != NULL)
 	{
 		print_error("cd: too many arguments\n", NULL, NULL);
-		return (1);
+		return (EXIT_FAILURE);
 	}
-	else if (dir == NULL || ft_strcmp(dir->content, "~") == 0)
+	else if (dir == NULL)
 		ret = cd_home(data);
 	else if (dir != NULL && ft_strcmp(dir->content, "-") == 0)
 		ret = cd_OLDPATH(data);
 	else
+	{
+		if (ft_strcmp(dir->content, "~") == 0 || ft_strncmp(dir->content, "~/", 2) == 0)
+			dir->content = replace_home(data, dir);
 		if (chdir(dir->content) == -1)
 			print_error("cd: ", dir->content, ": No such file or directory\n");
+	}
 	if (ret == EXIT_SUCCESS)
 		maj_pwd(data);
 	return (ret);
