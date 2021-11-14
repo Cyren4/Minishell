@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 19:26:49 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/14 12:47:37 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/14 14:23:38 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,37 @@ void	complexe_elem(t_lexer *elm, t_gen *data)
 	elm->content = r_cont;
 }
 
+int	is_tild_exp(t_lexer *elem, t_gen *data)
+{
+	char	*r_val;
+	
+	if (!elem || !elem->content)
+		return (0);
+	r_val = NULL;
+	if (elem->content[0] == '~')
+	{
+		if (elem->content[1] == '\0')
+			r_val = ft_strdup(data->home);
+		else if (elem->content[1] == '/')
+		{
+			r_val = ft_substr(elem->content, 1, ft_strlen(elem->content) - 1);
+			r_val = ft_strjoin(data->home, r_val);
+		}
+		else if (ft_strcmp(elem->content, "~+") == 0
+			&& get_var_exist(data, "PWD") != NULL)
+			r_val = ft_strdup(get_env_var(data, "PWD"));
+		else if (ft_strcmp(elem->content, "~-") == 0
+			&& get_var_exist(data, "OLDPWD") != NULL)
+			r_val = ft_strdup(get_env_var(data, "OLDPWD"));
+
+	}
+	if (r_val == NULL)
+		return (0);
+	free(elem->content);
+	elem->content = r_val;
+	return (1);
+}
+
 int	check_type(t_lexer *elem, t_gen *data)
 {
 	if (ft_strcmp(elem->content, "|") == 0)
@@ -74,7 +105,8 @@ int	check_type(t_lexer *elem, t_gen *data)
 		elem->token = GT2;
 	else
 	{
-		complexe_elem(elem, data);
+		if (!is_tild_exp(elem, data))
+			complexe_elem(elem, data);
 		elem->token = WORD;
 		if (is_builtin(elem->content))
 		{
