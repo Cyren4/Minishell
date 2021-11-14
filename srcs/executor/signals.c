@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 16:11:48 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/14 17:55:05 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/14 18:45:50 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 void	print_mes(int sig)
 {
 	if (sig == SIGTERM)
-		printf("sigterm\n");
+		printf("Terminated\n");
 	else if (sig == SIGSEGV)
-		printf("SIGSEGV\n");
+		printf("Segmentation fault (core dumped)\n");
 	else if (sig == SIGBUS)
-		printf("SIGBUS\n");
+		printf("Bus error (core dumped)\n");
 	else if (sig == SIGABRT)
-		printf("SIGABRT\n");
+		printf("Aborted (core dumped)\n");
 }
 
 void	sig_child(void)

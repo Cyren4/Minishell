@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 19:08:52 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/04 17:02:38 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/14 18:37:52 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,6 @@ char	**splitting(char *cmd, int *vect, int nb_words)
 	}
 	ret[i] = NULL;
 	free(vect);
-	// int index = 0;
-	// while (ret[index]!=NULL)
-	// {
-	// 	printf("%s\n", ret[index]);
-	// 	index++;
-	// }
 	return (ret);
 }
 

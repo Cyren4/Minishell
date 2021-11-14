@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:22:11 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/10 11:56:33 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/14 18:37:45 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ t_env	*create_env_exp(char *cmd, int eq_pos)
 	if (eq_pos < 0)
 		return (NULL);
 	new = (t_env *)malloc(sizeof(t_env));
+	if (!new)
+		return (NULL);
 	new->name = ft_substr(cmd, 0, eq_pos);
 	new->content = ft_substr(cmd, eq_pos + 1, ft_strlen(cmd) - eq_pos - 1);
 	new->next = NULL;

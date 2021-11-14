@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 14:42:47 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/30 17:10:27 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/14 18:31:48 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ char	**env_to_child(t_env *env)
 	t_env	*tmp;
 
 	tab = malloc(sizeof(char *) * (size_env(env) + 1));
+	if (!tab)
+		return (NULL);
 	i = 0;
 	tmp = env;
 	while (tmp)
