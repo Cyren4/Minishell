@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 14:23:32 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/14 19:17:06 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/14 21:56:27 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ int	execute_command(t_gen *data, t_tree *ast, int pipe)
 	}
 	else
 	{
+		get_pid(pid);
 		sig_child();
 		if (ast->fd_in != 0)
 			close(ast->fd_in);

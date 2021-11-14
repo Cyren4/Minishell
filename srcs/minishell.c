@@ -24,6 +24,7 @@ void	init_data(t_gen *data)
 	data->ast = NULL;
 	data->prompt = ft_strdup("minishell $ ");
 	data->str_err = NULL;
+	get_pid(0);
 }
 
 int	no_pipe(t_lexer *lex)
@@ -64,7 +65,7 @@ int	minishell_loop(t_gen *data)
 	while (data->status != 0)
 	{
 		create_paths(data);
-		get_pid(1);
+		get_pid(0);
 		display_prompt(data);
 		data->lex = lexer(data->parser.parsed, data);
 		if (data->status == -1)

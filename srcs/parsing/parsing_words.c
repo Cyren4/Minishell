@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 19:36:29 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/14 13:00:47 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/14 22:29:43 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char	**split_w(char *cmd)
 			i++;
 	}
 	ret[sub_word[2]] = NULL; 
-	// free(cmd);
+	free(cmd);
 	return (ret);
 }
 
