@@ -6,19 +6,20 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:20:22 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/10 11:57:03 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/14 19:13:59 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-int	ft_pwd(void)
+int	ft_pwd(t_tree *ast)
 {
 	char	cwd[PATH_MAX];
 
 	if (getcwd(cwd, PATH_MAX))
 	{
-		printf("%s\n", cwd);
+		ft_putstr_fd(cwd, ast->fd_out);
+		// printf("%s\n", cwd);
 		return (EXIT_SUCCESS);
 	}
 	return (EXIT_FAILURE);

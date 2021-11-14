@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 14:23:32 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/14 18:13:23 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/14 19:17:06 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	execute_command(t_gen *data, t_tree *ast, int pipe)
 	}
 	if (!data->paths && !ast->cmd->is_builtin)
 	{
-		print_error("minishell: ", ast->cmd->content, ": No such file or directory\n");
+		print_error("1minishell: ", ast->cmd->content, ": No such file or directory\n");
 		return (1);
 	}
 	pid = fork();
@@ -67,6 +67,7 @@ int	execute_command(t_gen *data, t_tree *ast, int pipe)
 		return (0);
 	else if (pid == 0)
 	{
+		get_pid(0);
 		dup2(ast->fd_in, STDIN_FILENO);
 		dup2(ast->fd_out, STDOUT_FILENO);
 		if (ast->cmd->is_builtin == 1 && pipe == 1)

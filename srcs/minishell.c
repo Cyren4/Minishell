@@ -64,6 +64,7 @@ int	minishell_loop(t_gen *data)
 	while (data->status != 0)
 	{
 		create_paths(data);
+		get_pid(1);
 		display_prompt(data);
 		data->lex = lexer(data->parser.parsed, data);
 		if (data->status == -1)

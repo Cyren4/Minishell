@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:22:11 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/14 18:37:45 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/14 19:17:59 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	add_env(t_gen *data, t_env *new)
 	data->env = new;
 }
 
-int	ft_export(t_gen *data, t_lexer *cmd)
+int	ft_export(t_gen *data, t_lexer *cmd, t_tree *ast)
 {
 	t_lexer	*tmp;
 	t_env	*new;
@@ -86,12 +86,12 @@ int	ft_export(t_gen *data, t_lexer *cmd)
 	ret = EXIT_SUCCESS;
 	tmp = cmd;
 	if (cmd == NULL)
-		ft_env(data, "declare -x ");
+		ft_env(data, "declare -x ", ast);
 	while (cmd != NULL && tmp != NULL)
 	{
 		if (unvalid_exp(cmd->content))
 		{
-			printf("export: `%s': not a valid identifier\n", cmd->content);
+			print_error("export: `", cmd->content,"': not a valid identifier\n");
 			ret = EXIT_FAILURE;
 		}
 		else
