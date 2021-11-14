@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:22:37 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/14 19:15:34 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/14 20:57:16 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 	If n is specified, but its value is not between 0
 	and 255 inclusively, the exit status is undefined.
 */
-int	exit_atoi(char *str)
+long long	exit_atoi(char *str)
 {
 	int			i;
 	long long	ret;
@@ -38,21 +38,51 @@ int	exit_atoi(char *str)
 	}
 	ret = ret * neg;
 	free(tmp);
-	return (ret % 256);
+	return (ret);
+}
+
+int	is_long(char *nb, int i)
+{
+	char			*tmp;
+	long long int	h_num;
+
+	tmp = ft_substr(nb, i, 11);
+	tmp[i + 11] = '\0';
+	h_num = exit_atoi(tmp);
+	tmp[i + 11] = '0';
+	free(tmp);
+	if	(h_num == 92233720368)
+	{
+		tmp = ft_substr(nb, 11 + i, 10);
+		h_num = exit_atoi(tmp);
+		free(tmp);
+		if ((nb[0] == '-' && h_num > 54775808)
+			|| h_num > 54775807)
+			return (0);
+	}
+	else if (h_num > 92233720368)
+		return (0);
+	return (1);
 }
 
 int	exit_isnumber(char	*nb)
 {
 	char	*tmp;
 	int		ret;
+	int		i;
 
+
+	i = 0;
 	tmp = ft_strtrim(nb, " ");
 	if (tmp[0] == '-' || tmp[0] == '+')
-		ret = ft_isnumber(tmp + 1);
-	else
-		ret = ft_isnumber(tmp);
-	if (ret && (ft_strlen(tmp) > 20))
+		i = 1;
+	ret = ft_isnumber(tmp + i);
+	if (ret && (ft_strlen(tmp) + 1 > (size_t)(20 + i)))
 		ret = 0;
+	else if (ft_strlen(tmp) + 1 == (size_t)(20 + i))
+	{
+		ret = is_long(tmp, i);
+	}
 	free(tmp);
 	return (ret);
 }
@@ -82,7 +112,7 @@ int	ft_exit(t_gen *data, t_lexer *cmd)
 			data->exit_stat = 1;
 		}
 		else
-			data->exit_stat = exit_atoi(cmd->content);
+			data->exit_stat = exit_atoi(cmd->content) % 256;
 	}
 	exit(data->exit_stat);
 }
