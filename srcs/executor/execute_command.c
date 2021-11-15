@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 14:23:32 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/12 12:18:59 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/15 09:44:06 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,10 @@ int execute_command(t_gen *data, t_tree *ast, int pipe)
 		return (0);
 	else if (pid == 0)
 	{
+		if (ast->fd_in != 0)
+			close(ast->fd_in);
+		if (ast->fd_out != 1)
+			close(ast->fd_out);
 		dup2(ast->fd_in, STDIN_FILENO);
 		dup2(ast->fd_out, STDOUT_FILENO);
 		if (ast->fd_in != 0)
@@ -80,16 +84,20 @@ int execute_command(t_gen *data, t_tree *ast, int pipe)
 			cmd = NULL;
 			cmd_table = create_command(ast->cmd);
 			cmd = is_excve(cmd_table[0], data);
-			return (execve(cmd, cmd_table, env));
+			execve(cmd, cmd_table, env);
 		}
+		// if (ast->fd_in != 0)
+		close(ast->fd_in);
+		// if (ast->fd_out != 1)
+		close(ast->fd_out);
 		exit(1);
 	}
 	else
 	{
-		if (ast->fd_in != 0)
-			close(ast->fd_in);
-		if (ast->fd_out != 1)
-			close(ast->fd_out);
+		// if (ast->fd_in != 0)
+		close(ast->fd_in);
+		// if (ast->fd_out != 1)
+		close(ast->fd_out);
 		signal(SIGQUIT, SIG_IGN);
 		signal(SIGSEGV, SIG_IGN);
 		// waitpid(pid, &status, WUNTRACED | WCONTINUED);

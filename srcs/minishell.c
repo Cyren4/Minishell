@@ -6,13 +6,13 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/12 12:19:33 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/15 09:45:24 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	init_data(t_gen *data)
+void init_data(t_gen *data)
 {
 	data->env = NULL;
 	data->hdoc = 0;
@@ -26,10 +26,9 @@ void	init_data(t_gen *data)
 	data->str_err = NULL;
 }
 
-
-int	no_pipe(t_lexer *lex)
+int no_pipe(t_lexer *lex)
 {
-	t_lexer	*tmp;
+	t_lexer *tmp;
 
 	tmp = lex;
 	while (tmp)
@@ -41,13 +40,13 @@ int	no_pipe(t_lexer *lex)
 	return (1);
 }
 
-		// if (ft_strcmp(data->lex->content, "exit") == 0 && no_pipe(data->lex))
-		// 	if (ft_exit(data, data->lex->next)== 1)
-		// 		continue
-int	minishell_loop(t_gen *data)
+// if (ft_strcmp(data->lex->content, "exit") == 0 && no_pipe(data->lex))
+// 	if (ft_exit(data, data->lex->next)== 1)
+// 		continue
+int minishell_loop(t_gen *data)
 {
-	int	total_cmds;
-	int	i;
+	int total_cmds;
+	int i;
 
 	total_cmds = 0;
 	receiveSIG();
@@ -76,23 +75,24 @@ int	minishell_loop(t_gen *data)
 				{
 					// wait(&data->exit_stat);
 					// display_error(data->exit_stat);
-					
+					waitpid(data->pids[i], &data->exit_stat, 0);
+					close_pipes(data->ast);
 				}
-				waitpid(data->pids[i - 1], &data->exit_stat, 0);
-				// close_pipes(data->ast);
+				// wait(&data->exit_stat);
+				close_pipes(data->ast);
 			}
 		}
 	}
 	return (data->exit_stat);
 }
-					// int return_value = WEXITSTATUS(data->exit_stat);
-					// printf("return value: %d\n", return_value);
-					// printf("pids[%d]:%d", i, data->pids[i]);
+// int return_value = WEXITSTATUS(data->exit_stat);
+// printf("return value: %d\n", return_value);
+// printf("pids[%d]:%d", i, data->pids[i]);
 
-int	main(int ac, char **av, char **env)
+int main(int ac, char **av, char **env)
 {
-	t_gen	data;
-	int		ret;
+	t_gen data;
+	int ret;
 
 	(void)av;
 	(void)ac;
