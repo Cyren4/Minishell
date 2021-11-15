@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:22:11 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/14 23:01:26 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/15 08:10:03 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_env	*create_env_exp(t_gen *data, char *cmd, int eq_pos, int cat)
 	if (!new)
 		return (NULL);
 	new->name = ft_substr(cmd, 0, eq_pos - cat);
-	new->content = ft_substr(cmd, eq_pos + 1, ft_strlen(cmd) - eq_pos - 1 - cat);
+	new->content = ft_substr(cmd, eq_pos + 1, ft_strlen(cmd) - eq_pos - cat);
 	new->next = NULL;
 	if (get_var_exist(data, new->name) != NULL && cat == 1)
 	{
@@ -42,9 +42,8 @@ int	unvalid_exp(char *env, int *concat)
 
 	eq_pos = occur(env, '=', 1);
 	plus_pos = occur(env, '+', 1);
-	if (plus_pos != -1 && plus_pos == eq_pos + 1)
+	if (plus_pos != -1 && plus_pos == eq_pos - 1)
 		*concat = 1;
-	printf("%d\n", *concat);
 	i = 0;
 	if (*env == '=')
 		return (1);
