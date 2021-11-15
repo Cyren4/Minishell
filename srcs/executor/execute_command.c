@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 14:23:32 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/15 09:44:06 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/15 09:58:36 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ int execute_command(t_gen *data, t_tree *ast, int pipe)
 			close(ast->fd_in);
 		if (ast->fd_out != 1)
 			close(ast->fd_out);
+		// fprintf((FILE *)2, "child process command: %s - ast->fd_out\n: %d", ast->cmd->content, fcntl(ast->fd_out, F_GETFD));
+		// fprintf((FILE *)2, "child process command: %s - ast->fd_in: %d\n", ast->cmd->content, fcntl(ast->fd_out, F_GETFD));
 		if (ast->cmd->is_builtin == 1 && pipe == 1)
 			data->exit_stat = exec_builtin(data, ast->cmd, ast);
 		else if (!ast->cmd->is_builtin)
@@ -100,12 +102,6 @@ int execute_command(t_gen *data, t_tree *ast, int pipe)
 		close(ast->fd_out);
 		signal(SIGQUIT, SIG_IGN);
 		signal(SIGSEGV, SIG_IGN);
-		// waitpid(pid, &status, WUNTRACED | WCONTINUED);
-		// if (WIFSIGNALED(status) == 1)
-		// {
-		// 	if (WTERMSIG(status) == 131)
-		// 		printf("segfault")
-		// }
 	}
 	return (data->exit_stat);
 }

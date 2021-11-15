@@ -6,7 +6,11 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/11/15 09:45:24 by vbaron           ###   ########.fr       */
+=======
+/*   Updated: 2021/11/12 17:36:43 by vbaron           ###   ########.fr       */
+>>>>>>> 50c7544a24a2d20d987c0b1effa2df1450b01aa0
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +79,8 @@ int minishell_loop(t_gen *data)
 				{
 					// wait(&data->exit_stat);
 					// display_error(data->exit_stat);
-					waitpid(data->pids[i], &data->exit_stat, 0);
-					close_pipes(data->ast);
+					waitpid(data->pids[i], &data->exit_stat, 0);						
 				}
-				// wait(&data->exit_stat);
 				close_pipes(data->ast);
 			}
 		}
