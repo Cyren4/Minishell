@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:01:34 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/04 14:19:20 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/14 16:42:26 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,5 +138,11 @@ void	display_prompt(t_gen *data)
 	if (is_empty(data->parser.std_in) == 1)
 		display_prompt(data);
 	splitter(data);
+	if (data->status != 1)
+	{
+		data->status = 1;
+		free_tab(data->parser.parsed);
+		display_prompt(data);
+	}
 }
 	//checker si splitter a bien fonctionné

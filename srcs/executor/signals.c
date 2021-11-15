@@ -6,17 +6,31 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 16:11:48 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/27 21:58:57 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/14 22:12:27 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-// void exit_shell(int sig)
-// {
-// 	(void)sig;
-// 	exit(1);
-// }
+void	print_mes(int sig)
+{
+	if (sig == SIGTERM)
+		printf("Terminated\n");
+	else if (sig == SIGSEGV)
+		printf("Segmentation fault (core dumped)\n");
+	else if (sig == SIGBUS)
+		printf("Bus error (core dumped)\n");
+	else if (sig == SIGABRT)
+		printf("Aborted (core dumped)\n");
+}
+
+void	sig_child(void)
+{
+	signal(SIGTERM, print_mes);
+	signal(SIGSEGV, print_mes);
+	signal(SIGBUS, print_mes);
+	signal(SIGABRT, print_mes);
+}
 
 void	sig_int(int sig)
 {
@@ -35,15 +49,7 @@ void	sig_quit(int sig)
 
 void	receiveSIG(void)
 {
-	// struct sigaction	sa;
-	// struct sigaction	sb;
-
-	// sa.sa_flags = SA_SIGINFO;
-	// sa.sa_sigaction = s_int;
-	// sb.sa_flags = SA_SIGINFO;
-	// sb.sa_sigaction = s_quit;
-	// sigaction(SIGINT, NULL, &sa);
-	// sigaction(SIGQUIT, &sb, NULL);
+	
 	signal(SIGINT, sig_int);
-	signal(SIGQUIT, sig_quit);
+	signal(SIGQUIT, SIG_IGN);
 }

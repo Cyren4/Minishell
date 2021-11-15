@@ -6,17 +6,17 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 14:23:32 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/04 21:35:50 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/14 21:56:27 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char **create_command(t_lexer *cmd)
+char	**create_command(t_lexer *cmd)
 {
-	t_lexer *head;
-	int len;
-	char **cmd_table;
+	t_lexer	*head;
+	int		len;
+	char	**cmd_table;
 
 	head = cmd;
 	len = 0;
@@ -40,23 +40,24 @@ char **create_command(t_lexer *cmd)
 	return (cmd_table);
 }
 
-int execute_command(t_gen *data, t_tree *ast, int pipe)
+int	execute_command(t_gen *data, t_tree *ast, int pipe)
 {
-	int pid;
-	char **cmd_table;
-	char *cmd;
-	char **env;
+	int		pid;
+	char	**cmd_table;
+	char	*cmd;
+	char	**env;
 
 	if (ast->redir)
-	{
 		if (!manage_redirs(ast))
 			return (0);
-	}
 	if (ast->cmd->is_builtin == 1 && pipe == 0)
+	{
 		data->exit_stat = exec_builtin(data, ast->cmd, ast);
+		return (data->exit_stat);
+	}
 	if (!data->paths && !ast->cmd->is_builtin)
 	{
-		printf("minishell: %s: No such file or directory\n", ast->cmd->content);
+		print_error("1minishell: ", ast->cmd->content, ": No such file or directory\n");
 		return (1);
 	}
 	pid = fork();
@@ -66,6 +67,7 @@ int execute_command(t_gen *data, t_tree *ast, int pipe)
 		return (0);
 	else if (pid == 0)
 	{
+		get_pid(0);
 		dup2(ast->fd_in, STDIN_FILENO);
 		dup2(ast->fd_out, STDOUT_FILENO);
 		if (ast->cmd->is_builtin == 1 && pipe == 1)
@@ -85,14 +87,8 @@ int execute_command(t_gen *data, t_tree *ast, int pipe)
 	}
 	else
 	{
-		signal(SIGQUIT, SIG_IGN);
-		signal(SIGSEGV, SIG_IGN);
-		// waitpid(pid, &status, WUNTRACED | WCONTINUED);
-		// if (WIFSIGNALED(status) == 1)
-		// {
-		// 	if (WTERMSIG(status) == 131)
-		// 		printf("segfault")
-		// }
+		get_pid(pid);
+		sig_child();
 		if (ast->fd_in != 0)
 			close(ast->fd_in);
 		if (ast->fd_out != 1)
@@ -100,3 +96,9 @@ int execute_command(t_gen *data, t_tree *ast, int pipe)
 	}
 	return (data->exit_stat);
 }
+		// waitpid(pid, &status, WUNTRACED | WCONTINUED);
+		// if (WIFSIGNALED(status) == 1)
+		// {
+		// 	if (WTERMSIG(status) == 131)
+		// 		printf("segfault")
+		// }

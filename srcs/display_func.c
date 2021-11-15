@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 15:00:11 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/04 21:24:36 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/14 18:08:15 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,3 +44,22 @@ void	display_token(t_lexer *lst_lex)
 		tmp = tmp->next;
 	}
 }
+//cd.c
+// if (ft_strcmp(dir->content, "~") == 0 || ft_strncmp(dir->content, "~/", 2) == 0)
+// dir->content = replace_home(data, dir);
+
+// char	*replace_home(t_gen *data, t_lexer *dir)
+// {
+// 	char	*home;
+// 	home = NULL;
+// 	if (ft_strcmp(dir->content, "~") == 0)
+// 		home = ft_strdup(data->home);
+// 	else
+// 	{
+// 		home = ft_substr(dir->content, 1, ft_strlen(dir->content) - 1);
+// 		home = ft_strjoin(data->home, home);
+// 	}
+// 	free(dir->content);
+// 	dir->content = NULL;
+// 	return (home);
+// }

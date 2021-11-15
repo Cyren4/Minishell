@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 19:39:21 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/05 16:54:57 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/14 18:02:47 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	occur(char *str, char c, int nbOccur)
 
 int	in(char c, char *sin)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (sin && sin[i])

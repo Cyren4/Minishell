@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 18:45:42 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/30 17:12:56 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/14 18:37:50 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	add_elem(t_gen *data, char *var_path)
 	int		eq_pos;
 
 	new = (t_env *)malloc(sizeof(t_env));
+	if (!new)
+		return ;
 	eq_pos = occur(var_path, '=', 1);
 	new->name = ft_substr(var_path, 0, eq_pos);
 	new->content = ft_substr(var_path, eq_pos + 1,
@@ -83,4 +85,5 @@ void	stock_env_vars(t_gen *data, char **env)
 		i++;
 	}
 	update_shlvl(data);
+	data->home = ft_strdup(get_env_var(data, "HOME"));
 }

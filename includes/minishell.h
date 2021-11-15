@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 15:30:08 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/12 15:39:52 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/14 19:17:46 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ typedef struct s_gen
 	pid_t	*pids;
 	t_env	*env;
 	char	**paths;
+	char	*home;
 	t_lexer	*lex;
 	t_pars	parser;
 	t_tree	*ast;
@@ -138,6 +139,7 @@ int		store_data(char *start, char *end, t_tree *ast);
 int		manage_redirs(t_tree *ast);
 
 /*		signal.c	*/
+void	sig_child(void);
 void	handler(int sig, siginfo_t *info, void *context);
 void	receiveSIG(void);
 void	sig_int(int sig);
@@ -155,17 +157,17 @@ char	*join_sep(char *s1, char *s2, char sep);
 int		ft_echo(t_lexer *lex, t_tree *ast);
 
 /*		env.c	*/
-int		ft_env(t_gen *data, char *pref);
+int		ft_env(t_gen *data, char *pref, t_tree *ast);
 
 /*		exit.c	*/
 int		ft_exit(t_gen *data, t_lexer *cmd);
 
 /*		export.c	*/
-int		ft_export(t_gen *data, t_lexer *cmd);
+int		ft_export(t_gen *data, t_lexer *cmd, t_tree *ast);
 void	add_env(t_gen *data, t_env *new);
 
 /*		pwd.c	*/
-int		ft_pwd(void);
+int		ft_pwd(t_tree *ast);
 
 /*		unset.c		*/
 void	free_env(t_env *env);
@@ -237,6 +239,7 @@ char	**env_to_child(t_env *env);
 
 /*		getter.c	*/
 t_gen	*get_data(t_gen *data);
+int		get_pid(int pid);
 
 /*		print_tree.c		*/
 void	structure(t_tree *root, int level );
