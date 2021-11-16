@@ -6,11 +6,34 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 10:49:43 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/16 19:33:53 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/16 19:56:07 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int check_quotes(char *end)
+{
+	int i;
+
+	i = 0;
+	while (end[i])
+	{
+		if (end[i] == '\"' || end[i] == '\'')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+char	*end_sin_quote(char *end)
+{
+	char	*tmp;
+
+	tmp = strdup_sin_quote(end);
+	free(end);
+	return (tmp);
+}
 
 int	manage_lt2(t_lexer *redirs, t_tree *ast)
 {
@@ -41,22 +64,8 @@ int	manage_lt2(t_lexer *redirs, t_tree *ast)
 			redir_count--;
 		head = head->next;
 	}
-	fd_in = store_data(start, end, ast);
+	fd_in = store_data(start, strdup_sin_quote(end), ast, check_quotes(end));
 	return (fd_in);
-}
-
-int check_quotes(char *end)
-{
-	int i;
-
-	i = 0;
-	while (end[i])
-	{
-		if (end[i] == '\"' || end[i] == '\'')
-			return (1);
-		i++;
-	}
-	return (0);
 }
 
 int	r_size_herdoc(char *content, t_gen *data)
@@ -139,16 +148,16 @@ char	*expand_heredoc(char *std_in)
 	return (expanded);
 }
 
-int	store_data(char *start, char *end, t_tree *ast)
+int	store_data(char *start, char *end, t_tree *ast, int quote)
 {
 	int		fd[2];
 	char	*std_in;
 	int		start_flag;
 	pid_t	pid;
 	int		exit_status;
-	int		quote;
+	// int		quote;
 	
-	quote = check_quotes(end);
+	// quote = check_quotes(end);
 	// breaker = 0;
 	std_in = NULL;
 	if (pipe(fd) < 0)
@@ -249,7 +258,7 @@ int	manage_redirs(t_tree *ast)
 			ast->fd_in = open(head->next->content, O_RDONLY, 0444);
 			if (ast->fd_in == -1)
 			{
-				printf("minishell: %s: No such file or directory\n", head->next->content);
+				print_error("minishell: ", head->next->content,": No such file or directory\n");
 				return (0);
 			}
 		}

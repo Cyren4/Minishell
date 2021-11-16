@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 15:30:08 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/16 19:25:04 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/16 19:55:34 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ char	*is_excve(char *command, t_gen *data);
 
 /*		redirections.c		*/
 int		manage_lt2(t_lexer *redirs, t_tree *ast);
-int		store_data(char *start, char *end, t_tree *ast);
+int		store_data(char *start, char *end, t_tree *ast, int quote);
 int		manage_redirs(t_tree *ast);
 
 /*		signal.c	*/
@@ -187,6 +187,7 @@ void	stock_env_vars(t_gen *data, char **env);
 int		check_syntax(t_lexer *lex);
 
 /*		parsing_words.c	*/
+char	*strdup_sin_quote(char *s1);
 t_lexer	*get_words(t_lexer *head);
 
 /*		token_insert_var.c	*/
