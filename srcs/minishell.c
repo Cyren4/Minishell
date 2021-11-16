@@ -14,17 +14,16 @@
 
 void	init_data(t_gen *data)
 {
-	data->env = NULL;
-	data->hdoc = 0;
-	data->lex = NULL;
+	data->prompt = ft_strdup("minishell $ ");
 	data->parser.std_in = NULL;
 	data->parser.parsed = NULL;
+	data->env = NULL;
+	data->lex = NULL;
+	data->hdoc = 0;
 	data->status = 1;
 	data->exit_stat = 0;
 	data->ast = NULL;
-	data->prompt = ft_strdup("minishell $ ");
 	data->str_err = NULL;
-	get_pid(0);
 }
 
 int	no_pipe(t_lexer *lex)
@@ -64,9 +63,8 @@ int	minishell_loop(t_gen *data)
 	receiveSIG();
 	while (data->status != 0)
 	{
-		create_paths(data);
-		get_pid(0);
 		display_prompt(data);
+		create_paths(data);
 		data->lex = lexer(data->parser.parsed, data);
 		if (data->status == -1)
 		{
@@ -104,9 +102,9 @@ int	minishell_loop(t_gen *data)
 	}
 	return (data->exit_stat);
 }
-					// int return_value = WEXITSTATUS(data->exit_stat);
-					// printf("return value: %d\n", return_value);
-					// printf("pids[%d]:%d", i, data->pids[i]);
+// int return_value = WEXITSTATUS(data->exit_stat);
+// printf("return value: %d\n", return_value);
+// printf("pids[%d]:%d", i, data->pids[i]);
 
 int	main(int ac, char **av, char **env)
 {

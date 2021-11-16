@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 18:45:42 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/16 14:46:08 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/16 15:33:07 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	create_paths(t_gen *data)
 void	add_elem(t_gen *data, char *var_path)
 {
 	t_env	*new;
-	t_env	*head;
+	t_env	*tmp;
 	int		eq_pos;
 
 	new = (t_env *)malloc(sizeof(t_env));
@@ -40,17 +40,16 @@ void	add_elem(t_gen *data, char *var_path)
 	eq_pos = occur(var_path, '=', 1);
 	new->name = ft_substr(var_path, 0, eq_pos);
 	new->content = ft_substr(var_path, eq_pos + 1,
-			ft_strlen(var_path) - eq_pos - 1);
+			ft_strlen(var_path) - eq_pos);
 	new->next = NULL;
 	if (!data->env)
 		data->env = new;
 	else
 	{
-		head = data->env;
-		while (data->env->next)
-			data->env = data->env->next;
-		data->env->next = new;
-		data->env = head;
+		tmp = data->env;
+		while (tmp->next != NULL)
+			tmp = tmp->next;
+		tmp->next = new;
 	}
 }
 

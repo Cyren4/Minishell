@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:51:50 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/14 22:31:18 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/16 15:33:17 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,51 +36,18 @@ void	clean_env(t_gen *data)
 {
 	t_env	*cur;
 	t_env	*next;
-	int		i;
 
 	if (data->env == NULL)
 		return ;
 	cur = data->env;
 	while (cur != NULL)
 	{
-		if (cur->name != NULL)
-			ft_free(cur->name);
-		if (cur->content != NULL)
-			ft_free(cur->content);
+		ft_free(cur->name);
+		ft_free(cur->content);
 		next = cur->next;
-		if (cur)
-			ft_free(cur);
+		ft_free(cur);
 		cur = next;
 	}
-	if (data->paths)
-	{
-		i = -1;
-		while (data->paths[++i])
-			if (data->paths[i])
-				ft_free(data->paths[i]);
-		ft_free(data->paths);
-	}
-}
-
-void	clean_parser(t_pars *pars)
-{
-	int	i;
-
-	i = 0;
-	if (pars == NULL)
-		return ;
-	if (pars->parsed)
-	{
-		while (pars->parsed[i])
-		{
-			if (pars->parsed[i])
-				ft_free(pars->parsed[i]);
-			i++;
-		}
-	}
-	ft_free(pars->parsed);
-	if (pars->std_in)
-		ft_free(pars->std_in);
 }
 
 void	clean_tree(t_tree *ast)
@@ -105,13 +72,16 @@ void	clean_tree(t_tree *ast)
 
 void	ft_free(void *ptr)
 {
-	free(ptr);
+	if (ptr != NULL)
+		free(ptr);
 	ptr = NULL;
 }
 
 void	clean_data(t_gen *data)
 {
 	clean_tree(data->ast);
+	if (data->paths != NULL)
+		free_tab(data->paths);
 	data->ast = NULL;
 	data->lex = NULL;
 	data->hdoc = 0;
@@ -119,8 +89,6 @@ void	clean_data(t_gen *data)
 	free_tab(data->parser.parsed);
 	data->parser.std_in = NULL;
 	data->parser.parsed = NULL;
-	if (data->paths != NULL)
-		free_tab(data->paths);
 	data->ast = NULL;
 	data->str_err = NULL;
 	data->status = 1;
@@ -128,13 +96,14 @@ void	clean_data(t_gen *data)
 
 void	delete_data(t_gen *data)
 {
+	ft_free(data->home);
+	ft_free(data->prompt);
 	data->lex = NULL;
 	clean_env(data);
-	if (data->prompt != NULL)
-		ft_free(data->prompt);
-	// if (data->paths != NULL)
-		// free_tab(data->paths);
 	if (data->ast != NULL)
 		clean_tree(data->ast);
 	clear_history();
 }
+
+	// if (data->paths)
+		// free_tab(data->paths);
