@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 15:30:08 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/14 19:17:46 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/16 19:25:04 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,14 +190,15 @@ int		check_syntax(t_lexer *lex);
 t_lexer	*get_words(t_lexer *head);
 
 /*		token_insert_var.c	*/
+int		var_size(char *src, int *src_i, t_gen *data);
 int		insert_var(char *dst, char *src, int *src_i, t_gen *data);
-// int		ins_v_nq(char *dst, char *src, int *src_i, t_gen *data);
 int		real_size(char *content, t_gen *data);
 
 /*		token_split.c	*/
 char	**check_sub_words(char *cmd);
 
 /*		token.c		*/
+int		valid_e(char *content, int index);
 t_lexer	*lexer(char **cmd_line, t_gen *data);
 t_lexer	*add_elem_lex(t_lexer *lst_elem, char *cmd, t_gen *data);
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 10:49:43 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/16 16:00:51 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/16 19:33:53 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,91 @@ int check_quotes(char *end)
 	i = 0;
 	while (end[i])
 	{
-		if (end[i] == '\"')
+		if (end[i] == '\"' || end[i] == '\'')
 			return (1);
 		i++;
 	}
 	return (0);
+}
+
+int	r_size_herdoc(char *content, t_gen *data)
+{
+	int		total_size;
+	int		i;
+
+	i = 0;
+	total_size = 0;
+	while (content[i])
+	{
+		if (content[i] == '$' && valid_e(content, i))
+		{
+			total_size += var_size(content, &i, data);
+			continue ;
+		}
+		else
+			total_size++;
+		i++;
+	}
+	return (total_size);
+}
+
+/* tests
+bash-5.0$ cat << ok
+> $a
+> ok
+ok
+
+bash-5.0$ cat << ok
+> ok""
+> ok''
+> 'ok'
+> ok
+ok""
+ok''
+'ok'
+
+bash-5.0$ cat << ok
+> '$USER'
+> 
+> ok
+'cramdani'
+
+bash-5.0$ export a="ok        o"
+bash-5.0$ cat << ok
+> $a
+> ok
+ok        o
+*/
+char	*expand_heredoc(char *std_in)
+{
+	char	*expanded;
+	t_gen	*data;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	data = get_data(NULL);
+	expanded = malloc(sizeof(char) * (r_size_herdoc(std_in, data) + 1));
+	if (!expanded)
+		return (std_in);
+	while (std_in[i])
+	{
+		if (std_in[i] == '$' && valid_e(std_in, i))
+		{
+			j += insert_var(expanded + j, std_in, &i, data);
+			continue ;
+		}
+		else
+		{
+			expanded[j] = std_in[i];
+			j++;
+		}
+		i++;
+	}
+	expanded[j] = '\0';
+	free(std_in);
+	return (expanded);
 }
 
 int	store_data(char *start, char *end, t_tree *ast)
@@ -66,13 +146,10 @@ int	store_data(char *start, char *end, t_tree *ast)
 	int		start_flag;
 	pid_t	pid;
 	int		exit_status;
-	int		breaker;
-	int quote;
-
+	int		quote;
 	
 	quote = check_quotes(end);
-	(void)ast;
-	breaker = 0;
+	// breaker = 0;
 	std_in = NULL;
 	if (pipe(fd) < 0)
 		return (0);
@@ -85,17 +162,20 @@ int	store_data(char *start, char *end, t_tree *ast)
 		start_flag = 0;
 		if (!start)
 			start_flag = 1;
-		while (1 && breaker < 10)
+		while (1)
 		{
 			std_in = readline("> ");
-			if (quote)
-				// Cyrena input
-			breaker++;
 			if (std_in == NULL)
-				printf("\b\b  \b\b");
+			{
+				print_error("minishell: warning: here-document at line 1 delimited by end-of-file (wanted `", end, "')\n");
+				break;
+			}
+			// breaker++;
 			if ((std_in && ft_strncmp(std_in, end, ft_strlen(end)) == 0
 					&& start_flag == 1) || std_in == NULL)
 				break ;
+			if (!quote)
+				std_in = expand_heredoc(std_in);
 			if (start_flag)
 				write(fd[1], ft_strjoin(std_in, "\n"), ft_strlen(std_in) + 1);
 			if (std_in && ft_strncmp(std_in, start, ft_strlen(start)) == 0)
@@ -108,7 +188,7 @@ int	store_data(char *start, char *end, t_tree *ast)
 	else
 	{
 		close(fd[1]);
-		printf("pid = %d\n", pid);
+		// printf("pid = %d\n", pid);
 		waitpid(pid, &exit_status, 0);
 		// dup2(fd[0], ast->fd_in);
 		ast->fd_in = fd[0];

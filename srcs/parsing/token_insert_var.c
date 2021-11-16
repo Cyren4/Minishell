@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 19:14:50 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/05 14:36:20 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/16 19:33:48 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,8 +137,6 @@ int	var_size(char *src, int *src_i, t_gen *data)
 	ft_free(env_var);
 	return (var_len);
 }
-
-int	valid_e(char *content, int index);
 
 int	real_size(char *content, t_gen *data)
 {

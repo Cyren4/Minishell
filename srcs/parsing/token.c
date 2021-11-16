@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 19:26:49 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/14 14:23:38 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/16 19:15:13 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 //(soit $? ou au moins lettre/_)
 int	valid_e(char *content, int index)
 {
+	// return (ft_isalnum(content[index + 1]) + change realsize && insert_var
 	return (ft_isalpha(content[index + 1])
 			|| content[index + 1] == '_'
 			|| content[index + 1] == '?');
