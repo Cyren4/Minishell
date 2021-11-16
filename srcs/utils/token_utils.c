@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 19:28:48 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/30 15:02:14 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/05 17:59:46 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,3 +31,6 @@ void	quote_interpretation(char quote, int *inside)
 	else if (quote == '"' && *inside == DOUBLE_Q)
 		*inside = NO_Q;
 }
+	// else if ((quote == '"' && *inside == SIMPLE_Q)
+	// 		|| (quote == '\'' && *inside == DOUBLE_Q))
+	// 		return ;

@@ -3,10 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
 /*   Updated: 2021/11/12 17:36:43 by vbaron           ###   ########.fr       */
+=======
+/*   By: cramdani <cramdani@stuclean_lexnt.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
+/*   Updated: 2021/11/12 15:19:44 by cramdani         ###   ########.fr       */
+>>>>>>> c9f899d9490f2f2da43e416034ff9ba7c6797db6
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +31,8 @@ void	init_data(t_gen *data)
 	data->ast = NULL;
 	data->prompt = ft_strdup("minishell $ ");
 	data->str_err = NULL;
+	get_pid(0);
 }
-
 
 int	no_pipe(t_lexer *lex)
 {
@@ -41,6 +48,17 @@ int	no_pipe(t_lexer *lex)
 	return (1);
 }
 
+void	get_status(t_gen *data)
+{
+	if (WEXITSTATUS(data->exit_stat))
+		data->exit_stat = WEXITSTATUS(data->exit_stat);
+	if (WIFSIGNALED(data->exit_stat))
+	{
+		data->exit_stat = WTERMSIG(data->exit_stat);
+		if (data->exit_stat != 131)
+			data->exit_stat += 128;
+	}
+}
 		// if (ft_strcmp(data->lex->content, "exit") == 0 && no_pipe(data->lex))
 		// 	if (ft_exit(data, data->lex->next)== 1)
 		// 		continue
@@ -51,13 +69,21 @@ int	minishell_loop(t_gen *data)
 
 	total_cmds = 0;
 	receiveSIG();
-	while (data->status == 1)
+	while (data->status != 0)
 	{
 		create_paths(data);
+		get_pid(0);
 		display_prompt(data);
 		data->lex = lexer(data->parser.parsed, data);
+		if (data->status == -1)
+		{
+			clean_data(data);
+			continue ;
+		}
+		// display_token(data->lex);
 		// data->status = 0;
 		// data->lex = lexer(data->av, data);
+		// /*
 		data->ast = build_tree1(data->lex);
 		if (!data->ast)
 			error(data, BAD_INPUT);
@@ -74,13 +100,15 @@ int	minishell_loop(t_gen *data)
 				i = -1;
 				while (++i < total_cmds)
 				{
-					// wait(&data->exit_stat);
-					// display_error(data->exit_stat);
-					waitpid(data->pids[i], &data->exit_stat, 0);						
+					waitpid(data->pids[i], &data->exit_stat, 0);
+					get_status(data);
+					// print_error(data->exit_stat);
 				}
 				close_pipes(data->ast);
 			}
 		}
+		clean_data(data);
+		// */
 	}
 	return (data->exit_stat);
 }
@@ -104,6 +132,6 @@ int	main(int ac, char **av, char **env)
 	data.av = &av[1];
 	receiveSIG();
 	ret = minishell_loop(&data);
-	// delete_data(&data);
+	// clean_lexlete_data(&data);
 	return (ret);
 }

@@ -6,7 +6,7 @@
 #    By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/13 13:33:21 by cramdani          #+#    #+#              #
-#    Updated: 2021/11/12 16:58:07 by vbaron           ###   ########.fr        #
+#    Updated: 2021/11/16 15:32:57 by vbaron           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ NAME 	=	lib.a
 CC		=	clang
 CFLAGS	=	-Wall -Wextra -Werror -g3
 
-LIBFT_P	= libft
+LIBFT_P	=	libft
 
 LIB		= $(LIBFT_P)/libft.a 
 

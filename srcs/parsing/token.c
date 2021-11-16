@@ -6,12 +6,24 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 19:26:49 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/04 11:32:10 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/14 14:23:38 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+//check si expansion valide 
+//(soit $? ou au moins lettre/_)
+int	valid_e(char *content, int index)
+{
+	return (ft_isalpha(content[index + 1])
+			|| content[index + 1] == '_'
+			|| content[index + 1] == '?');
+}
+
+	// if (in == DOUBLE_Q || ft_strncmp(elm->content + el_i, "$?", 2) == 0)
+	// else
+	// i += ins_v_nq(r_cont + i, elm->content, &el_i, data);
 void	complexe_elem(t_lexer *elm, t_gen *data)
 {
 	char	*r_cont;
@@ -30,12 +42,10 @@ void	complexe_elem(t_lexer *elm, t_gen *data)
 		if ((elm->content[el_i] == '"' && in != SIMPLE_Q)
 			|| (elm->content[el_i] == '\'' && in != DOUBLE_Q))
 			quote_interpretation(elm->content[el_i], &in);
-		else if (elm->content[el_i] == '$' && in != SIMPLE_Q)
+		if (elm->content[el_i] == '$' && in != SIMPLE_Q
+			&& valid_e(elm->content, el_i))
 		{
-			if (in == DOUBLE_Q || ft_strncmp(elm->content + el_i, "$?", 2) == 0)
-				i += ins_v(r_cont + i, elm->content, &el_i, data);
-			else
-				i += ins_v_nq(r_cont + i, elm->content, &el_i, data);
+			i += insert_var(r_cont + i, elm->content, &el_i, data);
 			continue ;
 		}
 		else
@@ -48,6 +58,37 @@ void	complexe_elem(t_lexer *elm, t_gen *data)
 	r_cont[i] = '\0';
 	ft_free(elm->content);
 	elm->content = r_cont;
+}
+
+int	is_tild_exp(t_lexer *elem, t_gen *data)
+{
+	char	*r_val;
+	
+	if (!elem || !elem->content)
+		return (0);
+	r_val = NULL;
+	if (elem->content[0] == '~')
+	{
+		if (elem->content[1] == '\0')
+			r_val = ft_strdup(data->home);
+		else if (elem->content[1] == '/')
+		{
+			r_val = ft_substr(elem->content, 1, ft_strlen(elem->content) - 1);
+			r_val = ft_strjoin(data->home, r_val);
+		}
+		else if (ft_strcmp(elem->content, "~+") == 0
+			&& get_var_exist(data, "PWD") != NULL)
+			r_val = ft_strdup(get_env_var(data, "PWD"));
+		else if (ft_strcmp(elem->content, "~-") == 0
+			&& get_var_exist(data, "OLDPWD") != NULL)
+			r_val = ft_strdup(get_env_var(data, "OLDPWD"));
+
+	}
+	if (r_val == NULL)
+		return (0);
+	free(elem->content);
+	elem->content = r_val;
+	return (1);
 }
 
 int	check_type(t_lexer *elem, t_gen *data)
@@ -64,7 +105,8 @@ int	check_type(t_lexer *elem, t_gen *data)
 		elem->token = GT2;
 	else
 	{
-		complexe_elem(elem, data);
+		if (!is_tild_exp(elem, data))
+			complexe_elem(elem, data);
 		elem->token = WORD;
 		if (is_builtin(elem->content))
 		{
@@ -89,7 +131,9 @@ t_lexer	*add_elem_lex(t_lexer *lst_elem, char *cmd, t_gen *data)
 	check_type(new, data);
 	if (new->token == LT2)
 		data->hdoc = 1;
-	if (lst_elem == NULL)
+	if (lst_elem == NULL && new->token == WORD)
+		return (get_words(new));
+	else if (lst_elem == NULL)
 		return (new);
 	tmp = lst_elem;
 	while (tmp->next != NULL)
@@ -99,7 +143,7 @@ t_lexer	*add_elem_lex(t_lexer *lst_elem, char *cmd, t_gen *data)
 		data->hdoc = 0;
 		tmp->hdoc_content = ft_strdup(cmd);
 	}
-	tmp->next = new;
+	tmp->next = get_words(new);
 	return (lst_elem);
 }
 
@@ -125,6 +169,11 @@ t_lexer	*lexer(char **cmd_line, t_gen *data)
 		if (splited)
 			free_tab(splited);
 		i++;
+	}
+	if (check_syntax(data->lex) != -1)
+	{
+		data->status = -1;
+		data->exit_stat = 2;
 	}
 	return (data->lex);
 }

@@ -6,37 +6,50 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:22:11 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/10 11:56:33 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/15 08:10:03 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-t_env	*create_env_exp(char *cmd, int eq_pos)
+t_env	*create_env_exp(t_gen *data, char *cmd, int eq_pos, int cat)
 {
 	t_env	*new;
+	char	*tmp;
 
 	if (eq_pos < 0)
 		return (NULL);
 	new = (t_env *)malloc(sizeof(t_env));
-	new->name = ft_substr(cmd, 0, eq_pos);
-	new->content = ft_substr(cmd, eq_pos + 1, ft_strlen(cmd) - eq_pos - 1);
+	if (!new)
+		return (NULL);
+	new->name = ft_substr(cmd, 0, eq_pos - cat);
+	new->content = ft_substr(cmd, eq_pos + 1, ft_strlen(cmd) - eq_pos - cat);
 	new->next = NULL;
+	if (get_var_exist(data, new->name) != NULL && cat == 1)
+	{
+		tmp = ft_strjoin(get_env_var(data, new->name), new->content);
+		free(new->content);
+		new->content = tmp;
+	}
 	return (new);
 }
 
-int	unvalid_exp(char *env)
+int	unvalid_exp(char *env, int *concat)
 {
 	int	i;
 	int	eq_pos;
+	int	plus_pos;
 
 	eq_pos = occur(env, '=', 1);
+	plus_pos = occur(env, '+', 1);
+	if (plus_pos != -1 && plus_pos == eq_pos - 1)
+		*concat = 1;
 	i = 0;
 	if (*env == '=')
 		return (1);
 	while (env && env[i])
 	{
-		if (i < eq_pos && !ft_isalnum(env[i]) && env[i] != '_' && env[i] != '=')
+		if (i < eq_pos - *concat && !ft_isalnum(env[i]) && env[i] != '_' && env[i] != '=')
 			return (1);
 		i++;
 	}
@@ -75,27 +88,29 @@ void	add_env(t_gen *data, t_env *new)
 	data->env = new;
 }
 
-int	ft_export(t_gen *data, t_lexer *cmd)
+int	ft_export(t_gen *data, t_lexer *cmd, t_tree *ast)
 {
 	t_lexer	*tmp;
 	t_env	*new;
 	int		ret;
+	int		concat;
 
 	ret = EXIT_SUCCESS;
 	tmp = cmd;
 	if (cmd == NULL)
-		ft_env(data, "declare -x ");
+		ft_env(data, "declare -x ", ast);
 	while (cmd != NULL && tmp != NULL)
 	{
-		if (unvalid_exp(cmd->content))
+		concat = 0;
+		if (unvalid_exp(cmd->content, &concat))
 		{
-			printf("export: `%s': not a valid identifier\n", cmd->content);
+			print_error("export: `", cmd->content,"': not a valid identifier\n");
 			ret = EXIT_FAILURE;
 		}
 		else
 		{
 			new = NULL;
-			new = create_env_exp(tmp->content, occur(tmp->content, '=', 1));
+			new = create_env_exp(data, tmp->content, occur(tmp->content, '=', 1), concat);
 			add_env(data, new);
 		}
 		tmp = tmp->next;

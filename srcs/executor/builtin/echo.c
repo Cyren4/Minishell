@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:20:41 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/19 14:18:08 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/14 19:07:01 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,19 +44,38 @@ char	*join_sep(char *s1, char *s2, char sep)
 	return (str);
 }
 
+t_lexer	*check_option(t_lexer *lex, int *opt)
+{
+	int		i;
+	t_lexer	*tmp;
+
+	i = 0;
+	tmp = lex;
+	*opt = 0;
+	while (tmp && tmp->content[0] == '-')
+	{
+		i = 1;
+		while (tmp->content[i])
+		{
+			if (tmp->content[i] != 'n')
+				break ;
+			i++;
+		}
+		if (tmp->content[i] != '\0')
+			break ;
+		*opt = 1;
+		tmp = tmp->next;
+	}
+	return (tmp);
+}
+
 int	ft_echo(t_lexer *lex, t_tree *ast)
 {
 	t_lexer	*tmp;
 	char	*print;
 	int		opt;
 
-	opt = 0;
-	tmp = lex;
-	if (tmp && ft_strcmp(tmp->content, "-n") == 0)
-	{
-		opt = 1;
-		tmp = tmp->next;
-	}
+	tmp = check_option(lex, &opt);
 	print = NULL;
 	while (tmp)
 	{
@@ -71,5 +90,5 @@ int	ft_echo(t_lexer *lex, t_tree *ast)
 	}
 	if (opt == 0)
 		ft_putstr_fd("\n", ast->fd_out);
-	return (1);
+	return (EXIT_SUCCESS);
 }

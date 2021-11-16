@@ -17,6 +17,8 @@ FILES = minishell.c \
 		executor/signals.c \
 		executor/close_pipes.c \
 		parsing/env_vars_parsing.c \
+		parsing/parsing_syntax.c \
+		parsing/parsing_words.c \
 		parsing/token_insert_var.c \
 		parsing/token_split.c \
 		parsing/token.c \
@@ -29,7 +31,8 @@ FILES = minishell.c \
 		utils/getter.c \
 		utils/print_tree.c \
 		utils/token_utils.c \
-		utils/utils_1.c 
+		utils/utils_1.c\
+		display_func.c
 
 
 SUB_DIR	=	parsing display error utils executor executor/builtin parsing/ast_monitor

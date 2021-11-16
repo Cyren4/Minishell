@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:51:50 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/30 16:39:19 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/14 22:31:18 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,15 +112,29 @@ void	ft_free(void *ptr)
 void	clean_data(t_gen *data)
 {
 	clean_tree(data->ast);
+	data->ast = NULL;
+	data->lex = NULL;
+	data->hdoc = 0;
+	free(data->parser.std_in );
+	free_tab(data->parser.parsed);
+	data->parser.std_in = NULL;
+	data->parser.parsed = NULL;
+	if (data->paths != NULL)
+		free_tab(data->paths);
+	data->ast = NULL;
+	data->str_err = NULL;
+	data->status = 1;
 }
 
 void	delete_data(t_gen *data)
 {
 	data->lex = NULL;
 	clean_env(data);
-	if (data->paths)
-		ft_free(data->paths);
 	if (data->prompt != NULL)
 		ft_free(data->prompt);
+	// if (data->paths != NULL)
+		// free_tab(data->paths);
+	if (data->ast != NULL)
+		clean_tree(data->ast);
 	clear_history();
 }
