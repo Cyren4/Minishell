@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:51:50 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/16 15:33:17 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/16 20:57:42 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,13 +85,13 @@ void	clean_data(t_gen *data)
 	data->ast = NULL;
 	data->lex = NULL;
 	data->hdoc = 0;
-	free(data->parser.std_in );
+	free(data->parser.std_in);
 	free_tab(data->parser.parsed);
-	data->parser.std_in = NULL;
 	data->parser.parsed = NULL;
 	data->ast = NULL;
 	data->str_err = NULL;
 	data->status = 1;
+	free(data->pids);
 }
 
 void	delete_data(t_gen *data)
