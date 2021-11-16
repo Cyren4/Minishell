@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_command.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 14:23:32 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/14 21:56:27 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/16 15:22:56 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	execute_command(t_gen *data, t_tree *ast, int pipe)
 	}
 	if (!data->paths && !ast->cmd->is_builtin)
 	{
-		print_error("1minishell: ", ast->cmd->content, ": No such file or directory\n");
+		print_error("minishell: ", ast->cmd->content, ": No such file or directory\n");
 		return (1);
 	}
 	pid = fork();
@@ -78,10 +78,13 @@ int	execute_command(t_gen *data, t_tree *ast, int pipe)
 			cmd = NULL;
 			cmd_table = create_command(ast->cmd);
 			cmd = is_excve(cmd_table[0], data);
-			// if (!cmd)
-			// 	ft_putstr_fd("bad command\n", ast->fd_out);
-			// else
-			return (execve(cmd, cmd_table, env));
+			if (!cmd)
+			{
+				print_error("minishell: ", ast->cmd->content, ": No such file or directory\n");
+				exit(1);
+			}
+			else
+				return (execve(cmd, cmd_table, env));
 		}
 		exit(1);
 	}
