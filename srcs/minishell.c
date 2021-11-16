@@ -24,6 +24,7 @@ void	init_data(t_gen *data)
 	data->ast = NULL;
 	data->prompt = ft_strdup("minishell $ ");
 	data->str_err = NULL;
+	data->pids = NULL;
 	get_pid(0);
 }
 
@@ -124,6 +125,7 @@ int	main(int ac, char **av, char **env)
 	data.av = &av[1];
 	receiveSIG();
 	ret = minishell_loop(&data);
+	delete_data(&data);
 	// clean_lexlete_data(&data);
 	return (ret);
 }
