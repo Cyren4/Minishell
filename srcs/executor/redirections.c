@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 10:49:43 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/30 14:37:04 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/16 16:00:51 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,20 @@ int	manage_lt2(t_lexer *redirs, t_tree *ast)
 	return (fd_in);
 }
 
+int check_quotes(char *end)
+{
+	int i;
+
+	i = 0;
+	while (end[i])
+	{
+		if (end[i] == '\"')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int	store_data(char *start, char *end, t_tree *ast)
 {
 	int		fd[2];
@@ -53,7 +67,10 @@ int	store_data(char *start, char *end, t_tree *ast)
 	pid_t	pid;
 	int		exit_status;
 	int		breaker;
+	int quote;
 
+	
+	quote = check_quotes(end);
 	(void)ast;
 	breaker = 0;
 	std_in = NULL;
@@ -71,6 +88,8 @@ int	store_data(char *start, char *end, t_tree *ast)
 		while (1 && breaker < 10)
 		{
 			std_in = readline("> ");
+			if (quote)
+				// Cyrena input
 			breaker++;
 			if (std_in == NULL)
 				printf("\b\b  \b\b");
