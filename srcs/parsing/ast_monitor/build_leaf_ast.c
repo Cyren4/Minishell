@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_leaf_ast.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:05:01 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/30 17:00:42 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/16 19:24:39 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ t_tree	*build_leaf(t_lexer *lexer)
 	leaf = malloc(sizeof(t_tree));
 	if (!leaf || !lexer)
 		return (NULL);
-	// create_double_list(lexer);
 	leaf->type = CMD;
 	leaf->cmd = NULL;
 	leaf->redir = NULL;

@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:51:50 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/16 18:46:43 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/16 19:23:24 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	clean_lex(t_lexer *lex)
 	{
 		if (cur->content)
 			free(cur->content);
+		if (cur->hdoc_content)
+			free(cur->hdoc_content);
 		old = cur;
 		cur = cur->next;
 		if (old)
@@ -112,6 +114,7 @@ void	ft_free(void *ptr)
 void	clean_data(t_gen *data)
 {
 	clean_tree(data->ast);
+	clean_lex(data->lex);
 	data->ast = NULL;
 	data->lex = NULL;
 	data->hdoc = 0;
