@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_command.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 14:23:32 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/16 15:22:56 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/16 15:52:27 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	execute_command(t_gen *data, t_tree *ast, int pipe)
 			cmd = is_excve(cmd_table[0], data);
 			if (!cmd)
 			{
-				print_error("minishell: ", ast->cmd->content, ": No such file or directory\n");
+				print_error("minishell: ", ast->cmd->content, ": command not found\n");
 				exit(1);
 			}
 			else
