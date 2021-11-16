@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 18:45:42 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/14 18:37:50 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/16 14:46:08 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,11 @@ void	update_shlvl(t_gen *data)
 	t_env	*tmp;
 	int		cur_shlvl;
 
+	if (get_var_exist(data, "SHLVL") == NULL)
+	{
+		add_elem(data, "SHLVL=1");
+		return ;
+	}
 	tmp = data->env;
 	while (tmp)
 	{

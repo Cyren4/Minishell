@@ -121,7 +121,7 @@ int	main(int ac, char **av, char **env)
 	init_data(&data);
 	stock_env_vars(&data, env);
 	get_data(&data);
-	data.av = &av[1];
+	// data.av = &av[1];
 	receiveSIG();
 	ret = minishell_loop(&data);
 	// clean_lexlete_data(&data);
