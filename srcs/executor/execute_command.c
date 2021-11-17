@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 14:23:32 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/17 18:50:29 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/17 19:56:10 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ char	**create_command(t_lexer *cmd)
 	return (cmd_table);
 }
 
+// fprintf((FILE *)2, "child process command: %s - ast->fd_out\n: %d", ast->cmd->content, fcntl(ast->fd_out, F_GETFD));
+// fprintf((FILE *)2, "child process command: %s - ast->fd_in: %d\n", ast->cmd->content, fcntl(ast->fd_out, F_GETFD));
 int	execute_command(t_gen *data, t_tree *ast, int pipe)
 {
 	int		pid;
@@ -68,8 +70,6 @@ int	execute_command(t_gen *data, t_tree *ast, int pipe)
 		dup2(ast->fd_in, STDIN_FILENO);
 		dup2(ast->fd_out, STDOUT_FILENO);
 		close_pipes(data->ast);
-		// fprintf((FILE *)2, "child process command: %s - ast->fd_out\n: %d", ast->cmd->content, fcntl(ast->fd_out, F_GETFD));
-		// fprintf((FILE *)2, "child process command: %s - ast->fd_in: %d\n", ast->cmd->content, fcntl(ast->fd_out, F_GETFD));
 		if (ast->cmd->is_builtin == 1 && pipe == 1)
 			get_exit_stat(exec_builtin(data, ast->cmd, ast));
 		else if (!ast->cmd->is_builtin)
