@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+         #
+#    By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/05/20 12:16:14 by mvaldes           #+#    #+#              #
-#    Updated: 2021/11/12 15:58:53 by cramdani         ###   ########.fr        #
+#    Created: 2021/05/20 12:16:14 by cramdani           #+#    #+#              #
+#    Updated: 2021/11/16 15:33:30 by vbaron           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,6 @@ CC			=	clang
 RM			=	/bin/rm -rf
 INC			=	-include ./$(HEADER)
 CC_FLAGS	=	-Wall -Wextra -Werror -MMD -g3 $(INC)
-# -fsanitize=address 
 LIB_DIR			=	lib
 LIB				=	$(LIB_DIR)/libft.a
 

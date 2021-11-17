@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 14:23:32 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/16 15:22:56 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/17 14:21:27 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,9 @@ int	execute_command(t_gen *data, t_tree *ast, int pipe)
 		get_pid(0);
 		dup2(ast->fd_in, STDIN_FILENO);
 		dup2(ast->fd_out, STDOUT_FILENO);
+		close_pipes(data->ast);
+		// fprintf((FILE *)2, "child process command: %s - ast->fd_out\n: %d", ast->cmd->content, fcntl(ast->fd_out, F_GETFD));
+		// fprintf((FILE *)2, "child process command: %s - ast->fd_in: %d\n", ast->cmd->content, fcntl(ast->fd_out, F_GETFD));
 		if (ast->cmd->is_builtin == 1 && pipe == 1)
 			data->exit_stat = exec_builtin(data, ast->cmd, ast);
 		else if (!ast->cmd->is_builtin)
@@ -86,6 +89,10 @@ int	execute_command(t_gen *data, t_tree *ast, int pipe)
 			else
 				return (execve(cmd, cmd_table, env));
 		}
+		// if (ast->fd_in != 0)
+		// 	close(ast->fd_in);
+		// if (ast->fd_out != 1)
+		// 	close(ast->fd_out);
 		exit(1);
 	}
 	else
@@ -96,6 +103,10 @@ int	execute_command(t_gen *data, t_tree *ast, int pipe)
 			close(ast->fd_in);
 		if (ast->fd_out != 1)
 			close(ast->fd_out);
+		// printf("main process command: %s - ast->fd_out: %d\n", ast->cmd->content, fcntl(ast->fd_out, F_GETFD));
+		// printf("main process command: %s - ast->fd_in: %d\n", ast->cmd->content, fcntl(ast->fd_out, F_GETFD));
+		signal(SIGQUIT, SIG_IGN);
+		signal(SIGSEGV, SIG_IGN);
 	}
 	return (data->exit_stat);
 }
