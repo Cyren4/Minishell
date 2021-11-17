@@ -1,0 +1,12 @@
+doc
+includes
+lib
+log.txt
+Makefile
+minishell
+minishell.mk
+objs
+README.md
+srcs
+test_signal.c
+valgrind-out.txt

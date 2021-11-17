@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/17 18:09:28 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/17 18:51:27 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,12 @@ int	minishell_loop(t_gen *data)
 			error(data, BAD_INPUT);
 		else
 		{
-			// structure(data->ast, 0);
 			if (create_pipes(data->ast))
 			{
 				total_cmds = calculate_commands(data->ast);
 				data->tracker = 0;
 				data->pids = malloc(sizeof(pid_t) * total_cmds);
+				initialise_pids(data, total_cmds);
 				if (!execute_ast(data, data->ast, 0))
 					error(data, -1);
 				i = -1;
@@ -98,7 +98,6 @@ int	minishell_loop(t_gen *data)
 			}
 		}
 		clean_data(data);
-		// */
 	}
 	return (get_exit_stat(-1));
 }

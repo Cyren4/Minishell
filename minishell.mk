@@ -32,6 +32,7 @@ FILES = minishell.c \
 		utils/print_tree.c \
 		utils/token_utils.c \
 		utils/utils_1.c\
+		utils/initialise_pids.c \
 		display_func.c
 
 

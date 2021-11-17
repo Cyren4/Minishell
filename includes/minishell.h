@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 15:30:08 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/17 18:08:03 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/17 18:51:13 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,6 +231,7 @@ int		create_pipes(t_tree *ast);
 /*		clear.c		*/
 void	clean_lex(t_lexer *lex);
 void	clean_env(t_gen *data);
+void	clean_envx(t_gen *data);
 void	clean_parser(t_pars *pars);
 void	clean_tree(t_tree *ast);
 void	ft_free(void *ptr);
@@ -259,5 +260,8 @@ void	free_tab(char **tab);
 int		is_empty(char *line);
 int		len_int(int nb);
 int		occur(char *str, char c, int nbOccur);
+
+/*	initialise_pids.c	*/
+void initialise_pids(t_gen *data, int total);
 
 #endif

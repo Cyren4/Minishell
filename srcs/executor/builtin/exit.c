@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:22:37 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/17 18:47:09 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/17 18:56:37 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,20 @@ int	exit_isnumber(char	*nb)
 	return (ret);
 }
 
+void	clean_exit(t_gen *data)
+{
+	clean_lex(data->lex);
+	clean_data(data);
+	delete_data(data);
+}
+
 int	ft_exit(t_gen *data, t_lexer *cmd)
 {
 	int	is_num;
 
 	(void)data;
+	if (get_pid(-1) != 0)
+		printf("exit\n");
 	if (cmd)
 	{
 		is_num = exit_isnumber(cmd->content);
@@ -114,9 +123,7 @@ int	ft_exit(t_gen *data, t_lexer *cmd)
 			get_exit_stat(exit_atoi(cmd->content) % 256);
 	}
 	if (get_pid(-1) != 0)
-		printf("exit\n");
-	// if (get_pid(-1) != 0)
-		// delete_data(data);
+		clean_exit(data);
 	exit(get_exit_stat(-1));
 }
 	// printf("%d\n", data->exit_stat);

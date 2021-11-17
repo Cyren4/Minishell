@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_leaf_ast.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:05:01 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/30 17:00:42 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/17 16:02:15 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	add_redir(t_tree *leaf, t_lexer *lexer)
 	t_lexer	*new;
 	t_lexer	*head;
 
-	new = (t_lexer *)malloc(sizeof(t_lexer));
+	// new = (t_lexer *)malloc(sizeof(t_lexer));
 	new = lexer;
 	if (new->next)
 		new->next->next = NULL;
@@ -37,7 +37,7 @@ void	add_cmd(t_tree *leaf, t_lexer *lexer)
 	t_lexer	*new;
 	t_lexer	*head;
 
-	new = (t_lexer *)malloc(sizeof(t_lexer));
+	// new = (t_lexer *)malloc(sizeof(t_lexer));
 	new = lexer;
 	if (new->next)
 		new->next = NULL;

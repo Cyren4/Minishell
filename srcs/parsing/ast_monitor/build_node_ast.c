@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_node_ast.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:03:42 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/30 17:00:33 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/17 17:00:38 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	cut_lexer(t_lexer *head, t_lexer *lex)
 	head2 = head;
 	while (head->next != lex)
 		head = head->next;
-	head->next->content = NULL;
+	ft_free(lex->content);
+	ft_free(lex);
 	head->next = NULL;
 	head = head2;
 }
@@ -40,7 +41,6 @@ t_tree	*build_node(t_lexer *lex, t_lexer *head, int type)
 	new->fd_out = STDOUT_FILENO;
 	new->right = build_tree1(lex->next);
 	cut_lexer(head, lex);
-	ft_free(lex);
 	new->left = build_tree1(head);
 	return (new);
 }

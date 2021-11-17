@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:51:50 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/16 20:57:42 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/17 18:50:56 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ void	clean_lex(t_lexer *lex)
 	lex = NULL;
 }
 
-void	clean_env(t_gen *data)
+void clean_envx(t_gen *data)
 {
 	t_env	*cur;
 	t_env	*next;
-
+	
 	if (data->env == NULL)
 		return ;
 	cur = data->env;
@@ -48,6 +48,42 @@ void	clean_env(t_gen *data)
 		ft_free(cur);
 		cur = next;
 	}
+}
+
+void	clean_env(t_gen *data)
+{
+	int		i;
+
+	clean_envx(data);
+	if (data->paths)
+	{
+		i = -1;
+		while (data->paths[++i])
+			if (data->paths[i])
+				ft_free(data->paths[i]);
+		ft_free(data->paths);
+	}
+}
+
+void	clean_parser(t_pars *pars)
+{
+	int	i;
+
+	i = 0;
+	if (pars == NULL)
+		return ;
+	if (pars->parsed)
+	{
+		while (pars->parsed[i])
+		{
+			if (pars->parsed[i])
+				ft_free(pars->parsed[i]);
+			i++;
+		}
+	}
+	ft_free(pars->parsed);
+	if (pars->std_in)
+		ft_free(pars->std_in);
 }
 
 void	clean_tree(t_tree *ast)
