@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/16 15:35:06 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/17 16:02:46 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,12 @@ int	minishell_loop(t_gen *data)
 			error(data, BAD_INPUT);
 		else
 		{
-			// structure(data->ast, 0);
 			if (create_pipes(data->ast))
 			{
 				total_cmds = calculate_commands(data->ast);
 				data->tracker = 0;
 				data->pids = malloc(sizeof(pid_t) * total_cmds);
+				initialise_pids(data, total_cmds);
 				if (!execute_ast(data, data->ast, 0))
 					error(data, -1);
 				i = -1;

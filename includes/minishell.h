@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 15:30:08 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/17 15:18:27 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/17 15:39:22 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,5 +258,8 @@ void	free_tab(char **tab);
 int		is_empty(char *line);
 int		len_int(int nb);
 int		occur(char *str, char c, int nbOccur);
+
+/*	initialise_pids.c	*/
+void initialise_pids(t_gen *data, int total);
 
 #endif
