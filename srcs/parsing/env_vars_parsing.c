@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 18:45:42 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/16 17:52:39 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/17 16:18:51 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,5 @@ void	stock_env_vars(t_gen *data, char **env)
 		i++;
 	}
 	update_shlvl(data);
-	data->home = ft_strdup(get_env_var(data, "HOME"));
+	data->home = get_env_var(data, "HOME");
 }
