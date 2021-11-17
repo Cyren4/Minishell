@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 15:30:08 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/17 15:39:22 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/17 17:49:25 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,6 +231,7 @@ int		create_pipes(t_tree *ast);
 /*		clear.c		*/
 void	clean_lex(t_lexer *lex);
 void	clean_env(t_gen *data);
+void	clean_envx(t_gen *data);
 void	clean_parser(t_pars *pars);
 void	clean_tree(t_tree *ast);
 void	ft_free(void *ptr);

@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:51:50 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/16 18:46:43 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/17 17:48:10 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,11 @@ void	clean_lex(t_lexer *lex)
 	lex = NULL;
 }
 
-void	clean_env(t_gen *data)
+void clean_envx(t_gen *data)
 {
 	t_env	*cur;
 	t_env	*next;
-	int		i;
-
+	
 	if (data->env == NULL)
 		return ;
 	cur = data->env;
@@ -52,6 +51,13 @@ void	clean_env(t_gen *data)
 			ft_free(cur);
 		cur = next;
 	}
+}
+
+void	clean_env(t_gen *data)
+{
+	int		i;
+
+	clean_envx(data);
 	if (data->paths)
 	{
 		i = -1;

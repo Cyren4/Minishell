@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/17 16:48:55 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/17 17:35:09 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,6 @@ int	minishell_loop(t_gen *data)
 			}
 		}
 		clean_data(data);
-		display_token(data->lex);
-		// */
 	}
 	return (data->exit_stat);
 }

@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 14:23:32 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/17 14:21:27 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/17 17:49:40 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,12 +87,12 @@ int	execute_command(t_gen *data, t_tree *ast, int pipe)
 				exit(1);
 			}
 			else
-				return (execve(cmd, cmd_table, env));
+				execve(cmd, cmd_table, env);
 		}
-		// if (ast->fd_in != 0)
-		// 	close(ast->fd_in);
-		// if (ast->fd_out != 1)
-		// 	close(ast->fd_out);
+		close_pipes(data->ast);
+		clean_data(data);
+		clean_envx(data);
+		ft_free(data->prompt);
 		exit(1);
 	}
 	else
