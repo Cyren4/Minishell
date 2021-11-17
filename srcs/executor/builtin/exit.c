@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:22:37 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/17 18:56:37 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/17 19:46:08 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	is_long(char *nb, int i)
 	h_num = exit_atoi(tmp);
 	tmp[i + 11] = '0';
 	free(tmp);
-	if	(h_num == 92233720368)
+	if (h_num == 92233720368)
 	{
 		tmp = ft_substr(nb, 11 + i, 10);
 		h_num = exit_atoi(tmp);
@@ -71,7 +71,6 @@ int	exit_isnumber(char	*nb)
 	int		ret;
 	int		i;
 
-
 	i = 0;
 	tmp = ft_strtrim(nb, " ");
 	if (tmp[0] == '-' || tmp[0] == '+')
@@ -87,11 +86,20 @@ int	exit_isnumber(char	*nb)
 	return (ret);
 }
 
-void	clean_exit(t_gen *data)
+void	norm_exit(int is_num, t_lexer *cmd)
 {
-	clean_lex(data->lex);
-	clean_data(data);
-	delete_data(data);
+	if (!is_num)
+	{
+		print_error("exit: ", cmd->content, ": numeric argument required\n");
+		get_exit_stat(255);
+	}
+	else if (cmd->next != NULL)
+	{
+		print_error("exit: too many arguments\n", NULL, NULL);
+		get_exit_stat(1);
+	}
+	else
+		get_exit_stat(exit_atoi(cmd->content) % 256);
 }
 
 int	ft_exit(t_gen *data, t_lexer *cmd)
@@ -109,23 +117,10 @@ int	ft_exit(t_gen *data, t_lexer *cmd)
 			print_error("exit: too many arguments\n", NULL, NULL);
 			return (get_exit_stat(1));
 		}
-		else if (!is_num)
-		{
-			print_error("exit: ", cmd->content, ": numeric argument required\n");
-			get_exit_stat(255);
-		}
-		else if (cmd->next != NULL)
-		{
-			print_error("exit: too many arguments\n", NULL, NULL);
-			get_exit_stat(1);
-		}
 		else
-			get_exit_stat(exit_atoi(cmd->content) % 256);
+			norm_exit(is_num, cmd);
 	}
 	if (get_pid(-1) != 0)
 		clean_exit(data);
 	exit(get_exit_stat(-1));
 }
-	// printf("%d\n", data->exit_stat);
-	// clean_data(data);
-	// delete_data(data);

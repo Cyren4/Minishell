@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:01:34 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/17 19:29:38 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/17 19:33:49 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	display_prompt(t_gen *data)
 	if (!data->parser.std_in)
 	{
 		printf("\b\b  \b\bexit\n");
-		delete_data(data);// revoir sinon double free
+		delete_data(data);
 		exit(get_exit_stat(-1));
 	}
 	if (ft_strcmp(data->parser.std_in, "") != 0)

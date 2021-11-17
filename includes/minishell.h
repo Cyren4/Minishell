@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 15:30:08 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/17 19:14:06 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/17 19:46:40 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,6 @@ int close_pipes(t_tree *ast);
 /*		#builtin#	*/
 
 /*		cd.c	*/
-t_env	*create_env(char *name, char *content);
 int		ft_cd(t_gen *data, t_lexer *dir);
 
 /*		echo.c		*/
@@ -244,8 +243,10 @@ void	clean_tree(t_tree *ast);
 void	ft_free(void *ptr);
 void	clean_data(t_gen *data);
 void	delete_data(t_gen *data);
+void	clean_exit(t_gen *data);
 
 /*		env_utils.c	*/
+t_env	*create_env(char *name, char *content);
 char	*get_var_exist(t_gen *gen, char *var);
 char	*get_env_var(t_gen *gen, char *var);
 char	**env_to_child(t_env *env);

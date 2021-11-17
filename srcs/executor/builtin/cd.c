@@ -6,24 +6,11 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:20:22 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/14 18:38:39 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/17 19:39:52 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
-
-t_env	*create_env(char *name, char *content)
-{
-	t_env	*new;
-
-	new = (t_env *)malloc(sizeof(t_env));
-	if (!new)
-		return (NULL);
-	new->name = ft_strdup(name);
-	new->content = ft_strdup(content);
-	new->next = NULL;
-	return (new);
-}
 
 void	maj_env(t_gen *data, char *name, char *content)
 {
