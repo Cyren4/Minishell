@@ -1,5 +1,7 @@
 FILES = minishell.c \
 		display/display_prompt.c \
+		display/splitter.c \
+		display/splitter_utils.c \
 		error/error.c \
 		executor/builtin/echo.c \
 		executor/builtin/export.c \

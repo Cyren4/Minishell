@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 15:30:08 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/17 18:51:13 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/17 19:14:06 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,13 @@ int		minishell_loop(t_gen *data);
 /*			#display#		*/
 /*		display_prompt.c		*/
 void	display_prompt(t_gen *data);
+
+/*		splitter.c		*/
+void	splitter(t_gen *data);
+
+/*		splitter_utils.c		*/
+int		skip_to_next_quote(t_gen *data, int i);
+int		is_in_quotes(char *str, int i);
 
 /*===============================================================*/
 /*			#error#		*/

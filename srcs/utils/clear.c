@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:51:50 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/17 18:50:56 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/17 19:30:16 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,3 @@ void	delete_data(t_gen *data)
 		clean_tree(data->ast);
 	clear_history();
 }
-
-	// if (data->paths)
-		// free_tab(data->paths);
