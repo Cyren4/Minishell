@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 19:36:29 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/17 16:46:07 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/17 21:13:34 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	nb_word(char *cmd)
 		while (cmd && cmd[i])
 		{
 			if ((cmd[i] == '"' && inside != SIMPLE_Q)
-			|| (cmd[i] == '\'' && inside != DOUBLE_Q))
+				|| (cmd[i] == '\'' && inside != DOUBLE_Q))
 				quote_interpretation(cmd[i], &inside);
 			if (cmd[i] == ' ' && inside == NO_Q)
 				break ;
@@ -38,6 +38,7 @@ int	nb_word(char *cmd)
 	}
 	return (count);
 }
+
 // sub_word = start, len, num mot
 char	**split_w(char *cmd)
 {
@@ -59,7 +60,7 @@ char	**split_w(char *cmd)
 		while (cmd && cmd[i + sub_word[1]])
 		{
 			if ((cmd[i + sub_word[1]] == '"' && inside != SIMPLE_Q)
-			|| (cmd[i + sub_word[1]] == '\'' && inside != DOUBLE_Q))
+				|| (cmd[i + sub_word[1]] == '\'' && inside != DOUBLE_Q))
 				quote_interpretation(cmd[i + sub_word[1]], &inside);
 			if (cmd[i + sub_word[1]] == ' ' && inside == NO_Q)
 				break ;
@@ -71,7 +72,7 @@ char	**split_w(char *cmd)
 		while (cmd && cmd[i] == ' ')
 			i++;
 	}
-	ret[sub_word[2]] = NULL; 
+	ret[sub_word[2]] = NULL;
 	free(cmd);
 	return (ret);
 }

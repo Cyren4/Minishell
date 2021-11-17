@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 19:26:49 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/17 18:51:47 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/17 21:09:46 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,11 @@
 //(soit $? ou au moins lettre/_)
 int	valid_e(char *content, int index)
 {
-	// return (ft_isalnum(content[index + 1]) + change realsize && insert_var
 	return (ft_isalpha(content[index + 1])
-			|| content[index + 1] == '_'
-			|| content[index + 1] == '?');
+		|| content[index + 1] == '_'
+		|| content[index + 1] == '?');
 }
 
-	// if (in == DOUBLE_Q || ft_strncmp(elm->content + el_i, "$?", 2) == 0)
-	// else
-	// i += ins_v_nq(r_cont + i, elm->content, &el_i, data);
 void	complexe_elem(t_lexer *elm, t_gen *data)
 {
 	char	*r_cont;
@@ -64,7 +60,7 @@ void	complexe_elem(t_lexer *elm, t_gen *data)
 int	is_tild_exp(t_lexer *elem, t_gen *data)
 {
 	char	*r_val;
-	
+
 	if (!elem || !elem->content)
 		return (0);
 	r_val = NULL;
@@ -83,7 +79,6 @@ int	is_tild_exp(t_lexer *elem, t_gen *data)
 		else if (ft_strcmp(elem->content, "~-") == 0
 			&& get_var_exist(data, "OLDPWD") != NULL)
 			r_val = ft_strdup(get_env_var(data, "OLDPWD"));
-
 	}
 	if (r_val == NULL)
 		return (0);

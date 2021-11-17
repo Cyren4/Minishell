@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 19:14:50 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/17 20:15:10 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/17 21:08:39 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	insert_var(char *dst, char *src, int *src_i, t_gen *data)
 	i = 0;
 	if (ft_strncmp(src + *src_i, "$?", 2) == 0)
 	{
-		// var_len = len_int(data->exit_stat);
 		status = ft_itoa(get_exit_stat(-1));
 		var_len = ft_strlen(status);
 		ft_memcpy(dst, status, var_len);
