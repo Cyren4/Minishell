@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/17 20:17:50 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/17 20:43:44 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	init_data(t_gen *data)
 	data->ast = NULL;
 	data->str_err = NULL;
 	data->pids = NULL;
-	get_pid(0);
 }
 
 int	no_pipe(t_lexer *lex)
@@ -51,12 +50,6 @@ void	get_status(t_gen *data)
 		data->exit_stat = WEXITSTATUS(data->exit_stat);
 		get_exit_stat(data->exit_stat);
 	}
-	// if (WIFSIGNALED(data->exit_stat))
-	// {
-	// 	data->exit_stat = WTERMSIG(data->exit_stat);
-	// 	if (data->exit_stat != 131)
-	// 		data->exit_stat += 128;
-	// }
 }
 
 int	minishell_loop(t_gen *data)

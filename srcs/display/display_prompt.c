@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:01:34 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/17 20:12:33 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/17 20:46:53 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	clean_display(t_gen *data)
 
 void	display_prompt(t_gen *data)
 {
+	get_pid(1);
 	data->parser.std_in = readline(data->prompt);
 	if (!data->parser.std_in)
 	{
