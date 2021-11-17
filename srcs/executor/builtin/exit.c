@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:22:37 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/14 20:57:16 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/17 18:47:09 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,30 +91,33 @@ int	ft_exit(t_gen *data, t_lexer *cmd)
 {
 	int	is_num;
 
-	if (get_pid(-1) != 0)
-		printf("exit\n");
+	(void)data;
 	if (cmd)
 	{
 		is_num = exit_isnumber(cmd->content);
 		if (is_num && cmd->next != NULL)
 		{
 			print_error("exit: too many arguments\n", NULL, NULL);
-			return (1);
+			return (get_exit_stat(1));
 		}
 		else if (!is_num)
 		{
 			print_error("exit: ", cmd->content, ": numeric argument required\n");
-			data->exit_stat = 255;
+			get_exit_stat(255);
 		}
 		else if (cmd->next != NULL)
 		{
 			print_error("exit: too many arguments\n", NULL, NULL);
-			data->exit_stat = 1;
+			get_exit_stat(1);
 		}
 		else
-			data->exit_stat = exit_atoi(cmd->content) % 256;
+			get_exit_stat(exit_atoi(cmd->content) % 256);
 	}
-	exit(data->exit_stat);
+	if (get_pid(-1) != 0)
+		printf("exit\n");
+	// if (get_pid(-1) != 0)
+		// delete_data(data);
+	exit(get_exit_stat(-1));
 }
 	// printf("%d\n", data->exit_stat);
 	// clean_data(data);

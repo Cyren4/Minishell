@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:09:35 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/16 15:26:20 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/17 18:31:55 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	error(t_gen *data, int e)
 {
 	if (data->status == -1)
 		return ;
-	data->exit_stat = 1;
+	get_exit_stat(1);
 	if (e == QUOTES_UNCLOSED)
 		print_error("Error\n- Quotes unclosed -\n", NULL, NULL);
 	if (e == BAD_MALLOC)
@@ -49,7 +49,7 @@ void	error(t_gen *data, int e)
 	if (e == -1)
 	{
 		ft_putstr_fd(data->str_err, data->std_out);
-		data->exit_stat = 127;
+		get_exit_stat(127);
 	}
 	data->status = -1;
 }

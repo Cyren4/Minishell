@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 07:33:17 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/14 21:56:49 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/17 18:06:51 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	get_pid(int pid)
 	return (cur_pid);
 }
 
-int	get_stat(int stat)
+int	get_exit_stat(int stat)
 {
 	static int	cur_stat = 0;
 

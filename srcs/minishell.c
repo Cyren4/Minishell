@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/16 15:35:06 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/17 18:09:28 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,17 +45,15 @@ int	no_pipe(t_lexer *lex)
 void	get_status(t_gen *data)
 {
 	if (WEXITSTATUS(data->exit_stat))
-		data->exit_stat = WEXITSTATUS(data->exit_stat);
-	if (WIFSIGNALED(data->exit_stat))
-	{
-		data->exit_stat = WTERMSIG(data->exit_stat);
-		if (data->exit_stat != 131)
-			data->exit_stat += 128;
-	}
+		get_exit_stat(WEXITSTATUS(data->exit_stat));
+	// if (WIFSIGNALED(data->exit_stat))
+	// {
+	// 	data->exit_stat = WTERMSIG(data->exit_stat);
+	// 	if (data->exit_stat != 131)
+	// 		data->exit_stat += 128;
+	// }
 }
-		// if (ft_strcmp(data->lex->content, "exit") == 0 && no_pipe(data->lex))
-		// 	if (ft_exit(data, data->lex->next)== 1)
-		// 		continue
+
 int	minishell_loop(t_gen *data)
 {
 	int	total_cmds;
@@ -73,7 +71,6 @@ int	minishell_loop(t_gen *data)
 			clean_data(data);
 			continue ;
 		}
-		// display_token(data->lex);
 		// data->status = 0;
 		// data->lex = lexer(data->av, data);
 		// /*
@@ -103,7 +100,7 @@ int	minishell_loop(t_gen *data)
 		clean_data(data);
 		// */
 	}
-	return (data->exit_stat);
+	return (get_exit_stat(-1));
 }
 // int return_value = WEXITSTATUS(data->exit_stat);
 // printf("return value: %d\n", return_value);
@@ -114,11 +111,12 @@ int	main(int ac, char **av, char **env)
 	t_gen	data;
 	int		ret;
 
-	(void)av;
-	(void)ac;
 	ret = 0;
-	// if (ac != 1)
-	// 	return (-1);
+	if (ac != 1)
+	{
+		printf("Error\nUsage: %s\n", av[0]);
+		return (1);
+	}
 	init_data(&data);
 	stock_env_vars(&data, env);
 	get_data(&data);

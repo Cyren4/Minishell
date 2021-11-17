@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 15:30:08 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/17 15:18:27 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/17 18:08:03 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,6 +245,7 @@ char	**env_to_child(t_env *env);
 /*		getter.c	*/
 t_gen	*get_data(t_gen *data);
 int		get_pid(int pid);
+int		get_exit_stat(int stat);
 
 /*		print_tree.c		*/
 void	structure(t_tree *root, int level );

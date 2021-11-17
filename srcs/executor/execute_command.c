@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 14:23:32 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/17 16:29:45 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/17 18:47:43 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,11 @@ int	execute_command(t_gen *data, t_tree *ast, int pipe)
 		if (!manage_redirs(ast))
 			return (0);
 	if (ast->cmd->is_builtin == 1 && pipe == 0)
-	{
-		data->exit_stat = exec_builtin(data, ast->cmd, ast);
-		return (data->exit_stat);
-	}
+		return (get_exit_stat(exec_builtin(data, ast->cmd, ast)));
 	if (!data->paths && !ast->cmd->is_builtin)
 	{
 		print_error("minishell: ", ast->cmd->content, ": No such file or directory\n");
-		return (1);
+		return (get_exit_stat(127));
 	}
 	pid = fork();
 	data->pids[data->tracker] = pid;
@@ -74,7 +71,7 @@ int	execute_command(t_gen *data, t_tree *ast, int pipe)
 		// fprintf((FILE *)2, "child process command: %s - ast->fd_out\n: %d", ast->cmd->content, fcntl(ast->fd_out, F_GETFD));
 		// fprintf((FILE *)2, "child process command: %s - ast->fd_in: %d\n", ast->cmd->content, fcntl(ast->fd_out, F_GETFD));
 		if (ast->cmd->is_builtin == 1 && pipe == 1)
-			data->exit_stat = exec_builtin(data, ast->cmd, ast);
+			get_exit_stat(exec_builtin(data, ast->cmd, ast));
 		else if (!ast->cmd->is_builtin)
 		{
 			env = env_to_child(data->env);
@@ -84,7 +81,7 @@ int	execute_command(t_gen *data, t_tree *ast, int pipe)
 			if (!cmd)
 			{
 				print_error("minishell: ", ast->cmd->content, ": command not found\n");
-				exit(1);
+				exit(get_exit_stat(127));
 			}
 			else
 				return (execve(cmd, cmd_table, env));
@@ -93,7 +90,7 @@ int	execute_command(t_gen *data, t_tree *ast, int pipe)
 		// 	close(ast->fd_in);
 		// if (ast->fd_out != 1)
 		// 	close(ast->fd_out);
-		exit(1);
+		exit(3);
 	}
 	else
 	{
@@ -103,13 +100,13 @@ int	execute_command(t_gen *data, t_tree *ast, int pipe)
 			close(ast->fd_in);
 		if (ast->fd_out != 1)
 			close(ast->fd_out);
-		// printf("main process command: %s - ast->fd_out: %d\n", ast->cmd->content, fcntl(ast->fd_out, F_GETFD));
-		// printf("main process command: %s - ast->fd_in: %d\n", ast->cmd->content, fcntl(ast->fd_out, F_GETFD));
 		signal(SIGQUIT, SIG_IGN);
 		signal(SIGSEGV, SIG_IGN);
 	}
-	return (data->exit_stat);
+	return (get_exit_stat(-1));
 }
+		// printf("main process command: %s - ast->fd_out: %d\n", ast->cmd->content, fcntl(ast->fd_out, F_GETFD));
+		// printf("main process command: %s - ast->fd_in: %d\n", ast->cmd->content, fcntl(ast->fd_out, F_GETFD));
 		// waitpid(pid, &status, WUNTRACED | WCONTINUED);
 		// if (WIFSIGNALED(status) == 1)
 		// {
