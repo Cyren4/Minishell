@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cramdani <cramdani@stuclean_lexnt.42.fr>          +#+  +:+       +#+        */
+/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/12 15:19:44 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/16 15:35:06 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ int	minishell_loop(t_gen *data)
 					get_status(data);
 					// print_error(data->exit_stat);
 				}
+				close_pipes(data->ast);
 			}
 		}
 		clean_data(data);
