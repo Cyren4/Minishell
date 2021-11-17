@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:20:22 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/17 19:39:52 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/17 20:20:20 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,11 @@ int	ft_cd(t_gen *data, t_lexer *dir)
 		ret = cd_home(data);
 	else if (dir != NULL && ft_strcmp(dir->content, "-") == 0)
 		ret = cd_oldpwd(data);
-	else
-		if (chdir(dir->content) == -1)
-			print_error("cd: ", dir->content, ": No such file or directory\n");
+	else if (chdir(dir->content) == -1)
+	{
+		print_error("cd: ", dir->content, ": No such file or directory\n");
+		return (EXIT_FAILURE);
+	}
 	if (ret == EXIT_SUCCESS)
 		maj_pwd(data);
 	return (ret);

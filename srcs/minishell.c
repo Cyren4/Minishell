@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/17 19:31:27 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/17 20:17:50 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,10 @@ int	no_pipe(t_lexer *lex)
 void	get_status(t_gen *data)
 {
 	if (WEXITSTATUS(data->exit_stat))
-		get_exit_stat(WEXITSTATUS(data->exit_stat));
+	{
+		data->exit_stat = WEXITSTATUS(data->exit_stat);
+		get_exit_stat(data->exit_stat);
+	}
 	// if (WIFSIGNALED(data->exit_stat))
 	// {
 	// 	data->exit_stat = WTERMSIG(data->exit_stat);

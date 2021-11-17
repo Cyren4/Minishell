@@ -6,11 +6,19 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:01:34 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/17 19:33:49 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/17 20:12:33 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void	clean_display(t_gen *data)
+{
+	ft_free(data->home);
+	// ft_free(data->prompt);
+	// clean_env(data);
+	clear_history();
+}
 
 void	display_prompt(t_gen *data)
 {
@@ -18,7 +26,7 @@ void	display_prompt(t_gen *data)
 	if (!data->parser.std_in)
 	{
 		printf("\b\b  \b\bexit\n");
-		delete_data(data);
+		clean_display(data);
 		exit(get_exit_stat(-1));
 	}
 	if (ft_strcmp(data->parser.std_in, "") != 0)
