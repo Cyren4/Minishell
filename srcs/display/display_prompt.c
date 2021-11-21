@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:01:34 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/17 20:46:53 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/21 20:04:38 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	display_prompt(t_gen *data)
 		data->status = 1;
 		ft_free(data->parser.std_in);
 		free_tab(data->parser.parsed);
-		exit(get_exit_stat(1));
+		get_exit_stat(1);
 		display_prompt(data);
 	}
 }
