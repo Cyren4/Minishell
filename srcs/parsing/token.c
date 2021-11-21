@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 19:26:49 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/17 21:09:46 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/21 20:13:18 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	is_tild_exp(t_lexer *elem, t_gen *data)
 		else if (elem->content[1] == '/')
 		{
 			r_val = ft_substr(elem->content, 1, ft_strlen(elem->content) - 1);
-			r_val = ft_strjoin(data->home, r_val);
+			r_val = ft_strjoin(ft_strdup(data->home), r_val);
 		}
 		else if (ft_strcmp(elem->content, "~+") == 0
 			&& get_var_exist(data, "PWD") != NULL)

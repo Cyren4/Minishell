@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:51:50 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/17 20:10:37 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/21 20:24:34 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,9 @@ void	delete_data(t_gen *data)
 
 void	clean_exit(t_gen *data)
 {
-	// clean_lex(data->lex);
 	clean_data(data);
-	delete_data(data);
+	ft_free(data->home);
+	ft_free(data->prompt);
+	clean_envx(data);
+	clear_history();
 }

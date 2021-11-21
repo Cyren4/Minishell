@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 18:45:42 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/17 19:30:28 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/21 20:38:02 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,20 @@
 
 void	create_paths(t_gen *data)
 {
-	t_env	*tmp;
+	// t_env	*tmp;
+	char	*tmp;
 
 	data->paths = NULL;
-	tmp = data->env;
-	while (tmp != NULL)
-	{
-		if (ft_strcmp(tmp->name, "PATH") == 0)
-			break ;
-		tmp = tmp->next;
-	}
+	tmp = get_var_exist(data, "PATH");
+	// tmp = data->env;
+	// while (tmp != NULL)
+	// {
+	// 	if (ft_strcmp(tmp->name, "PATH") == 0)
+	// 		break ;
+	// 	tmp = tmp->next;
+	// }
 	if (tmp)
-		data->paths = ft_split(tmp->content, ':');
+		data->paths = ft_split(ft_strdup(tmp), ':');
 }
 
 void	add_elem(t_gen *data, char *var_path)
