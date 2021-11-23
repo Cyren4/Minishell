@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 15:30:08 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/23 16:07:15 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/23 17:42:11 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,7 +191,8 @@ char	*join_sep(char *s1, char *s2, char sep);
 int		ft_echo(t_lexer *lex, t_tree *ast);
 
 /*		env.c	*/
-int		ft_env(t_gen *data, char *pref, t_tree *ast);
+int		ft_env(t_gen *data, t_tree *ast);
+int		env_export(t_gen *data, t_tree *ast);
 
 /*		exit.c	*/
 int		ft_exit(t_gen *data, t_lexer *cmd);
