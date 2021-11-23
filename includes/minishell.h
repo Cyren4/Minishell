@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 15:30:08 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/23 18:19:55 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/23 18:28:57 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,8 +169,8 @@ char	*is_excve(char *command, t_gen *data);
 int		valid_redir(char *cmd, t_gen *data);
 
 /*		redirections.c		*/
-int		manage_lt2(t_lexer *redirs, t_tree *ast);
-int		store_data(char *start, char *end, t_tree *ast, int quote);
+int		manage_lt2(t_lexer *redirs, t_tree *ast, t_gen *data);
+int		store_data(char *start, char *end, t_tree *ast, int quote, t_gen *data);
 int		manage_redirs(t_tree *ast, t_gen *data);
 
 /*		signal.c	*/

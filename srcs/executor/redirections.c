@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 10:49:43 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/23 18:20:23 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/23 18:43:22 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*end_sin_quote(char *end)
 	return (tmp);
 }
 
-int	manage_lt2(t_lexer *redirs, t_tree *ast)
+int	manage_lt2(t_lexer *redirs, t_tree *ast, t_gen *data)
 {
 	t_lexer	*head;
 	int		redir_count;
@@ -65,7 +65,7 @@ int	manage_lt2(t_lexer *redirs, t_tree *ast)
 			redir_count--;
 		head = head->next;
 	}
-	fd_in = store_data(start, strdup_sin_quote(end), ast, check_quotes(end));
+	fd_in = store_data(start, strdup_sin_quote(end), ast, check_quotes(end), data);
 	return (fd_in);
 }
 
@@ -149,7 +149,7 @@ char	*expand_heredoc(char *std_in)
 	return (expanded);
 }
 
-int	store_data(char *start, char *end, t_tree *ast, int quote)
+int	store_data(char *start, char *end, t_tree *ast, int quote, t_gen *data)
 {
 	int		fd[2];
 	char	*std_in;
@@ -193,6 +193,7 @@ int	store_data(char *start, char *end, t_tree *ast, int quote)
 			ft_free(std_in);
 		}
 		close(fd[1]);
+		clean_child(data);
 		exit(1);
 	}
 	else
@@ -277,7 +278,7 @@ int	manage_redirs(t_tree *ast, t_gen *data)
 		}
 		if (head->token == LT2 && !flag_lt2)
 		{
-			manage_lt2(head, ast);
+			manage_lt2(head, ast, data);
 			flag_lt2 = 1;
 		}
 		head = head->next;
