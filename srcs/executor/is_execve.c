@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_execve.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 10:18:09 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/30 14:37:49 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/23 17:15:53 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ char	*is_excve(char *command, t_gen *data)
 	int			i;
 	char		*cmd_path;
 	struct stat	*state;
+	char *tmp;
 
 	if (!data->paths)
 		return (NULL);
@@ -26,10 +27,16 @@ char	*is_excve(char *command, t_gen *data)
 	if (!state)
 		return (NULL);
 	if (lstat(command, state) == 0)
+	{
+		free(state);
 		return (command);
+	}
 	while (data->paths[i])
 	{
-		cmd_path = ft_strjoin(ft_strjoin(data->paths[i], "/"), command);
+		
+		tmp = ft_strjoin(data->paths[i], "/");
+		cmd_path = ft_strjoin(tmp, command);
+		free(tmp);
 		if (lstat(cmd_path, state) == 0)
 			break ;
 		i++;
@@ -39,5 +46,6 @@ char	*is_excve(char *command, t_gen *data)
 			cmd_path = NULL;
 		}
 	}
+	free(state);
 	return (cmd_path);
 }

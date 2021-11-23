@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 15:30:08 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/23 15:17:08 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/23 17:17:01 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,8 @@ typedef struct s_gen
 	int		std_err;
 	char	*str_err;
 	char	**av;
+	char **cmd_table;
+	char *cmd;
 }	t_gen;
 
 //a supprimer
@@ -270,6 +272,7 @@ void	clean_parser(t_pars *pars);
 void	clean_tree(t_tree *ast);
 void	ft_free(void *ptr);
 void	clean_data(t_gen *data);
+void	clean_child(t_gen *data);
 void	delete_data(t_gen *data);
 void	clean_exit(t_gen *data);
 

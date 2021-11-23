@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/23 14:50:33 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/23 16:00:12 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	init_data(t_gen *data)
 	data->ast = NULL;
 	data->str_err = NULL;
 	data->pids = NULL;
+	data->cmd_table = NULL;
+	data->cmd = NULL;
 }
 
 int	no_pipe(t_lexer *lex)

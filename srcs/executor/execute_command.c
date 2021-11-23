@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 14:23:32 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/23 15:32:57 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/23 17:56:11 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	**create_command(t_lexer *cmd)
 	len = 0;
 	while (head)
 	{
-		cmd_table[len] = head->content;
+		cmd_table[len] = ft_strdup(head->content);
 		len++;
 		head = head->next;
 	}
@@ -43,8 +43,6 @@ char	**create_command(t_lexer *cmd)
 int	execute_command(t_gen *data, t_tree *ast, int pipe)
 {
 	int		pid;
-	char	**cmd_table;
-	char	*cmd;
 	char	**env;
 
 	if (ast->redir)
@@ -53,10 +51,19 @@ int	execute_command(t_gen *data, t_tree *ast, int pipe)
 	if (!ast->cmd)
 		return (1);
 	if (ast->cmd->is_builtin == 1 && pipe == 0)
-		data->exit_stat = exec_builtin(data, ast->cmd, ast);
+		return(data->exit_stat = exec_builtin(data, ast->cmd, ast));
 	if (!data->paths && !ast->cmd->is_builtin)
 	{
 		print_error("minishell: ", ast->cmd->content, ": No such file or directory\n");
+		return (get_exit_stat(127));
+	}
+	data->cmd_table = create_command(ast->cmd);
+	data->cmd = is_excve(data->cmd_table[0], data);
+	if (ast->cmd->is_builtin == 0 &&  data->cmd == NULL)
+	{
+		display_array(data->cmd_table);
+		free_tab(data->cmd_table);
+		print_error("minishell: ", ast->cmd->content, ": command not found\n");
 		return (get_exit_stat(127));
 	}
 	pid = fork();
@@ -66,7 +73,6 @@ int	execute_command(t_gen *data, t_tree *ast, int pipe)
 		return (0);
 	else if (pid == 0)
 	{
-		cmd = NULL;
 		signal(SIGQUIT, SIG_DFL);
 		get_pid(0);
 		dup2(ast->fd_in, STDIN_FILENO);
@@ -77,18 +83,11 @@ int	execute_command(t_gen *data, t_tree *ast, int pipe)
 		else if (!ast->cmd->is_builtin)
 		{
 			env = env_to_child(data->env);
-			cmd_table = create_command(ast->cmd);
-			cmd = is_excve(cmd_table[0], data);
-			if (!cmd)
-				print_error("minishell: ", ast->cmd->content, ": command not found\n");
-			else
-				execve(cmd, cmd_table, env);
+			execve(data->cmd, data->cmd_table, env);
 		}
-		close_pipes(data->ast);
-		clean_data(data);
-		clean_envx(data);
+		clean_child(data);
 		ft_free(data->prompt);
-		if (!cmd)
+		if (!data->cmd)
 			exit(get_exit_stat(127));
 		exit(1);
 	}
@@ -100,6 +99,8 @@ int	execute_command(t_gen *data, t_tree *ast, int pipe)
 			close(ast->fd_in);
 		if (ast->fd_out != 1)
 			close(ast->fd_out);
+		free_tab(data->cmd_table);
+		free(data->cmd);
 	}
 	return (get_exit_stat(-1));
 }
