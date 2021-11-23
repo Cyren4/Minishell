@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/23 18:20:40 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/23 19:23:22 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	minishell_loop(t_gen *data)
 	int	i;
 
 	total_cmds = 0;
-	receiveSIG();
+	// receiveSIG();
 	while (data->status != 0)
 	{
 		display_prompt(data);
@@ -111,6 +111,7 @@ int	main(int ac, char **av, char **env)
 	int		ret;
 
 	ret = 0;
+	receiveSIG();
 	if (ac != 1)
 	{
 		printf("Error\nUsage: %s\n", av[0]);
@@ -120,7 +121,6 @@ int	main(int ac, char **av, char **env)
 	stock_env_vars(&data, env);
 	get_data(&data);
 	// data.av = &av[1];
-	receiveSIG();
 	ret = minishell_loop(&data);
 	delete_data(&data);
 	// clean_lexlete_data(&data);
