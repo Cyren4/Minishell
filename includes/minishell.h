@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 15:30:08 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/23 12:46:28 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/23 13:44:43 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,31 @@
 
 # define STDIN 0
 
-enum e_token {PIPE, LT, LT2, GT, GT2, CMD, OPTION, WORD};
-enum e_quote { NO_Q, SIMPLE_Q, DOUBLE_Q};
-enum e_err {QUOTES_UNCLOSED, BAD_MALLOC, BAD_INPUT};
+typedef enum token
+{
+	PIPE,
+	LT,
+	LT2,
+	GT,
+	GT2,
+	CMD,
+	OPTION,
+	WORD
+}	t_token;
+
+typedef enum quote
+{
+	NO_Q,
+	SIMPLE_Q,
+	DOUBLE_Q
+}	t_quote;
+
+typedef enum err
+{
+	QUOTES_UNCLOSED,
+	BAD_MALLOC,
+	BAD_INPUT
+}	t_err;
 
 typedef struct s_lex
 {
@@ -156,7 +178,7 @@ void	sig_int(int sig);
 void	sig_quit(int sig);
 
 /*		close_pipes.c	*/
-int close_pipes(t_tree *ast);
+int		close_pipes(t_tree *ast);
 
 /*----------------------------------------------------------------*/
 /*		#builtin#	*/
@@ -274,6 +296,6 @@ int		len_int(int nb);
 int		occur(char *str, char c, int nbOccur);
 
 /*	initialise_pids.c	*/
-void initialise_pids(t_gen *data, int total);
+void	initialise_pids(t_gen *data, int total);
 
 #endif
