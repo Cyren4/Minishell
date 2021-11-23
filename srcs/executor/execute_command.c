@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 14:23:32 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/17 18:30:20 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/23 10:46:44 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,7 @@ int	execute_command(t_gen *data, t_tree *ast, int pipe)
 		if (!manage_redirs(ast))
 			return (0);
 	if (ast->cmd->is_builtin == 1 && pipe == 0)
-	{
 		data->exit_stat = exec_builtin(data, ast->cmd, ast);
-		return (data->exit_stat);
-	}
 	if (!data->paths && !ast->cmd->is_builtin)
 	{
 		print_error("minishell: ", ast->cmd->content, ": No such file or directory\n");
