@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 15:30:08 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/17 19:46:40 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/23 12:44:27 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,9 @@ int		execute_command(t_gen *data, t_tree *ast, int pipe);
 
 /*		is_execve.c		*/
 char	*is_excve(char *command, t_gen *data);
+
+/*		redirections_utils.c		*/
+int		is_valid_redir(char *cmd, t_gen *data);
 
 /*		redirections.c		*/
 int		manage_lt2(t_lexer *redirs, t_tree *ast);
