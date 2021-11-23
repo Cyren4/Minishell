@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 19:36:29 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/23 15:14:19 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/23 15:59:50 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,14 +107,14 @@ char	*strdup_sin_quote(char *s1)
 	return (str);
 }
 
-t_lexer	*get_words(t_lexer *head)
+t_lexer	*get_words(t_lexer *head, int old_token)
 {
 	char	**tmp;
 	t_lexer	*new;
 	t_lexer	*tmp_new;
 	int		i;
 
-	if (is_empty(head->content) == 1 || head->token != WORD)
+	if (is_empty(head->content) == 1 || head->token != WORD || is_redir(old_token))
 		return (head);
 	i = 1;
 	tmp = split_w(ft_strtrim(head->content, " "));

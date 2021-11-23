@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 15:30:08 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/23 15:17:08 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/23 15:57:31 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ typedef struct s_gen
 	char	*prompt;
 	int		exit_stat;
 	int		status;
-	int		hdoc;
 	int		tracker;
 	pid_t	*pids;
 	t_env	*env;
@@ -224,7 +223,7 @@ int		check_syntax(t_lexer *lex);
 
 /*		parsing_words.c	*/
 char	*strdup_sin_quote(char *s1);
-t_lexer	*get_words(t_lexer *head);
+t_lexer	*get_words(t_lexer *head, int old_token);
 
 /*		token_insert_var.c	*/
 int		var_size(char *src, int *src_i, t_gen *data);

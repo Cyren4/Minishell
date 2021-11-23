@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 10:49:43 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/23 15:21:47 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/23 15:39:40 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	manage_lt2(t_lexer *redirs, t_tree *ast)
 	char	*start;
 	char	*end;
 
+	// printf("la->%s\n", head->next->content);
 	start = NULL;
 	end = NULL;
 	head = redirs;
