@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 18:45:42 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/23 14:24:20 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/23 18:50:12 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,10 @@
 
 void	create_paths(t_gen *data)
 {
-	// t_env	*tmp;
 	char	*tmp;
 
 	data->paths = NULL;
 	tmp = get_var_exist(data, "PATH");
-	// tmp = data->env;
-	// while (tmp != NULL)
-	// {
-	// 	if (ft_strcmp(tmp->name, "PATH") == 0)
-	// 		break ;
-	// 	tmp = tmp->next;
-	// }
 	if (tmp)
 		data->paths = ft_split(tmp, ':');
 }
@@ -81,15 +73,23 @@ void	update_shlvl(t_gen *data)
 
 void	stock_env_vars(t_gen *data, char **env)
 {
-	int	i;
+	int		i;
+	char	cwd[PATH_MAX];
 
 	data->env = NULL;
 	i = 0;
-	while (env[i] != NULL)
+	while (env && env[i] != NULL)
 	{
 		add_elem(data, env[i]);
 		i++;
 	}
 	update_shlvl(data);
+	if (i == 0)
+	{
+		if (getcwd(cwd, PATH_MAX))
+			add_elem(data, ft_strjoin("PWD=", cwd));
+		add_elem(data, "PATH=/bin");
+		add_elem(data, "_=/usr/bin/env");
+	}
 	data->home = ft_strdup(get_env_var(data, "HOME"));
 }
