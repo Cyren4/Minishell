@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:51:50 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/23 17:54:56 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/23 18:16:05 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,8 @@ void clean_child(t_gen *data)
 	free_tab(data->cmd_table);
 	free(data->cmd);
 	clean_envx(data);
+	free(data->home);
+	ft_free(data->prompt);
 }
 
 void	clean_data(t_gen *data)

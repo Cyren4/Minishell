@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 14:23:32 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/23 17:56:11 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/23 18:15:39 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ int	execute_command(t_gen *data, t_tree *ast, int pipe)
 			execve(data->cmd, data->cmd_table, env);
 		}
 		clean_child(data);
-		ft_free(data->prompt);
 		if (!data->cmd)
 			exit(get_exit_stat(127));
 		exit(1);

@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 15:30:08 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/23 17:17:01 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/23 18:13:49 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ int		minishell_loop(t_gen *data);
 /*			#display#		*/
 /*		display_prompt.c		*/
 void	display_prompt(t_gen *data);
+void	clean_display(t_gen *data);
 
 /*		splitter.c		*/
 void	splitter(t_gen *data);
