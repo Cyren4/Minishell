@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 10:49:43 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/16 19:56:07 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/23 15:21:47 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ int	manage_lt2(t_lexer *redirs, t_tree *ast)
 	while (head->next)
 	{
 		if (head->token == LT2 && redir_count == 2)
-				start = head->hdoc_content;
+			start = head->next->content;
 		if (head->token == LT2 && redir_count == 1)
-			end = head->hdoc_content;
+			end = head->next->content;
 		if (head->token == LT2)
 			redir_count--;
 		head = head->next;
