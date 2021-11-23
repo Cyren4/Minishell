@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 19:36:29 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/17 21:13:34 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/23 15:14:19 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,11 +127,12 @@ t_lexer	*get_words(t_lexer *head)
 	{
 		new = malloc(sizeof(t_lexer));
 		new->token = WORD;
-		new->content = ft_strdup(tmp[i]);
+		// new->content = ft_strdup(tmp[i]);
 		new->content = strdup_sin_quote(tmp[i]);
 		new->next = NULL;
 		tmp_new->next = new;
 		tmp_new = tmp_new->next;
+		new = NULL;
 		i++;
 	}
 	free_tab(tmp);

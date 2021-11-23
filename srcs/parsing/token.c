@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 19:26:49 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/23 11:44:52 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/23 15:16:12 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int	valid_e(char *content, int index)
 		|| content[index + 1] == '?');
 }
 
-void	complexe_elem(t_lexer *elm, t_gen *data)
+/*
+void	complexe_elem1(t_lexer *elm, t_gen *data)
 {
 	char	*r_cont;
 	int		el_i;
@@ -55,6 +56,43 @@ void	complexe_elem(t_lexer *elm, t_gen *data)
 	r_cont[i] = '\0';
 	ft_free(elm->content);
 	elm->content = r_cont;
+}
+*/
+
+char	*expand_elem(t_lexer *elm, t_gen *data)
+{
+	char	*r_cont;
+	int		el_i;
+	int		i;
+	int		in;
+
+	i = 0;
+	el_i = 0;
+	in = NO_Q;
+	r_cont = malloc(sizeof(char) * (real_size(elm->content, data) + 1));
+	if (!r_cont)
+		return (NULL);
+	while (elm->content[el_i])
+	{
+		if ((elm->content[el_i] == '"' && in != SIMPLE_Q)
+			|| (elm->content[el_i] == '\'' && in != DOUBLE_Q))
+			quote_interpretation(elm->content[el_i], &in);
+		if (elm->content[el_i] == '$' && in != SIMPLE_Q
+			&& valid_e(elm->content, el_i))
+		{
+			i += insert_var(r_cont + i, elm->content, &el_i, data);
+			continue ;
+		}
+		else
+		{
+			r_cont[i] = elm->content[el_i];
+			i++;
+		}
+		el_i++;
+	}
+	r_cont[i] = '\0';
+	ft_free(elm->content);
+	return (r_cont);
 }
 
 int	is_tild_exp(t_lexer *elem, t_gen *data)
@@ -101,8 +139,9 @@ int	check_type(t_lexer *elem, t_gen *data)
 		elem->token = GT2;
 	else
 	{
-		if (!is_tild_exp(elem, data))
-			complexe_elem(elem, data);
+		if (!is_tild_exp(elem, data) && !is_redir(data->prev_token))
+			elem->content = expand_elem(elem, data);
+			// complexe_elem1(elem, data);
 		elem->token = WORD;
 		if (is_builtin(elem->content))
 		{
@@ -110,6 +149,7 @@ int	check_type(t_lexer *elem, t_gen *data)
 			elem->is_builtin = 1;
 		}
 	}
+	data->prev_token = elem->token;
 	return (1);
 }
 
@@ -151,6 +191,7 @@ t_lexer	*lexer(char **cmd_line, t_gen *data)
 	char	**splited;
 
 	data->hdoc = 0;
+	data->prev_token = -1;
 	data->lex = NULL;
 	i = 0;
 	while (cmd_line[i] != NULL)

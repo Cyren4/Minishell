@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 15:30:08 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/23 13:44:43 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/23 15:17:08 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ typedef struct s_gen
 	char	**paths;
 	char	*home;
 	t_lexer	*lex;
+	int		prev_token;
 	t_pars	parser;
 	t_tree	*ast;
 	int		std_out;
@@ -163,7 +164,7 @@ int		execute_command(t_gen *data, t_tree *ast, int pipe);
 char	*is_excve(char *command, t_gen *data);
 
 /*		redirections_utils.c		*/
-int		is_valid_redir(char *cmd, t_gen *data);
+int		valid_redir(char *cmd, t_gen *data);
 
 /*		redirections.c		*/
 int		manage_lt2(t_lexer *redirs, t_tree *ast);
@@ -234,6 +235,7 @@ int		real_size(char *content, t_gen *data);
 char	**check_sub_words(char *cmd);
 
 /*		token.c		*/
+char	*expand_elem(t_lexer *elm, t_gen *data);
 int		valid_e(char *content, int index);
 t_lexer	*lexer(char **cmd_line, t_gen *data);
 t_lexer	*add_elem_lex(t_lexer *lst_elem, char *cmd, t_gen *data);
