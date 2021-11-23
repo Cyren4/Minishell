@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 19:26:49 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/21 20:13:18 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/23 11:44:52 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,8 @@ t_lexer	*add_elem_lex(t_lexer *lst_elem, char *cmd, t_gen *data)
 	new->is_builtin = 0;
 	new->next = NULL;
 	check_type(new, data);
-	if (new->token == LT2)
+	// if (new->token == LT2)
+	if (is_redir(new->token))
 		data->hdoc = 1;
 	if (lst_elem == NULL)
 		return (get_words(new));
@@ -134,7 +135,7 @@ t_lexer	*add_elem_lex(t_lexer *lst_elem, char *cmd, t_gen *data)
 	tmp = lst_elem;
 	while (tmp->next != NULL)
 		tmp = tmp->next;
-	if (data->hdoc == 1 && new->token != LT2)
+	if (data->hdoc == 1 && !is_redir(new->token))
 	{
 		data->hdoc = 0;
 		tmp->hdoc_content = ft_strdup(cmd);
