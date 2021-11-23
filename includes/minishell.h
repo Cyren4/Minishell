@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 15:30:08 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/23 18:13:49 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/23 18:19:55 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ typedef struct s_gen
 	char	*prompt;
 	int		exit_stat;
 	int		status;
-	int		hdoc;
 	int		tracker;
 	pid_t	*pids;
 	t_env	*env;
@@ -172,7 +171,7 @@ int		valid_redir(char *cmd, t_gen *data);
 /*		redirections.c		*/
 int		manage_lt2(t_lexer *redirs, t_tree *ast);
 int		store_data(char *start, char *end, t_tree *ast, int quote);
-int		manage_redirs(t_tree *ast);
+int		manage_redirs(t_tree *ast, t_gen *data);
 
 /*		signal.c	*/
 void	sig_child(void);
@@ -195,7 +194,8 @@ char	*join_sep(char *s1, char *s2, char sep);
 int		ft_echo(t_lexer *lex, t_tree *ast);
 
 /*		env.c	*/
-int		ft_env(t_gen *data, char *pref, t_tree *ast);
+int		ft_env(t_gen *data, t_tree *ast);
+int		env_export(t_gen *data, t_tree *ast);
 
 /*		exit.c	*/
 int		ft_exit(t_gen *data, t_lexer *cmd);
@@ -227,7 +227,7 @@ int		check_syntax(t_lexer *lex);
 
 /*		parsing_words.c	*/
 char	*strdup_sin_quote(char *s1);
-t_lexer	*get_words(t_lexer *head);
+t_lexer	*get_words(t_lexer *head, int old_token);
 
 /*		token_insert_var.c	*/
 int		var_size(char *src, int *src_i, t_gen *data);

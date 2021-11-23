@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 10:49:43 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/23 18:18:39 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/23 18:20:23 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	manage_lt2(t_lexer *redirs, t_tree *ast)
 	char	*start;
 	char	*end;
 
+	// printf("la->%s\n", head->next->content);
 	start = NULL;
 	end = NULL;
 	head = redirs;
@@ -239,7 +240,17 @@ int	store_data(char *start, char *end, t_tree *ast, int quote)
 // 	return(0);
 // }
 
-int	manage_redirs(t_tree *ast)
+char	*expand_redir(t_gen *data, t_lexer *fd)
+{
+	char	*tmp;
+
+	fd->content = expand_elem(fd, data);
+	tmp = strdup_sin_quote(fd->content);
+	free(fd->content);
+	return (tmp);
+}
+
+int	manage_redirs(t_tree *ast, t_gen *data)
 {
 	t_lexer	*head;
 	int		flag_lt2;
@@ -248,6 +259,8 @@ int	manage_redirs(t_tree *ast)
 	head = ast->redir;
 	while (head->next)
 	{
+		if (is_redir(head->token) && head->token != LT2)
+			head->next->content = expand_redir(data, head->next); 
 		if (head->token == GT)
 			ast->fd_out = open(head->next->content, O_CREAT | O_RDWR, 0666);
 		if (head->token == GT2)

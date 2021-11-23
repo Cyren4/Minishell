@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 19:26:49 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/23 15:16:12 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/23 15:59:23 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,8 @@ int	is_tild_exp(t_lexer *elem, t_gen *data)
 
 int	check_type(t_lexer *elem, t_gen *data)
 {
+	int	ret;
+	
 	if (ft_strcmp(elem->content, "|") == 0)
 		elem->token = PIPE;
 	else if (ft_strcmp(elem->content, "<") == 0)
@@ -141,7 +143,6 @@ int	check_type(t_lexer *elem, t_gen *data)
 	{
 		if (!is_tild_exp(elem, data) && !is_redir(data->prev_token))
 			elem->content = expand_elem(elem, data);
-			// complexe_elem1(elem, data);
 		elem->token = WORD;
 		if (is_builtin(elem->content))
 		{
@@ -149,38 +150,33 @@ int	check_type(t_lexer *elem, t_gen *data)
 			elem->is_builtin = 1;
 		}
 	}
+	ret = data->prev_token;
 	data->prev_token = elem->token;
-	return (1);
+	return (ret);
 }
 
 t_lexer	*add_elem_lex(t_lexer *lst_elem, char *cmd, t_gen *data)
 {
 	t_lexer	*new;
 	t_lexer	*tmp;
+	int		old_token;
 
 	new = malloc(sizeof(t_lexer));
 	if (!new)
 		return (NULL);
+	old_token = -1;
 	new->content = ft_strdup(cmd);
 	new->is_builtin = 0;
 	new->next = NULL;
-	check_type(new, data);
-	// if (new->token == LT2)
-	if (is_redir(new->token))
-		data->hdoc = 1;
+	old_token = check_type(new, data);
 	if (lst_elem == NULL)
-		return (get_words(new));
+		return (get_words(new, old_token));
 	else if (lst_elem == NULL)
 		return (new);
 	tmp = lst_elem;
 	while (tmp->next != NULL)
 		tmp = tmp->next;
-	if (data->hdoc == 1 && !is_redir(new->token))
-	{
-		data->hdoc = 0;
-		tmp->hdoc_content = ft_strdup(cmd);
-	}
-	tmp->next = get_words(new);
+	tmp->next = get_words(new, old_token);
 	return (lst_elem);
 }
 
@@ -190,7 +186,6 @@ t_lexer	*lexer(char **cmd_line, t_gen *data)
 	int		j;
 	char	**splited;
 
-	data->hdoc = 0;
 	data->prev_token = -1;
 	data->lex = NULL;
 	i = 0;
@@ -208,6 +203,7 @@ t_lexer	*lexer(char **cmd_line, t_gen *data)
 			free_tab(splited);
 		i++;
 	}
+	// display_token(data->lex);
 	if (check_syntax(data->lex) != -1)
 	{
 		data->status = -1;
