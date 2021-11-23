@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/23 19:23:22 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/23 23:17:54 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ void	get_status(t_gen *data)
 	}
 }
 
+	// data->status = 0;
+	// data->lex = lexer(data->av, data);
 int	minishell_loop(t_gen *data)
 {
 	int	total_cmds;
@@ -71,9 +73,6 @@ int	minishell_loop(t_gen *data)
 			clean_data(data);
 			continue ;
 		}
-		// data->status = 0;
-		// data->lex = lexer(data->av, data);
-		// /*
 		data->ast = build_tree1(data->lex);
 		if (!data->ast)
 			error(data, BAD_INPUT);
@@ -92,7 +91,6 @@ int	minishell_loop(t_gen *data)
 				{
 					waitpid(data->pids[i], &data->exit_stat, 0);
 					get_status(data);
-					// print_error(data->exit_stat);
 				}
 				close_pipes(data->ast);
 			}
@@ -101,6 +99,7 @@ int	minishell_loop(t_gen *data)
 	}
 	return (get_exit_stat(-1));
 }
+	// print_error(data->exit_stat);
 // int return_value = WEXITSTATUS(data->exit_stat);
 // printf("return value: %d\n", return_value);
 // printf("pids[%d]:%d", i, data->pids[i]);
@@ -120,9 +119,9 @@ int	main(int ac, char **av, char **env)
 	init_data(&data);
 	stock_env_vars(&data, env);
 	get_data(&data);
-	// data.av = &av[1];
 	ret = minishell_loop(&data);
 	delete_data(&data);
-	// clean_lexlete_data(&data);
 	return (ret);
 }
+	// data.av = &av[1];
+	// clean_lexlete_data(&data);

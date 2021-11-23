@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clear.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:51:50 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/23 18:20:35 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/23 23:22:22 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ void	clean_lex(t_lexer *lex)
 	lex = NULL;
 }
 
-void clean_envx(t_gen *data)
+void	clean_envx(t_gen *data)
 {
 	t_env	*cur;
 	t_env	*next;
-	
+
 	if (data->env == NULL)
 		return ;
 	cur = data->env;
@@ -99,7 +99,7 @@ void	clean_tree(t_tree *ast)
 			clean_lex(head->redir);
 	}
 	if (head && head->left)
-		 clean_tree(head->left);
+		clean_tree(head->left);
 	if (head && head->right)
 		clean_tree(head->right);
 	if (head)
@@ -113,7 +113,7 @@ void	ft_free(void *ptr)
 	ptr = NULL;
 }
 
-void clean_child(t_gen *data)
+void	clean_child(t_gen *data)
 {
 	close_pipes(data->ast);
 	clean_data(data);

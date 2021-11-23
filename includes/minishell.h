@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 15:30:08 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/23 18:28:57 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/23 23:13:06 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,8 @@ typedef struct s_gen
 	int		std_err;
 	char	*str_err;
 	char	**av;
-	char **cmd_table;
-	char *cmd;
+	char	**cmd_table;
+	char	*cmd;
 }	t_gen;
 
 //a supprimer
