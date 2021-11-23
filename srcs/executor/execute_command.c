@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 14:23:32 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/23 14:00:03 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/23 16:07:13 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	execute_command(t_gen *data, t_tree *ast, int pipe)
 	char	**env;
 
 	if (ast->redir)
-		if (!manage_redirs(ast))
+		if (!manage_redirs(ast, data))
 			return (0);
 	if (!ast->cmd)
 		return (1);
