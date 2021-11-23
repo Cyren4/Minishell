@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 16:11:48 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/17 21:05:02 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/23 13:59:44 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	sig_int(int sig)
 
 	get_exit_stat(130);
 	printf("\n");
+	rl_replace_line("", 1);
 	rl_on_new_line();
 	rl_redisplay();
 }
@@ -58,7 +59,7 @@ void	sig_child(void)
 	signal(SIGBUS, print_mes);
 	signal(SIGABRT, print_mes);
 	signal(SIGINT, sig_int_child);
-	// signal(SIGQUIT, sig_quit_child);
+	signal(SIGQUIT, SIG_IGN);
 }
 
 void	sig_quit(int sig)

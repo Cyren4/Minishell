@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 18:45:42 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/21 20:38:02 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/23 14:24:20 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	create_paths(t_gen *data)
 	// 	tmp = tmp->next;
 	// }
 	if (tmp)
-		data->paths = ft_split(ft_strdup(tmp), ':');
+		data->paths = ft_split(tmp, ':');
 }
 
 void	add_elem(t_gen *data, char *var_path)

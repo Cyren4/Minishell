@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 15:30:08 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/17 19:46:40 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/23 15:17:08 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,31 @@
 
 # define STDIN 0
 
-enum e_token {PIPE, LT, LT2, GT, GT2, CMD, OPTION, WORD};
-enum e_quote { NO_Q, SIMPLE_Q, DOUBLE_Q};
-enum e_err {QUOTES_UNCLOSED, BAD_MALLOC, BAD_INPUT};
+typedef enum token
+{
+	PIPE,
+	LT,
+	LT2,
+	GT,
+	GT2,
+	CMD,
+	OPTION,
+	WORD
+}	t_token;
+
+typedef enum quote
+{
+	NO_Q,
+	SIMPLE_Q,
+	DOUBLE_Q
+}	t_quote;
+
+typedef enum err
+{
+	QUOTES_UNCLOSED,
+	BAD_MALLOC,
+	BAD_INPUT
+}	t_err;
 
 typedef struct s_lex
 {
@@ -86,6 +108,7 @@ typedef struct s_gen
 	char	**paths;
 	char	*home;
 	t_lexer	*lex;
+	int		prev_token;
 	t_pars	parser;
 	t_tree	*ast;
 	int		std_out;
@@ -140,6 +163,9 @@ int		execute_command(t_gen *data, t_tree *ast, int pipe);
 /*		is_execve.c		*/
 char	*is_excve(char *command, t_gen *data);
 
+/*		redirections_utils.c		*/
+int		valid_redir(char *cmd, t_gen *data);
+
 /*		redirections.c		*/
 int		manage_lt2(t_lexer *redirs, t_tree *ast);
 int		store_data(char *start, char *end, t_tree *ast, int quote);
@@ -153,7 +179,7 @@ void	sig_int(int sig);
 void	sig_quit(int sig);
 
 /*		close_pipes.c	*/
-int close_pipes(t_tree *ast);
+int		close_pipes(t_tree *ast);
 
 /*----------------------------------------------------------------*/
 /*		#builtin#	*/
@@ -193,6 +219,7 @@ void	add_elem(t_gen *data, char *var_path);
 void	stock_env_vars(t_gen *data, char **env);
 
 /*		parsing_syntax.c	*/
+int		is_redir(int token);
 int		check_syntax(t_lexer *lex);
 
 /*		parsing_words.c	*/
@@ -208,6 +235,7 @@ int		real_size(char *content, t_gen *data);
 char	**check_sub_words(char *cmd);
 
 /*		token.c		*/
+char	*expand_elem(t_lexer *elm, t_gen *data);
 int		valid_e(char *content, int index);
 t_lexer	*lexer(char **cmd_line, t_gen *data);
 t_lexer	*add_elem_lex(t_lexer *lst_elem, char *cmd, t_gen *data);
@@ -270,6 +298,6 @@ int		len_int(int nb);
 int		occur(char *str, char c, int nbOccur);
 
 /*	initialise_pids.c	*/
-void initialise_pids(t_gen *data, int total);
+void	initialise_pids(t_gen *data, int total);
 
 #endif
