@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 15:30:08 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/17 17:49:25 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/17 19:46:40 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,13 @@ int		minishell_loop(t_gen *data);
 /*		display_prompt.c		*/
 void	display_prompt(t_gen *data);
 
+/*		splitter.c		*/
+void	splitter(t_gen *data);
+
+/*		splitter_utils.c		*/
+int		skip_to_next_quote(t_gen *data, int i);
+int		is_in_quotes(char *str, int i);
+
 /*===============================================================*/
 /*			#error#		*/
 /*		error.c		*/
@@ -152,7 +159,6 @@ int close_pipes(t_tree *ast);
 /*		#builtin#	*/
 
 /*		cd.c	*/
-t_env	*create_env(char *name, char *content);
 int		ft_cd(t_gen *data, t_lexer *dir);
 
 /*		echo.c		*/
@@ -237,8 +243,10 @@ void	clean_tree(t_tree *ast);
 void	ft_free(void *ptr);
 void	clean_data(t_gen *data);
 void	delete_data(t_gen *data);
+void	clean_exit(t_gen *data);
 
 /*		env_utils.c	*/
+t_env	*create_env(char *name, char *content);
 char	*get_var_exist(t_gen *gen, char *var);
 char	*get_env_var(t_gen *gen, char *var);
 char	**env_to_child(t_env *env);
@@ -246,6 +254,7 @@ char	**env_to_child(t_env *env);
 /*		getter.c	*/
 t_gen	*get_data(t_gen *data);
 int		get_pid(int pid);
+int		get_exit_stat(int stat);
 
 /*		print_tree.c		*/
 void	structure(t_tree *root, int level );

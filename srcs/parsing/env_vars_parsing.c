@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_vars_parsing.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 18:45:42 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/17 16:18:51 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/21 20:38:02 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,26 @@
 
 void	create_paths(t_gen *data)
 {
-	t_env	*tmp;
+	// t_env	*tmp;
+	char	*tmp;
 
 	data->paths = NULL;
-	tmp = data->env;
-	while (tmp != NULL)
-	{
-		if (ft_strcmp(tmp->name, "PATH") == 0)
-			break ;
-		tmp = tmp->next;
-	}
+	tmp = get_var_exist(data, "PATH");
+	// tmp = data->env;
+	// while (tmp != NULL)
+	// {
+	// 	if (ft_strcmp(tmp->name, "PATH") == 0)
+	// 		break ;
+	// 	tmp = tmp->next;
+	// }
 	if (tmp)
-		data->paths = ft_split(tmp->content, ':');
+		data->paths = ft_split(ft_strdup(tmp), ':');
 }
 
 void	add_elem(t_gen *data, char *var_path)
 {
 	t_env	*new;
-	t_env	*head;
+	t_env	*tmp;
 	int		eq_pos;
 
 	new = (t_env *)malloc(sizeof(t_env));
@@ -40,17 +42,16 @@ void	add_elem(t_gen *data, char *var_path)
 	eq_pos = occur(var_path, '=', 1);
 	new->name = ft_substr(var_path, 0, eq_pos);
 	new->content = ft_substr(var_path, eq_pos + 1,
-			ft_strlen(var_path) - eq_pos - 1);
+			ft_strlen(var_path) - eq_pos);
 	new->next = NULL;
 	if (!data->env)
 		data->env = new;
 	else
 	{
-		head = data->env;
-		while (data->env->next)
-			data->env = data->env->next;
-		data->env->next = new;
-		data->env = head;
+		tmp = data->env;
+		while (tmp->next != NULL)
+			tmp = tmp->next;
+		tmp->next = new;
 	}
 }
 
@@ -59,6 +60,11 @@ void	update_shlvl(t_gen *data)
 	t_env	*tmp;
 	int		cur_shlvl;
 
+	if (get_var_exist(data, "SHLVL") == NULL)
+	{
+		add_elem(data, "SHLVL=1");
+		return ;
+	}
 	tmp = data->env;
 	while (tmp)
 	{
@@ -85,5 +91,5 @@ void	stock_env_vars(t_gen *data, char **env)
 		i++;
 	}
 	update_shlvl(data);
-	data->home = get_env_var(data, "HOME");
+	data->home = ft_strdup(get_env_var(data, "HOME"));
 }

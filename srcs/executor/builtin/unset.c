@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:22:11 by cramdani          #+#    #+#             */
-/*   Updated: 2021/10/30 16:46:44 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/17 19:55:11 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,15 @@ int	unvalid_env(char *env)
 	return (0);
 }
 
+void	unset_ps1(char *var, t_gen *data)
+{
+	if (ft_strcmp("PS1", var) == 0)
+	{
+		free(data->prompt);
+		data->prompt = ft_strdup("");
+	}
+}
+
 void	delete_env(t_gen *data, char *var)
 {
 	t_env	*tmp;
@@ -52,11 +61,7 @@ void	delete_env(t_gen *data, char *var)
 			tmp2 = tmp->next->next;
 			free_env(tmp->next);
 			tmp->next = tmp2;
-			if (ft_strcmp("PS1", var) == 0)
-			{
-				free(data->prompt);
-				data->prompt = ft_strdup("");
-			}
+			unset_ps1(var, data);
 			return ;
 		}
 		tmp = tmp->next;
@@ -74,7 +79,7 @@ int	ft_unset(t_gen *data, t_lexer *cmd)
 	{
 		if (unvalid_env(cmd->content))
 		{
-			printf("unset: `%s': not a valid identifier\n", cmd->content);
+			print_error("unset: `", cmd->content, "': not a valid identifier\n");
 			ret = EXIT_FAILURE;
 		}
 		else

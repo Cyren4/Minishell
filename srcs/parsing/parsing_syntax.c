@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 19:39:40 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/08 19:39:50 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/17 21:15:47 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*get_token(int token)
 		return (">");
 	else if (token == GT)
 		return (">>");
-	return ("");
+	return ("newline");
 }
 
 int	check_syntax(t_lexer *lex)
@@ -44,11 +44,13 @@ int	check_syntax(t_lexer *lex)
 	while (tmp && ret == -1)
 	{
 		if (tmp->token == PIPE && (tmp->next == NULL
-			|| tmp->next->token == PIPE))
+				|| tmp->next->token == PIPE))
 			ret = PIPE;
 		else if (is_redir(tmp->token) && tmp->next != NULL
-				&& is_redir(tmp->next->token))
+			&& is_redir(tmp->next->token))
 			ret = tmp->token;
+		else if (is_redir(tmp->token) && tmp->next == NULL)
+			ret = 8;
 		tmp = tmp->next;
 	}
 	if (ret != -1)

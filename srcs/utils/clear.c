@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clear.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:51:50 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/17 17:48:10 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/21 20:24:34 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,10 @@ void clean_envx(t_gen *data)
 	cur = data->env;
 	while (cur != NULL)
 	{
-		if (cur->name != NULL)
-			ft_free(cur->name);
-		if (cur->content != NULL)
-			ft_free(cur->content);
+		ft_free(cur->name);
+		ft_free(cur->content);
 		next = cur->next;
-		if (cur)
-			ft_free(cur);
+		ft_free(cur);
 		cur = next;
 	}
 }
@@ -111,21 +108,22 @@ void	clean_tree(t_tree *ast)
 
 void	ft_free(void *ptr)
 {
-	free(ptr);
+	if (ptr != NULL)
+		free(ptr);
 	ptr = NULL;
 }
 
 void	clean_data(t_gen *data)
 {
 	clean_tree(data->ast);
+	if (data->paths != NULL)
+		free_tab(data->paths);
 	data->ast = NULL;
 	data->lex = NULL;
 	data->hdoc = 0;
 	free(data->parser.std_in);
 	free_tab(data->parser.parsed);
 	data->parser.parsed = NULL;
-	if (data->paths != NULL)
-		free_tab(data->paths);
 	data->ast = NULL;
 	data->str_err = NULL;
 	data->status = 1;
@@ -134,13 +132,20 @@ void	clean_data(t_gen *data)
 
 void	delete_data(t_gen *data)
 {
+	ft_free(data->home);
+	ft_free(data->prompt);
 	data->lex = NULL;
 	clean_env(data);
-	if (data->prompt != NULL)
-		ft_free(data->prompt);
-	// if (data->paths != NULL)
-		// free_tab(data->paths);
 	if (data->ast != NULL)
 		clean_tree(data->ast);
+	clear_history();
+}
+
+void	clean_exit(t_gen *data)
+{
+	clean_data(data);
+	ft_free(data->home);
+	ft_free(data->prompt);
+	clean_envx(data);
 	clear_history();
 }

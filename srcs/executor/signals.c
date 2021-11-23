@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 16:11:48 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/14 22:12:27 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/17 21:05:02 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,33 @@ void	print_mes(int sig)
 		printf("Bus error (core dumped)\n");
 	else if (sig == SIGABRT)
 		printf("Aborted (core dumped)\n");
+	get_exit_stat(128 + sig);
+}
+
+void	sig_int_child(int sig)
+{
+	get_exit_stat(128 + sig);
+	printf("\n");
+}
+
+void	sig_quit_child(int sig)
+{
+	get_exit_stat(128 + sig);
+	if (get_pid(-1) == 0)
+	{
+		kill(get_pid(-1), SIGKILL);
+		printf("Quit (core dumped)\n");
+	}
+}
+
+void	sig_int(int sig)
+{
+	(void)sig;
+
+	get_exit_stat(130);
+	printf("\n");
+	rl_on_new_line();
+	rl_redisplay();
 }
 
 void	sig_child(void)
@@ -30,15 +57,8 @@ void	sig_child(void)
 	signal(SIGSEGV, print_mes);
 	signal(SIGBUS, print_mes);
 	signal(SIGABRT, print_mes);
-}
-
-void	sig_int(int sig)
-{
-	(void)sig;
-
-	printf("\n");
-	rl_on_new_line();
-	rl_redisplay();
+	signal(SIGINT, sig_int_child);
+	// signal(SIGQUIT, sig_quit_child);
 }
 
 void	sig_quit(int sig)
@@ -49,7 +69,6 @@ void	sig_quit(int sig)
 
 void	receiveSIG(void)
 {
-	
 	signal(SIGINT, sig_int);
 	signal(SIGQUIT, SIG_IGN);
 }

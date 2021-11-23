@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/17 18:30:29 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/17 20:43:44 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,19 @@
 
 void	init_data(t_gen *data)
 {
-	data->env = NULL;
-	data->hdoc = 0;
-	data->lex = NULL;
+	data->prompt = ft_strdup("minishell $ ");
 	data->parser.std_in = NULL;
 	data->parser.parsed = NULL;
+	data->env = NULL;
+	data->lex = NULL;
+	data->hdoc = 0;
 	data->status = 1;
 	data->exit_stat = 0;
+	data->home = NULL;
+	data->paths = NULL;
 	data->ast = NULL;
-	data->prompt = ft_strdup("minishell $ ");
 	data->str_err = NULL;
 	data->pids = NULL;
-	get_pid(0);
 }
 
 int	no_pipe(t_lexer *lex)
@@ -45,17 +46,12 @@ int	no_pipe(t_lexer *lex)
 void	get_status(t_gen *data)
 {
 	if (WEXITSTATUS(data->exit_stat))
-		data->exit_stat = WEXITSTATUS(data->exit_stat);
-	if (WIFSIGNALED(data->exit_stat))
 	{
-		data->exit_stat = WTERMSIG(data->exit_stat);
-		if (data->exit_stat != 131)
-			data->exit_stat += 128;
+		data->exit_stat = WEXITSTATUS(data->exit_stat);
+		get_exit_stat(data->exit_stat);
 	}
 }
-		// if (ft_strcmp(data->lex->content, "exit") == 0 && no_pipe(data->lex))
-		// 	if (ft_exit(data, data->lex->next)== 1)
-		// 		continue
+
 int	minishell_loop(t_gen *data)
 {
 	int	total_cmds;
@@ -65,16 +61,14 @@ int	minishell_loop(t_gen *data)
 	receiveSIG();
 	while (data->status != 0)
 	{
-		create_paths(data);
-		get_pid(0);
 		display_prompt(data);
+		create_paths(data);
 		data->lex = lexer(data->parser.parsed, data);
 		if (data->status == -1)
 		{
 			clean_data(data);
 			continue ;
 		}
-		// display_token(data->lex);
 		// data->status = 0;
 		// data->lex = lexer(data->av, data);
 		// /*
@@ -103,26 +97,27 @@ int	minishell_loop(t_gen *data)
 		}
 		clean_data(data);
 	}
-	return (data->exit_stat);
+	return (get_exit_stat(-1));
 }
-					// int return_value = WEXITSTATUS(data->exit_stat);
-					// printf("return value: %d\n", return_value);
-					// printf("pids[%d]:%d", i, data->pids[i]);
+// int return_value = WEXITSTATUS(data->exit_stat);
+// printf("return value: %d\n", return_value);
+// printf("pids[%d]:%d", i, data->pids[i]);
 
 int	main(int ac, char **av, char **env)
 {
 	t_gen	data;
 	int		ret;
 
-	(void)av;
-	(void)ac;
 	ret = 0;
-	// if (ac != 1)
-	// 	return (-1);
+	if (ac != 1)
+	{
+		printf("Error\nUsage: %s\n", av[0]);
+		return (1);
+	}
 	init_data(&data);
 	stock_env_vars(&data, env);
 	get_data(&data);
-	data.av = &av[1];
+	// data.av = &av[1];
 	receiveSIG();
 	ret = minishell_loop(&data);
 	delete_data(&data);

@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:22:11 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/15 08:10:03 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/21 20:54:05 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ int	unvalid_exp(char *env, int *concat)
 		return (1);
 	while (env && env[i])
 	{
-		if (i < eq_pos - *concat && !ft_isalnum(env[i]) && env[i] != '_' && env[i] != '=')
+		if ((i == 0 && !(ft_isalpha(env[i]) || env[i] == '_')) || (i < eq_pos -
+			*concat && !ft_isalnum(env[i]) && env[i] != '_' && env[i] != '='))
 			return (1);
 		i++;
 	}
@@ -104,7 +105,7 @@ int	ft_export(t_gen *data, t_lexer *cmd, t_tree *ast)
 		concat = 0;
 		if (unvalid_exp(cmd->content, &concat))
 		{
-			print_error("export: `", cmd->content,"': not a valid identifier\n");
+			print_error("export: `", cmd->content, "': not a valid identifier\n");
 			ret = EXIT_FAILURE;
 		}
 		else

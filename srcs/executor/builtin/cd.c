@@ -6,24 +6,11 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:20:22 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/14 18:38:39 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/17 20:20:20 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
-
-t_env	*create_env(char *name, char *content)
-{
-	t_env	*new;
-
-	new = (t_env *)malloc(sizeof(t_env));
-	if (!new)
-		return (NULL);
-	new->name = ft_strdup(name);
-	new->content = ft_strdup(content);
-	new->next = NULL;
-	return (new);
-}
 
 void	maj_env(t_gen *data, char *name, char *content)
 {
@@ -96,9 +83,11 @@ int	ft_cd(t_gen *data, t_lexer *dir)
 		ret = cd_home(data);
 	else if (dir != NULL && ft_strcmp(dir->content, "-") == 0)
 		ret = cd_oldpwd(data);
-	else
-		if (chdir(dir->content) == -1)
-			print_error("cd: ", dir->content, ": No such file or directory\n");
+	else if (chdir(dir->content) == -1)
+	{
+		print_error("cd: ", dir->content, ": No such file or directory\n");
+		return (EXIT_FAILURE);
+	}
 	if (ret == EXIT_SUCCESS)
 		maj_pwd(data);
 	return (ret);

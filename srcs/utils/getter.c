@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 07:33:17 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/14 21:56:49 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/17 21:16:25 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ t_gen	*get_data(t_gen *data)
 
 int	get_pid(int pid)
 {
-	static int	cur_pid = 0;
+	static int	cur_pid = 1;
 
 	if (pid != -1)
 		cur_pid = pid;
 	return (cur_pid);
 }
 
-int	get_stat(int stat)
+int	get_exit_stat(int stat)
 {
 	static int	cur_stat = 0;
 
