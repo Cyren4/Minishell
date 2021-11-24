@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 16:05:01 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/17 16:02:15 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/24 16:27:11 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	add_redir(t_tree *leaf, t_lexer *lexer)
 	t_lexer	*new;
 	t_lexer	*head;
 
-	// new = (t_lexer *)malloc(sizeof(t_lexer));
 	new = lexer;
 	if (new->next)
 		new->next->next = NULL;
@@ -37,7 +36,6 @@ void	add_cmd(t_tree *leaf, t_lexer *lexer)
 	t_lexer	*new;
 	t_lexer	*head;
 
-	// new = (t_lexer *)malloc(sizeof(t_lexer));
 	new = lexer;
 	if (new->next)
 		new->next = NULL;
@@ -52,16 +50,8 @@ void	add_cmd(t_tree *leaf, t_lexer *lexer)
 	}
 }
 
-t_tree	*build_leaf(t_lexer *lexer)
+void	init_leaf(t_tree *leaf)
 {
-	t_tree	*leaf;
-	t_lexer	*head;
-	t_lexer *tmp;
-
-	leaf = malloc(sizeof(t_tree));
-	if (!leaf || !lexer)
-		return (NULL);
-	// create_double_list(lexer);
 	leaf->type = CMD;
 	leaf->cmd = NULL;
 	leaf->redir = NULL;
@@ -69,6 +59,18 @@ t_tree	*build_leaf(t_lexer *lexer)
 	leaf->fd_out = STDOUT_FILENO;
 	leaf->left = NULL;
 	leaf->right = NULL;
+}
+
+t_tree	*build_leaf(t_lexer *lexer)
+{
+	t_tree	*leaf;
+	t_lexer	*head;
+	t_lexer	*tmp;
+
+	leaf = malloc(sizeof(t_tree));
+	if (!leaf || !lexer)
+		return (NULL);
+	init_leaf(leaf);
 	head = lexer;
 	while (head)
 	{
@@ -84,7 +86,6 @@ t_tree	*build_leaf(t_lexer *lexer)
 			add_cmd(leaf, head);
 			head = tmp;
 		}
-		
 	}
 	return (leaf);
 }
