@@ -23,6 +23,7 @@ FILES = minishell.c \
 		parsing/parsing_words_utils.c \
 		parsing/parsing_words.c \
 		parsing/token_insert_var.c \
+		parsing/token_norm.c \
 		parsing/token_split.c \
 		parsing/token.c \
 		parsing/ast_monitor/ast_builder.c \

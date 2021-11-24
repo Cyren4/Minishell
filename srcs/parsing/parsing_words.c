@@ -6,39 +6,39 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 19:36:29 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/24 16:05:22 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/24 16:09:14 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	nb_word(char *cmd)
-{
-	int	inside;
-	int	i;
-	int	count;
+// int	nb_word(char *cmd)
+// {
+// 	int	inside;
+// 	int	i;
+// 	int	count;
 
-	i = 0;
-	count = 0;
-	inside = NO_Q;
-	while (cmd && cmd[i])
-	{
-		while (cmd && cmd[i])
-		{
-			if (need_interpret_quote(cmd[i], inside))
-				quote_interpretation(cmd[i], &inside);
-			// if ((cmd[i] == '"' && inside != SIMPLE_Q)
-				// || (cmd[i] == '\'' && inside != DOUBLE_Q))
-			if (cmd[i] == ' ' && inside == NO_Q)
-				break ;
-			i++;
-		}
-		count++;
-		while (cmd && cmd[i] && cmd[i] == ' ')
-			i++;
-	}
-	return (count);
-}
+// 	i = 0;
+// 	count = 0;
+// 	inside = NO_Q;
+// 	while (cmd && cmd[i])
+// 	{
+// 		while (cmd && cmd[i])
+// 		{
+// 			if (need_interpret_quote(cmd[i], inside))
+// 				quote_interpretation(cmd[i], &inside);
+// 			// if ((cmd[i] == '"' && inside != SIMPLE_Q)
+// 				// || (cmd[i] == '\'' && inside != DOUBLE_Q))
+// 			if (cmd[i] == ' ' && inside == NO_Q)
+// 				break ;
+// 			i++;
+// 		}
+// 		count++;
+// 		while (cmd && cmd[i] && cmd[i] == ' ')
+// 			i++;
+// 	}
+// 	return (count);
+// }
 
 int	norm_splitw(char *cmd, int *inside)
 {
