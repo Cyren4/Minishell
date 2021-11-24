@@ -6,12 +6,17 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 19:36:29 by cramdani          #+#    #+#             */
+<<<<<<< Updated upstream
 /*   Updated: 2021/11/23 23:59:15 by cramdani         ###   ########.fr       */
+=======
+/*   Updated: 2021/11/24 15:56:26 by cramdani         ###   ########.fr       */
+>>>>>>> Stashed changes
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+<<<<<<< Updated upstream
 int	nb_word(char *cmd)
 {
 	int	inside;
@@ -40,6 +45,8 @@ int	nb_word(char *cmd)
 	return (count);
 }
 
+=======
+>>>>>>> Stashed changes
 int	norm_splitw(char *cmd, int *inside)
 {
 	int	len;

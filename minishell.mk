@@ -20,6 +20,7 @@ FILES = minishell.c \
 		executor/close_pipes.c \
 		parsing/env_vars_parsing.c \
 		parsing/parsing_syntax.c \
+		parsing/parsing_words_utils.c \
 		parsing/parsing_words.c \
 		parsing/token_insert_var.c \
 		parsing/token_split.c \

@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 15:30:08 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/23 23:13:06 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/24 15:56:12 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,6 +224,8 @@ void	stock_env_vars(t_gen *data, char **env);
 /*		parsing_syntax.c	*/
 int		is_redir(int token);
 int		check_syntax(t_lexer *lex);
+
+/*		parsing_words_utils.c	*/
 
 /*		parsing_words.c	*/
 char	*strdup_sin_quote(char *s1);
