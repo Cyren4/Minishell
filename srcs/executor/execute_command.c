@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 14:23:32 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/24 12:16:24 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/24 15:31:15 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,9 +106,9 @@ int	execute_command(t_gen *data, t_tree *ast, int pipe)
 		signal(SIGQUIT, SIG_IGN);
 		sig_child();
 		get_pid(pid);
-		if (ast->fd_in != 0)
+		if (ast->fd_in != 0 && ast->fd_in != -1)
 			close(ast->fd_in);
-		if (ast->fd_out != 1)
+		if (ast->fd_out != 1 && ast->fd_out != -1)
 			close(ast->fd_out);
 		free_tab(data->cmd_table);
 		free(data->cmd);

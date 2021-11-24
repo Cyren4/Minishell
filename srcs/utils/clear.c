@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clear.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:51:50 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/23 23:22:22 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/24 14:44:16 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,15 @@ void	clean_child(t_gen *data)
 	clean_data(data);
 	free_tab(data->cmd_table);
 	free(data->cmd);
+	clean_envx(data);
+	free(data->home);
+	ft_free(data->prompt);
+}
+
+void	clean_redir(t_gen *data)
+{
+	close_pipes(data->ast);
+	clean_data(data);
 	clean_envx(data);
 	free(data->home);
 	ft_free(data->prompt);

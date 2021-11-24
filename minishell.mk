@@ -16,6 +16,8 @@ FILES = minishell.c \
 		executor/execute_command.c \
 		executor/is_execve.c \
 		executor/redirections.c \
+		executor/redirections2.c \
+		executor/redirections3.c \
 		executor/signals.c \
 		executor/close_pipes.c \
 		parsing/env_vars_parsing.c \
