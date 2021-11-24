@@ -4,6 +4,7 @@ FILES = minishell.c \
 		display/splitter_utils.c \
 		error/error.c \
 		executor/builtin/echo.c \
+		executor/builtin/export_norm.c \
 		executor/builtin/export.c \
 		executor/builtin/unset.c \
 		executor/builtin/env.c \

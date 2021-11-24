@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 15:30:08 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/24 22:06:27 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/24 23:12:59 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,10 +223,14 @@ int		ft_env(t_gen *data, t_tree *ast);
 int		env_export(t_gen *data, t_tree *ast);
 
 /*		exit_norm.c	*/
-int	is_sign(char c);
+int		is_sign(char c);
 
 /*		exit.c	*/
 int		ft_exit(t_gen *data, t_lexer *cmd);
+
+/*		export_norm.c	*/
+t_env	*create_env_exp(t_gen *data, char *cmd, int eq_pos, int cat);
+void	special_case(t_gen *data, t_env *new);
 
 /*		export.c	*/
 int		ft_export(t_gen *data, t_lexer *cmd, t_tree *ast);
