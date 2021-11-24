@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/24 16:45:23 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/24 16:58:57 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	execution(t_gen *data)
 			while (++i < total_cmds)
 			{
 				waitpid(data->pids[i], &data->exit_stat, 0);
-				get_status(data);
+				get_status(data->exit_stat, i + 1 == total_cmds);
 			}
 			close_pipes(data->ast);
 		}

@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 14:23:32 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/24 15:31:15 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/24 17:03:01 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,10 @@ void	exec_child(t_gen *data, t_tree *ast, int pipe)
 	get_pid(0);
 	dup2(ast->fd_in, STDIN_FILENO);
 	dup2(ast->fd_out, STDOUT_FILENO);
-	close_pipes(data->ast);
 	if (ast->cmd->is_builtin == 1 && pipe == 1)
 		get_exit_stat(exec_builtin(data, ast->cmd, ast));
-	else if (!ast->cmd->is_builtin)
+	close_pipes(data->ast);
+	if (!ast->cmd->is_builtin)
 	{
 		env = env_to_child(data->env);
 		execve(data->cmd, data->cmd_table, env);
