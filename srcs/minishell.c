@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/24 22:06:33 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/24 23:06:33 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,9 @@ void	execution(t_gen *data)
 			initialise_pids(data, total_cmds);
 			if (!execute_ast(data, data->ast, 0))
 				error(data, -1);
+			// si ca sort dans no_pipe_exec 
+			// on ne doit pas rentrer dans la boucle sinon exit_stat faux
+			// <=> a avoir un builtin seulement ou ne pas fork
 			i = -1;
 			while (++i < total_cmds)
 			{
