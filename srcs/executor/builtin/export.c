@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:22:11 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/24 22:10:23 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/24 22:46:57 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int	unvalid_exp(char *env, int *concat)
 	int	plus_pos;
 
 	eq_pos = occur(env, '=', 1);
+	if (eq_pos == -1)
+		eq_pos = ft_strlen(env);
 	plus_pos = occur(env, '+', 1);
 	if (plus_pos != -1 && plus_pos == eq_pos - 1)
 		*concat = 1;
@@ -114,7 +116,7 @@ int	ft_export(t_gen *data, t_lexer *cmd, t_tree *ast)
 	while (cmd != NULL && tmp != NULL)
 	{
 		concat = 0;
-		export_norm(cmd, &concat, &ret);
+		export_norm(tmp, &concat, &ret);
 		if (!unvalid_exp(cmd->content, &concat))
 		{
 			new = NULL;
