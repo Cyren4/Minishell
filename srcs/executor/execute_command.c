@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 14:23:32 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/24 11:50:03 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/24 12:16:24 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	**create_command(t_lexer *cmd)
 	return (cmd_table);
 }
 
-int no_pipe_exec(t_gen *data, t_tree *ast, int pipe)
+int	no_pipe_exec(t_gen *data, t_tree *ast, int pipe)
 {
 	if (ast->redir)
 		if (!manage_redirs(ast, data))
@@ -66,26 +66,26 @@ int no_pipe_exec(t_gen *data, t_tree *ast, int pipe)
 	return (1);
 }
 
-void exec_child(t_gen *data, t_tree *ast, int pipe)
+void	exec_child(t_gen *data, t_tree *ast, int pipe)
 {
-		char **env;
-		
-		signal(SIGQUIT, SIG_DFL);
-		get_pid(0);
-		dup2(ast->fd_in, STDIN_FILENO);
-		dup2(ast->fd_out, STDOUT_FILENO);
-		close_pipes(data->ast);
-		if (ast->cmd->is_builtin == 1 && pipe == 1)
-			get_exit_stat(exec_builtin(data, ast->cmd, ast));
-		else if (!ast->cmd->is_builtin)
-		{
-			env = env_to_child(data->env);
-			execve(data->cmd, data->cmd_table, env);
-		}
-		clean_child(data);
-		if (!data->cmd)
-			exit(get_exit_stat(127));
-		exit(1);
+	char	**env;
+
+	signal(SIGQUIT, SIG_DFL);
+	get_pid(0);
+	dup2(ast->fd_in, STDIN_FILENO);
+	dup2(ast->fd_out, STDOUT_FILENO);
+	close_pipes(data->ast);
+	if (ast->cmd->is_builtin == 1 && pipe == 1)
+		get_exit_stat(exec_builtin(data, ast->cmd, ast));
+	else if (!ast->cmd->is_builtin)
+	{
+		env = env_to_child(data->env);
+		execve(data->cmd, data->cmd_table, env);
+	}
+	clean_child(data);
+	if (!data->cmd)
+		exit(get_exit_stat(127));
+	exit(1);
 }
 
 int	execute_command(t_gen *data, t_tree *ast, int pipe)
