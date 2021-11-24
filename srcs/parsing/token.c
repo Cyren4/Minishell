@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 19:26:49 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/24 16:36:26 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/24 16:40:20 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,17 @@ char	*expand_elem(t_lexer *elm, t_gen *data)
 	return (r_cont);
 }
 
-
+void	check_type_norm(t_lexer *elem, t_gen *data)
+{
+	if (!is_tild_exp(elem, data) && !is_redir(data->prev_token))
+		elem->content = expand_elem(elem, data);
+	elem->token = WORD;
+	if (is_builtin(elem->content))
+	{
+		elem->token = CMD;
+		elem->is_builtin = 1;
+	}
+}
 
 int	check_type(t_lexer *elem, t_gen *data)
 {
@@ -102,16 +112,7 @@ int	check_type(t_lexer *elem, t_gen *data)
 	else if (ft_strcmp(elem->content, ">>") == 0)
 		elem->token = GT2;
 	else
-	{
-		if (!is_tild_exp(elem, data) && !is_redir(data->prev_token))
-			elem->content = expand_elem(elem, data);
-		elem->token = WORD;
-		if (is_builtin(elem->content))
-		{
-			elem->token = CMD;
-			elem->is_builtin = 1;
-		}
-	}
+		check_type_norm(elem, data);
 	ret = data->prev_token;
 	data->prev_token = elem->token;
 	return (ret);
