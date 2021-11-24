@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 10:49:43 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/23 18:43:22 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/24 11:20:03 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	manage_lt2(t_lexer *redirs, t_tree *ast, t_gen *data)
 	int		fd_in;
 	char	*start;
 	char	*end;
+	char *tmp;
 
 	// printf("la->%s\n", head->next->content);
 	start = NULL;
@@ -65,7 +66,9 @@ int	manage_lt2(t_lexer *redirs, t_tree *ast, t_gen *data)
 			redir_count--;
 		head = head->next;
 	}
-	fd_in = store_data(start, strdup_sin_quote(end), ast, check_quotes(end), data);
+	tmp = strdup_sin_quote(end);
+	fd_in = store_data(start, tmp, ast, check_quotes(end), data);
+	free(tmp);
 	return (fd_in);
 }
 
@@ -156,6 +159,7 @@ int	store_data(char *start, char *end, t_tree *ast, int quote, t_gen *data)
 	int		start_flag;
 	pid_t	pid;
 	int		exit_status;
+	char *tmp;
 	// int		quote;
 	
 	// quote = check_quotes(end);
@@ -186,14 +190,20 @@ int	store_data(char *start, char *end, t_tree *ast, int quote, t_gen *data)
 				break ;
 			if (!quote)
 				std_in = expand_heredoc(std_in);
+			tmp = ft_strjoin(std_in, "\n");
 			if (start_flag)
-				write(fd[1], ft_strjoin(std_in, "\n"), ft_strlen(std_in) + 1);
+				write(fd[1], tmp, ft_strlen(std_in) + 1);
 			if (std_in && ft_strncmp(std_in, start, ft_strlen(start)) == 0)
 				start_flag = 1;
 			ft_free(std_in);
+			free(tmp);
 		}
 		close(fd[1]);
 		clean_child(data);
+		if (end)
+			ft_free(end);
+		if (start)
+			ft_free(start);
 		exit(1);
 	}
 	else

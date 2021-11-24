@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/23 23:17:54 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/24 15:37:41 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,16 @@ int	no_pipe(t_lexer *lex)
 	return (1);
 }
 
-void	get_status(t_gen *data)
+void	get_status(int exit_stat, int write)
 {
-	if (WEXITSTATUS(data->exit_stat))
+	if (WIFEXITED(exit_stat)) 
+		get_exit_stat(WEXITSTATUS(exit_stat));
+	if (WIFSIGNALED(exit_stat)) 
 	{
-		data->exit_stat = WEXITSTATUS(data->exit_stat);
-		get_exit_stat(data->exit_stat);
+		get_exit_stat(WTERMSIG(exit_stat) + 128);
+		if (get_exit_stat(-1) == 131 && write)
+			printf("Quit (core dumped)\n");
+
 	}
 }
 
@@ -62,9 +66,9 @@ int	minishell_loop(t_gen *data)
 	int	i;
 
 	total_cmds = 0;
-	// receiveSIG();
 	while (data->status != 0)
 	{
+		receiveSIG();
 		display_prompt(data);
 		create_paths(data);
 		data->lex = lexer(data->parser.parsed, data);
@@ -90,7 +94,7 @@ int	minishell_loop(t_gen *data)
 				while (++i < total_cmds)
 				{
 					waitpid(data->pids[i], &data->exit_stat, 0);
-					get_status(data);
+					get_status(data->exit_stat, i + 1 == total_cmds);
 				}
 				close_pipes(data->ast);
 			}
@@ -110,7 +114,6 @@ int	main(int ac, char **av, char **env)
 	int		ret;
 
 	ret = 0;
-	receiveSIG();
 	if (ac != 1)
 	{
 		printf("Error\nUsage: %s\n", av[0]);

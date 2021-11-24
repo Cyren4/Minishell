@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_command.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 14:23:32 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/23 19:16:50 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/24 11:21:32 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ int	execute_command(t_gen *data, t_tree *ast, int pipe)
 	data->cmd = is_excve(data->cmd_table[0], data);
 	if (ast->cmd->is_builtin == 0 &&  data->cmd == NULL)
 	{
-		display_array(data->cmd_table);
 		free_tab(data->cmd_table);
 		print_error("minishell: ", ast->cmd->content, ": command not found\n");
 		return (get_exit_stat(127));
