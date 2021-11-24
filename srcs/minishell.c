@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/24 16:58:57 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/24 17:12:21 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int	minishell_loop(t_gen *data)
 		data->lex = lexer(data->parser.parsed, data);
 		if (data->status == -1)
 		{
+			clean_lex(data->lex);
 			clean_data(data);
 			continue ;
 		}
