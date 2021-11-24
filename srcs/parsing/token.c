@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 19:26:49 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/23 15:59:23 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/24 15:48:34 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	valid_e(char *content, int index)
 {
 	return (ft_isalpha(content[index + 1])
 		|| content[index + 1] == '_'
+		|| content[index + 1] == '\"'
+		|| content[index + 1] == '\''
 		|| content[index + 1] == '?');
 }
 
