@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 15:30:08 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/24 19:33:18 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/24 21:05:18 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,6 +249,9 @@ void	create_paths(t_gen *data);
 void	add_elem(t_gen *data, char *var_path);
 void	stock_env_vars(t_gen *data, char **env);
 
+/*		expand_elem.c	*/
+char	*expand_elem(t_lexer *elm, t_gen *data);
+
 /*		parsing_syntax.c	*/
 int		is_redir(int token);
 int		check_syntax(t_lexer *lex);
@@ -274,10 +277,9 @@ char	**check_sub_words(char *cmd);
 /*		token_norm.c		*/
 int		valid_e(char *content, int index);
 int		need_interpret_quote(char c, int inside);
+void	quote_interpret(char c, int *in);
 
 /*		token.c		*/
-char	*expand_elem(t_lexer *elm, t_gen *data);
-int		valid_e(char *content, int index);
 t_lexer	*lexer(char **cmd_line, t_gen *data);
 t_lexer	*add_elem_lex(t_lexer *lst_elem, char *cmd, t_gen *data);
 
