@@ -6,20 +6,11 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 19:26:49 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/23 15:59:23 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/24 00:01:34 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-//check si expansion valide 
-//(soit $? ou au moins lettre/_)
-int	valid_e(char *content, int index)
-{
-	return (ft_isalpha(content[index + 1])
-		|| content[index + 1] == '_'
-		|| content[index + 1] == '?');
-}
 
 /*
 void	complexe_elem1(t_lexer *elm, t_gen *data)
@@ -74,8 +65,7 @@ char	*expand_elem(t_lexer *elm, t_gen *data)
 		return (NULL);
 	while (elm->content[el_i])
 	{
-		if ((elm->content[el_i] == '"' && in != SIMPLE_Q)
-			|| (elm->content[el_i] == '\'' && in != DOUBLE_Q))
+		if (need_interpret_quote(elm->content[el_i], in))
 			quote_interpretation(elm->content[el_i], &in);
 		if (elm->content[el_i] == '$' && in != SIMPLE_Q
 			&& valid_e(elm->content, el_i))
