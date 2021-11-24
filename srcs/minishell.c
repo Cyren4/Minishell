@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/24 15:37:41 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/24 16:15:32 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,13 @@ int	no_pipe(t_lexer *lex)
 
 void	get_status(int exit_stat, int write)
 {
-	if (WIFEXITED(exit_stat)) 
+	if (WIFEXITED(exit_stat))
 		get_exit_stat(WEXITSTATUS(exit_stat));
-	if (WIFSIGNALED(exit_stat)) 
+	if (WIFSIGNALED(exit_stat))
 	{
 		get_exit_stat(WTERMSIG(exit_stat) + 128);
 		if (get_exit_stat(-1) == 131 && write)
 			printf("Quit (core dumped)\n");
-
 	}
 }
 

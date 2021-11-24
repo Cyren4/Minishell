@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 15:30:08 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/24 16:08:57 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/24 16:29:53 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,6 +231,9 @@ int		nb_word(char *cmd);
 /*		parsing_words.c	*/
 char	*strdup_sin_quote(char *s1);
 t_lexer	*get_words(t_lexer *head, int old_token);
+
+/*		tild_exp_norm.c	*/
+int		is_tild_exp(t_lexer *elem, t_gen *data);
 
 /*		token_insert_var.c	*/
 int		var_size(char *src, int *src_i, t_gen *data);

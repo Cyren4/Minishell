@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 15:55:13 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/24 15:56:20 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/24 16:14:06 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ int	nb_word(char *cmd)
 	{
 		while (cmd && cmd[i])
 		{
-			if ((cmd[i] == '"' && inside != SIMPLE_Q)
-				|| (cmd[i] == '\'' && inside != DOUBLE_Q))
+			if (need_interpret_quote(cmd[i], inside))
 				quote_interpretation(cmd[i], &inside);
 			if (cmd[i] == ' ' && inside == NO_Q)
 				break ;
