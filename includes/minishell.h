@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 15:30:08 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/24 23:12:59 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/24 23:21:56 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -254,6 +254,7 @@ void	add_elem(t_gen *data, char *var_path);
 void	stock_env_vars(t_gen *data, char **env);
 
 /*		expand_elem.c	*/
+void	expand_norm(char *r_cont, char c, int *i);
 char	*expand_elem(t_lexer *elm, t_gen *data);
 
 /*		parsing_syntax.c	*/
