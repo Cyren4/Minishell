@@ -31,13 +31,12 @@ FILES = minishell.c \
 		parsing/ast_monitor/build_node_ast.c \
 		parsing/ast_monitor/create_pipes.c \
 		utils/clear.c \
+		utils/clear2.c \
 		utils/env_utils.c \
 		utils/getter.c \
-		utils/print_tree.c \
 		utils/token_utils.c \
 		utils/utils_1.c\
-		utils/initialise_pids.c \
-		display_func.c
+		utils/initialise.c \
 
 
 SUB_DIR	=	parsing display error utils executor executor/builtin parsing/ast_monitor
