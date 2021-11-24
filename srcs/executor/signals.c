@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 16:11:48 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/24 14:56:35 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/24 17:57:02 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,6 @@ void	sig_int_child(int sig)
 	rl_replace_line("", 1);
 	rl_on_new_line();
 	printf("\n");
-}
-
-void	sig_quit_child(int sig)
-{
-	get_exit_stat(128 + sig);
-	if (get_pid(-1) == 0)
-	{
-		kill(get_pid(-1), SIGKILL);
-		printf("Quit (core dumped)\n");
-	}
 }
 
 void	sig_int(int sig)

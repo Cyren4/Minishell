@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 15:30:08 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/24 16:45:55 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/24 19:33:18 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,8 @@ typedef struct s_redir
 	char	*std_in;
 	int		start_flag;
 	int		quote;
-	char *tmp;
-} t_redir;
+	char	*tmp;
+}	t_redir;
 
 typedef struct s_gen
 {
@@ -129,7 +129,7 @@ typedef struct s_gen
 	char	**av;
 	char	**cmd_table;
 	char	*cmd;
-	t_redir redirs;
+	t_redir	redirs;
 }	t_gen;
 
 //a supprimer
@@ -184,28 +184,26 @@ int		valid_redir(char *cmd, t_gen *data);
 /*		redirections.c		*/
 char	*end_sin_quote(char *end);
 void	count_redirs(t_gen *data, t_lexer *redirs);
-int	check_quotes(char *end);
+int		check_quotes(char *end);
 
 /*		redirections2.c		*/
 void	send_data(t_gen *data, int *fd, char *start, char *end);
-int	store_data(char *start, char *end, t_tree *ast, t_gen *data);
+int		store_data(char *start, char *end, t_tree *ast, t_gen *data);
 char	*expand_redir(t_gen *data, t_lexer *fd);
-int	manage_lt1(t_lexer *head, t_tree *ast);
-int	manage_redirs(t_tree *ast, t_gen *data);
+int		manage_lt1(t_lexer *head, t_tree *ast);
+int		manage_redirs(t_tree *ast, t_gen *data);
 
 /*		redirections3.c		*/
-int	manage_lt2(t_lexer *redirs, t_tree *ast, t_gen *data);
-int	r_size_herdoc(char *content, t_gen *data);
+int		manage_lt2(t_lexer *redirs, t_tree *ast, t_gen *data);
+int		r_size_herdoc(char *content, t_gen *data);
 char	*expand_heredoc(char *std_in);
 void	sub_send_data(t_gen *data, char *start, char *end, int i);
 void	send_data_bis(t_gen *data, int *fd, char *start);
 
 /*		signal.c	*/
 void	sig_child(void);
-void	handler(int sig, siginfo_t *info, void *context);
 void	receiveSIG(void);
 void	sig_int(int sig);
-void	sig_quit(int sig);
 
 /*		close_pipes.c	*/
 int		close_pipes(t_tree *ast);
@@ -223,6 +221,9 @@ int		ft_echo(t_lexer *lex, t_tree *ast);
 /*		env.c	*/
 int		ft_env(t_gen *data, t_tree *ast);
 int		env_export(t_gen *data, t_tree *ast);
+
+/*		exit_norm.c	*/
+int	is_sign(char c);
 
 /*		exit.c	*/
 int		ft_exit(t_gen *data, t_lexer *cmd);

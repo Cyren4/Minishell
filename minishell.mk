@@ -9,6 +9,7 @@ FILES = minishell.c \
 		executor/builtin/env.c \
 		executor/builtin/cd.c \
 		executor/builtin/pwd.c \
+		executor/builtin/exit_norm.c \
 		executor/builtin/exit.c \
 		executor/builtin_monitor.c \
 		executor/calculate_commands.c \

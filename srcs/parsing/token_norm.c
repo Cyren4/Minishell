@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 00:00:28 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/24 16:10:38 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/24 18:18:19 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,5 @@ int	valid_e(char *content, int index)
 int	need_interpret_quote(char c, int inside)
 {
 	return ((c == '"' && inside != SIMPLE_Q)
-			|| (c == '\'' && inside != DOUBLE_Q));
+		|| (c == '\'' && inside != DOUBLE_Q));
 }

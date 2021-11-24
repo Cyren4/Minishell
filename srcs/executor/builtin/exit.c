@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:22:37 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/17 19:46:08 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/24 19:37:56 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ long long	exit_atoi(char *str)
 	char		*tmp;
 
 	tmp = ft_strtrim(str, " ");
-	i = tmp[0] == '-' || tmp[0] == '+';
+	i = is_sign(tmp[0]);
 	ret = 0;
 	neg = 1;
 	while (str && ft_isspace(tmp[i]))
@@ -91,7 +91,7 @@ void	norm_exit(int is_num, t_lexer *cmd)
 	if (!is_num)
 	{
 		print_error("exit: ", cmd->content, ": numeric argument required\n");
-		get_exit_stat(255);
+		get_exit_stat(2);
 	}
 	else if (cmd->next != NULL)
 	{
