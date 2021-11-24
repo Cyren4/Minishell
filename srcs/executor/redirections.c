@@ -6,15 +6,15 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 10:49:43 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/24 11:20:03 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/24 12:49:27 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int check_quotes(char *end)
+int	check_quotes(char *end)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (end[i])
@@ -42,9 +42,8 @@ int	manage_lt2(t_lexer *redirs, t_tree *ast, t_gen *data)
 	int		fd_in;
 	char	*start;
 	char	*end;
-	char *tmp;
+	char	*tmp;
 
-	// printf("la->%s\n", head->next->content);
 	start = NULL;
 	end = NULL;
 	head = redirs;
@@ -93,33 +92,6 @@ int	r_size_herdoc(char *content, t_gen *data)
 	return (total_size);
 }
 
-/* tests
-bash-5.0$ cat << ok
-> $a
-> ok
-ok
-
-bash-5.0$ cat << ok
-> ok""
-> ok''
-> 'ok'
-> ok
-ok""
-ok''
-'ok'
-
-bash-5.0$ cat << ok
-> '$USER'
-> 
-> ok
-'cramdani'
-
-bash-5.0$ export a="ok        o"
-bash-5.0$ cat << ok
-> $a
-> ok
-ok        o
-*/
 char	*expand_heredoc(char *std_in)
 {
 	char	*expanded;
@@ -159,11 +131,8 @@ int	store_data(char *start, char *end, t_tree *ast, int quote, t_gen *data)
 	int		start_flag;
 	pid_t	pid;
 	int		exit_status;
-	char *tmp;
-	// int		quote;
-	
-	// quote = check_quotes(end);
-	// breaker = 0;
+	char	*tmp;
+
 	std_in = NULL;
 	if (pipe(fd) < 0)
 		return (0);
@@ -181,10 +150,11 @@ int	store_data(char *start, char *end, t_tree *ast, int quote, t_gen *data)
 			std_in = readline("> ");
 			if (std_in == NULL)
 			{
-				print_error("minishell: warning: here-document at line 1 delimited by end-of-file (wanted `", end, "')\n");
+				print_error("minishell: warning: 
+				here-document at line 
+				1 delimited by end-of-file (wanted `", end, "')\n");
 				break;
 			}
-			// breaker++;
 			if ((std_in && ft_strncmp(std_in, end, ft_strlen(end)) == 0
 					&& start_flag == 1) || std_in == NULL)
 				break ;
@@ -209,47 +179,11 @@ int	store_data(char *start, char *end, t_tree *ast, int quote, t_gen *data)
 	else
 	{
 		close(fd[1]);
-		// printf("pid = %d\n", pid);
 		waitpid(pid, &exit_status, 0);
-		// dup2(fd[0], ast->fd_in);
 		ast->fd_in = fd[0];
-		// read(ast->fd_in, buf, 1000);
-		// printf("aast->fd_in:\n%s", buf);
-		// close(ast->fd_in);
-		// close(fd[0]);
 	}
 	return (pid);
 }
-
-// int store_data(char *start, char *end, t_tree *ast)
-// {
-// 	int start_flag;
-// 	int breaker;
-// 	char *std_in;
-// 	int fd_tmp;
-
-// 	fd_tmp = open("/tmp/tmp_heredoc", O_CREAT | O_RDWR, 0666);
-// 	if (fd_tmp == -1)
-// 		return (-1);
-// 	start_flag = 0;
-// 	if (!start)
-// 		start_flag = 1;
-// 	breaker = 0;
-// 	while(1 && breaker < 10)
-// 	{
-// 		std_in = readline("heredoc>");
-// 		breaker++;
-// 		if (std_in && ft_strncmp(std_in, start, ft_strlen(start)) == 0)
-// 			start_flag = 1;
-// 		if (std_in && ft_strncmp(std_in, end, ft_strlen(end)) == 0)
-// 			break;
-// 		if (start_flag)
-// 			write(fd_tmp, ft_strjoin(std_in, "\n"), ft_strlen(std_in) + 1);
-// 		ft_free(std_in);
-// 	}
-// 	ast->fd_in = fd_tmp;
-// 	return(0);
-// }
 
 char	*expand_redir(t_gen *data, t_lexer *fd)
 {
@@ -271,7 +205,7 @@ int	manage_redirs(t_tree *ast, t_gen *data)
 	while (head->next)
 	{
 		if (is_redir(head->token) && head->token != LT2)
-			head->next->content = expand_redir(data, head->next); 
+			head->next->content = expand_redir(data, head->next);
 		if (head->token == GT)
 			ast->fd_out = open(head->next->content, O_CREAT | O_RDWR, 0666);
 		if (head->token == GT2)
