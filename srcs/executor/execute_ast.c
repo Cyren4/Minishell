@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_ast.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 14:09:02 by vbaron            #+#    #+#             */
-/*   Updated: 2021/10/30 16:49:09 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/24 11:31:01 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	execute_ast(t_gen *data, t_tree *ast, int pipe)
 	if (head->type == CMD)
 		execute_command(data, head, pipe);
 	if (head->left)
-		 execute_ast(data, head->left, pipe);
+		execute_ast(data, head->left, pipe);
 	if (head->right)
 		execute_ast(data, head->right, pipe);
 	return (1);
