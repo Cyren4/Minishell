@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 21:00:10 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/24 22:01:38 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/24 22:03:49 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,13 @@ void	expand_norm(char *r_cont, char c, int *i)
 	*i += 1;
 }
 
-int		fuck_condition(char *str, int el_i, int in)
+int	fuck_condition(char *str, int el_i, int in)
 {
 	if (str[el_i] == '$' && in == DOUBLE_Q
 		&& str[el_i + 1] == '\'')
 		return (0);
-	return	(str[el_i] == '$' && in != SIMPLE_Q
-			&& valid_e(str, el_i));
+	return (str[el_i] == '$' && in != SIMPLE_Q
+		&& valid_e(str, el_i));
 }
 
 // if (elm->content[el_i] == '$' && in != SIMPLE_Q
