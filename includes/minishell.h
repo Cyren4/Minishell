@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 15:30:08 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/24 21:05:18 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/24 22:06:27 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,7 +202,7 @@ void	send_data_bis(t_gen *data, int *fd, char *start);
 
 /*		signal.c	*/
 void	sig_child(void);
-void	receiveSIG(void);
+void	receive_sig(void);
 void	sig_int(int sig);
 
 /*		close_pipes.c	*/

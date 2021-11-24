@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 00:20:27 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/23 17:43:46 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/24 22:05:10 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	exec_builtin(t_gen *data, t_lexer *cmd, t_tree *ast)
 
 	ret = 0;
 	if ((ft_strcmp(cmd->content, "pwd") == 0
-		|| ft_strcmp(cmd->content, "env") == 0) && cmd->next != NULL)
+			|| ft_strcmp(cmd->content, "env") == 0) && cmd->next != NULL)
 	{
 		print_error(cmd->content, ": too many arguments\n", NULL);
 		ret = 1;

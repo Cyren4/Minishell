@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/24 17:12:21 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/24 22:06:33 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	minishell_loop(t_gen *data)
 {
 	while (data->status != 0)
 	{
-		receiveSIG();
+		receive_sig();
 		display_prompt(data);
 		create_paths(data);
 		data->lex = lexer(data->parser.parsed, data);

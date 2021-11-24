@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 16:11:48 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/24 17:57:02 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/24 22:06:19 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	sig_int_child(int sig)
 void	sig_int(int sig)
 {
 	(void)sig;
-
 	get_exit_stat(130);
 	printf("\n");
 	rl_replace_line("", 0);
@@ -54,7 +53,7 @@ void	sig_child(void)
 	signal(SIGQUIT, SIG_IGN);
 }
 
-void	receiveSIG(void)
+void	receive_sig(void)
 {
 	signal(SIGINT, sig_int);
 	signal(SIGQUIT, SIG_IGN);
