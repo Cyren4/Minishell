@@ -1,0 +1,13 @@
+includes
+lib
+Makefile
+minishell
+minishell.mk
+objs
+ok
+README.md
+rl_leaks_ignore.txt
+srcs
+test_signal.c
+two
+valgrind-out.txt

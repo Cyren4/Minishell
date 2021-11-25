@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 10:18:09 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/24 12:31:42 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/25 10:43:12 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*is_excve(char *command, t_gen *data)
 	if (lstat(command, state) == 0)
 	{
 		free(state);
-		return (command);
+		return (ft_strdup(command));
 	}
 	cmd_path = check_command(command, data, state);
 	free(state);

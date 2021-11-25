@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 16:28:57 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/24 16:29:14 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/24 17:40:01 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 void	clean_child(t_gen *data)
 {
+	(void)data;
 	close_pipes(data->ast);
 	clean_data(data);
 	free_tab(data->cmd_table);
-	free(data->cmd);
+	ft_free(data->cmd);
 	clean_envx(data);
 	free(data->home);
 	ft_free(data->prompt);
