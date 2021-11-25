@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 14:23:32 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/25 10:49:23 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/25 10:52:38 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,14 @@ char	**create_command(t_lexer *cmd)
 int	no_pipe_exec(t_gen *data, t_tree *ast, int pipe)
 {
 	if (!ast->cmd)
-		return (0);
+		return (get_exit_stat(1));
 	if (ast->cmd->is_builtin == 1 && pipe == 0)
-		return (data->exit_stat = exec_builtin(data, ast->cmd, ast));
+		return (get_exit_stat(exec_builtin(data, ast->cmd, ast)));
 	if (!data->paths && !ast->cmd->is_builtin)
 	{
 		print_error("minishell: ", ast->cmd->content,
 			": No such file or directory\n");
-		return (0);
+		return (get_exit_stat(127));
 	}
 	data->cmd_table = create_command(ast->cmd);
 	data->cmd = is_excve(data->cmd_table[0], data);
@@ -58,9 +58,9 @@ int	no_pipe_exec(t_gen *data, t_tree *ast, int pipe)
 	{
 		free_tab(data->cmd_table);
 		print_error("minishell: ", ast->cmd->content, ": command not found\n");
-		return (0);
+		return (get_exit_stat(127));
 	}
-	return (1);
+	return (-1);
 }
 
 void	exec_child(t_gen *data, t_tree *ast, int pipe)
@@ -92,8 +92,8 @@ int	execute_command(t_gen *data, t_tree *ast, int pipe)
 {
 	int		pid;
 
-	if (!no_pipe_exec(data, ast, pipe))
-		return (get_exit_stat(127));
+	if (no_pipe_exec(data, ast, pipe) != -1)
+		return (get_exit_stat(-1));
 	pid = fork();
 	data->pids[data->tracker] = pid;
 	data->tracker++;

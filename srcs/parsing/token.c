@@ -3,87 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 19:26:49 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/24 17:10:40 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/24 21:00:37 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-/*
-void	complexe_elem1(t_lexer *elm, t_gen *data)
-{
-	char	*r_cont;
-	int		el_i;
-	int		i;
-	int		in;
-
-	i = 0;
-	el_i = 0;
-	in = NO_Q;
-	r_cont = malloc(sizeof(char) * (real_size(elm->content, data) + 1));
-	if (!r_cont)
-		return ;
-	while (elm->content[el_i])
-	{
-		if ((elm->content[el_i] == '"' && in != SIMPLE_Q)
-			|| (elm->content[el_i] == '\'' && in != DOUBLE_Q))
-			quote_interpretation(elm->content[el_i], &in);
-		if (elm->content[el_i] == '$' && in != SIMPLE_Q
-			&& valid_e(elm->content, el_i))
-		{
-			i += insert_var(r_cont + i, elm->content, &el_i, data);
-			continue ;
-		}
-		else
-		{
-			r_cont[i] = elm->content[el_i];
-			i++;
-		}
-		el_i++;
-	}
-	r_cont[i] = '\0';
-	ft_free(elm->content);
-	elm->content = r_cont;
-}
-*/
-
-char	*expand_elem(t_lexer *elm, t_gen *data)
-{
-	char	*r_cont;
-	int		el_i;
-	int		i;
-	int		in;
-
-	i = 0;
-	el_i = 0;
-	in = NO_Q;
-	r_cont = malloc(sizeof(char) * (real_size(elm->content, data) + 1));
-	if (!r_cont)
-		return (NULL);
-	while (elm->content[el_i])
-	{
-		if (need_interpret_quote(elm->content[el_i], in))
-			quote_interpretation(elm->content[el_i], &in);
-		if (elm->content[el_i] == '$' && in != SIMPLE_Q
-			&& valid_e(elm->content, el_i))
-		{
-			i += insert_var(r_cont + i, elm->content, &el_i, data);
-			continue ;
-		}
-		else
-		{
-			r_cont[i] = elm->content[el_i];
-			i++;
-		}
-		el_i++;
-	}
-	r_cont[i] = '\0';
-	ft_free(elm->content);
-	return (r_cont);
-}
 
 void	check_type_norm(t_lexer *elem, t_gen *data)
 {
@@ -143,6 +70,16 @@ t_lexer	*add_elem_lex(t_lexer *lst_elem, char *cmd, t_gen *data)
 	return (lst_elem);
 }
 
+t_lexer	*norm_lexer(t_gen *data)
+{
+	if (check_syntax(data->lex) != -1)
+	{
+		data->status = -1;
+		get_exit_stat(2);
+	}
+	return (data->lex);
+}
+
 t_lexer	*lexer(char **cmd_line, t_gen *data)
 {
 	int		i;
@@ -166,10 +103,5 @@ t_lexer	*lexer(char **cmd_line, t_gen *data)
 			free_tab(splited);
 		i++;
 	}
-	if (check_syntax(data->lex) != -1)
-	{
-		data->status = -1;
-		get_exit_stat(2);
-	}
-	return (data->lex);
+	return (norm_lexer(data));
 }

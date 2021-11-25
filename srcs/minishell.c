@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/11/24 17:42:47 by vbaron           ###   ########.fr       */
+=======
+/*   Updated: 2021/11/24 23:06:33 by cramdani         ###   ########.fr       */
+>>>>>>> c02ea91c045fe3045a1cfd5feaa4ae2f8e7ec2b7
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +60,9 @@ void	execution(t_gen *data)
 			initialise_pids(data, total_cmds);
 			if (!execute_ast(data, data->ast, 0))
 				error(data, -1);
+			// si ca sort dans no_pipe_exec 
+			// on ne doit pas rentrer dans la boucle sinon exit_stat faux
+			// <=> a avoir un builtin seulement ou ne pas fork
 			i = -1;
 			while (++i < total_cmds)
 			{
@@ -71,7 +78,7 @@ int	minishell_loop(t_gen *data)
 {
 	while (data->status != 0)
 	{
-		receiveSIG();
+		receive_sig();
 		display_prompt(data);
 		create_paths(data);
 		data->lex = lexer(data->parser.parsed, data);

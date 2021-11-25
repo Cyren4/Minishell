@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections3.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 15:36:00 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/24 15:42:45 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/24 23:29:28 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,7 @@ char	*expand_heredoc(char *std_in)
 			continue ;
 		}
 		else
-		{
-			expanded[j] = std_in[i];
-			j++;
-		}
+			expand_norm(expanded, std_in[i], &j);
 		i++;
 	}
 	expanded[j] = '\0';

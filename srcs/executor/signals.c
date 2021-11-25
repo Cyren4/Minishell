@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 16:11:48 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/24 14:56:35 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/24 22:06:19 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,9 @@ void	sig_int_child(int sig)
 	printf("\n");
 }
 
-void	sig_quit_child(int sig)
-{
-	get_exit_stat(128 + sig);
-	if (get_pid(-1) == 0)
-	{
-		kill(get_pid(-1), SIGKILL);
-		printf("Quit (core dumped)\n");
-	}
-}
-
 void	sig_int(int sig)
 {
 	(void)sig;
-
 	get_exit_stat(130);
 	printf("\n");
 	rl_replace_line("", 0);
@@ -64,7 +53,7 @@ void	sig_child(void)
 	signal(SIGQUIT, SIG_IGN);
 }
 
-void	receiveSIG(void)
+void	receive_sig(void)
 {
 	signal(SIGINT, sig_int);
 	signal(SIGQUIT, SIG_IGN);

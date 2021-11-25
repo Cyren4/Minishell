@@ -6,11 +6,24 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 19:14:50 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/17 21:08:39 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/24 20:47:23 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int	insert_exit_stat(char *dst, int *src_i)
+{
+	int		var_len;
+	char	*status;
+
+	status = ft_itoa(get_exit_stat(-1));
+	var_len = ft_strlen(status);
+	ft_memcpy(dst, status, var_len);
+	ft_free(status);
+	*src_i += 2;
+	return (var_len);
+}
 
 // insert var
 int	insert_var(char *dst, char *src, int *src_i, t_gen *data)
@@ -18,18 +31,10 @@ int	insert_var(char *dst, char *src, int *src_i, t_gen *data)
 	char	*env_var;
 	int		i;
 	int		var_len;
-	char	*status;
 
 	i = 0;
 	if (ft_strncmp(src + *src_i, "$?", 2) == 0)
-	{
-		status = ft_itoa(get_exit_stat(-1));
-		var_len = ft_strlen(status);
-		ft_memcpy(dst, status, var_len);
-		ft_free(status);
-		*src_i += 2;
-		return (var_len);
-	}
+		return (insert_exit_stat(dst, src_i));
 	env_var = malloc(sizeof(char *) * (ft_strlen(src) - *src_i + 1));
 	if (!env_var)
 		return (-1);

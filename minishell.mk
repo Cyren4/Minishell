@@ -4,11 +4,13 @@ FILES = minishell.c \
 		display/splitter_utils.c \
 		error/error.c \
 		executor/builtin/echo.c \
+		executor/builtin/export_norm.c \
 		executor/builtin/export.c \
 		executor/builtin/unset.c \
 		executor/builtin/env.c \
 		executor/builtin/cd.c \
 		executor/builtin/pwd.c \
+		executor/builtin/exit_norm.c \
 		executor/builtin/exit.c \
 		executor/builtin_monitor.c \
 		executor/calculate_commands.c \
@@ -21,6 +23,7 @@ FILES = minishell.c \
 		executor/signals.c \
 		executor/close_pipes.c \
 		parsing/env_vars_parsing.c \
+		parsing/expand_elem.c \
 		parsing/parsing_syntax.c \
 		parsing/parsing_words_utils.c \
 		parsing/parsing_words.c \

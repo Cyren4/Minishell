@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 19:08:52 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/14 18:37:52 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/24 21:05:54 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,16 @@ int	is_special(char *cmd)
 	return (0);
 }
 
+void	norm_subwords(char *cmd, int *vect, int *i, int *i_word)
+{
+	if (*i != 0)
+		vect[++*i_word] = *i;
+	*i += is_special(cmd + *i);
+	if (cmd[*i] && !is_special(cmd + *i))
+		vect[++*i_word] = *i;
+	*i -= 1;
+}
+
 char	**check_sub_words(char *cmd)
 {
 	int	*vect;
@@ -60,18 +70,10 @@ char	**check_sub_words(char *cmd)
 	inside = NO_Q;
 	while (cmd[i])
 	{
-		if ((cmd[i] == '"' && inside != SIMPLE_Q)
-			|| (cmd[i] == '\'' && inside != DOUBLE_Q))
+		if (need_interpret_quote(cmd[i], inside))
 			quote_interpretation(cmd[i], &inside);
 		else if (inside == NO_Q && is_special(cmd + i))
-		{
-			if (i != 0)
-				vect[++i_word] = i;
-			i += is_special(cmd + i);
-			if (cmd[i] && !is_special(cmd + i))
-				vect[++i_word] = i;
-			continue ;
-		}
+			norm_subwords(cmd, vect, &i, &i_word);
 		i++;
 	}
 	return (splitting(cmd, vect, i_word + 1));
