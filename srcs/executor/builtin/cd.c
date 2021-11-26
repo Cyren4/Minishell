@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:20:22 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/26 14:37:33 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/26 14:56:13 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int	cd_home(t_gen *data)
 	home = get_var_exist(data, "HOME");
 	if (home == NULL)
 		print_error("cd: HOME not set\n", NULL, NULL);
+	else if (ft_strcmp(home, "") == 0)
+		return (EXIT_SUCCESS);
 	else if (chdir(home) == -1)
 		print_error("cd: ", home, ": No such file or directory\n");
 	else
@@ -83,7 +85,7 @@ int	ft_cd(t_gen *data, t_lexer *dir)
 		ret = cd_home(data);
 	else if (dir != NULL && ft_strcmp(dir->content, "-") == 0)
 		ret = cd_oldpwd(data);
-	else if (chdir(dir->content) == -1)
+	else if (chdir(dir->content) == -1 && ft_strcmp(dir->content, "") != 0)
 	{
 		print_error("cd: ", dir->content, ": No such file or directory\n");
 		return (EXIT_FAILURE);
