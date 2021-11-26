@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_monitor.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 00:20:27 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/25 10:52:10 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/26 10:29:55 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	exec_builtin(t_gen *data, t_lexer *cmd, t_tree *ast)
 {
 	int	ret;
 
-	
 	if (ast->redir)
 		if (!manage_redirs(ast, data))
 			return (0);

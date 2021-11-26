@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_command.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 14:23:32 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/25 11:38:27 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/26 10:29:15 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,10 @@ int	execute_command(t_gen *data, t_tree *ast, int pipe)
 	int		pid;
 
 	if (no_pipe_exec(data, ast, pipe) != -1)
+	{
+		data->pids[0] = -1;
 		return (get_exit_stat(-1));
+	}
 	pid = fork();
 	data->pids[data->tracker] = pid;
 	data->tracker++;

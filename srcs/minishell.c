@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/25 11:37:28 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/26 10:29:09 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,12 @@ void	execution(t_gen *data)
 			initialise_pids(data, total_cmds);
 			if (!execute_ast(data, data->ast, 0))
 				error(data, -1);
-			// si ca sort dans no_pipe_exec 
-			// on ne doit pas rentrer dans la boucle sinon exit_stat faux
-			// <=> a avoir un builtin seulement ou ne pas fork
-			i = -1;
-			while (++i < total_cmds)
+			i = 0;
+			while (data->pids[i] != -1 && i < total_cmds)
 			{
 				waitpid(data->pids[i], &data->exit_stat, 0);
 				get_status(data->exit_stat, i + 1 == total_cmds);
+				i++;
 			}
 			close_pipes(data->ast);
 		}
