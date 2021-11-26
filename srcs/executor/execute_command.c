@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 14:23:32 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/26 12:10:50 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/26 12:44:11 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ int	no_pipe_exec(t_gen *data, t_tree *ast, int pipe)
 	if (ast->cmd->is_builtin == 0 && data->cmd == NULL)
 	{
 		free_tab(data->cmd_table);
-		print_error("minishell: ", ast->cmd->content, ": command not found\n");
 		return (get_exit_stat(127));
 	}
 	return (-1);
