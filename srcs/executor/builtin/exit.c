@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:22:37 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/24 19:37:56 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/26 15:53:58 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,5 +122,7 @@ int	ft_exit(t_gen *data, t_lexer *cmd)
 	}
 	if (get_pid(-1) != 0)
 		clean_exit(data);
+	if (get_pid(-1) == 0)
+		return (get_exit_stat(-1));
 	exit(get_exit_stat(-1));
 }
