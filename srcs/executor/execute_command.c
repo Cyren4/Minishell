@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 14:23:32 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/26 11:53:32 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/26 12:00:55 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,14 @@ int	execute_command(t_gen *data, t_tree *ast, int pipe)
 	int		pid;
 
 	if (ast->redir)
+	{	
 		if (!manage_redirs(ast, data))
 		{
+			data->pids[0] = -1;
 			close_pipes(ast);
-			return (0);
+			return (get_exit_stat(1));
 		}
+	}
 	if (no_pipe_exec(data, ast, pipe) != -1)
 	{
 		data->pids[0] = -1;
