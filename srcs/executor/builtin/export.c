@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:22:11 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/24 23:12:11 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/26 17:45:42 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	unvalid_exp(char *env, int *concat)
 	int	eq_pos;
 	int	plus_pos;
 
+	if (ft_strcmp(env, "") == 0)
+		return (1);
 	eq_pos = occur(env, '=', 1);
 	if (eq_pos == -1)
 		eq_pos = ft_strlen(env);
