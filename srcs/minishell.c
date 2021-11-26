@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 13:16:33 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/26 12:13:18 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/26 17:11:01 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,9 @@ void	get_status(int exit_stat, int write)
 	if (WIFSIGNALED(exit_stat))
 	{
 		get_exit_stat(WTERMSIG(exit_stat) + 128);
-		if (get_exit_stat(-1) == 131 && write)
+		if (get_exit_stat(-1) == 130)
+			printf("\n");
+		else if (get_exit_stat(-1) == 131 && write)
 			printf("Quit (core dumped)\n");
 	}
 }

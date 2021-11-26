@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 16:11:48 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/24 22:06:19 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/26 17:13:18 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,13 @@ void	print_mes(int sig)
 	get_exit_stat(128 + sig);
 }
 
-void	sig_int_child(int sig)
-{
-	get_exit_stat(128 + sig);
-	rl_replace_line("", 1);
-	rl_on_new_line();
-	printf("\n");
-}
-
 void	sig_int(int sig)
 {
 	(void)sig;
 	get_exit_stat(130);
 	printf("\n");
-	rl_replace_line("", 0);
 	rl_on_new_line();
+	rl_replace_line("", 0);
 	rl_redisplay();
 }
 
@@ -49,7 +41,7 @@ void	sig_child(void)
 	signal(SIGSEGV, print_mes);
 	signal(SIGBUS, print_mes);
 	signal(SIGABRT, print_mes);
-	signal(SIGINT, sig_int_child);
+	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
 }
 

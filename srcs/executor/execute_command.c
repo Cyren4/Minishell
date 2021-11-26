@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_command.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 14:23:32 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/26 15:48:59 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/26 17:13:16 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	exec_child(t_gen *data, t_tree *ast, int pipe)
 	char	**env;
 
 	signal(SIGQUIT, SIG_DFL);
+	signal(SIGINT, SIG_DFL);
 	get_pid(0);
 	dup2(ast->fd_in, STDIN_FILENO);
 	dup2(ast->fd_out, STDOUT_FILENO);
@@ -88,7 +89,6 @@ void	exec_child(t_gen *data, t_tree *ast, int pipe)
 
 void	exec_parent(t_gen *data, t_tree *ast, int pid)
 {
-	signal(SIGQUIT, SIG_IGN);
 	sig_child();
 	get_pid(pid);
 	if (ast->fd_in != 0 && ast->fd_in != -1)
