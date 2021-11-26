@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 15:34:27 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/24 15:42:34 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/26 11:06:08 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ int	manage_lt1(t_lexer *head, t_tree *ast)
 		if (ast->fd_in == -1)
 		{
 			print_error("minishell: ",
-				head->next->content, ": No such file or directory\n");
+				head->next->content, ": ");
+			perror("");
 			return (0);
 		}
 	}
@@ -98,9 +99,16 @@ int	manage_redirs(t_tree *ast, t_gen *data)
 			ast->fd_out = open(head->next->content, O_CREAT | O_RDWR, 0666);
 		if (head->token == GT2)
 			ast->fd_out
-				= open(head->next->content, O_CREAT | O_RDWR | O_APPEND, 0666);
+				= open(head->next->content, O_RDWR | O_APPEND, 0666);
 		if (!manage_lt1(head, ast))
 			return (0);
+		if ((head->token == GT || head->token == GT2) && ast->fd_out == -1)
+		{
+			print_error("minishell: ",
+				head->next->content, ": ");
+			perror("");
+			return (0);
+		}
 		if (head->token == LT2 && !flag_lt2)
 		{
 			manage_lt2(head, ast, data);
