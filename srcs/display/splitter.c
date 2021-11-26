@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   splitter.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 19:09:56 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/17 19:11:36 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/26 14:29:52 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,6 @@ void	norm_split(t_gen *data, int i, int start, char **split_head)
 	data->parser.parsed = split_head;
 }
 
-/*
-	t[0] = i
-	t[1] = start
-	d = data
-*/
 void	splitter2(t_gen *d, int elems)
 {
 	int		t[2];
@@ -70,6 +65,8 @@ void	splitter(t_gen *data)
 	{
 		if (data->parser.std_in[i] == 39 || data->parser.std_in[i] == 34)
 			i = skip_to_next_quote(data, i);
+		if (i == -1)
+			return ;
 		if (data->parser.std_in[i] == ' ')
 		{
 			elems++;

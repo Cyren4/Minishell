@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   splitter_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 19:11:04 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/17 19:13:52 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/26 14:29:25 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ int	skip_to_next_quote(t_gen *data, int i)
 		i++;
 	}
 	if (i == (int)ft_strlen(data->parser.std_in))
+	{
 		error(data, QUOTES_UNCLOSED);
+		return (-1);
+	}
 	return (i);
 }
 
