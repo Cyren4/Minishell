@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections3.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 15:36:00 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/24 23:29:28 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/26 22:40:00 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	manage_lt2(t_lexer *redirs, t_tree *ast, t_gen *data)
 	}
 	tmp = strdup_sin_quote(data->redirs.end);
 	data->redirs.quote = check_quotes(data->redirs.end);
-	data->redirs.fd_in = store_data(data->redirs.start,
+	store_data(data->redirs.start,
 			tmp, ast, data);
 	free(tmp);
 	return (data->redirs.fd_in);
