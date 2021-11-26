@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:20:22 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/17 20:20:20 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/26 14:37:33 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	cd_home(t_gen *data)
 	home = get_var_exist(data, "HOME");
 	if (home == NULL)
 		print_error("cd: HOME not set\n", NULL, NULL);
-	else if (chdir(ft_strdup(home)) == -1)
+	else if (chdir(home) == -1)
 		print_error("cd: ", home, ": No such file or directory\n");
 	else
 		return (EXIT_SUCCESS);
