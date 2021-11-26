@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 10:18:09 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/26 15:40:49 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/26 18:07:09 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,18 @@ char	*is_excve(char *command, t_gen *data)
 	char		*cmd_path;
 	struct stat	*state;
 
+	if (ft_strlen(command) == 0)
+	{
+		print_error("minishell: ", command, ": command not found\n");
+		get_exit_stat(127);
+		return (NULL);
+	}
 	if (!data->paths)
 		return (NULL);
 	state = malloc(sizeof(struct stat));
 	if (!state)
 		return (NULL);
-	if (lstat(command, state) == 0 && (S_ISDIR(state->st_mode) || !(state->st_mode & S_IXUSR)) )
+	if (lstat(command, state) == 0 && (S_ISDIR(state->st_mode) || !(state->st_mode & S_IXUSR)))
 	{
 		if (S_ISDIR(state->st_mode))
 			print_error("minishell: ", command, ": Is a directory\n");

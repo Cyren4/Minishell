@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_command.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 14:23:32 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/26 17:13:16 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/26 18:02:26 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	**create_command(t_lexer *cmd)
 	int		len;
 	char	**cmd_table;
 
+	if (!cmd->content)
+		return (NULL);
 	head = cmd;
 	len = 0;
 	while (head != NULL)
@@ -54,7 +56,7 @@ int	no_pipe_exec(t_gen *data, t_tree *ast, int pipe)
 		return (get_exit_stat(127));
 	}
 	data->cmd_table = create_command(ast->cmd);
-	if (!ast->cmd->is_builtin)
+	if (!ast->cmd->is_builtin && data->cmd_table)
 		data->cmd = is_excve(data->cmd_table[0], data);
 	if (ast->cmd->is_builtin == 0 && data->cmd == NULL)
 	{
@@ -76,11 +78,13 @@ void	exec_child(t_gen *data, t_tree *ast, int pipe)
 	if (ast->cmd->is_builtin == 1 && pipe == 1)
 		get_exit_stat(exec_builtin(data, ast->cmd, ast));
 	close_pipes(data->ast);
+	printf("CMD %s\n", ast->cmd->content);
 	if (!ast->cmd->is_builtin)
 	{
 		env = env_to_child(data->env);
 		execve(data->cmd, data->cmd_table, env);
 	}
+
 	clean_child(data);
 	if (!data->cmd)
 		exit(get_exit_stat(127));
