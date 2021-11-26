@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 15:34:27 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/26 11:30:16 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/26 11:35:45 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ int	manage_redirs(t_tree *ast, t_gen *data)
 			return (0);
 		if ((head->token == GT || head->token == GT2) && ast->fd_out == -1)
 		{
+			// get_exit_stat(1);
 			print_error("minishell: ",
 				head->next->content, ": ");
 			perror("");
