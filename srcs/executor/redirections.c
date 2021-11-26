@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 10:49:43 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/24 15:36:35 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/26 15:01:16 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,14 @@ void	count_redirs(t_gen *data, t_lexer *redirs)
 			data->redirs.redir_count++;
 		head = head->next;
 	}
+}
+
+char	*expand_redir(t_gen *data, t_lexer *fd)
+{
+	char	*tmp;
+
+	fd->content = expand_elem(fd, data);
+	tmp = strdup_sin_quote(fd->content);
+	free(fd->content);
+	return (tmp);
 }

@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 15:30:08 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/25 11:38:50 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/26 14:49:36 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ typedef struct s_gen
 	char	**av;
 	char	**cmd_table;
 	char	*cmd;
+	int		elems;
 	t_redir	redirs;
 }	t_gen;
 

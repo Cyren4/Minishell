@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 19:09:56 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/26 14:29:52 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/26 14:52:32 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,22 @@ void	splitter2(t_gen *d, int elems)
 	norm_split(d, t[0], t[1], split_head);
 }
 
-void	splitter(t_gen *data)
+void	trim_parser(t_gen *data)
 {
-	int		i;
-	int		elems;
 	char	*tmp;
 
 	tmp = ft_strtrim(data->parser.std_in, " ");
 	free(data->parser.std_in);
 	data->parser.std_in = ft_substr(tmp, 0, ft_strlen(tmp));
 	free(tmp);
-	elems = 0;
+}
+
+void	splitter(t_gen *data)
+{
+	int		i;
+
+	trim_parser(data);
+	data->elems = 0;
 	i = 0;
 	while (data->parser.std_in[i])
 	{
@@ -69,13 +74,13 @@ void	splitter(t_gen *data)
 			return ;
 		if (data->parser.std_in[i] == ' ')
 		{
-			elems++;
+			data->elems++;
 			while (data->parser.std_in[i] == ' ')
 				i++;
 		}
 		else
 			i++;
 	}
-	elems++;
-	splitter2(data, elems);
+	data->elems++;
+	splitter2(data, data->elems);
 }

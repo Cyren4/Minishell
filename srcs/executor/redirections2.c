@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 15:34:27 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/26 11:35:45 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/26 15:01:08 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,16 +58,6 @@ int	store_data(char *start, char *end, t_tree *ast, t_gen *data)
 	return (pid);
 }
 
-char	*expand_redir(t_gen *data, t_lexer *fd)
-{
-	char	*tmp;
-
-	fd->content = expand_elem(fd, data);
-	tmp = strdup_sin_quote(fd->content);
-	free(fd->content);
-	return (tmp);
-}
-
 int	manage_lt1(t_lexer *head, t_tree *ast)
 {
 	if (head->token == LT)
@@ -84,6 +74,17 @@ int	manage_lt1(t_lexer *head, t_tree *ast)
 	return (1);
 }
 
+void	manage_gt(t_lexer *head, t_tree *ast, t_gen *data)
+{
+	if (is_redir(head->token) && head->token != LT2)
+		head->next->content = expand_redir(data, head->next);
+	if (head->token == GT)
+		ast->fd_out = open(head->next->content, O_CREAT | O_RDWR, 0666);
+	if (head->token == GT2)
+		ast->fd_out = open(head->next->content,
+				O_CREAT | O_RDWR | O_APPEND, 0666);
+}
+
 int	manage_redirs(t_tree *ast, t_gen *data)
 {
 	t_lexer	*head;
@@ -93,20 +94,12 @@ int	manage_redirs(t_tree *ast, t_gen *data)
 	head = ast->redir;
 	while (head->next)
 	{
-		if (is_redir(head->token) && head->token != LT2)
-			head->next->content = expand_redir(data, head->next);
-		if (head->token == GT)
-			ast->fd_out = open(head->next->content, O_CREAT | O_RDWR, 0666);
-		if (head->token == GT2)
-			ast->fd_out
-				= open(head->next->content, O_CREAT | O_RDWR | O_APPEND, 0666);
+		manage_gt(head, ast, data);
 		if (!manage_lt1(head, ast))
 			return (0);
 		if ((head->token == GT || head->token == GT2) && ast->fd_out == -1)
 		{
-			// get_exit_stat(1);
-			print_error("minishell: ",
-				head->next->content, ": ");
+			print_error("minishell: ", head->next->content, ": ");
 			perror("");
 			return (0);
 		}

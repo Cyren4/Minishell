@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 14:23:32 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/26 12:51:01 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/26 15:07:41 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,26 @@ void	exec_child(t_gen *data, t_tree *ast, int pipe)
 	exit(1);
 }
 
+void	exec_parent(t_gen *data, t_tree *ast, int pid)
+{
+	signal(SIGQUIT, SIG_IGN);
+	sig_child();
+	get_pid(pid);
+	if (ast->fd_in != 0 && ast->fd_in != -1)
+		close(ast->fd_in);
+	if (ast->fd_out != 1 && ast->fd_out != -1)
+		close(ast->fd_out);
+	free_tab(data->cmd_table);
+	free(data->cmd);
+}
+
 int	execute_command(t_gen *data, t_tree *ast, int pipe)
 {
 	int		pid;
 
 	data->pids[data->tracker] = -1;
 	if (ast->redir)
-	{	
+	{
 		if (!manage_redirs(ast, data))
 		{
 			close_pipes(ast);
@@ -107,16 +120,6 @@ int	execute_command(t_gen *data, t_tree *ast, int pipe)
 	else if (pid == 0)
 		exec_child(data, ast, pipe);
 	else
-	{
-		signal(SIGQUIT, SIG_IGN);
-		sig_child();
-		get_pid(pid);
-		if (ast->fd_in != 0 && ast->fd_in != -1)
-			close(ast->fd_in);
-		if (ast->fd_out != 1 && ast->fd_out != -1)
-			close(ast->fd_out);
-		free_tab(data->cmd_table);
-		free(data->cmd);
-	}
+		exec_parent(data, ast, pid);
 	return (get_exit_stat(-1));
 }
