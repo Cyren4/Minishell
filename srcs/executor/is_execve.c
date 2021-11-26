@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 10:18:09 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/26 12:45:22 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/26 12:51:45 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ char	*check_command(char *command, t_gen *data, struct stat *state)
 	}
 	if (cmd_path == NULL)
 		print_error("minishell: ", command, ": command not found\n");
+	get_exit_stat(127);
 	return (cmd_path);
 }
 
@@ -52,6 +53,7 @@ char	*is_excve(char *command, t_gen *data)
 	if (lstat(command, state) == 0 && S_ISDIR(state->st_mode))
 	{
 		print_error("minishell: ", command, ": is a directory\n");
+		get_exit_stat(126);
 		free(state);
 		return (NULL);
 	}
