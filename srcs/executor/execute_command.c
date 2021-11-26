@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 14:23:32 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/26 15:07:41 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/26 15:48:59 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ char	**create_command(t_lexer *cmd)
 
 int	no_pipe_exec(t_gen *data, t_tree *ast, int pipe)
 {
+	data->cmd = NULL;
 	if (!ast->cmd)
 		return (get_exit_stat(1));
 	if (ast->cmd->is_builtin == 1 && pipe == 0)
@@ -53,7 +54,8 @@ int	no_pipe_exec(t_gen *data, t_tree *ast, int pipe)
 		return (get_exit_stat(127));
 	}
 	data->cmd_table = create_command(ast->cmd);
-	data->cmd = is_excve(data->cmd_table[0], data);
+	if (!ast->cmd->is_builtin)
+		data->cmd = is_excve(data->cmd_table[0], data);
 	if (ast->cmd->is_builtin == 0 && data->cmd == NULL)
 	{
 		free_tab(data->cmd_table);

@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 10:18:09 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/26 12:51:45 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/26 15:40:49 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,10 @@ char	*check_command(char *command, t_gen *data, struct stat *state)
 		}
 	}
 	if (cmd_path == NULL)
+	{
 		print_error("minishell: ", command, ": command not found\n");
-	get_exit_stat(127);
+		get_exit_stat(127);
+	}
 	return (cmd_path);
 }
 
@@ -50,16 +52,18 @@ char	*is_excve(char *command, t_gen *data)
 	state = malloc(sizeof(struct stat));
 	if (!state)
 		return (NULL);
-	if (lstat(command, state) == 0 && S_ISDIR(state->st_mode))
+	if (lstat(command, state) == 0 && (S_ISDIR(state->st_mode) || !(state->st_mode & S_IXUSR)) )
 	{
-		print_error("minishell: ", command, ": is a directory\n");
+		if (S_ISDIR(state->st_mode))
+			print_error("minishell: ", command, ": Is a directory\n");
+		else
+			print_error("minishell: ", command, ": Permission denied\n");
 		get_exit_stat(126);
 		free(state);
 		return (NULL);
 	}
 	if (lstat(command, state) == 0)
 	{
-		print_error("minishell: ", command, ": command not found\n");
 		free(state);
 		return (ft_strdup(command));
 	}
