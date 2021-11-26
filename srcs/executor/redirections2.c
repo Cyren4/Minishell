@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 15:34:27 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/26 11:06:08 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/26 11:30:16 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	manage_redirs(t_tree *ast, t_gen *data)
 			ast->fd_out = open(head->next->content, O_CREAT | O_RDWR, 0666);
 		if (head->token == GT2)
 			ast->fd_out
-				= open(head->next->content, O_RDWR | O_APPEND, 0666);
+				= open(head->next->content, O_CREAT | O_RDWR | O_APPEND, 0666);
 		if (!manage_lt1(head, ast))
 			return (0);
 		if ((head->token == GT || head->token == GT2) && ast->fd_out == -1)
