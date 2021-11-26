@@ -6,16 +6,25 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 15:34:27 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/26 15:01:08 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/26 20:19:13 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+void	init(t_gen *data, int *fd, char *start, char *end)
+{
+	if (data != NULL)
+		get_data(data);
+}
+
 void	send_data(t_gen *data, int *fd, char *start, char *end)
 {
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, SIG_DFL);
 	close(fd[0]);
 	sub_send_data(data, start, end, 1);
+	init(data, fd, start,end);
 	while (1)
 	{
 		data->redirs.std_in = readline("> ");
@@ -41,6 +50,7 @@ int	store_data(char *start, char *end, t_tree *ast, t_gen *data)
 	pid_t	pid;
 	int		exit_status;
 
+	get_exit_stat(0);
 	data->redirs.std_in = NULL;
 	if (pipe(fd) < 0)
 		return (0);
@@ -51,8 +61,10 @@ int	store_data(char *start, char *end, t_tree *ast, t_gen *data)
 		send_data(data, fd, start, end);
 	else
 	{
+		sig_child();
 		close(fd[1]);
 		waitpid(pid, &exit_status, 0);
+		get_status(exit_status, 0);
 		ast->fd_in = fd[0];
 	}
 	return (pid);

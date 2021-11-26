@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 15:30:08 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/26 14:49:36 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/26 19:33:48 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ void	display_token(t_lexer *lst_lex);
 
 /*		minishell.c		*/
 int		minishell_loop(t_gen *data);
+void	get_status(int exit_stat, int write);
 
 /*===============================================================*/
 /*			#display#		*/

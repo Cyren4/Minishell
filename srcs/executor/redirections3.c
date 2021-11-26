@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections3.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 15:36:00 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/24 23:29:28 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/26 19:37:51 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	sub_send_data(t_gen *data, char *start, char *end, int i)
 			ft_free(end);
 		if (start)
 			ft_free(start);
-		exit(1);
+		exit(0);
 	}
 }
 
