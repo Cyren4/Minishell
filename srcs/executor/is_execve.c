@@ -6,11 +6,29 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 10:18:09 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/26 18:07:09 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/28 16:21:02 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void	mini_error_handler(char *str, int type, struct stat *state)
+{
+	if (type == 1)
+	{
+		print_error("minishell: ", str, ": command not found\n");
+		get_exit_stat(127);
+	}
+	if (type == 2)
+	{
+		if (S_ISDIR(state->st_mode))
+			print_error("minishell: ", str, ": Is a directory\n");
+		else
+			print_error("minishell: ", str, ": Permission denied\n");
+		get_exit_stat(126);
+		free(state);
+	}
+}
 
 char	*check_command(char *command, t_gen *data, struct stat *state)
 {
@@ -35,10 +53,7 @@ char	*check_command(char *command, t_gen *data, struct stat *state)
 		}
 	}
 	if (cmd_path == NULL)
-	{
-		print_error("minishell: ", command, ": command not found\n");
-		get_exit_stat(127);
-	}
+		mini_error_handler(command, 1, state);
 	return (cmd_path);
 }
 
@@ -53,19 +68,13 @@ char	*is_excve(char *command, t_gen *data)
 		get_exit_stat(127);
 		return (NULL);
 	}
-	if (!data->paths)
-		return (NULL);
 	state = malloc(sizeof(struct stat));
-	if (!state)
+	if (!state || !data->paths)
 		return (NULL);
-	if (lstat(command, state) == 0 && (S_ISDIR(state->st_mode) || !(state->st_mode & S_IXUSR)))
+	if (lstat(command, state) == 0 && (S_ISDIR(state->st_mode)
+			|| !(state->st_mode & S_IXUSR)))
 	{
-		if (S_ISDIR(state->st_mode))
-			print_error("minishell: ", command, ": Is a directory\n");
-		else
-			print_error("minishell: ", command, ": Permission denied\n");
-		get_exit_stat(126);
-		free(state);
+		mini_error_handler(command, 2, state);
 		return (NULL);
 	}
 	if (lstat(command, state) == 0)
