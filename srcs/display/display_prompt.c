@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:01:34 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/23 15:00:24 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/28 15:54:04 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	clean_display(t_gen *data)
 	ft_free(data->home);
 	ft_free(data->prompt);
 	clean_envx(data);
-	clear_history();
+	rl_clear_history();
 }
 
 void	display_prompt(t_gen *data)
