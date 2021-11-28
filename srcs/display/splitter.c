@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   splitter.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 19:09:56 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/26 14:52:32 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/28 16:02:33 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+/* old version splitter
 void	norm_split(t_gen *data, int i, int start, char **split_head)
 {
 	*data->parser.parsed = ft_substr(data->parser.std_in, start, i - start);
@@ -84,3 +85,32 @@ void	splitter(t_gen *data)
 	data->elems++;
 	splitter2(data, data->elems);
 }
+*/
+// /*
+int	quotes_closed(char *cmd)
+{
+	int	inside;
+	int	i;
+
+	i = 0;
+	inside = NO_Q;
+	while (cmd && cmd[i])
+	{
+		quote_interpret(cmd[i], &inside);
+		i++;
+	}
+	return (inside == NO_Q);
+}
+
+void	splitter(t_gen *data)
+{
+	if (!quotes_closed(data->parser.std_in))
+		error(data, QUOTES_UNCLOSED);
+	else
+	{
+		data->parser.parsed = split_w(ft_strtrim(data->parser.std_in, " "));
+		if (!data->parser.parsed)
+			error(data, BAD_MALLOC);
+	}
+}
+// */

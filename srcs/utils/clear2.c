@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 16:28:57 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/28 15:54:14 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/28 16:02:05 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	clean_data(t_gen *data)
 		free_tab(data->paths);
 	data->ast = NULL;
 	data->lex = NULL;
-	free(data->parser.std_in);
+	// free(data->parser.std_in);
 	free_tab(data->parser.parsed);
 	data->parser.parsed = NULL;
 	data->ast = NULL;

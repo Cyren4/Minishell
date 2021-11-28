@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:01:34 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/28 15:54:04 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/28 16:07:11 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	clean_display(t_gen *data)
 {
 	ft_free(data->home);
 	ft_free(data->prompt);
+	free(data->parser.std_in);
 	clean_envx(data);
 	rl_clear_history();
 }
@@ -36,14 +37,16 @@ void	display_prompt(t_gen *data)
 	{
 		ft_free(data->parser.std_in);
 		display_prompt(data);
+		return ;
 	}
 	splitter(data);
+	ft_free(data->parser.std_in);
 	if (data->status != 1)
 	{
 		data->status = 1;
-		ft_free(data->parser.std_in);
 		free_tab(data->parser.parsed);
 		get_exit_stat(1);
 		display_prompt(data);
+		return ;
 	}
 }

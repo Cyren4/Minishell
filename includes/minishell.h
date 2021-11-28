@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 15:30:08 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/26 14:49:36 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/28 15:51:04 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,6 +266,7 @@ int		check_syntax(t_lexer *lex);
 int		nb_word(char *cmd);
 
 /*		parsing_words.c	*/
+char	**split_w(char *cmd);
 char	*strdup_sin_quote(char *s1);
 t_lexer	*get_words(t_lexer *head, int old_token);
 

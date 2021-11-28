@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   splitter_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 19:11:04 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/26 14:29:25 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/28 16:05:11 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+/*
 int	skip_to_next_quote(t_gen *data, int i)
 {
 	char	quote_type;
@@ -52,3 +53,4 @@ int	is_in_quotes(char *str, int i)
 	}
 	return (0);
 }
+*/
