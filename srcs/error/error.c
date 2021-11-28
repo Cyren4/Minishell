@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:09:35 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/17 18:31:55 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/28 15:52:56 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,6 @@ void	arg_error(char *exec)
 	printf("Error : Expect 0 arguments\n");
 	printf("Usage : %s\n", exec);
 	exit(0);
-}
-
-// a supprimer?
-void	ft_clean(t_gen *data)
-{
-	int	i;
-
-	if (data->parser.std_in)
-		free(data->parser.std_in);
-	if (data->parser.parsed)
-	{
-		i = -1;
-		while (data->parser.parsed[++i])
-			if (data->parser.parsed[i])
-				ft_free(data->parser.parsed[i]);
-	}
 }
 
 void	error(t_gen *data, int e)
