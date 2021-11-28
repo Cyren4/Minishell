@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 15:34:27 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/26 15:01:08 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/26 23:14:49 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	send_data(t_gen *data, int *fd, char *start, char *end)
 {
-	close(fd[0]);
-	sub_send_data(data, start, end, 1);
+	data->redirs.std_in = NULL;
+	sub_send_data(data, start, end , 1);
 	while (1)
 	{
 		data->redirs.std_in = readline("> ");
@@ -32,30 +32,17 @@ at line 1 delimited by end-of-file (wanted `", end, "')\n");
 		send_data_bis(data, fd, start);
 	}
 	close(fd[1]);
-	sub_send_data(data, start, end, 2);
 }
 
-int	store_data(char *start, char *end, t_tree *ast, t_gen *data)
+void	store_data(char *start, char *end, t_tree *ast, t_gen *data)
 {
 	int		fd[2];
-	pid_t	pid;
-	int		exit_status;
 
 	data->redirs.std_in = NULL;
 	if (pipe(fd) < 0)
-		return (0);
-	pid = fork();
-	if (pid < 0)
-		return (0);
-	if (pid == 0)
-		send_data(data, fd, start, end);
-	else
-	{
-		close(fd[1]);
-		waitpid(pid, &exit_status, 0);
-		ast->fd_in = fd[0];
-	}
-	return (pid);
+		return ;
+	send_data(data, fd, start, end);
+	ast->fd_in = fd[0];
 }
 
 int	manage_lt1(t_lexer *head, t_tree *ast)
@@ -105,6 +92,7 @@ int	manage_redirs(t_tree *ast, t_gen *data)
 		}
 		if (head->token == LT2 && !flag_lt2)
 		{
+			signal(SIGINT, sig_int);
 			manage_lt2(head, ast, data);
 			flag_lt2 = 1;
 		}

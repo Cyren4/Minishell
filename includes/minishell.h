@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 15:30:08 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/28 15:51:04 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/28 16:48:48 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,7 +189,7 @@ int		check_quotes(char *end);
 
 /*		redirections2.c		*/
 void	send_data(t_gen *data, int *fd, char *start, char *end);
-int		store_data(char *start, char *end, t_tree *ast, t_gen *data);
+void		store_data(char *start, char *end, t_tree *ast, t_gen *data);
 char	*expand_redir(t_gen *data, t_lexer *fd);
 int		manage_lt1(t_lexer *head, t_tree *ast);
 int		manage_redirs(t_tree *ast, t_gen *data);

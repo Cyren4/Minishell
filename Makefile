@@ -22,7 +22,7 @@ HEADER		=	$(INC_DIR)/minishell.h
 CC			=	clang
 RM			=	/bin/rm -rf
 INC			=	-include ./$(HEADER)
-CC_FLAGS	=	-Wall -Wextra -Werror -MMD -g3 $(INC)
+CC_FLAGS	=	-Wall -Wextra -Werror $(INC)
 LIB_DIR			=	lib
 LIB				=	$(LIB_DIR)/libft.a
 
@@ -34,7 +34,7 @@ all:		$(NAME)
 
 $(NAME):	$(OBJS) $(HEADER)
 			@make -C $(LIB_DIR)
-			@$(CC) $(CC_FLAGS) $(OBJS) -lreadline  $(LIB) $(GNL) -o $(NAME)
+			@$(CC) $(CC_FLAGS) $(OBJS) -lreadline  $(LIB) -o $(NAME)
 			@printf "$(GREEN)$(NAME) created with '$(CC_FLAGS)' flags\n$(END)"
 			@printf "$(PURPLE)Minishell is ready to work!\n$(END)"
 
