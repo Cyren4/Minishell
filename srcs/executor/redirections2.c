@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 15:34:27 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/26 23:14:49 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/28 17:03:21 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	send_data(t_gen *data, int *fd, char *start, char *end)
 {
 	data->redirs.std_in = NULL;
-	sub_send_data(data, start, end , 1);
+	sub_send_data(data, start, end, 1);
 	while (1)
 	{
 		data->redirs.std_in = readline("> ");

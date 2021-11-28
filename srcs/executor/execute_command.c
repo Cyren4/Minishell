@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 14:23:32 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/26 18:08:27 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/28 17:02:16 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,7 @@ char	**create_command(t_lexer *cmd)
 
 	if (!cmd->content)
 		return (NULL);
-	head = cmd;
-	len = 0;
-	while (head != NULL)
-	{
-		head = head->next;
-		len++;
-	}
+	len = calculate_len(cmd);
 	head = cmd;
 	cmd_table = (char **)malloc(sizeof(char *) * (len + 1));
 	if (!cmd_table)
@@ -83,7 +77,6 @@ void	exec_child(t_gen *data, t_tree *ast, int pipe)
 		env = env_to_child(data->env);
 		execve(data->cmd, data->cmd_table, env);
 	}
-
 	clean_child(data);
 	if (!data->cmd)
 		exit(get_exit_stat(127));

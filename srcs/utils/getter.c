@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   getter.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 07:33:17 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/17 21:16:25 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/28 17:02:05 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,19 @@ int	get_exit_stat(int stat)
 	if (stat != -1)
 		cur_stat = stat;
 	return (cur_stat);
+}
+
+int	calculate_len(t_lexer *cmd)
+{
+	t_lexer	*head;
+	int		len;
+
+	head = cmd;
+	len = 0;
+	while (head != NULL)
+	{
+		head = head->next;
+		len++;
+	}
+	return (len);
 }

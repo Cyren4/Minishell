@@ -6,7 +6,7 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 15:30:08 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/28 16:48:48 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/28 17:01:12 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -335,6 +335,7 @@ char	**env_to_child(t_env *env);
 t_gen	*get_data(t_gen *data);
 int		get_pid(int pid);
 int		get_exit_stat(int stat);
+int		calculate_len(t_lexer *cmd);
 
 /*		print_tree.c		*/
 void	structure(t_tree *root, int level );

@@ -6,13 +6,13 @@
 /*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 10:18:09 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/28 16:21:02 by vbaron           ###   ########.fr       */
+/*   Updated: 2021/11/28 16:53:33 by vbaron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	mini_error_handler(char *str, int type, struct stat *state)
+char	*mini_error_handler(char *str, int type, struct stat *state)
 {
 	if (type == 1)
 	{
@@ -28,6 +28,7 @@ void	mini_error_handler(char *str, int type, struct stat *state)
 		get_exit_stat(126);
 		free(state);
 	}
+	return (NULL);
 }
 
 char	*check_command(char *command, t_gen *data, struct stat *state)
@@ -73,10 +74,7 @@ char	*is_excve(char *command, t_gen *data)
 		return (NULL);
 	if (lstat(command, state) == 0 && (S_ISDIR(state->st_mode)
 			|| !(state->st_mode & S_IXUSR)))
-	{
-		mini_error_handler(command, 2, state);
-		return (NULL);
-	}
+		return (mini_error_handler(command, 2, state));
 	if (lstat(command, state) == 0)
 	{
 		free(state);
