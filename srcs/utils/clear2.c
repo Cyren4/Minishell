@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 16:28:57 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/28 16:10:34 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/28 17:33:10 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,20 @@ void	clean_redir(t_gen *data)
 
 void	clean_data(t_gen *data)
 {
-	clean_tree(data->ast);
 	if (data->paths != NULL)
 		free_tab(data->paths);
 	data->ast = NULL;
 	data->lex = NULL;
-	free_tab(data->parser.parsed);
 	data->parser.parsed = NULL;
-	data->ast = NULL;
+	if (data->status != 1)
+	{
+		clean_tree(data->ast);
+		ft_free(data->pids);
+	}
 	data->str_err = NULL;
+	data->ast = NULL;
+	data->pids = NULL;
 	data->status = 1;
-	free(data->pids);
 }
 
 void	delete_data(t_gen *data)

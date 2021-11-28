@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 19:26:49 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/24 21:00:37 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/28 17:27:34 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ t_lexer	*norm_lexer(t_gen *data)
 		data->status = -1;
 		get_exit_stat(2);
 	}
+	free_tab(data->parser.parsed);
 	return (data->lex);
 }
 
