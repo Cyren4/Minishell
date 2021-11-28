@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 19:14:50 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/24 20:47:23 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/28 14:36:36 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,7 @@ int	real_size(char *content, t_gen *data)
 	total_size = 0;
 	while (content[i])
 	{
-		if ((content[i] == '"' && inside != SIMPLE_Q)
-			|| (content[i] == '\'' && inside != DOUBLE_Q))
-			quote_interpretation(content[i], &inside);
+		quote_interpret(content[i], &inside);
 		if (content[i] == '$' && inside != SIMPLE_Q
 			&& valid_e(content, i))
 		{

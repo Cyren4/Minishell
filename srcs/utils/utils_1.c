@@ -6,7 +6,7 @@
 /*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 19:39:21 by cramdani          #+#    #+#             */
-/*   Updated: 2021/11/23 23:23:13 by cramdani         ###   ########.fr       */
+/*   Updated: 2021/11/28 14:36:23 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	len_int(int nb)
 	tmp = nb;
 	if (nb < 0)
 		tmp = -nb;
-	while (tmp % 10 != 0)
+	while (tmp > 0)
 	{
 		i++;
 		tmp = tmp / 10;
