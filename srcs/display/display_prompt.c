@@ -6,7 +6,7 @@
 /*   By: vincentbaron <vincentbaron@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:01:34 by vbaron            #+#    #+#             */
-/*   Updated: 2022/01/31 20:10:30 by vincentbaro      ###   ########.fr       */
+/*   Updated: 2022/01/31 20:37:07 by vincentbaro      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	clean_display(t_gen *data)
 	ft_free(data->prompt);
 	free(data->parser.std_in);
 	clean_envx(data);
-	//rl_clear_history();
+	rl_clear_history();
 	exit(get_exit_stat(-1));
 }
 
