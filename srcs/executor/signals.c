@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbaron <vbaron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vincentbaron <vincentbaron@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 16:11:48 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/26 22:48:55 by vbaron           ###   ########.fr       */
+/*   Updated: 2022/01/31 20:10:52 by vincentbaro      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	sig_int(int sig)
 	get_exit_stat(130);
 	printf("\n");
 	rl_on_new_line();
-	rl_replace_line("", 0);
+	//rl_replace_line("", 0);
 	rl_redisplay();
 }
 

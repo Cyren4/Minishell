@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_prompt.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vincentbaron <vincentbaron@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:01:34 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/28 16:10:19 by cramdani         ###   ########.fr       */
+/*   Updated: 2022/01/31 20:10:30 by vincentbaro      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	clean_display(t_gen *data)
 	ft_free(data->prompt);
 	free(data->parser.std_in);
 	clean_envx(data);
-	rl_clear_history();
+	//rl_clear_history();
 	exit(get_exit_stat(-1));
 }
 

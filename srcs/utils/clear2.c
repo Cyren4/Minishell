@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clear2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vincentbaron <vincentbaron@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 16:28:57 by vbaron            #+#    #+#             */
-/*   Updated: 2021/11/28 17:33:10 by cramdani         ###   ########.fr       */
+/*   Updated: 2022/01/31 20:10:28 by vincentbaro      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	delete_data(t_gen *data)
 	clean_env(data);
 	if (data->ast != NULL)
 		clean_tree(data->ast);
-	rl_clear_history();
+	//rl_clear_history();
 }
 
 void	clean_exit(t_gen *data)
@@ -68,5 +68,5 @@ void	clean_exit(t_gen *data)
 	ft_free(data->home);
 	ft_free(data->prompt);
 	clean_envx(data);
-	rl_clear_history();
+	//rl_clear_history();
 }
